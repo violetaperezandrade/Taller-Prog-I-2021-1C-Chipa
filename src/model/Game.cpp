@@ -1,10 +1,10 @@
 #include "Game.h"
-#include "Pana_Library" //test
+
 #define DEFAULT_PATH "default_config.json"
 
-Game::Game(char **argv) : config(argv){}
+Game::Game(char **argv) : config(argv), entityManager(){}
 
-Game::Game() : config(DEFAULT_PATH) {}
+Game::Game() : config(DEFAULT_PATH), entityManager() {}
 
 Game::~Game() {}
 
