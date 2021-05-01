@@ -5,12 +5,13 @@
 #include "Size.h"
 
 class Entity {
-private:
+protected:
     Coordinate coordinate;
     Size size;
 
 public:
     Entity();
+    Entity(int x, int y);
     ~Entity();
 };
 
