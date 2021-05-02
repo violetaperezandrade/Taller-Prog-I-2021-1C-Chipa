@@ -3,10 +3,10 @@
 
 class Character {
 private:
-    int pos_x;
-    int pos_y;
-    int vel_x;
-    int vel_y;
+    int posX;
+    int posY;
+    int velX;
+    int velY;
     int state;
 public:
     Character();
