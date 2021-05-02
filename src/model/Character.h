@@ -13,13 +13,13 @@ public:
 
     void jump();
 
-    void run_left();
+    void runLeft();
 
-    void run_right();
+    void runRight();
 
-    void move_left();
+    void moveLeft();
 
-    void move_right();
+    void moveRight();
 
     ~Character();
 

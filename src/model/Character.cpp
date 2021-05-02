@@ -15,19 +15,19 @@ void Character::jump(){
     state = MIDAIR;
 }
 
-void Character::run_left(){
+void Character::runLeft(){
     vel_x = -1;
 }
 
-void Character::run_right(){
+void Character::runRight(){
     vel_x = 1;
 }
 
-void Character::move_left(){
+void Character::moveLeft(){
     pos_y -= 1;
 }
 
-void Character::move_right(){
+void Character::moveRight(){
     pos_x += 1;
 }
 
