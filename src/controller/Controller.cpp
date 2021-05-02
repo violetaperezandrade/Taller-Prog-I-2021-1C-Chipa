@@ -47,7 +47,7 @@ int Controller::run(){
         while(SDL_PollEvent(&event) != 0){
             if(event.type == SDL_QUIT) quit = true;
                 //key pressed
-            else if(event.type == SDL_KEYDOWN){
+            if(event.type == SDL_KEYDOWN && event.key.repeat == 0){
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
                         std::cout << "Arrow up pressed\n" ;
@@ -63,6 +63,25 @@ int Controller::run(){
                         break;
                     default:
                         std::cout << "Some other key pressed\n";
+                        break;
+                }
+            }
+            else if(event.type == SDL_KEYUP && event.key.repeat == 0){
+                switch(event.key.keysym.sym){
+                    case SDLK_UP:
+                        std::cout << "Arrow up released\n" ;
+                        break;
+                    case SDLK_DOWN:
+                        std::cout << "Arrow down released\n";
+                        break;
+                    case SDLK_LEFT:
+                        std::cout << "Arrow left released\n";
+                        break;
+                    case SDLK_RIGHT:
+                        std::cout << "Arrow right released\n";
+                        break;
+                    default:
+                        std::cout << "Some other key released\n";
                         break;
                 }
             }
