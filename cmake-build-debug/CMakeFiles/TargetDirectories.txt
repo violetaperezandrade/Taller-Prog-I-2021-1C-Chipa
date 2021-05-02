@@ -1,3 +1,0 @@
-/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles/DonkeyKong.dir
