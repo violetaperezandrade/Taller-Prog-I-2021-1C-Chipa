@@ -3,12 +3,10 @@ project(DonkeyKong)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(DonkeyKong src/controller/main.cpp)
-
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(JSONCPP jsoncpp)
 link_libraries(${JSONCPP_LIBRARIES})
-#add_executable(DonkeyKong src/controller/main.cpp)
+add_executable(DonkeyKong src/controller/main.cpp)
 target_link_libraries(DonkeyKong jsoncpp)
 
 #get_target_property(JSON_INC_PATH jsoncpp_lib)

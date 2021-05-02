@@ -1,7 +1,3 @@
-//
-// Created by violeta on 2/5/21.
-//
-
 #include <iostream>
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/json.h>
@@ -11,7 +7,7 @@
 int main(){
 
     //saving the file pointer in "file" using fstream
-    std::ifstream file("data.json");
+    std::ifstream file("/home/mauricio/Documents/Taller Azcurra/Taller-Prog-I-2021-1C-Chipa/config.json");
     Json::Value actualJson;
     Json::Reader reader;
 
