@@ -82,19 +82,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/main.cpp">
+		<Unit filename="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/controller/Controller.cpp">
 			<Option target="DonkeyKong"/>
 		</Unit>
-		<Unit filename="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/model/Barrel.cpp">
+		<Unit filename="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/controller/Controller.h">
 			<Option target="DonkeyKong"/>
 		</Unit>
-		<Unit filename="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/model/Barrel.h">
-			<Option target="DonkeyKong"/>
-		</Unit>
-		<Unit filename="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/model/Stair.cpp">
-			<Option target="DonkeyKong"/>
-		</Unit>
-		<Unit filename="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/model/Stair.h">
+		<Unit filename="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/controller/main.cpp">
 			<Option target="DonkeyKong"/>
 		</Unit>
 		<Unit filename="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/CMakeLists.txt">

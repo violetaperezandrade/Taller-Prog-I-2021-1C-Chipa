@@ -1,7 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/DonkeyKong.dir/src/main.cpp.o"
-  "CMakeFiles/DonkeyKong.dir/src/model/Barrel.cpp.o"
-  "CMakeFiles/DonkeyKong.dir/src/model/Stair.cpp.o"
+  "CMakeFiles/DonkeyKong.dir/src/controller/Controller.cpp.o"
+  "CMakeFiles/DonkeyKong.dir/src/controller/main.cpp.o"
   "DonkeyKong"
   "DonkeyKong.pdb"
 )

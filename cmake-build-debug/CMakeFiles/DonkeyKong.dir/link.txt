@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/DonkeyKong.dir/src/main.cpp.o CMakeFiles/DonkeyKong.dir/src/model/Stair.cpp.o CMakeFiles/DonkeyKong.dir/src/model/Barrel.cpp.o -o DonkeyKong 
+/usr/bin/c++ -g CMakeFiles/DonkeyKong.dir/src/controller/main.cpp.o CMakeFiles/DonkeyKong.dir/src/controller/Controller.cpp.o -o DonkeyKong  -ljsoncpp -ljsoncpp -lSDL2 

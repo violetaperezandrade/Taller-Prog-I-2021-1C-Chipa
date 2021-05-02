@@ -142,86 +142,59 @@ DonkeyKong/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/build
 .PHONY : DonkeyKong/fast
 
-src/main.o: src/main.cpp.o
+src/controller/Controller.o: src/controller/Controller.cpp.o
 
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
-
-src/model/Barrel.o: src/model/Barrel.cpp.o
-
-.PHONY : src/model/Barrel.o
+.PHONY : src/controller/Controller.o
 
 # target to build an object file
-src/model/Barrel.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/model/Barrel.cpp.o
-.PHONY : src/model/Barrel.cpp.o
+src/controller/Controller.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/controller/Controller.cpp.o
+.PHONY : src/controller/Controller.cpp.o
 
-src/model/Barrel.i: src/model/Barrel.cpp.i
+src/controller/Controller.i: src/controller/Controller.cpp.i
 
-.PHONY : src/model/Barrel.i
+.PHONY : src/controller/Controller.i
 
 # target to preprocess a source file
-src/model/Barrel.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/model/Barrel.cpp.i
-.PHONY : src/model/Barrel.cpp.i
+src/controller/Controller.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/controller/Controller.cpp.i
+.PHONY : src/controller/Controller.cpp.i
 
-src/model/Barrel.s: src/model/Barrel.cpp.s
+src/controller/Controller.s: src/controller/Controller.cpp.s
 
-.PHONY : src/model/Barrel.s
+.PHONY : src/controller/Controller.s
 
 # target to generate assembly for a file
-src/model/Barrel.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/model/Barrel.cpp.s
-.PHONY : src/model/Barrel.cpp.s
+src/controller/Controller.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/controller/Controller.cpp.s
+.PHONY : src/controller/Controller.cpp.s
 
-src/model/Stair.o: src/model/Stair.cpp.o
+src/controller/main.o: src/controller/main.cpp.o
 
-.PHONY : src/model/Stair.o
+.PHONY : src/controller/main.o
 
 # target to build an object file
-src/model/Stair.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/model/Stair.cpp.o
-.PHONY : src/model/Stair.cpp.o
+src/controller/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/controller/main.cpp.o
+.PHONY : src/controller/main.cpp.o
 
-src/model/Stair.i: src/model/Stair.cpp.i
+src/controller/main.i: src/controller/main.cpp.i
 
-.PHONY : src/model/Stair.i
+.PHONY : src/controller/main.i
 
 # target to preprocess a source file
-src/model/Stair.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/model/Stair.cpp.i
-.PHONY : src/model/Stair.cpp.i
+src/controller/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/controller/main.cpp.i
+.PHONY : src/controller/main.cpp.i
 
-src/model/Stair.s: src/model/Stair.cpp.s
+src/controller/main.s: src/controller/main.cpp.s
 
-.PHONY : src/model/Stair.s
+.PHONY : src/controller/main.s
 
 # target to generate assembly for a file
-src/model/Stair.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/model/Stair.cpp.s
-.PHONY : src/model/Stair.cpp.s
+src/controller/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/src/controller/main.cpp.s
+.PHONY : src/controller/main.cpp.s
 
 # Help Target
 help:
@@ -232,15 +205,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... DonkeyKong"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
-	@echo "... src/model/Barrel.o"
-	@echo "... src/model/Barrel.i"
-	@echo "... src/model/Barrel.s"
-	@echo "... src/model/Stair.o"
-	@echo "... src/model/Stair.i"
-	@echo "... src/model/Stair.s"
+	@echo "... src/controller/Controller.o"
+	@echo "... src/controller/Controller.i"
+	@echo "... src/controller/Controller.s"
+	@echo "... src/controller/main.o"
+	@echo "... src/controller/main.i"
+	@echo "... src/controller/main.s"
 .PHONY : help
 
 

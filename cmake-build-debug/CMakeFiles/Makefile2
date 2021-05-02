@@ -93,12 +93,12 @@ clean: CMakeFiles/DonkeyKong.dir/clean
 CMakeFiles/DonkeyKong.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DonkeyKong.dir/build.make CMakeFiles/DonkeyKong.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4 "Built target DonkeyKong"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles" --progress-num=1,2,3 "Built target DonkeyKong"
 .PHONY : CMakeFiles/DonkeyKong.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/DonkeyKong.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles" 4
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles" 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/DonkeyKong.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles" 0
 .PHONY : CMakeFiles/DonkeyKong.dir/rule

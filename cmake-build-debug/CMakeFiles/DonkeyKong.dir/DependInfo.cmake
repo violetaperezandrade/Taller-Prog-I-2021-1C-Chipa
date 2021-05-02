@@ -4,9 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/main.cpp" "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles/DonkeyKong.dir/src/main.cpp.o"
-  "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/model/Barrel.cpp" "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles/DonkeyKong.dir/src/model/Barrel.cpp.o"
-  "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/model/Stair.cpp" "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles/DonkeyKong.dir/src/model/Stair.cpp.o"
+  "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/controller/Controller.cpp" "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles/DonkeyKong.dir/src/controller/Controller.cpp.o"
+  "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/controller/main.cpp" "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/cmake-build-debug/CMakeFiles/DonkeyKong.dir/src/controller/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
