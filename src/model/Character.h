@@ -17,9 +17,9 @@ public:
 
     void runRight();
 
-    void moveLeft();
+    void moveLeft(int& i);
 
-    void moveRight();
+    void moveRight(int& i);
 
     ~Character();
 

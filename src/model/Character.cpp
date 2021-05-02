@@ -23,12 +23,12 @@ void Character::runRight(){
     velX = 1;
 }
 
-void Character::moveLeft(){
-    posX -= 1;
+void Character::moveLeft(int& i){
+    posX -= i;
 }
 
-void Character::moveRight(){
-    posX += 1;
+void Character::moveRight(int& i){
+    posX += i;
 }
 
 Character::~Character(){}
