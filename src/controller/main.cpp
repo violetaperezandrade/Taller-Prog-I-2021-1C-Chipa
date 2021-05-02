@@ -5,7 +5,6 @@
 #include <string>
 #include "Controller.h"
 
-
 int main(){
 
     //saving the file pointer in "file" using fstream
@@ -18,7 +17,6 @@ int main(){
 
     //actualJson has all the json data
     //std::cout << "Total jsondata: \n" << actualJson << std::endl;
-
 
     Controller cont;
     cont.run();

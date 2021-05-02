@@ -5,7 +5,7 @@ const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 
 Controller::Controller() : window(NULL){
-    initSDL();
+    //initSDL();
 }
 Controller::~Controller(){
     closeSDL();
@@ -48,7 +48,7 @@ int Controller::run(){
         while (!quit){
             while(SDL_PollEvent(&event) != 0){
                 if(event.type == SDL_QUIT) quit = true;
-                //key pressed
+                    //key pressed
                 else if(event.type == SDL_KEYDOWN){
                     switch(event.key.keysym.sym){
                         case SDLK_UP:
