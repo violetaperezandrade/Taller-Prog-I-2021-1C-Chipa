@@ -50,19 +50,20 @@ int Controller::run(){
             else if(event.type == SDL_KEYDOWN){
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
-                        std::cout << "Arrow up pressed";
+                        std::cout << "Arrow up pressed\n" ;
                         break;
                     case SDLK_DOWN:
-                        printf("Arrow down pressed");
+                        std::cout << "Arrow down pressed\n";
                         break;
                     case SDLK_LEFT:
-                        printf("Arrow left pressed");
+                        std::cout << "Arrow left pressed\n";
                         break;
                     case SDLK_RIGHT:
-                        printf("Arrow right pressed");
+                        std::cout << "Arrow right pressed\n";
                         break;
                     default:
-                        printf("Some other key pressed");
+                        std::cout << "Some other key pressed\n";
+                        break;
                 }
             }
         }
