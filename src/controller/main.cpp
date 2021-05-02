@@ -3,6 +3,7 @@
 #include <jsoncpp/json/json.h>
 #include <fstream>
 #include <string>
+#include "Controller.h"
 
 int main(){
 
@@ -15,7 +16,9 @@ int main(){
     reader.parse(file, actualJson);
 
     //actualJson has all the json data
-    std::cout << "Total jsondata: \n" << actualJson << std::endl;
+    //std::cout << "Total jsondata: \n" << actualJson << std::endl;
 
+    Controller cont;
+    cont.run();
     return 0;
 }
