@@ -5,7 +5,7 @@ const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 
 Controller::Controller() : window(NULL){
-    //initSDL();
+    if(initSDL()) std::cerr << "Error al inicializar";
 }
 Controller::~Controller(){
     closeSDL();
@@ -41,35 +41,34 @@ bool Controller::closeSDL() {
 
 int Controller::run(){
 
-    if(initSDL()) std::cerr << "Error al inicializar";
-    else{
-        bool quit = false;
-        SDL_Event event;
-        while (!quit){
-            while(SDL_PollEvent(&event) != 0){
-                if(event.type == SDL_QUIT) quit = true;
-                    //key pressed
-                else if(event.type == SDL_KEYDOWN){
-                    switch(event.key.keysym.sym){
-                        case SDLK_UP:
-                            std::cout << "Arrow up pressed";
-                            break;
-                        case SDLK_DOWN:
-                            printf("Arrow down pressed");
-                            break;
-                        case SDLK_LEFT:
-                            printf("Arrow left pressed");
-                            break;
-                        case SDLK_RIGHT:
-                            printf("Arrow right pressed");
-                            break;
-                        default:
-                            printf("Some other key pressed");
-                    }
+    bool quit = false;
+    SDL_Event event;
+    while (!quit){
+        while(SDL_PollEvent(&event) != 0){
+            if(event.type == SDL_QUIT) quit = true;
+                //key pressed
+            else if(event.type == SDL_KEYDOWN){
+                switch(event.key.keysym.sym){
+                    case SDLK_UP:
+                        std::cout << "Arrow up pressed";
+                        break;
+                    case SDLK_DOWN:
+                        printf("Arrow down pressed");
+                        break;
+                    case SDLK_LEFT:
+                        printf("Arrow left pressed");
+                        break;
+                    case SDLK_RIGHT:
+                        printf("Arrow right pressed");
+                        break;
+                    default:
+                        printf("Some other key pressed");
                 }
             }
         }
+        SDL_Delay(30);
     }
+
     closeSDL();
     return 0;
 }
