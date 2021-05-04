@@ -3,7 +3,7 @@
 
 #include "vector"
 #include "Entity.h"
-#include "Character.h"
+#include "Entities/Character.h"
 
 class CollisionManager {
 private:
