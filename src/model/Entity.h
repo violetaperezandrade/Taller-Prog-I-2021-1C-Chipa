@@ -6,12 +6,16 @@
 
 class Entity {
 protected:
-    Coordinate coordinate;
-    Size size;
+    int x;
+    int y;
+    int width;
+    int height;
+    int speedX;
+    int speedY;
 
 public:
     Entity();
-    Entity(int x, int y);
+    Entity(int x, int y, int width, int height);
     ~Entity();
 };
 

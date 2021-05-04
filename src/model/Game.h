@@ -20,7 +20,7 @@ public:
     void move_character_left();
     void move_character_right();
     void make_character_jump();
-    void simulate();
+    void update();
 
     //void run();
 };

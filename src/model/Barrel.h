@@ -8,7 +8,7 @@ protected:
 public:
     Barrel(int x, int y);
     ~Barrel();
-
+    void move();
 };
 
 
