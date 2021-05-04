@@ -1,5 +1,4 @@
 #include "Game.h"
-
 #define DEFAULT_PATH "default_config.json"
 
 Game::Game(Config& config) : config(config), character(), vector(),

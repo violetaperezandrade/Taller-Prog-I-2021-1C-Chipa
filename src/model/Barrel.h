@@ -4,7 +4,8 @@
 
 class Barrel : public Entity {
 protected:
-    double xSpeed, ySpeed;
+    int speedX;
+    int speedY;
 public:
     Barrel(int x, int y);
     ~Barrel();

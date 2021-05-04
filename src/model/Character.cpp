@@ -6,8 +6,8 @@
 Character::Character() :
     posX(0),
     posY(0),
-    velX(0),
-    velY(0),
+    speedX(0),
+    speedY(0),
     state(RUNNING)
 {}
 
@@ -16,11 +16,11 @@ void Character::jump(){
 }
 
 void Character::runLeft(){
-    velX = -1;
+    speedX = -1;
 }
 
 void Character::runRight(){
-    velX = 1;
+    speedX = 1;
 }
 
 void Character::moveLeft(int& i){

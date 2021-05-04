@@ -5,8 +5,8 @@ class Character {
 private:
     int posX;
     int posY;
-    int velX;
-    int velY;
+    int speedX;
+    int speedY;
     int state;
 public:
     Character();
