@@ -3,32 +3,21 @@
 #define MIDAIR 1
 #define RUNNING 0
 
-Character::Character() :
-    posX(0),
-    posY(0),
-    speedX(0),
-    speedY(0),
+Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
+    Entity(int posX, int posY, int width, int height, int speedX, int speedY),
     state(RUNNING)
 {}
 
 void Character::jump(){
-    state = MIDAIR;
+    state = JUMPING;
 }
 
-void Character::runLeft(){
-    speedX = -1;
+void Character::land(){
+    state = RUNNING;
 }
 
-void Character::runRight(){
-    speedX = 1;
-}
-
-void Character::moveLeft(int& i){
-    posX -= i;
-}
-
-void Character::moveRight(int& i){
-    posX += i;
+bool Character::isJumping(){
+    return state == MIDAIR;
 }
 
 Character::~Character(){}

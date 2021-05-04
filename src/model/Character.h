@@ -1,28 +1,21 @@
 #ifndef DONKEYKONG_CHARACTER_H
 #define DONKEYKONG_CHARACTER_H
 
-class Character {
+#include "Entity.h"
+
+class Character : public Entity{
 private:
-    int posX;
-    int posY;
-    int speedX;
-    int speedY;
     int state;
 public:
-    Character();
+    Character(int posX, int posY, int width, int height, int speedX, int speedY);
 
     void jump();
 
-    void runLeft();
+    void land();
 
-    void runRight();
-
-    void moveLeft(int& i);
-
-    void moveRight(int& i);
+    bool isJumping();
 
     ~Character();
-
 };
 
 
