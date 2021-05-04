@@ -1,16 +1,12 @@
 #ifndef BARREL_H
 #define BARREL_H
-#include "Entity.h"
+#include "../Entity.h"
 
 class Barrel : public Entity {
-protected:
-    int speedX;
-    int speedY;
 public:
-    Barrel(int x, int y);
-    ~Barrel();
-    void move();
-};
+    Barrel(int posX, int posY, int width, int height, int speedX, int speedY);
 
+    ~Barrel();
+};
 
 #endif //BARREL_H

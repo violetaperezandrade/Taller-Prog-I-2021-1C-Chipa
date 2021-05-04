@@ -1,7 +1,7 @@
 #ifndef DONKEYKONG_CHARACTER_H
 #define DONKEYKONG_CHARACTER_H
 
-#include "Entity.h"
+#include "../Entity.h"
 
 class Character : public Entity{
 private:

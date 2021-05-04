@@ -50,4 +50,4 @@ int Entity::getSpeedY(){
     return speedY;
 }
 
-Entity::~Entity(){}
+virtual Entity::~Entity(){}

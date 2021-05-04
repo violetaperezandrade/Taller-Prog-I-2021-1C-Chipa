@@ -1,6 +1,6 @@
 #ifndef STAIR_H
 #define STAIR_H
-#include "Entity.h"
+#include "../Entity.h"
 
 class Stair : public Entity{
 public:
