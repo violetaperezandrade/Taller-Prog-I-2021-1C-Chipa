@@ -1,14 +1,12 @@
-//
-// Created by mauricio on 4/5/21.
-//
+#ifndef MONKEY_H
+#define MONKEY_H
 
-#ifndef DONKEYKONG_MONKEY_H
-#define DONKEYKONG_MONKEY_H
+#include "../Entity.h"
 
+class Monkey : public Entity {
+public:
+    Monkey(int posX, int posY, int width, int height, int speedX, int speedY);
 
-class Monkey {
-
+    ~Monkey();
 };
-
-
-#endif //DONKEYKONG_MONKEY_H
+#endif //MONKEY_H

@@ -1,10 +1,13 @@
-#ifndef DONKEYKONG_PLATFORM_H
-#define DONKEYKONG_PLATFORM_H
+#ifndef PLATFORM_H
+#define PLATFORM_H
 
+#include "../Entity.h"
 
-class Platform {
+class Platform : public Entity {
+public:
+    Platform(int posX, int posY, int width, int height, int speedX, int speedY);
 
+    ~Platform();
 };
 
-
-#endif //DONKEYKONG_PLATFORM_H
+#endif //PLATFORM_H
