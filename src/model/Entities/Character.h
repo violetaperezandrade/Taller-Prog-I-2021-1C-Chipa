@@ -1,5 +1,5 @@
-#ifndef DONKEYKONG_CHARACTER_H
-#define DONKEYKONG_CHARACTER_H
+#ifndef CHARACTER_H
+#define CHARACTER_H
 
 #include "../Entity.h"
 

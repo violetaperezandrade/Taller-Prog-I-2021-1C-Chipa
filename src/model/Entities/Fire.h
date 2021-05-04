@@ -1,14 +1,13 @@
-//
-// Created by mauricio on 4/5/21.
-//
+#ifndef FIRE_H
+#define FIRE_H
 
-#ifndef DONKEYKONG_FIRE_H
-#define DONKEYKONG_FIRE_H
+#include "../Entity.h"
 
+class Fire : public Entity {
+public:
+    Fire(int posX, int posY, int width, int height, int speedX, int speedY);
 
-class Fire {
-
+    ~Fire();
 };
 
-
-#endif //DONKEYKONG_FIRE_H
+#endif //FIRE_H

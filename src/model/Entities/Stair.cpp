@@ -1,3 +1,7 @@
 #include "Stair.h"
 
-Stair::Stair(int xValue, int yValue) : Entity(xValue, yValue){}
+Stair::Stair(int posX, int posY, int width, int height, int speedX, int speedY) :
+        Entity(int posX, int posY, int width, int height, int speedX, int speedY)
+{}
+
+Stair::~Stair(){}

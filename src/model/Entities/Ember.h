@@ -1,14 +1,13 @@
-//
-// Created by mauricio on 4/5/21.
-//
+#ifndef EMBER_H
+#define EMBER_H
 
-#ifndef DONKEYKONG_EMBER_H
-#define DONKEYKONG_EMBER_H
+#include "../Entity.h"
 
+class Ember : public Entity {
+public:
+    Ember(int posX, int posY, int width, int height, int speedX, int speedY);
 
-class Ember {
-
+    ~Ember();
 };
 
-
-#endif //DONKEYKONG_EMBER_H
+#endif //EMBER_H

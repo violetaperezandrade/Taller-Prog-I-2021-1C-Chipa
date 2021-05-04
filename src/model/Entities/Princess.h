@@ -1,14 +1,13 @@
-//
-// Created by mauricio on 4/5/21.
-//
+#ifndef PRINCESS_H
+#define PRINCESS_H
 
-#ifndef DONKEYKONG_PRINCESS_H
-#define DONKEYKONG_PRINCESS_H
+#include "../Entity.h"
 
+class Princess : public Entity {
+public:
+    Princess(int posX, int posY, int width, int height, int speedX, int speedY);
 
-class Princess {
-
+    ~Princess();
 };
 
-
-#endif //DONKEYKONG_PRINCESS_H
+#endif //PRINCESS_H
