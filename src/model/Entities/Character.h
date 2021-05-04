@@ -13,7 +13,11 @@ public:
 
     void land();
 
-    bool isJumping();
+    void climb();
+
+    bool isGrounded();
+
+    bool isClimbing();
 
     ~Character();
 };

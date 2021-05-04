@@ -1,11 +1,11 @@
 #include "Character.h"
-
-#define MIDAIR 1
-#define RUNNING 0
+#define CLIMBING 2
+#define JUMPING 1
+#define GROUNDED 0
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(int posX, int posY, int width, int height, int speedX, int speedY),
-    state(RUNNING)
+    state(GROUNDED)
 {}
 
 void Character::jump(){
@@ -13,11 +13,19 @@ void Character::jump(){
 }
 
 void Character::land(){
-    state = RUNNING;
+    state = GROUNDED;
 }
 
-bool Character::isJumping(){
-    return state == MIDAIR;
+void Character::climb(){
+    state = CLIMBING;
+}
+
+bool Character::isGrounded(){
+    return state == GROUNDED;
+}
+
+bool Character::isClimbing(){
+    return state == CLIMBING;
 }
 
 Character::~Character(){}

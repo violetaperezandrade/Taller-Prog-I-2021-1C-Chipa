@@ -1,10 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "vector"
+#include <vector>
 #include "Entity.h"
-#include "Entities/Character.h"
 #include "CollisionManager.h"
+#include "../controller/Config.h"
+#include "Entities/Character.h"
 
 class Game {
 private:
@@ -14,12 +15,20 @@ private:
     CollisionManager collisionManager;
 
 public:
-    explicit Game(char** argv);
-    Game();
+    explicit Game(Config& config);
+
     ~Game();
-    void move_character_left();
-    void move_character_right();
-    void make_character_jump();
+
+    void moveCharacterLeft();
+
+    void moveCharacterRight();
+
+    void makeCharacterJump();
+
+    void moveCharacterUp();
+
+    void moveCharacterDown();
+
     void update();
 
     //void run();

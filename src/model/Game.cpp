@@ -1,26 +1,26 @@
 #include "Game.h"
 
-#define DEFAULT_PATH "default_config.json"
-
-Game::Game(Config& config) : config(config), character(), vector(),
-                            collisionManager(character, vector){}
-
-Game::Game() : config(DEFAULT_PATH) {}
+Game::Game(Config& config) :
+    config(config),
+    character(0,0,0,0,0,0),
+    vector(),
+    collisionManager(character, vector)
+{}
 
 Game::~Game() {}
 
-void Game::make_character_jump() {
-    character.set_jumping();
+void Game::makeCharacterJump() {
+    character.setJumping();
 
 }
 
-void Game::move_character_left() {
+void Game::moveCharacterLeft() {
     if (!character.isMidair()){
         character.setSpeedX(-config.getCharacterSpeed());
     }
 }
 
-void Game::move_character_right() {
+void Game::moveCharacterRight() {
     if (!character.isMidair()){
         character.setSpeedX(config.getCharacterSpeed());
     }
@@ -34,6 +34,22 @@ void Game::update() { //nombre
             collisionManager.move(vector[i]);
         }
     }
+}
+
+void Game::moveCharacterUp(){
+    /* if(character.isGrounded() && colisionMangerStairCheck){
+     *      character.climb();
+     *      character.setSpeedY(config.getClimbingSpeed); //Go up
+     * }
+     */
+}
+
+void Game::moveCharacterDown(){
+    /* if(character.isGrounded() && colisionMangerStairCheck){
+     *      character.climb();
+     *      character.setSpeedY(config.getClimbingSpeed * -1); //Go down
+     * }
+     */
 }
 
 /*
