@@ -11,16 +11,19 @@ Game::~Game() {}
 
 void Game::make_character_jump() {
     character.set_jumping();
+
 }
 
 void Game::move_character_left() {
-    character.set_left(); //Tiene que fijarse que no este en el aire
+    if (!character.isMidair()){
+        character.setSpeedX(-config.getCharacterSpeed());
+    }
 }
 
 void Game::move_character_right() {
-    character.set_right(); //Tiene que fijarse que no este en el aire
-    /*
-    */
+    if (!character.isMidair()){
+        character.setSpeedX(config.getCharacterSpeed());
+    }
 }
 
 void Game::update() { //nombre

@@ -42,6 +42,10 @@ void CollisionManager::move(Character &character) {
     int map_height = config.get_map_heigth();
     int x = character.getX() + speedX;
     int y = character.getY() + speedY;
+    if (character.isMidair()){
+        character.setSpeedY(speedY-config.getGravity())
+    }
+
     if (x < 0){
         x = 0;
     } else if (x > map_width){
@@ -50,6 +54,8 @@ void CollisionManager::move(Character &character) {
 
     if (y < 0){
         y = 0;
+        character.setLanding();
+        character.setSpeedY(0);
     } else if (y > map_width){
         y = map_width;
     }
