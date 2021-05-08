@@ -65,14 +65,17 @@ int View::run(){
 
     SDL_Window* window = createWindow("Donkey Kong II");
     SDL_Renderer* windowRenderer = createRenderer(window);
-    SDL_Texture* texture = loadImageTexture("/home/mauricio/Documents/Taller Azcurra/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp",windowRenderer);
+
+    SDL_Texture* textureRight = loadImageTexture("/home/mauricio/Documents/Taller Azcurra/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_right.bmp",windowRenderer);
+    SDL_Texture* textureLeft = loadImageTexture("/home/mauricio/Documents/Taller Azcurra/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_left.bmp",windowRenderer);
 
     //Render red filled quad
     SDL_Rect fillRect = { 0, 0, 800, 600 };
     SDL_SetRenderDrawColor( windowRenderer, 0x00, 0x00, 0x00, 0xFF );
     SDL_RenderFillRect( windowRenderer, &fillRect );
 
-    render(100,100,100,100,texture,windowRenderer);
+    render(100,100,100,100,textureRight,windowRenderer);
+    render(175,100,100,100,textureLeft,windowRenderer);
     SDL_RenderPresent(windowRenderer);
     SDL_Delay(3000);
 
