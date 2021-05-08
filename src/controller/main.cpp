@@ -18,7 +18,7 @@ int main(){
     //actualJson has all the json data
     //std::cout << "Total jsondata: \n" << actualJson << std::endl;
 
-    Controller cont;
+   /* Controller cont;
     cont.run();
-    return 0;
+    return 0;*/
 }

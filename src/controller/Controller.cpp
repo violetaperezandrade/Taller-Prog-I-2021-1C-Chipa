@@ -1,10 +1,7 @@
 #include "Controller.h"
 #include <iostream>
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
-
-Controller::Controller() : window(NULL){
+Controller::Controller() {
     if(initSDL()) std::cerr << "Error al inicializar";
 }
 Controller::~Controller(){
@@ -14,32 +11,22 @@ Controller::~Controller(){
 bool Controller::initSDL() {
 
     bool error = false;
-    if(SDL_Init(SDL_INIT_VIDEO) < 0){
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "Error video";
         error = true;
     }
-    else{
-        window = SDL_CreateWindow("Prueba donkey kong",
-                                  SDL_WINDOWPOS_UNDEFINED,
-                                  SDL_WINDOWPOS_UNDEFINED,
-                                  SCREEN_WIDTH,
-                                  SCREEN_HEIGHT,
-                                  SDL_WINDOW_SHOWN);
-        if(!window){
-            std::cerr << "Error window";
-            error = true;
-        }
+    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+        std::cerr << "Error al filtrar textura lineal";
     }
     return error;
 }
 
 bool Controller::closeSDL() {
-    SDL_DestroyWindow(window);
-    window = NULL;
+    IMG_Quit();
     SDL_Quit();
 }
 
-int Controller::run(){
+/*int Controller::run(){
 
     bool quit = false;
     SDL_Event event;
@@ -91,4 +78,4 @@ int Controller::run(){
 
     closeSDL();
     return 0;
-}
+}*/

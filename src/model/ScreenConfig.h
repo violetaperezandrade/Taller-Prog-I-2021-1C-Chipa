@@ -1,0 +1,7 @@
+#ifndef SCREENCONFIG_H
+#define SCREENCONFIG_H
+
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
+
+#endif //SCREENCONFIG_H
