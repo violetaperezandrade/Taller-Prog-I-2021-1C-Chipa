@@ -16,7 +16,7 @@ void Game::makeCharacterJump() {
 
 void Game::moveCharacterLeft() {
     if (!character.isMidair()){
-        character.setSpeedX(-config.getCharacterSpeed());
+        character.setSpeedX(config.getCharacterSpeed() * -1);
     }
 }
 
@@ -37,7 +37,7 @@ void Game::update() { //nombre
 }
 
 void Game::moveCharacterUp(){
-    /* if(character.isGrounded() && colisionMangerStairCheck){
+    /* if(character.isGrounded() && colisionManagerStairCheck){
      *      character.climb();
      *      character.setSpeedY(config.getClimbingSpeed); //Go up
      * }

@@ -4,7 +4,7 @@ SDL_Renderer* View::createRenderer(SDL_Window* window) {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
     if(!renderer) std::cerr << "Error al crear renderer";
     else{
-        SDL_SetRenderDrawColor(renderer,0xFF,0xFF,0xFF,0xFF);
+        SDL_SetRenderDrawColor(renderer,0,0,0,255);
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
     }
@@ -24,6 +24,7 @@ SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
     if(!imageSurface) printf("Error al cargar imagen %s. SDL_image error: %s\n",
                              path.c_str(), IMG_GetError());
     else{
+        SDL_SetColorKey(imageSurface,SDL_TRUE,SDL_MapRGB(imageSurface->format,0,0,0));
         finalTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
         if(!finalTexture) printf("Error al cargar textura %s. SDL_Error: %s\n",
                                  path.c_str(),
@@ -51,11 +52,33 @@ void View::free(SDL_Texture* texture){
 
 int View::run(){
 
-    Controller cont;
+    bool error = false;
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        std::cerr << "Error video";
+        error = true;
+    }
+    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+        std::cerr << "Error al filtrar textura lineal";
+    }
+
+    //Controller cont;
+
     SDL_Window* window = createWindow("Donkey Kong II");
     SDL_Renderer* windowRenderer = createRenderer(window);
-    SDL_Texture* texture = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp",windowRenderer);
-    render(0,0,20,20,texture,windowRenderer);
+    SDL_Texture* texture = loadImageTexture("/home/mauricio/Documents/Taller Azcurra/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp",windowRenderer);
+
+    //Render red filled quad
+    SDL_Rect fillRect = { 0, 0, 800, 600 };
+    SDL_SetRenderDrawColor( windowRenderer, 0x00, 0x00, 0x00, 0xFF );
+    SDL_RenderFillRect( windowRenderer, &fillRect );
+
+    render(100,100,100,100,texture,windowRenderer);
+    SDL_RenderPresent(windowRenderer);
+    SDL_Delay(3000);
+
+    IMG_Quit();
+    SDL_Quit();
+
     return 0;
 
 }

@@ -15,8 +15,6 @@ target_link_libraries(DonkeyKong jsoncpp SDL2 SDL2_image)
 #target_link_libraries(${PROJECT_NAME} jsoncpp_lib)
 #add_executable(DonkeyKong src/main.cpp src/model/Stair.cpp src/model/Barrel.cpp  src/controller/Config.cpp)
 
-
-
 #target_link_libraries(DonkeyKong ${jsoncpp})
 
 #target_link_libraries(game /src/controller/Config.cpp ${YAMLCPP_LIBRARIES})
