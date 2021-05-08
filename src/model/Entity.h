@@ -1,6 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
-
+#include "SDL2/SDL.h"
+#include <SDL2/SDL_image.h>
 #include "ScreenConfig.h"
 
 class Entity {
@@ -13,7 +14,6 @@ protected:
     int speedY;
 
     static const int ENTITYSPEED = 5;
-
 
 public:
     Entity(int x, int y, int width, int height);
@@ -36,8 +36,8 @@ public:
 
     int getSpeedY();
 
-    virtual ~Entity();
-
+    //virtual ~Entity();
+    ~Entity();
     void handleEvent(SDL_Event& e);
     void move();
     void render();

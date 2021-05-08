@@ -49,8 +49,8 @@ int Entity::getSpeedX(){
 int Entity::getSpeedY(){
     return speedY;
 }
-
-virtual Entity::~Entity(){}
+Entity::~Entity(){}
+//virtual Entity::~Entity(){}
 
 void Entity::handleEvent(SDL_Event& e){
 
