@@ -5,6 +5,8 @@ SDL_Renderer* View::createRenderer(SDL_Window* window) {
     if(!renderer) std::cerr << "Error al crear renderer";
     else{
         SDL_SetRenderDrawColor(renderer,0xFF,0xFF,0xFF,0xFF);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
     }
     return renderer;
 }
@@ -16,6 +18,7 @@ SDL_Window* View::createWindow(const char* title){
 }
 
 SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
+
     SDL_Texture* finalTexture = NULL;
     SDL_Surface* imageSurface = IMG_Load(path.c_str());
     if(!imageSurface) printf("Error al cargar imagen %s. SDL_image error: %s\n",
@@ -49,16 +52,10 @@ void View::free(SDL_Texture* texture){
 int View::run(){
 
     Controller cont;
-
     SDL_Window* window = createWindow("Donkey Kong II");
     SDL_Renderer* windowRenderer = createRenderer(window);
-    SDL_Texture* texture = loadImageTexture("/img/Sprites Mario/mario_climbing.bmp",windowRenderer);
+    SDL_Texture* texture = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp",windowRenderer);
     render(0,0,20,20,texture,windowRenderer);
-    free(texture);
-    SDL_DestroyRenderer(windowRenderer);
-    SDL_DestroyWindow(window);
-    window = NULL;
-    windowRenderer = NULL;
     return 0;
 
 }
