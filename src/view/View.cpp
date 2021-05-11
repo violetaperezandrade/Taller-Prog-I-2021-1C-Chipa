@@ -1,5 +1,17 @@
 #include "View.h"
-View::View(){
+
+/*View::View(){
+
+    textures = {{"mario idle back", "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp"},
+                {"mario climbing", "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp"},
+                {"mario idle right", "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_ide_right.bmp"},
+                {"mario idle left","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_left.bmp"},
+                {"mario walking left","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_left.bmp"},
+                {"mario walking right","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_right.bmp"},
+                {"ladder with platform","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/staticObjects.bmp"}
+    };
+}*/
+/*View::View(){
 
     textures = {{"mario idle back", "/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp"},
                 {"mario climbing", "/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp"},
@@ -10,7 +22,7 @@ View::View(){
                 {"ladder with platform","/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/staticObjects.bmp"},
                 {"platform", "/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Platform.bmp"}
     };
-}
+}*/
 SDL_Renderer* View::createRenderer(SDL_Window* window) {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
     if(!renderer) std::cerr << "Error al crear renderer";
