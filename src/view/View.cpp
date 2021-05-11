@@ -1,13 +1,14 @@
 #include "View.h"
 View::View(){
 
-    textures = {{"mario idle back", "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp"},
-                {"mario climbing", "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp"},
-                {"mario idle right", "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_ide_right.bmp"},
-                {"mario idle left","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_left.bmp"},
-                {"mario walking left","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_left.bmp"},
-                {"mario walking right","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_right.bmp"},
-                {"ladder with platform","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/staticObjects.bmp"}
+    textures = {{"mario idle back", "/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp"},
+                {"mario climbing", "/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp"},
+                {"mario idle right", "/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_ide_right.bmp"},
+                {"mario idle left","/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_left.bmp"},
+                {"mario walking left","/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_left.bmp"},
+                {"mario walking right","/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_right.bmp"},
+                {"ladder with platform","/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/staticObjects.bmp"},
+                {"platform", "/home/violeta/Documentos/Taller/Taller-Prog-I-2021-1C-Chipa/src/view/img/Platform.bmp"}
     };
 }
 SDL_Renderer* View::createRenderer(SDL_Window* window) {
@@ -68,6 +69,7 @@ int View::run(){
     SDL_Renderer* windowRenderer = createRenderer(window);
     SDL_Texture* textureMario = loadImageTexture(textures["mario idle back"],windowRenderer);
     SDL_Texture* textureLadder = loadImageTexture(textures["ladder with platform"],windowRenderer);
+    SDL_Texture* texturePlatform = loadImageTexture(textures["platform"],windowRenderer);
 
     //Render filled quad
     SDL_Rect fillRect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
@@ -128,6 +130,7 @@ int View::run(){
         SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
         SDL_RenderClear(windowRenderer);
         render(0,50,400,100,textureLadder,windowRenderer);
+        render(0,500,40,10,texturePlatform,windowRenderer);
         render(entity.getPosX(),entity.getPosY(),50,50,textureMario,windowRenderer);
         SDL_RenderPresent(windowRenderer);
     }
