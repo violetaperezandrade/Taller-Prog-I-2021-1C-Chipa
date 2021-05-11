@@ -1,5 +1,15 @@
 #include "View.h"
+View::View(){
 
+    textures = {{"mario idle back", "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp"},
+                {"mario climbing", "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp"},
+                {"mario idle right", "/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_ide_right.bmp"},
+                {"mario idle left","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_left.bmp"},
+                {"mario walking left","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_left.bmp"},
+                {"mario walking right","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_right.bmp"},
+                {"ladder with platform","/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/staticObjects.bmp"}
+    };
+}
 SDL_Renderer* View::createRenderer(SDL_Window* window) {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
     if(!renderer) std::cerr << "Error al crear renderer";
@@ -56,8 +66,8 @@ int View::run(){
 
     SDL_Window* window = createWindow("Donkey Kong II");
     SDL_Renderer* windowRenderer = createRenderer(window);
-    SDL_Texture* textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp",windowRenderer);
-    SDL_Texture* textureLadder = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/staticObjects.bmp",windowRenderer);
+    SDL_Texture* textureMario = loadImageTexture(textures["mario idle back"],windowRenderer);
+    SDL_Texture* textureLadder = loadImageTexture(textures["ladder with platform"],windowRenderer);
 
     //Render filled quad
     SDL_Rect fillRect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
@@ -77,38 +87,38 @@ int View::run(){
             if(e.type == SDL_KEYDOWN){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_climbing.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario climbing"],windowRenderer);
                         break;
                     case SDLK_DOWN:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario idle back"],windowRenderer);
                         break;
                     case SDLK_LEFT:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_left.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario walking left"],windowRenderer);
                         break;
                     case SDLK_RIGHT:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_walk_right.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario walking right"],windowRenderer);
                         break;
                     default:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario idle back"],windowRenderer);
                         break;
                 }
             }
             else if(e.type == SDL_KEYUP){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario idle back"],windowRenderer);
                         break;
                     case SDLK_DOWN:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario idle back"],windowRenderer);
                         break;
                     case SDLK_LEFT:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_left.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario idle left"],windowRenderer);
                         break;
                     case SDLK_RIGHT:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_ide_right.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario idle right"],windowRenderer);
                         break;
                     default:
-                        textureMario = loadImageTexture("/home/lauti/Documentos/TALLER 1 AZCURRA/Taller-Prog-I-2021-1C-Chipa/src/view/img/Sprites Mario/mario_idle_back.bmp",windowRenderer);
+                        textureMario = loadImageTexture(textures["mario idle back"],windowRenderer);
                         break;
                 }
             }
