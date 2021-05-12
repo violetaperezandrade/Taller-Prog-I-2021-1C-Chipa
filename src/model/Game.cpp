@@ -52,6 +52,15 @@ void Game::moveCharacterDown(){
      */
 }
 
+Message Game::get_status() {
+    Message message;
+    message.add(character);
+    for (int i = 0; i < vector.size(); i++){
+        message.add(vector[i]);
+    }
+    return std::move(message);
+}
+
 /*
 void Game::run() {
     entityManager.

@@ -6,6 +6,7 @@
 #include "CollisionManager.h"
 #include "../controller/Config.h"
 #include "Entities/Character.h"
+#include "../Message.h"
 
 class Game {
 private:
@@ -30,6 +31,8 @@ public:
     void moveCharacterDown();
 
     void update();
+
+    Message get_status();
 
     //void run();
 };

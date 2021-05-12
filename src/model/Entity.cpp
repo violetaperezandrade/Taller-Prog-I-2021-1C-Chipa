@@ -1,6 +1,7 @@
 #include "Entity.h"
 
-Entity::Entity(int posX, int posY, int width, int height) :
+Entity::Entity(char type, int posX, int posY, int width, int height) :
+    type(type),
     posX(posX),
     posY(posY),
     width(width),
@@ -9,7 +10,9 @@ Entity::Entity(int posX, int posY, int width, int height) :
     speedY(0)
 {}
 
-Entity::Entity(int posX, int posY, int width, int height, int speedX, int speedY) :
+Entity::Entity(char type, int posX, int posY,
+               int width, int height, int speedX, int speedY) :
+    type(type),
     posX(posX),
     posY(posY),
     width(width),
@@ -49,6 +52,19 @@ int Entity::getSpeedX(){
 int Entity::getSpeedY(){
     return speedY;
 }
+
+int Entity::getWidth(){
+    return width;
+}
+
+int Entity::getHeight(){
+    return height;
+}
+
+char Entity::getType() {
+    return type;
+}
+
 Entity::~Entity(){}
 //virtual Entity::~Entity(){}
 

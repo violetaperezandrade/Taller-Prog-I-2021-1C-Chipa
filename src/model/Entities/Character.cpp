@@ -3,8 +3,10 @@
 #define JUMPING 1
 #define GROUNDED 0
 
+#define CHARACTER_CODE 'C'
+
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
-    Entity(int posX, int posY, int width, int height, int speedX, int speedY),
+    Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY),
     state(GROUNDED)
 {}
 

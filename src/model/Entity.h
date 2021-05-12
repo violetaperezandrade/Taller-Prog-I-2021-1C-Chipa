@@ -6,6 +6,7 @@
 
 class Entity {
 protected:
+    char type;
     int posX;
     int posY;
     int width;
@@ -16,9 +17,10 @@ protected:
     static const int ENTITYSPEED = 5;
 
 public:
-    Entity(int x, int y, int width, int height);
+    Entity(char type, int x, int y, int width, int height);
 
-    Entity(int posX, int posY, int width, int height, int speedX, int speedY);
+    Entity(char type, int posX, int posY,
+           int width, int height, int speedX, int speedY);
 
     void setPosY(int& i);
 
@@ -35,6 +37,12 @@ public:
     int getSpeedX();
 
     int getSpeedY();
+
+    int getWidth();
+
+    int getHeight();
+
+    char getType();
 
     //virtual ~Entity();
     ~Entity();
