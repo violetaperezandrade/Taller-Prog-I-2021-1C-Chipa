@@ -2,7 +2,7 @@
 
 Game::Game(Config& config) :
     config(config),
-    character(0,0,0,0,0,0),
+    character(0,0,59, 36,0,0),
     vector(),
     collisionManager(character, vector)
 {}
@@ -66,7 +66,9 @@ Message Game::get_status() {
 void Game::setLevel1(){
     this->vector.push_back(Monkey monkey(84, 146, 148, 52, 0, 0));
     this->vector.push_back(Princess princess(312, 79, 57, 52, 0, 0));
-    this->vector.push_back(Character character(10, 544, 59, 36, 0, 0));
+    character.setPosX(10);
+    character.setPosY(544);
+
     //level 1
     this->vector.push_back(Platform platform_1_1(0, 580, 84, 20, 0, 0));
     this->vector.push_back(Platform platform_1_2(84, 580, 84, 20, 0, 0));
@@ -138,7 +140,10 @@ void Game::setLevel1(){
 
 }
 void Game::setLevel2() {
-
+    this->vector.push_back(Monkey monkey(84, 146, 148, 52, 0, 0));
+    this->vector.push_back(Princess princess(312, 79, 57, 52, 0, 0));
+    character.setPosX(10);
+    character.setPosY(544);
     //level 1
     this->vector.push_back(Platform platform_1_1(0, 580, 54, 20, 0, 0));
     this->vector.push_back(Platform platform_1_2(54, 580, 54, 20, 0, 0));
