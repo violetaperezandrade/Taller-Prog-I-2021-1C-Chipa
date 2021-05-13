@@ -32,6 +32,10 @@ public:
 
     void update();
 
+    void setLevel1();
+
+    void setLevel2();
+
     Message get_status();
 
     //void run();

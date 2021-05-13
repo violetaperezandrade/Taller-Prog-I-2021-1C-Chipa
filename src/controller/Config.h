@@ -1,6 +1,3 @@
-//
-// Created by violeta on 2/5/21.
-//
 #include <iostream>
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/json.h>

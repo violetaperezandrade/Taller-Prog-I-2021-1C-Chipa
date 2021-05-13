@@ -1,7 +1,3 @@
-//
-// Created by violeta on 2/5/21.
-//
-
 #include "Config.h"
 
 Config::Config(){
