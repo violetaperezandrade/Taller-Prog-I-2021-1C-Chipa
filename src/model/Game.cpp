@@ -64,80 +64,131 @@ Message Game::get_status() {
 //800x600 grid
 
 void Game::setLevel1(){
-    this->vector.push_back(Monkey monkey(84, 146, 148, 52, 0, 0));
-    this->vector.push_back(Princess princess(312, 79, 57, 52, 0, 0));
+
+    Monkey monkey(84, 146, 148, 52, 0, 0);
+    this->vector.push_back(monkey);
+
+    Princess princess(312, 79, 57, 52, 0, 0)
+    this->vector.push_back(princess);
+
     character.setPosX(10);
     character.setPosY(544);
 
     //level 1
-    this->vector.push_back(Platform platform_1_1(0, 580, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_1_2(84, 580, 84, 20, 0, 0));
-    this->vector.push_back(Fire fire(168, 560, 60, 40, 0, 0));
-    this->vector.push_back(Platform platform_1_3(228, 580, 84, 20, 0, 0));
-    this->vector.push_back(Fire fire_2(312, 560, 60, 40, 0, 0));
-    this->vector.push_back(Platform platform_1_4(372, 580, 84, 20, 0, 0));
-    this->vector.push_back(Fire fire_3(456, 560, 60, 40, 0, 0));
-    this->vector.push_back(Platform platform_1_5(516, 580, 84, 20, 0, 0));
-    this->vector.push_back(Fire fire_4(600, 560, 60, 40, 0, 0));
-    this->vector.push_back(Platform platform_1_6(660, 580, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_1_6(744, 580, 84, 20, 0, 0));
+    Platform platform_1_1(0, 580, 84, 20, 0, 0);
+    this->vector.push_back(platform_1_1);
+    Platform platform_1_2(84, 580, 84, 20, 0, 0);
+    this->vector.push_back(platform_1_2);
+    Fire fire(168, 560, 60, 40, 0, 0);
+    this->vector.push_back(fire);
+    Platform platform_1_3(228, 580, 84, 20, 0, 0);
+    this->vector.push_back(platform_1_3);
+    Fire fire_2(312, 560, 60, 40, 0, 0);
+    this->vector.push_back(fire_2);
+    Platform platform_1_4(372, 580, 84, 20, 0, 0)
+    this->vector.push_back(platform_1_4);
+    Fire fire_3(456, 560, 60, 40, 0, 0);
+    this->vector.push_back(fire_3);
+    Platform platform_1_5(516, 580, 84, 20, 0, 0);
+    this->vector.push_back(platform_1_5);
+    Fire fire_4(600, 560, 60, 40, 0, 0);
+    this->vector.push_back(fire_4);
+    Platform platform_1_6(660, 580, 84, 20, 0, 0);
+    this->vector.push_back(platform_1_6);
+    Platform platform_1_7(744, 580, 84, 20, 0, 0);
+    this->vector.push_back(platform_1_6);
 
     //level 2
-    this->vector.push_back(Platform platform_2_1(0, 468, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_2_2(84, 468, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_2_3(228, 468, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_2_4(372, 468, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_2_5(516, 468, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_2_6(660, 468, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_2_6(744, 468, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_2_6(744, 468, 84, 20, 0, 0));
-    this->vector.push_back(Stair stair_2_1(114, 468, 30, 112, 0, 0));
-    this->vector.push_back(Stair stair_2_2(670, 468, 30, 112, 0, 0));
+    Platform platform_2_1(0, 468, 84, 20, 0, 0);
+    this->vector.push_back(platform_2_1);
+    Platform platform_2_2(84, 468, 84, 20, 0, 0);
+    this->vector.push_back(platform_2_2);
+    Platform platform_2_3(228, 468, 84, 20, 0, 0);
+    this->vector.push_back(platform_2_3);
+    Platform platform_2_4(372, 468, 84, 20, 0, 0);
+    this->vector.push_back(platform_2_4);
+    Platform platform_2_5(516, 468, 84, 20, 0, 0);
+    this->vector.push_back(platform_2_5);
+    Platform platform_2_6(660, 468, 84, 20, 0, 0)
+    this->vector.push_back(platform_2_6);
+    Platform platform_2_7(744, 468, 84, 20, 0, 0)
+    this->vector.push_back(platform_2_7);
+    Stair stair_2_1(114, 468, 30, 112, 0, 0);
+    this->vector.push_back(stair_2_1);
+    Stair stair_2_2(670, 468, 30, 112, 0, 0);
+    this->vector.push_back(stair_2_2);
 
     //level 3
-    this->vector.push_back(Platform shortPlat_3_1(0, 375, 58, 20, 0, 0));
-    this->vector.push_back(Platform shortPlat_3_2(742, 375, 58, 20, 0, 0));
-    this->vector.push_back(Stair stair_3_1(770, 375, 30, 96, 0, 0));
+    Platform shortPlat_3_1(0, 375, 58, 20, 0, 0);
+    this->vector.push_back(shortPlat_3_1);
+    Platform shortPlat_3_2(742, 375, 58, 20, 0, 0);
+    this->vector.push_back(shortPlat_3_2);
+    Stair stair_3_1(770, 375, 30, 96, 0, 0);
+    this->vector.push_back(stair_3_1);
 
     //moving plarforms
     //right
-    this->vector.push_back(Platform shortPlat_3_3(102, 402, 58, 20, 1, 0));
-    this->vector.push_back(Platform shortPlat_3_4(309, 402, 58, 20, 1, 0));
-    this->vector.push_back(Platform shortPlat_3_5(516, 402, 58, 20, 1, 0));
+    Platform shortPlat_3_3(102, 402, 58, 20, 1, 0);
+    this->vector.push_back(shortPlat_3_3);
+    Platform shortPlat_3_4(309, 402, 58, 20, 1, 0);
+    this->vector.push_back(shortPlat_3_4);
+    Platform shortPlat_3_5(516, 402, 58, 20, 1, 0);
+    this->vector.push_back(shortPlat_3_5);
 
     //left
-    this->vector.push_back(Platform shortPlat_3_6(224, 381, 58, 20, -1, 0));
-    this->vector.push_back(Platform shortPlat_3_7(431, 381, 58, 20, -1, 0));
-    this->vector.push_back(Platform shortPlat_3_8(638, 381, 58, 20, -1, 0));
+    Platform shortPlat_3_6(224, 381, 58, 20, -1, 0);
+    this->vector.push_back(shortPlat_3_6);
+    Platform shortPlat_3_7(431, 381, 58, 20, -1, 0);
+    this->vector.push_back(shortPlat_3_7);
+    Platform shortPlat_3_8(638, 381, 58, 20, -1, 0);
+    this->vector.push_back(shortPlat_3_8);
 
     //level 4
-    this->vector.push_back(Platform shortPlat_4_1(0, 281, 58, 20, 0, 0));
-    this->vector.push_back(Platform shortPlat_4_2(742, 281, 58, 20, 0, 0));
-    this->vector.push_back(Stair stair_4_1(0, 281, 30, 96, 0, 0));
+    Platform shortPlat_4_1(0, 281, 58, 20, 0, 0);
+    this->vector.push_back(shortPlat_4_1);
+    Platform shortPlat_4_2(742, 281, 58, 20, 0, 0);
+    this->vector.push_back(shortPlat_4_2);
+    Stair stair_4_1(0, 281, 30, 96, 0, 0);
+    this->vector.push_back(stair_4_1);
 
     //moving plarforms
     //left
-    this->vector.push_back(Platform shortPlat_4_3(102, 306, 58, 20, -1, 0));
-    this->vector.push_back(Platform shortPlat_4_4(309, 306, 58, 20, -1, 0));
-    this->vector.push_back(Platform shortPlat_4_5(516, 306, 58, 20, -1, 0));
+    Platform shortPlat_4_3(102, 306, 58, 20, -1, 0);
+    this->vector.push_back(shortPlat_4_3);
+    Platform shortPlat_4_4(309, 306, 58, 20, -1, 0);
+    this->vector.push_back(shortPlat_4_4);
+    Platform shortPlat_4_5(516, 306, 58, 20, -1, 0);
+    this->vector.push_back(shortPlat_4_5);
 
     //right
-    this->vector.push_back(Platform shortPlat_4_6(224, 287, 58, 20, 1, 0));
-    this->vector.push_back(Platform shortPlat_4_7(431, 287, 58, 20, 1, 0));
-    this->vector.push_back(Platform shortPlat_4_8(638, 287, 58, 20, 1, 0));
+    Platform shortPlat_4_6(224, 287, 58, 20, 1, 0);
+    this->vector.push_back(shortPlat_4_6);
+    Platform shortPlat_4_7(431, 287, 58, 20, 1, 0);
+    this->vector.push_back(shortPlat_4_7);
+    Platform shortPlat_4_8(638, 287, 58, 20, 1, 0)
+    this->vector.push_back(shortPlat_4_8);
 
     //level 5
-    this->vector.push_back(Platform platform_5_1(85, 197, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_5_2(169, 197, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_5_3(253, 197, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_5_4(337, 197, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_5_5(421, 197, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_5_6(570, 197, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_5_7(726, 197, 84, 20, 0, 0));
-    this->vector.push_back(Stair stair_4_1(767, 206, 30, 84, 0, 0));
-    this->vector.push_back(Platform platform_5_8(313, 131, 84, 20, 0, 0));
-    this->vector.push_back(Platform platform_5_9(397, 131, 84, 20, 0, 0));
-
+    Platform platform_5_1(85, 197, 84, 20, 0, 0);
+    this->vector.push_back(platform_5_1);
+    Platform platform_5_2(169, 197, 84, 20, 0, 0)
+    this->vector.push_back(platform_5_2);
+    Platform platform_5_3(253, 197, 84, 20, 0, 0);
+    this->vector.push_back(platform_5_3);
+    Platform platform_5_4(337, 197, 84, 20, 0, 0)
+    this->vector.push_back(platform_5_4);
+    Platform platform_5_5(421, 197, 84, 20, 0, 0);
+    this->vector.push_back(platform_5_5);
+    Platform platform_5_6(570, 197, 84, 20, 0, 0);
+    this->vector.push_back(platform_5_6);
+    Platform platform_5_7(726, 197, 84, 20, 0, 0);
+    this->vector.push_back(platform_5_7);
+    Stair stair_4_1(767, 206, 30, 84, 0, 0);
+    this->vector.push_back(stair_4_1);
+    Platform platform_5_8(313, 131, 84, 20, 0, 0)
+    this->vector.push_back(platform_5_8);
+    Platform platform_5_9(397, 131, 84, 20, 0, 0)
+    this->vector.push_back(platform_5_9);
 }
 void Game::setLevel2() {
     this->vector.push_back(Monkey monkey(84, 146, 148, 52, 0, 0));
