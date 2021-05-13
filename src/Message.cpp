@@ -1,6 +1,6 @@
 #include "Message.h"
 
-Message::Message() : info(NULL), size(0), empty(true) {}
+Message::Message() : info(NULL), size(0), empty(true), pos(0) {}
 
 Message::~Message() {
     if(info){
@@ -37,4 +37,29 @@ int Message::get_size() {
 
 char* Message::get_info() {
     return info;
+}
+
+void Message::getEntityInfo(char& type, int& posX, int& posY,
+                   int& width, int& height, char& state){
+    if this->isEmpty(){
+        //throw error
+        return;
+    }
+    type = info[pos++];
+    posX = info[pos++] << 8;
+    posX += info[pos++];
+    posY = info[pos++] << 8;
+    posY += info[pos++];
+    width = info[pos++] << 8;
+    width += info[pos++];
+    height = info[pos++] << 8;
+    height += info[pos++];
+    state = info[pos++]; // podria poner que no haya un byte de
+    // state cuando no corresponda
+}
+bool Message::isEmpty() {
+    if (pos >= size){
+        return true;
+    }
+    return false;
 }
