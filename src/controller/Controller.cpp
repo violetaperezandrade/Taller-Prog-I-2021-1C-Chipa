@@ -29,6 +29,7 @@ bool Controller::closeSDL() {
 /*int Controller::run(){
 
     bool quit = false;
+    View vista;
     SDL_Event event;
     while (!quit){
         while(SDL_PollEvent(&event) != 0){
@@ -37,45 +38,50 @@ bool Controller::closeSDL() {
             if(event.type == SDL_KEYDOWN && event.key.repeat == 0){
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
-                        std::cout << "Arrow up pressed\n" ;
+                        game.moveCharacterUp();
                         break;
                     case SDLK_DOWN:
-                        std::cout << "Arrow down pressed\n";
+                        game.moveCharacterDown();
                         break;
                     case SDLK_LEFT:
-                        std::cout << "Arrow left pressed\n";
+                        game.moveCharacterLeft();
                         break;
                     case SDLK_RIGHT:
-                        std::cout << "Arrow right pressed\n";
+                        game.moveCharacterRight();
                         break;
                     default:
-                        std::cout << "Some other key pressed\n";
                         break;
                 }
             }
             else if(event.type == SDL_KEYUP && event.key.repeat == 0){
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
-                        std::cout << "Arrow up released\n" ;
+                        game.stopCharacterSeeingBack();
                         break;
                     case SDLK_DOWN:
-                        std::cout << "Arrow down released\n";
+                        game.stopCharacterSeeingBack();
                         break;
                     case SDLK_LEFT:
-                        std::cout << "Arrow left released\n";
+                        game.stopCharacterSeeingLeft();
                         break;
                     case SDLK_RIGHT:
-                        std::cout << "Arrow right released\n";
+                        game.stopCharacterSeeingRight();
                         break;
                     default:
-                        std::cout << "Some other key released\n";
                         break;
                 }
             }
+            Message characterStatus = game.get_status();
+            int posX = characterStatus["indice posX"];
+            int posY = characterStatus["inidice posY"];
+            int state = characterStatus["indice state"];
+            int width = characterStatus["indice width"];
+            int height = characterStatus["indice height"];
+            vista.render(posX,posY,width,height,state);
         }
-        SDL_Delay(30);
+        game.update();
+        vista.refresh();
     }
-
     closeSDL();
     return 0;
 }*/

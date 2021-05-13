@@ -15,6 +15,9 @@ public:
 
 private:
     std::map<std::string, std::string> textures;
+    /*SDL_Renderer* windowRenderer;
+     * SDL_Window* window;
+     */
 };
 
 

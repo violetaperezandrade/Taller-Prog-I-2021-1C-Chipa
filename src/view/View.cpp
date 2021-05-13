@@ -11,6 +11,9 @@ View::View(){
                 {"ladder with platform","../src/view/img/staticObjects.bmp"},
                 {"platform", "../src/view/img/Platform.bmp"}
     };
+    /*window = createWindow("Donkey Kong ii");
+     * windowRenderer = createRenderer(window);
+     * */
 }
 
 SDL_Renderer* View::createRenderer(SDL_Window* window) {
@@ -55,6 +58,18 @@ void View::render(int x, int y, int width, int height, SDL_Texture* texture, SDL
     SDL_RendererFlip flip = SDL_FLIP_NONE;
     SDL_RenderCopyEx(windowRenderer,texture,clip,&renderQuad,angle,center,flip);
 }
+//Para usar en controller
+/*void View::render(int x, int y, int width, int height, int stateEntity){
+ * SDL_Rect renderQuad = {x,y,width,height};
+ * SDL_Rect* clip = NULL;
+ * double angle = 0.0;M
+ * SDL_Point* center = NULL;
+ * SDL_RendererFlip flip = SDL_FLIP_NONE;
+ * SDL_Texture* textureEntity;
+ * if(stateEntity == ..).......textureEntity = loadImageTexture(textures["lo q este haciendo mario"];
+ * ... y asi con cada tipo de stateEntity
+ * SDL_RenderCopyEx(windowRenderer,textureEntity,clip,&renderQuad,angle,center,flip);
+ */
 
 void View::free(SDL_Texture* texture){
     if(texture){
@@ -64,8 +79,6 @@ void View::free(SDL_Texture* texture){
 }
 
 int View::run(){
-
-    Controller cont;
 
     SDL_Window* window = createWindow("Donkey Kong II");
     SDL_Renderer* windowRenderer = createRenderer(window);
@@ -84,7 +97,7 @@ int View::run(){
     //Esto iria en controlador pero hasta q no tengamos el Game lo dejo aca
     bool quit = false;
     SDL_Event e;
-    Entity entity(0,0,20,20,0,0);
+    Entity mario('mario',0,0,20,20);
     while(!quit){
         while(SDL_PollEvent(&e) != 0){
             if(e.type == SDL_QUIT) quit = true;
@@ -126,14 +139,15 @@ int View::run(){
                         break;
                 }
             }
-            entity.handleEvent(e);
+            mario.handleEvent(e);
         }
-        entity.move();
+        mario.move();
+        //Esto seria el refresh que hay en controller
         SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
         SDL_RenderClear(windowRenderer);
         render(0,50,400,100,textureLadder,windowRenderer);
         render(0,500,40,10,texturePlatform,windowRenderer);
-        render(entity.getPosX(),entity.getPosY(),50,50,textureMario,windowRenderer);
+        render(mario.getPosX(),mario.getPosY(),50,50,textureMario,windowRenderer);
         SDL_RenderPresent(windowRenderer);
     }
     SDL_RenderPresent(windowRenderer);
