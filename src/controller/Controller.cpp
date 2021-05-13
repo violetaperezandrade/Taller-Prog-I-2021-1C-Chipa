@@ -79,7 +79,6 @@ bool Controller::closeSDL() {
             int height = characterStatus["indice height"];
             vista.render(posX,posY,width,height,state);
         }
-        SDL_Delay(30);
         game.update();
         vista.refresh();
     }
