@@ -49,6 +49,9 @@ bool Controller::closeSDL() {
                     case SDLK_RIGHT:
                         game.moveCharacterRight();
                         break;
+                    case SDLK_l:
+                        game.cambiar de nivel
+                        break;
                     default:
                         break;
                 }
