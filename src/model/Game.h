@@ -38,6 +38,8 @@ public:
 
     Message get_status();
 
+    void change_level();
+
     //void run();
 };
 

@@ -411,6 +411,11 @@ void Game::setLevel2() {
     this->vector.push_back(platform_7_3);
 }
 
+
+void Game::changeLevel(){
+    this->vector.clear();
+    setLevel2();
+}
 /*
 void Game::run() {
     entityManager.
