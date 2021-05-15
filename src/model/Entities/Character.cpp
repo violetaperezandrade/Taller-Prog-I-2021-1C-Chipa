@@ -5,69 +5,103 @@
 
 #define CHARACTER_CODE 'C'
 
+#define FALLING_RIGHT '1'
+#define FALLING_LEFT '2'
+#define FALLING_STRAIGHT '3'
+#define ABOUT_TO_CLIMB '4'
+#define ABOUT_TO_JUMP '5'
+#define MOVING_RIGHT '6'
+#define MOVING_LEFT '7'
+#define MOVING_UP '8'
+#define MOVING_DOWN '9'
+#define IDLE '0'
+
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY),
-    state(GROUNDED)
+    state(GROUNDED), movement()
 {}
 
 void Character::startMovingLeft(){
-    state = GROUNDED;
+    movement.setMovingLeft(true);
 }
 
 void Character::startMovingRight(){
-    state = GROUNDED;
+    movement.setMovingRight(true);
 }
 
 void Character::startMovingUp(){
-    state = GROUNDED;
+    movement.setMovingUp(true);
 }
 
 void Character::startMovingDown(){
-    state = GROUNDED;
+    movement.setMovingDown(true);
 }
 
 void Character::startJumping(){
-    state = GROUNDED;
+    movement.setJumping(true);
 }
 
 void Character::stopMovingLeft(){
-    state = GROUNDED;
+    movement.setMovingLeft(false);
 }
 
 void Character::stopMovingRight(){
-    state = GROUNDED;
+    movement.setMovingRight(false);
 }
 
 void Character::stopMovingUp(){
-    state = GROUNDED;
+    movement.setMovingUp(false);
 }
 
 void Character::stopMovingDown(){
-    state = GROUNDED;
+    movement.setMovingDown(false);
 }
 
 void Character::stopJumping(){
-    state = GROUNDED;
+    movement.setJumping(false);
 }
 
 void Character::jump(){
-    state = JUMPING;
+    if (movement.shouldJump()){
+        movement.setMidair(true);
+    }
 }
 
 void Character::land(){
-    state = GROUNDED;
+    movement.setMidair(false);
+    movement.setOnStairs(false);
 }
 
 void Character::climb(){
-    state = CLIMBING;
+    if (movement.shouldGetOnStairs()){
+        movement.setOnStairs(true);
+    }
 }
 
-bool Character::isGrounded(){
-    return state == GROUNDED;
-}
-
-bool Character::isClimbing(){
-    return state == CLIMBING;
+void Character::updateStatus(){
+    if (movement.shouldFall() && movement.shouldMoveRight()){
+        status = FALLING_RIGHT;
+    } else if (movement.shouldFall() && movement.shouldMoveLeft()){
+        status = FALLING_LEFT;
+    } else if (movement.shouldFall()){
+        status = FALLING_STRAIGHT;
+    } else if (movement.shouldGetOnStairs()){
+        status = ABOUT_TO_CLIMB;
+    } else if (movement.shouldJump()){
+        status = ABOUT_TO_JUMP;
+        movement.setMidair(true);
+        speedY = config.getJumpSpeed();
+    } else if (movement.shouldMoveRight()){
+        status = MOVING_RIGHT;
+    } else if (movement.shouldMoveLeft()){
+        status = MOVING_LEFT;
+    } else if (movement.shouldMoveUp()){
+        status = MOVING_UP;
+    } else if (movement.shouldMoveDown()) {
+        status = MOVING_DOWN;
+    } else {
+        status = IDLE;
+    }
 }
 
 Character::~Character(){}

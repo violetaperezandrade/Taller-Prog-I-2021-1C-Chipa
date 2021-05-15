@@ -2,10 +2,13 @@
 #define CHARACTER_H
 
 #include "../Entity.h"
+#include "Movement.h"
 
 class Character : public Entity{
 private:
     char state;
+    Movement movement;
+
 public:
     Character(int posX, int posY, int width, int height, int speedX, int speedY);
 
@@ -38,6 +41,8 @@ public:
     bool isGrounded();
 
     bool isClimbing();
+
+    void updateStatus();
 
     ~Character();
 };
