@@ -11,7 +11,6 @@ Game::~Game() {}
 
 void Game::makeCharacterJump() {
     character.setJumping();
-
 }
 
 void Game::moveCharacterLeft() {
@@ -61,8 +60,23 @@ Message Game::get_status() {
     return std::move(message);
 }
 
-//800x600 grid
+void Game::lvl1SpawnEmber(){
+    int spawns[4] = {168,312,456,600};
 
+    int randSpawn = spawns[rand()%4];
+    Ember ember(randSpawn, 560, 60, 40, 0, -2);
+    this->vector.push_back(fire);
+}
+
+void Game::lvl2SpawnBarrel(){
+    int spawns[4] = {168,312,456,600};
+
+    int randSpawn = spawns[rand()%4];
+    Barrel barrel(randSpawn, 560, 60, 40, 0, 2);
+    this->vector.push_back(barrel);
+}
+
+//800x600 grid
 void Game::setLevel1(){
 
     Monkey monkey(84, 146, 148, 52, 0, 0);
@@ -127,20 +141,20 @@ void Game::setLevel1(){
     this->vector.push_back(stair_3_1);
 
     //moving plarforms
-    //right
-    Platform shortPlat_3_3(102, 402, 58, 20, 1, 0);
+    //left
+    Platform shortPlat_3_3(102, 402, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_3_3);
-    Platform shortPlat_3_4(309, 402, 58, 20, 1, 0);
+    Platform shortPlat_3_4(309, 402, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_3_4);
-    Platform shortPlat_3_5(516, 402, 58, 20, 1, 0);
+    Platform shortPlat_3_5(516, 402, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_3_5);
 
-    //left
-    Platform shortPlat_3_6(224, 381, 58, 20, -1, 0);
+    //right
+    Platform shortPlat_3_6(224, 381, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_3_6);
-    Platform shortPlat_3_7(431, 381, 58, 20, -1, 0);
+    Platform shortPlat_3_7(431, 381, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_3_7);
-    Platform shortPlat_3_8(638, 381, 58, 20, -1, 0);
+    Platform shortPlat_3_8(638, 381, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_3_8);
 
     //level 4
@@ -152,20 +166,20 @@ void Game::setLevel1(){
     this->vector.push_back(stair_4_1);
 
     //moving plarforms
-    //left
-    Platform shortPlat_4_3(102, 306, 58, 20, -1, 0);
+    //right
+    Platform shortPlat_4_3(102, 306, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_4_3);
-    Platform shortPlat_4_4(309, 306, 58, 20, -1, 0);
+    Platform shortPlat_4_4(309, 306, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_4_4);
-    Platform shortPlat_4_5(516, 306, 58, 20, -1, 0);
+    Platform shortPlat_4_5(516, 306, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_4_5);
 
-    //right
-    Platform shortPlat_4_6(224, 287, 58, 20, 1, 0);
+    //left
+    Platform shortPlat_4_6(224, 287, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_4_6);
-    Platform shortPlat_4_7(431, 287, 58, 20, 1, 0);
+    Platform shortPlat_4_7(431, 287, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_4_7);
-    Platform shortPlat_4_8(638, 287, 58, 20, 1, 0)
+    Platform shortPlat_4_8(638, 287, 58, 20, -1, 0)
     this->vector.push_back(shortPlat_4_8);
 
     //level 5
