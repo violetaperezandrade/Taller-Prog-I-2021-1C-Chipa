@@ -49,6 +49,9 @@ bool Controller::closeSDL() {
                     case SDLK_RIGHT:
                         game.moveCharacterRight();
                         break;
+                    case SDLK_l:
+                        game.changeLevel();
+                        break;
                     default:
                         break;
                 }
@@ -71,13 +74,17 @@ bool Controller::closeSDL() {
                         break;
                 }
             }
-            Message characterStatus = game.get_status();
-            int posX = characterStatus["indice posX"];
-            int posY = characterStatus["inidice posY"];
-            int state = characterStatus["indice state"];
-            int width = characterStatus["indice width"];
-            int height = characterStatus["indice height"];
-            vista.render(posX,posY,width,height,state);
+            Message entityInfo = game.get_status();
+            while(!entityInfo.isEmpty()){
+                char entityType;
+                int posX;
+                int posY;
+                int width;
+                int height;
+                char state;
+                entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
+                vista.render(posX,posY,width,height,state,entityType);
+            }
         }
         game.update();
         vista.refresh();
