@@ -80,9 +80,26 @@ void Game::update() { //nombre
         lvl2SpawnBarrel();
     }
 
+    bool removed = false;
     for (int i = 0; i < vector.size(); i++){
-        if (vector[i].canMove()){
-            collisionManager.move(vector[i]);
+        switch(vector[i].getType()){
+            case 'P':
+                collisionManager.movePlatform(vector[i]);
+                break;
+            case 'E':
+                removed = collisionManager.moveEmber(vector[i]);
+                if (removed) {
+                    vector.erase(i);
+                    i--;
+                }
+                break;
+            case 'B':
+                collisionManager.moveBarrel(vector[i]);
+                if (removed) {
+                    vector.erase(i);
+                    i--;
+                }
+                break;
         }
     }
 }
