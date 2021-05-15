@@ -1,16 +1,8 @@
 #include "Movement.h"
 
-bool movingLeft;
-bool movingRight;
-bool movingUp;
-bool movingDown;
-bool jumping;
-bool midair;
-bool onStairs;
-
 Movement::Movement() : movingLeft(false), movingRight(false), movingUp(false),
                        movingDown(false),  jumping(false), midair(false),
-                       onStairs(false) {}
+                       climbing(false) {}
 Movement::~Movement() {}
 
 void Movement::setMovingLeft(bool value){
@@ -31,8 +23,16 @@ void Movement::setJumping(bool value){
 void Movement::setMidair(bool value){
     midair = value;
 }
-void Movement::setOnStairs(bool value){
-    onStairs = value;
+void Movement::setClimbing(bool value){
+    climbing = value;
+}
+
+bool Movement::isMidair() {
+    return midair;
+}
+
+bool Movement::isClimbing() {
+    return climbing;
 }
 
 bool Movement::shouldMoveLeft(){
@@ -53,6 +53,6 @@ bool Movement::shouldJump(){
 bool Movement::shouldFall(){
     return midair;
 }
-bool Movement::shouldGetOnStairs(){
+bool Movement::shouldClimb(){
     return !midair && !onStairs && (movingUp || movingDown);
 }

@@ -42,7 +42,11 @@ public:
 
     bool isClimbing();
 
+    bool isMidair();
+
     void updateStatus();
+
+    char getState() override;
 
     ~Character();
 };

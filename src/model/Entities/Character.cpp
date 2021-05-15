@@ -80,6 +80,18 @@ void Character::climb(){
     }
 }
 
+bool Character::isGrounded(){
+    return !movement.isMidair() && !movement.isClimbing();
+}
+
+bool Character::isClimbing(){
+    return movement.isClimbing();
+}
+
+bool Character::isMidair(){
+    return movement.isMidair();
+}
+
 void Character::updateStatus(){
     if (movement.shouldFall() && movement.shouldMoveRight()){
         status = FALLING_RIGHT;
@@ -104,6 +116,10 @@ void Character::updateStatus(){
     } else {
         status = IDLE;
     }
+}
+
+char Character::getState() {
+    return state;
 }
 
 Character::~Character(){}

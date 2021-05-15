@@ -22,13 +22,13 @@ public:
     Entity(char type, int posX, int posY,
            int width, int height, int speedX, int speedY);
 
-    void setPosY(int& i);
+    void setPosY(int i);
 
-    void setPosX(int& i);
+    void setPosX(int i);
 
-    void setSpeedX(int& i);
+    void setSpeedX(int i);
 
-    void setSpeedY(int& i);
+    void setSpeedY(int i);
 
     int getPosY();
 

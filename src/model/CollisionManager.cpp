@@ -51,7 +51,7 @@ bool CollisionManager::moveEmber(Entity &entity) {
     return false;
 }
 
-double CollisionManager::getAngle(int x, int y){
+/*double CollisionManager::getAngle(int x, int y){
     if (x == 0){
         if (y > 0){
             return 90;
@@ -69,19 +69,19 @@ double CollisionManager::getAngle(int x, int y){
         angle+= 360;
     }
     return angle;
-}
+}*/
 
 void CollisionManager::move(Character &character) {
     int speedX = character.getSpeedX();
     int speedY = character.getSpeedY();
     //double angle = getAngle(speedX,speedY);
 
-    int map_width = config.get_map_width();
-    int map_height = config.get_map_heigth();
-    int x = character.getX() + speedX;
-    int y = character.getY() + speedY;
+    int map_width = 800;//config.get_map_width();
+    int map_height = 600;//config.get_map_heigth();
+    int x = character.getPosX() + speedX;
+    int y = character.getPosY() + speedY;
     if (character.isMidair()){
-        character.setSpeedY(speedY-config.getGravity())
+        character.setSpeedY(speedY-/*config.getGravity()*/3);
     }
 
     if (x < 0){
@@ -90,9 +90,9 @@ void CollisionManager::move(Character &character) {
         x = map_width;
     }
 
-    if (y < 0){
+    if (y <= 0){
         y = 0;
-        character.setLanding();
+        character.land();
         character.setSpeedY(0);
     } else if (y > map_width){
         y = map_width;

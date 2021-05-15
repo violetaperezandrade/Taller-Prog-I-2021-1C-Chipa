@@ -21,19 +21,19 @@ Entity::Entity(char type, int posX, int posY,
     speedY(speedY)
 {}
 
-void Entity::setPosY(int& i){
+void Entity::setPosY(int i){
     posY = i;
 }
 
-void Entity::setPosX(int& i){
+void Entity::setPosX(int i){
     posX = i;
 }
 
-void Entity::setSpeedX(int& i){
+void Entity::setSpeedX(int i){
     speedX = i;
 }
 
-void Entity::setSpeedY(int& i){
+void Entity::setSpeedY(int i){
     speedY = i;
 }
 

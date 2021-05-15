@@ -9,7 +9,7 @@ private:
     bool movingDown;
     bool jumping;
     bool midair;
-    bool onStairs;
+    bool climbing;
 
 public:
     Movement();
@@ -21,7 +21,10 @@ public:
     void setMovingDown(bool value);
     void setJumping(bool value);
     void setMidair(bool value);
-    void setOnStairs(bool value);
+    void setClimbing(bool value);
+
+    bool isMidair();
+    bool isClimbing();
 
     bool shouldMoveLeft();
     bool shouldMoveRight();
@@ -29,7 +32,7 @@ public:
     bool shouldMoveDown();
     bool shouldJump();
     bool shouldFall();
-    bool shouldGetOnStairs();
+    bool shouldClimb();
 
 };
 

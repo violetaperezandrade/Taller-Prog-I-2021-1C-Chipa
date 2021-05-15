@@ -1,5 +1,7 @@
 #include "Message.h"
 
+#define ENTITY_LEN 10
+
 Message::Message() : info(NULL), size(0), empty(true), pos(0) {}
 
 Message::~Message() {
@@ -19,9 +21,9 @@ void Message::write_int(int num){
 
 void Message::add(Entity& entity) {
     if (empty){
-        info = malloc(sizeof(char)*ENTITY_LEN);
+        info = (char*) malloc(sizeof(char)*ENTITY_LEN);
     } else {
-        info = realloc(sizeof(char)* (ENTITY_LEN + size));
+        info = (char*) realloc(info, sizeof(char)* (ENTITY_LEN + size));
     }
     write_char(entity.getType());
     write_int(entity.getPosX());
