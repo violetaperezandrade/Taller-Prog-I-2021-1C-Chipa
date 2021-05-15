@@ -10,6 +10,46 @@ Character::Character(int posX, int posY, int width, int height, int speedX, int 
     state(GROUNDED)
 {}
 
+void Character::startMovingLeft(){
+    state = GROUNDED;
+}
+
+void Character::startMovingRight(){
+    state = GROUNDED;
+}
+
+void Character::startMovingUp(){
+    state = GROUNDED;
+}
+
+void Character::startMovingDown(){
+    state = GROUNDED;
+}
+
+void Character::startJumping(){
+    state = GROUNDED;
+}
+
+void Character::stopMovingLeft(){
+    state = GROUNDED;
+}
+
+void Character::stopMovingRight(){
+    state = GROUNDED;
+}
+
+void Character::stopMovingUp(){
+    state = GROUNDED;
+}
+
+void Character::stopMovingDown(){
+    state = GROUNDED;
+}
+
+void Character::stopJumping(){
+    state = GROUNDED;
+}
+
 void Character::jump(){
     state = JUMPING;
 }
