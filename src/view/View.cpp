@@ -13,10 +13,9 @@ View::View(){
     texturesEntities = {{"P", "../src/view/img/Platform.bmp"},
                         {"ladder with platform","../src/view/img/staticObjects.bmp"}
     };
-    /*
     window = createWindow("Donkey Kong ii");
     windowRenderer = createRenderer(window);
-     */
+
 }
 
 SDL_Renderer* View::createRenderer(SDL_Window* window) {
@@ -53,55 +52,55 @@ SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
     return finalTexture;
 }
 
-void View::render(int x, int y, int width, int height, SDL_Texture* texture, SDL_Renderer* windowRenderer){
+/*void View::render(int x, int y, int width, int height, SDL_Texture* texture, SDL_Renderer* windowRenderer){
     SDL_Rect renderQuad = {x,y,width,height};
     SDL_Rect* clip = NULL;
     double angle = 0.0;
     SDL_Point* center = NULL;
     SDL_RendererFlip flip = SDL_FLIP_NONE;
     SDL_RenderCopyEx(windowRenderer,texture,clip,&renderQuad,angle,center,flip);
-}
+}*/
 //Para usar en controller
-/*void View::render(int x, int y, int width, int height, char stateEntity,char entityType){
-    SDL_Rect renderQuad = {x,y,width,height};
-    SDL_Rect* clip = NULL;
-    double angle = 0.0;M
-    SDL_Point* center = NULL;
+void View::render(int x, int y, int width, int height, char stateEntity,char entityType) {
+    SDL_Rect renderQuad = {x, y, width, height};
+    SDL_Rect *clip = NULL;
+    double angle = 0.0;
+    SDL_Point *center = NULL;
     SDL_RendererFlip flip = SDL_FLIP_NONE;
-    SDL_Texture* textureEntity;
-    switch(entityType){
+    SDL_Texture *textureEntity;
+    switch (entityType) {
         case 'C': //mario
-            textureEntity = loadImageTexture(texturesMario[stateEntity], windowRenderer);
+            textureEntity = loadImageTexture(texturesMario["mario idle back"], windowRenderer);
             break;
         case 'B': //barrel
-            textureEntity = loadImageTexture(texturesEntities['B'],windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['B'], windowRenderer);
             break;
         case 'E': //embber
-            textureEntity = loadImageTexture(texturesEntities['E'],windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['E'], windowRenderer);
             break;
         case 'F': //Fire
-            textureEntity = loadImageTexture(texturesEntities['F'],windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['F'], windowRenderer);
             break;
         case 'f': //flame
-            textureEntity = loadImageTexture(texturesEntities['f'],windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
             break;
         case 'M': //monkey
-            textureEntity = loadImageTexture(texturesMonkey[stateEntity],windowRenderer);
+            textureEntity = loadImageTexture(texturesMonkey[stateEntity], windowRenderer);
             break;
         case 'P': //platform
-            textureEntity = loadImageTexture(texturesEntities['P'],windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['P'], windowRenderer);
             break;
         case 'p': //princess
-            textureEntity = loadImageTexture(texturesEntities['p'],windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['p'], windowRenderer);
             break;
         case 'S': //stair
-            textureEntity = loadImageTexture(texturesEntities['S'],windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['S'], windowRenderer);
             break;
         default:
             break;
     }
-    SDL_RenderCopyEx(windowRenderer,textureEntity,clip,&renderQuad,angle,center,flip);
- */
+    SDL_RenderCopyEx(windowRenderer, textureEntity, clip, &renderQuad, angle, center, flip);
+}
 
 void View::free(SDL_Texture* texture){
     if(texture){
@@ -109,8 +108,12 @@ void View::free(SDL_Texture* texture){
         texture = NULL;
     }
 }
-
-int View::run(){
+void View::refresh(){
+    SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
+    SDL_RenderClear(windowRenderer);
+    SDL_RenderPresent(windowRenderer);
+}
+/*int View::run(){
 
     SDL_Window* window = createWindow("Donkey Kong II");
     SDL_Renderer* windowRenderer = createRenderer(window);
@@ -185,4 +188,4 @@ int View::run(){
     SDL_RenderPresent(windowRenderer);
     return 0;
 
-}
+}*/

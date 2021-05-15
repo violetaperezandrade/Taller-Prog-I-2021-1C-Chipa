@@ -1,7 +1,8 @@
 #include "Controller.h"
 #include <iostream>
+Config config;
 
-Controller::Controller() {
+Controller::Controller(): game(&config), view(){
     if(initSDL()) std::cerr << "Error al inicializar";
 }
 Controller::~Controller(){
@@ -26,7 +27,7 @@ bool Controller::closeSDL() {
     SDL_Quit();
 }
 
-/*int Controller::run(){
+int Controller::run(){
 
     bool quit = false;
     View vista;
@@ -59,16 +60,16 @@ bool Controller::closeSDL() {
             else if(event.type == SDL_KEYUP && event.key.repeat == 0){
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
-                        game.stopCharacterSeeingBack();
+                        game.stopMovingUp();
                         break;
                     case SDLK_DOWN:
-                        game.stopCharacterSeeingBack();
+                        game.stopMovingDown();
                         break;
                     case SDLK_LEFT:
-                        game.stopCharacterSeeingLeft();
+                        game.stopMovingLeft();
                         break;
                     case SDLK_RIGHT:
-                        game.stopCharacterSeeingRight();
+                        game.stopMovingRight();
                         break;
                     default:
                         break;
@@ -91,4 +92,4 @@ bool Controller::closeSDL() {
     }
     closeSDL();
     return 0;
-}*/
+}
