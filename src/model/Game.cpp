@@ -4,8 +4,12 @@ Game::Game(Config& config) :
     config(config),
     character(0,0,59, 36,0,0),
     vector(),
-    collisionManager(character, vector)
-{}
+    collisionManager(character, vector),
+    tickCounter(0),
+    actLevel(1)
+{
+    setLevel1();
+}
 
 Game::~Game() {}
 
@@ -66,7 +70,15 @@ void Game::moveCharacterRight() {
 }
 
 void Game::update() { //nombre
+    tickCounter++;
     collisionManager.move(character);
+
+    if(tickCounter % 15 == 0 && actLevel == 1){
+        lvl1SpawnEmber();
+    }
+    else if(tickCounter % 15 == 0 && actLevel == 2){
+        lvl2SpawnBarrel();
+    }
 
     for (int i = 0; i < vector.size(); i++){
         if (vector[i].canMove()){
@@ -469,6 +481,7 @@ void Game::setLevel2() {
 void Game::changeLevel(){
     this->vector.clear();
     setLevel2();
+    actLevel = 2;
 }
 /*
 void Game::run() {

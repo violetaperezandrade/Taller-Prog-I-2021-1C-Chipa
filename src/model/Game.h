@@ -14,6 +14,8 @@ private:
     Character character;
     std::vector<Entity> vector;
     CollisionManager collisionManager;
+    int tickCounter;
+    int actLevel;
 
 public:
     explicit Game(Config& config);
@@ -45,6 +47,10 @@ public:
     void setLevel1();
 
     void setLevel2();
+
+    void lvl1SpawnEmber();
+
+    void lvl2SpawnBarrel();
 
     Message get_status();
 
