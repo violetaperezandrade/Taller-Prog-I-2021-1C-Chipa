@@ -5,9 +5,29 @@
 
 class Character : public Entity{
 private:
-    int state;
+    char state;
 public:
     Character(int posX, int posY, int width, int height, int speedX, int speedY);
+
+    void startMovingLeft();
+
+    void startMovingRight();
+
+    void startMovingUp();
+
+    void startMovingDown();
+
+    void startJumping();
+
+    void stopMovingLeft();
+
+    void stopMovingRight();
+
+    void stopMovingUp();
+
+    void stopMovingDown();
+
+    void stopJumping();
 
     void jump();
 

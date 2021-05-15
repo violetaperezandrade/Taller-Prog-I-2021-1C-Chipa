@@ -9,9 +9,48 @@ Game::Game(Config& config) :
 
 Game::~Game() {}
 
+void Game::startMovingLeft(){
+    character.startMovingLeft();
+}
+
+void Game::startMovingRight(){
+    character.startMovingRight();
+}
+
+void Game::startMovingUp(){
+    character.startMovingUp();
+}
+
+void Game::startMovingDown(){
+    character.startMovingDown();
+}
+
+void Game::startJumping(){
+    character.startJumping();
+}
+
+void Game::stopMovingLeft(){
+    character.stopMovingLeft();
+}
+
+void Game::stopMovingRight(){
+    character.stopMovingRight();
+}
+
+void Game::stopMovingUp(){
+    character.stopMovingUp();
+}
+
+void Game::stopMovingDown(){
+    character.stopMovingDown();
+}
+
+void Game::stopJumping(){
+    character.stopJumping();
+}
+
 void Game::makeCharacterJump() {
     character.setJumping();
-
 }
 
 void Game::moveCharacterLeft() {

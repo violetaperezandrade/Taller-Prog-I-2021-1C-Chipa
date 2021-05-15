@@ -44,6 +44,8 @@ public:
 
     char getType();
 
+    virtual char getState() = 0; // REVISAR le pongo a todos un state?
+
     //virtual ~Entity();
     ~Entity();
     void handleEvent(SDL_Event& e);

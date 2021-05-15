@@ -20,15 +20,25 @@ public:
 
     ~Game();
 
-    void moveCharacterLeft();
+    void startMovingLeft();
 
-    void moveCharacterRight();
+    void startMovingRight();
 
-    void makeCharacterJump();
+    void startMovingUp();
 
-    void moveCharacterUp();
+    void startMovingDown();
 
-    void moveCharacterDown();
+    void startJumping();
+
+    void stopMovingLeft();
+
+    void stopMovingRight();
+
+    void stopMovingUp();
+
+    void stopMovingDown();
+
+    void stopJumping();
 
     void update();
 
