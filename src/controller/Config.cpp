@@ -1,5 +1,7 @@
 #include "Config.h"
 
+#include <iostream>
+
 Config::Config(){
     ifstream file("data.json");
     Json::Value actualJson;

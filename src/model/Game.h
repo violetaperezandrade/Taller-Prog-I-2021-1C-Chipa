@@ -5,7 +5,7 @@
 #include "Entity.h"
 #include "CollisionManager.h"
 #include "../controller/Config.h"
-#include "Entities/Character.h"
+#include "entities/Character.h"
 #include "../Message.h"
 #include "../controller/Controller.h"
 

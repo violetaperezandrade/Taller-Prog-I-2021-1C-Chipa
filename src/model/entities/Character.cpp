@@ -71,12 +71,12 @@ void Character::jump(){
 
 void Character::land(){
     movement.setMidair(false);
-    movement.setOnStairs(false);
+    movement.setClimbing(false);
 }
 
 void Character::climb(){
-    if (movement.shouldGetOnStairs()){
-        movement.setOnStairs(true);
+    if (movement.shouldClimb()){
+        movement.setClimbing(true);
     }
 }
 
