@@ -4,13 +4,51 @@
 
 #define PI 3.14159265
 
-CollisionManager::CollisionManager(int &character,
-                                   std::vector<Entity> &vector) {}
+CollisionManager::CollisionManager(Character &character, std::vector<Entity> &vector) :
+    character(character),
+    vector(vector)
+{}
 
 CollisionManager::~CollisionManager() {}
 
-void CollisionManager::move(Entity &entity) {
+void CollisionManager::movePlatform(Entity &entity) {
+    int speedX = entity.getSpeedX();
+    int posX = entity.getPosX();
 
+    entity.setPosX(posX + speedX);
+
+    if(speed > 0 && posX >= 742){
+        entity.setPosX(86);
+    }else if(speed < 0 && posX <= 86){
+        entity.setPosX(742);
+    }
+}
+
+bool CollisionManager::moveBarrel(Entity &entity) {
+    int posY = entity.getPosY();
+    int speedY = entity.getSpeedY();
+
+    entity.setPosY(posY + speedY);
+
+    if(posY >= 750){
+        return true;
+    }
+    return false;
+}
+
+bool CollisionManager::moveEmber(Entity &entity) {
+    int posY = entity.getPosY();
+    int speedY = entity.getSpeedY();
+
+    entity.setPosY(posY + speedY);
+
+    if(posY <= 241){
+        entity.setSpeedY(-2);
+        return false;
+    }else if(posY >= 565){
+        return true;
+    }
+    return false;
 }
 
 double CollisionManager::getAngle(int x, int y){

@@ -15,9 +15,16 @@ private:
 
 public:
     CollisionManager(Character& character, std::vector<Entity>& vector);
-    ~CollisionManager();
-    void move(Entity& entity);
+
+    void movePlatform(Entity &entity);
+
+    bool moveBarrel(Entity &entity);
+
+    bool moveEmber(Entity &entity);
+
     void move(Character& character);
+
+    ~CollisionManager();
 };
 
 #endif //COLLISIONMANAGER_H

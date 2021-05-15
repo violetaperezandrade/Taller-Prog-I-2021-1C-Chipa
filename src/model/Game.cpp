@@ -4,8 +4,12 @@ Game::Game(Config& config) :
     config(config),
     character(0,0,59, 36,0,0),
     vector(),
-    collisionManager(character, vector)
-{}
+    collisionManager(character, vector),
+    tickCounter(0),
+    actLevel(1)
+{
+    setLevel1();
+}
 
 Game::~Game() {}
 
@@ -66,11 +70,36 @@ void Game::moveCharacterRight() {
 }
 
 void Game::update() { //nombre
+    tickCounter++;
     collisionManager.move(character);
 
+    if(tickCounter % 15 == 0 && actLevel == 1){
+        lvl1SpawnEmber();
+    }
+    else if(tickCounter % 15 == 0 && actLevel == 2){
+        lvl2SpawnBarrel();
+    }
+
+    bool removed = false;
     for (int i = 0; i < vector.size(); i++){
-        if (vector[i].canMove()){
-            collisionManager.move(vector[i]);
+        switch(vector[i].getType()){
+            case 'P':
+                collisionManager.movePlatform(vector[i]);
+                break;
+            case 'E':
+                removed = collisionManager.moveEmber(vector[i]);
+                if (removed) {
+                    vector.erase(i);
+                    i--;
+                }
+                break;
+            case 'B':
+                collisionManager.moveBarrel(vector[i]);
+                if (removed) {
+                    vector.erase(i);
+                    i--;
+                }
+                break;
         }
     }
 }
@@ -100,8 +129,23 @@ Message Game::get_status() {
     return std::move(message);
 }
 
-//800x600 grid
+void Game::lvl1SpawnEmber(){
+    int spawns[4] = {168,312,456,600};
 
+    int randSpawn = spawns[rand()%4];
+    Ember ember(randSpawn, 560, 60, 40, 0, -2);
+    this->vector.push_back(fire);
+}
+
+void Game::lvl2SpawnBarrel(){
+    int spawns[4] = {168,312,456,600};
+
+    int randSpawn = spawns[rand()%4];
+    Barrel barrel(randSpawn, 560, 60, 40, 0, 2);
+    this->vector.push_back(barrel);
+}
+
+//800x600 grid
 void Game::setLevel1(){
 
     Monkey monkey(84, 146, 148, 52, 0, 0);
@@ -166,20 +210,20 @@ void Game::setLevel1(){
     this->vector.push_back(stair_3_1);
 
     //moving plarforms
-    //right
-    Platform shortPlat_3_3(102, 402, 58, 20, 1, 0);
+    //left
+    Platform shortPlat_3_3(102, 402, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_3_3);
-    Platform shortPlat_3_4(309, 402, 58, 20, 1, 0);
+    Platform shortPlat_3_4(309, 402, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_3_4);
-    Platform shortPlat_3_5(516, 402, 58, 20, 1, 0);
+    Platform shortPlat_3_5(516, 402, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_3_5);
 
-    //left
-    Platform shortPlat_3_6(224, 381, 58, 20, -1, 0);
+    //right
+    Platform shortPlat_3_6(224, 381, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_3_6);
-    Platform shortPlat_3_7(431, 381, 58, 20, -1, 0);
+    Platform shortPlat_3_7(431, 381, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_3_7);
-    Platform shortPlat_3_8(638, 381, 58, 20, -1, 0);
+    Platform shortPlat_3_8(638, 381, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_3_8);
 
     //level 4
@@ -191,20 +235,20 @@ void Game::setLevel1(){
     this->vector.push_back(stair_4_1);
 
     //moving plarforms
-    //left
-    Platform shortPlat_4_3(102, 306, 58, 20, -1, 0);
+    //right
+    Platform shortPlat_4_3(102, 306, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_4_3);
-    Platform shortPlat_4_4(309, 306, 58, 20, -1, 0);
+    Platform shortPlat_4_4(309, 306, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_4_4);
-    Platform shortPlat_4_5(516, 306, 58, 20, -1, 0);
+    Platform shortPlat_4_5(516, 306, 58, 20, 1, 0);
     this->vector.push_back(shortPlat_4_5);
 
-    //right
-    Platform shortPlat_4_6(224, 287, 58, 20, 1, 0);
+    //left
+    Platform shortPlat_4_6(224, 287, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_4_6);
-    Platform shortPlat_4_7(431, 287, 58, 20, 1, 0);
+    Platform shortPlat_4_7(431, 287, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_4_7);
-    Platform shortPlat_4_8(638, 287, 58, 20, 1, 0)
+    Platform shortPlat_4_8(638, 287, 58, 20, -1, 0)
     this->vector.push_back(shortPlat_4_8);
 
     //level 5
@@ -454,6 +498,7 @@ void Game::setLevel2() {
 void Game::changeLevel(){
     this->vector.clear();
     setLevel2();
+    actLevel = 2;
 }
 /*
 void Game::run() {
