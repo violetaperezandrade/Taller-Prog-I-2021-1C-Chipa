@@ -14,7 +14,7 @@ protected:
     int speedX;
     int speedY;
 
-    static const int ENTITYSPEED = 5;
+    //static const int ENTITYSPEED = 5;
 
 public:
     Entity(char type, int x, int y, int width, int height);
@@ -48,9 +48,7 @@ public:
 
     //virtual ~Entity();
     ~Entity();
-    void handleEvent(SDL_Event& e);
-    void move();
-    void render();
+
 };
 
 #endif //ENTITY_H

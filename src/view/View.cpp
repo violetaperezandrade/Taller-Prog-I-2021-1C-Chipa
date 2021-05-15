@@ -2,17 +2,16 @@
 
 View::View(){
 
-    texturesMario = {{"mario idle back", "../src/view/img/Sprites Mario/mario_idle_back.bmp"},
-                {"mario climbing", "../src/view/img/Sprites Mario/mario_climbing.bmp"},
-                {"mario idle right", "../src/view/img/Sprites Mario/mario_ide_right.bmp"},
-                {"mario idle left","../src/view/img/Sprites Mario/mario_idle_left.bmp"},
-                {"mario walking left","../src/view/img/Sprites Mario/mario_walk_left.bmp"},
-                {"mario walking right","../src/view/img/Sprites Mario/mario_walk_right.bmp"}
+    texturesMario = {{'0', "../src/view/img/Sprites Mario/mario_idle_back.bmp"},
+                {'4', "../src/view/img/Sprites Mario/mario_climbing.bmp"},
+                {'r', "../src/view/img/Sprites Mario/mario_ide_right.bmp"},
+                {'l',"../src/view/img/Sprites Mario/mario_idle_left.bmp"},
+                {'7',"../src/view/img/Sprites Mario/mario_walk_left.bmp"},
+                {'6',"../src/view/img/Sprites Mario/mario_walk_right.bmp"}
 
     };
-    texturesEntities = {{"P", "../src/view/img/Platform.bmp"},
-                        {"ladder with platform","../src/view/img/staticObjects.bmp"}
-    };
+    texturesEntities = {{'P', "../src/view/img/Platform.bmp"}};
+    texturesMonkey = {{'0',"../src/view/img/Daco_187520.bmp"}};
     window = createWindow("Donkey Kong ii");
     windowRenderer = createRenderer(window);
 
@@ -70,7 +69,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Texture *textureEntity;
     switch (entityType) {
         case 'C': //mario
-            textureEntity = loadImageTexture(texturesMario["mario idle back"], windowRenderer);
+            textureEntity = loadImageTexture(texturesMario[stateEntity], windowRenderer);
             break;
         case 'B': //barrel
             textureEntity = loadImageTexture(texturesEntities['B'], windowRenderer);
@@ -85,7 +84,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
             textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
             break;
         case 'M': //monkey
-            textureEntity = loadImageTexture(texturesMonkey[stateEntity], windowRenderer);
+            textureEntity = loadImageTexture(texturesMonkey['0'], windowRenderer);
             break;
         case 'P': //platform
             textureEntity = loadImageTexture(texturesEntities['P'], windowRenderer);

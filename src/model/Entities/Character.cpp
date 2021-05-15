@@ -14,7 +14,9 @@
 #define MOVING_LEFT '7'
 #define MOVING_UP '8'
 #define MOVING_DOWN '9'
-#define IDLE '0'
+#define IDLE_BACK '0'
+#define IDLE_RIGHT 'r'
+#define IDLE_LEFT 'l'
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY),

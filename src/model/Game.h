@@ -7,6 +7,7 @@
 #include "../controller/Config.h"
 #include "Entities/Character.h"
 #include "../Message.h"
+#include "../controller/Controller.h"
 
 class Game {
 private:

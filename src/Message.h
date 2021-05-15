@@ -18,8 +18,10 @@ public:
     void getEntityInfo(char& type, int& posX, int& posY,
                        int& width, int& height, char& state);
     bool isEmpty();
-    int getSize();
-    char* getInfo();
+    int get_size();
+    char* get_info();
+    void write_char(char num);
+    void write_int(int num);
 };
 
 #endif //MESSAGE_H

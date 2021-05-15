@@ -14,7 +14,7 @@ private:
 public:
     Controller();
     ~Controller();
-    //int run();
+    int run();
     bool initSDL();
     bool closeSDL();
 };

@@ -41,7 +41,7 @@ char* Message::get_info() {
 
 void Message::getEntityInfo(char& type, int& posX, int& posY,
                    int& width, int& height, char& state){
-    if this->isEmpty(){
+    if(this->isEmpty()){
         //throw error
         return;
     }

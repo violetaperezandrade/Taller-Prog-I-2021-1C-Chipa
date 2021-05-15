@@ -11,14 +11,14 @@ public:
     SDL_Window* createWindow(const char* title);
     SDL_Texture* loadImageTexture(std::string path, SDL_Renderer* renderer);
     void free(SDL_Texture* texture);
-    int run();
+    //int run();
     View();
     void refresh();
 
 private:
-    std::map<std::string, std::string> texturesMario; //only mario
+    std::map<char, std::string> texturesMario; //only mario
     std::map<char, std::string> texturesEntities; //entities - mario - monkey
-    std::map<std::string, std::string> texturesMonkey; //only monkey
+    std::map<char, std::string> texturesMonkey; //only monkey
     SDL_Renderer* windowRenderer;
     SDL_Window* window;
 };
