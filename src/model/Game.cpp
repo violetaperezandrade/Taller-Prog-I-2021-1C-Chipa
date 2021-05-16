@@ -130,7 +130,7 @@ void Game::moveCharacterDown(){
     }
 } */
 
-Message Game::get_status() {
+Message Game::getStatus() {
     Message message;
     message.add(character);
     for (int i = 0; i < vector.size(); i++){
@@ -161,7 +161,7 @@ void Game::setLevel1(){
     Monkey monkey(84, 146, 148, 52, 0, 0);
     this->vector.push_back(monkey);
 
-    Princess princess(312, 79, 57, 52, 0, 0)
+    Princess princess(312, 79, 57, 52, 0, 0);
     this->vector.push_back(princess);
 
     character.setPosX(10);
@@ -178,7 +178,7 @@ void Game::setLevel1(){
     this->vector.push_back(platform_1_3);
     Fire fire_2(312, 560, 60, 40, 0, 0);
     this->vector.push_back(fire_2);
-    Platform platform_1_4(372, 580, 84, 20, 0, 0)
+    Platform platform_1_4(372, 580, 84, 20, 0, 0);
     this->vector.push_back(platform_1_4);
     Fire fire_3(456, 560, 60, 40, 0, 0);
     this->vector.push_back(fire_3);
@@ -202,9 +202,9 @@ void Game::setLevel1(){
     this->vector.push_back(platform_2_4);
     Platform platform_2_5(516, 468, 84, 20, 0, 0);
     this->vector.push_back(platform_2_5);
-    Platform platform_2_6(660, 468, 84, 20, 0, 0)
+    Platform platform_2_6(660, 468, 84, 20, 0, 0);
     this->vector.push_back(platform_2_6);
-    Platform platform_2_7(744, 468, 84, 20, 0, 0)
+    Platform platform_2_7(744, 468, 84, 20, 0, 0);
     this->vector.push_back(platform_2_7);
     Stair stair_2_1(114, 468, 30, 112, 0, 0);
     this->vector.push_back(stair_2_1);
@@ -258,7 +258,7 @@ void Game::setLevel1(){
     this->vector.push_back(shortPlat_4_6);
     Platform shortPlat_4_7(431, 287, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_4_7);
-    Platform shortPlat_4_8(638, 287, 58, 20, -1, 0)
+    Platform shortPlat_4_8(638, 287, 58, 20, -1, 0);
     this->vector.push_back(shortPlat_4_8);
 
     //level 5
@@ -284,8 +284,10 @@ void Game::setLevel1(){
     this->vector.push_back(platform_5_9);
 }
 void Game::setLevel2() {
-    this->vector.push_back(Monkey monkey(84, 146, 148, 52, 0, 0));
-    this->vector.push_back(Princess princess(312, 79, 57, 52, 0, 0));
+    Monkey monkey(84, 146, 148, 52, 0, 0);
+    this->vector.push_back(monkey);
+    Princess princess(312, 79, 57, 52, 0, 0);
+    this->vector.push_back(princess);
     character.setPosX(10);
     character.setPosY(544);
 
@@ -352,9 +354,9 @@ void Game::setLevel2() {
     Platform platform_2_13(648, 510, 54, 20, 0, 0);
     this->vector.push_back(platform_2_13);
 
-    Stair stair_2_1(113, 435, 30, 56, 0, 0)
+    Stair stair_2_1(113, 435, 30, 56, 0, 0);
     this->vector.push_back(stair_2_1);
-    Stair stair_2_2(341, 426, 30, 75, 0, 0)
+    Stair stair_2_2(341, 426, 30, 75, 0, 0);
     this->vector.push_back(stair_2_2);
 
     //level 3
@@ -455,13 +457,13 @@ void Game::setLevel2() {
     Platform platform_5_13(702, 258, 54, 20, 0, 0);
     this->vector.push_back(platform_5_13);
 
-    Stair brokenStair_5_1(313, 195, 30, 79, 0, 0)
+    Stair brokenStair_5_1(313, 195, 30, 79, 0, 0);
     this->vector.push_back(brokenStair_5_1);
     Stair stair_5_2(654, 203, 30, 56, 0, 0);
     this->vector.push_back(stair_5_2);
 
     //level 6
-    Platform platform_6_1(0, 196, 54, 20, 0, 0)
+    Platform platform_6_1(0, 196, 54, 20, 0, 0);
     this->vector.push_back(platform_6_1);
     Platform platform_6_2(54, 196, 54, 20, 0, 0);
     this->vector.push_back(platform_6_2);

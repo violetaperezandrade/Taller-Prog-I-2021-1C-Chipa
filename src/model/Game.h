@@ -53,9 +53,9 @@ public:
 
     void lvl2SpawnBarrel();
 
-    Message get_status();
+    Message getStatus();
 
-    void change_level();
+    void changeLevel();
 
     //void run();
 };
