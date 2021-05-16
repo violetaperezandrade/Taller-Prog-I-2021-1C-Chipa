@@ -94,27 +94,27 @@ bool Character::isMidair(){
 
 void Character::updateStatus(){
     if (movement.shouldFall() && movement.shouldMoveRight()){
-        status = FALLING_RIGHT;
+        state = FALLING_RIGHT;
     } else if (movement.shouldFall() && movement.shouldMoveLeft()){
-        status = FALLING_LEFT;
+        state = FALLING_LEFT;
     } else if (movement.shouldFall()){
-        status = FALLING_STRAIGHT;
-    } else if (movement.shouldGetOnStairs()){
-        status = ABOUT_TO_CLIMB;
-    } else if (movement.shouldJump()){
-        status = ABOUT_TO_JUMP;
+        state = FALLING_STRAIGHT;
+    }/* else if (movement.shouldGetOnStairs()){
+        state = ABOUT_TO_CLIMB;
+    }*/ else if (movement.shouldJump()){
+        state = ABOUT_TO_JUMP;
         movement.setMidair(true);
-        speedY = config.getJumpSpeed();
+        //speedY = config.getJumpSpeed();
     } else if (movement.shouldMoveRight()){
-        status = MOVING_RIGHT;
+        state = MOVING_RIGHT;
     } else if (movement.shouldMoveLeft()){
-        status = MOVING_LEFT;
+        state = MOVING_LEFT;
     } else if (movement.shouldMoveUp()){
-        status = MOVING_UP;
+        state = MOVING_UP;
     } else if (movement.shouldMoveDown()) {
-        status = MOVING_DOWN;
+        state = MOVING_DOWN;
     } else {
-        status = IDLE;
+        state = IDLE_BACK;
     }
 }
 

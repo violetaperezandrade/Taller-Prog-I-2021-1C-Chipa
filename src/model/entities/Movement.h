@@ -10,6 +10,7 @@ private:
     bool jumping;
     bool midair;
     bool climbing;
+    bool onStairs;
 
 public:
     Movement();

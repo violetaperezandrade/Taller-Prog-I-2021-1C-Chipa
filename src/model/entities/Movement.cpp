@@ -2,7 +2,7 @@
 
 Movement::Movement() : movingLeft(false), movingRight(false), movingUp(false),
                        movingDown(false),  jumping(false), midair(false),
-                       climbing(false) {}
+                       climbing(false),onStairs(false) {}
 Movement::~Movement() {}
 
 void Movement::setMovingLeft(bool value){

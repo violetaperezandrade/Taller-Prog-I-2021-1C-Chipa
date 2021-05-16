@@ -7,7 +7,6 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(JSONCPP jsoncpp)
 link_libraries(${JSONCPP_LIBRARIES})
 add_executable(DonkeyKong src/view/View.cpp
-        src/controller/Config.cpp
         src/controller/Controller.cpp
         src/model/Entity.cpp
         src/model/CollisionManager.cpp

@@ -2,7 +2,7 @@
 #include <iostream>
 Config config;
 
-Controller::Controller(): game(&config), view(){
+Controller::Controller(): game(config), view(){
     if(initSDL()) std::cerr << "Error al inicializar";
 }
 Controller::~Controller(){
@@ -22,7 +22,7 @@ bool Controller::initSDL() {
     return error;
 }
 
-bool Controller::closeSDL() {
+void Controller::closeSDL() {
     IMG_Quit();
     SDL_Quit();
 }

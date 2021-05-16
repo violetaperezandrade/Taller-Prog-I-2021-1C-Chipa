@@ -16,7 +16,7 @@ public:
     ~Controller();
     int run();
     bool initSDL();
-    bool closeSDL();
+    void closeSDL();
 };
 
 
