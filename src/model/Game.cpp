@@ -1,5 +1,15 @@
 #include "Game.h"
 
+#include "entities/Barrel.h"
+#include "entities/Character.h"
+#include "entities/Ember.h"
+#include "entities/Fire.h"
+#include "entities/Flame.h"
+#include "entities/Monkey.h"
+#include "entities/Platform.h"
+#include "entities/Princess.h"
+#include "entities/Stair.h"
+
 Game::Game(Config& config) :
     config(config),
     character(0,0,59, 36,0,0),
@@ -53,6 +63,7 @@ void Game::stopJumping(){
     character.stopJumping();
 }
 
+/*
 void Game::makeCharacterJump() {
     character.setJumping();
 }
@@ -68,6 +79,7 @@ void Game::moveCharacterRight() {
         character.setSpeedX(config.getCharacterSpeed());
     }
 }
+*/
 
 void Game::update() { //nombre
     tickCounter++;
@@ -103,22 +115,20 @@ void Game::update() { //nombre
         }
     }
 }
-
+/*
 void Game::moveCharacterUp(){
-    /* if(character.isGrounded() && colisionManagerStairCheck){
-     *      character.climb();
-     *      character.setSpeedY(config.getClimbingSpeed); //Go up
-     * }
-     */
+    if(character.isGrounded() && colisionManagerStairCheck){
+        character.climb();
+        character.setSpeedY(config.getClimbingSpeed); //Go up
+    }
 }
 
 void Game::moveCharacterDown(){
-    /* if(character.isGrounded() && colisionMangerStairCheck){
-     *      character.climb();
-     *      character.setSpeedY(config.getClimbingSpeed * -1); //Go down
-     * }
-     */
-}
+    if(character.isGrounded() && colisionMangerStairCheck){
+        character.climb();
+        character.setSpeedY(config.getClimbingSpeed * -1); //Go down
+    }
+} */
 
 Message Game::get_status() {
     Message message;
@@ -134,7 +144,7 @@ void Game::lvl1SpawnEmber(){
 
     int randSpawn = spawns[rand()%4];
     Ember ember(randSpawn, 560, 60, 40, 0, -2);
-    this->vector.push_back(fire);
+    this->vector.push_back(ember);
 }
 
 void Game::lvl2SpawnBarrel(){

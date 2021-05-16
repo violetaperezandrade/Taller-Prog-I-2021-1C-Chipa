@@ -8,6 +8,8 @@ public:
     Platform(int posX, int posY, int width, int height, int speedX, int speedY);
 
     ~Platform();
+
+    char getState() override;
 };
 
 #endif //PLATFORM_H

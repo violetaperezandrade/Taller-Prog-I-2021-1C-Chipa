@@ -7,6 +7,8 @@ public:
     Barrel(int posX, int posY, int width, int height, int speedX, int speedY);
 
     ~Barrel();
+
+    char getState() override;
 };
 
 #endif //BARREL_H
