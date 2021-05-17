@@ -30,7 +30,8 @@ int Controller::run(){
 
     bool quit = false;
     SDL_Event event;
-    while (!quit){
+    view.renderFilledQuad();
+    while (quit == false){
         while(SDL_PollEvent(&event) != 0){
             if(event.type == SDL_QUIT) quit = true;
                 //key pressed
@@ -87,7 +88,7 @@ int Controller::run(){
                 int width;
                 int height;
                 char state;
-                entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
+                entityInfo.getEntityInfo(entityType,posX,posY,width,height,state); printf("%c\n",state);
                 view.render(posX,posY,width,height,state,entityType);
             }
         }

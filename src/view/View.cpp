@@ -106,6 +106,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
             break;
     }
     SDL_RenderCopyEx(windowRenderer, textureEntity, clip, &renderQuad, angle, center, flip);
+    SDL_RenderPresent(windowRenderer);
 }
 
 void View::free(SDL_Texture* texture){
@@ -118,6 +119,11 @@ void View::refresh(){
     SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
     SDL_RenderClear(windowRenderer);
     SDL_RenderPresent(windowRenderer);
+}
+void View::renderFilledQuad(){
+    SDL_Rect fillRect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    SDL_SetRenderDrawColor( windowRenderer, 0x00, 0x00, 0x00, 0xFF );
+    SDL_RenderFillRect( windowRenderer, &fillRect );
 }
 /*int View::run(){
 

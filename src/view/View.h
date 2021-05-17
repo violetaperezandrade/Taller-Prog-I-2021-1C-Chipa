@@ -16,6 +16,7 @@ public:
     //int run();
     View();
     void refresh();
+    void renderFilledQuad();
 
 private:
     std::map<char, std::string> texturesMario; //only mario
