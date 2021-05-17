@@ -22,6 +22,7 @@ void Message::write_int(int num){
 void Message::add(Entity& entity) {
     if (empty){
         info = (char*) malloc(sizeof(char)*ENTITY_LEN);
+        empty = false;
     } else {
         info = (char*) realloc(info, sizeof(char)* (ENTITY_LEN + size));
     }
