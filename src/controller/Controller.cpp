@@ -39,16 +39,16 @@ int Controller::run(){
             if(event.type == SDL_KEYDOWN && event.key.repeat == 0){
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
-                        game.moveCharacterUp();
+                        game.startMovingUp();
                         break;
                     case SDLK_DOWN:
-                        game.moveCharacterDown();
+                        game.startMovingDown();
                         break;
                     case SDLK_LEFT:
-                        game.moveCharacterLeft();
+                        game.startMovingLeft();
                         break;
                     case SDLK_RIGHT:
-                        game.moveCharacterRight();
+                        game.startMovingRight();
                         break;
                     case SDLK_l:
                         game.changeLevel();
@@ -75,7 +75,7 @@ int Controller::run(){
                         break;
                 }
             }
-            Message entityInfo = game.get_status();
+            Message entityInfo = game.getStatus();
             while(!entityInfo.isEmpty()){
                 char entityType;
                 int posX;
