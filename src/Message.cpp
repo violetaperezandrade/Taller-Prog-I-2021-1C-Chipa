@@ -67,8 +67,7 @@ bool Message::isEmpty() {
     return false;
 }
 
-Message::Message(Message&& message){
-    info = message.info;
+Message::Message(Message&& message) : info(message.info), size(message.size),
+                                    empty(message.empty), pos(message.pos) {
     message.info = NULL;
-    size = message.size;
 }
