@@ -1,5 +1,6 @@
 #include <iostream>
-#include "model/Game.h"
+#include "controller/Config.h"
+#include "controller/Controller.h"
 
 #define MAX_ARGC 1
 #define MIN_ARGC 0
@@ -15,7 +16,6 @@ int main(int argc, char** argv){
         Game game;
         game.run();
     }*/
-
     Controller cont;
     cont.run();
 

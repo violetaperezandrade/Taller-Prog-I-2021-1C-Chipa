@@ -1,7 +1,9 @@
 #ifndef VIEW_H
 #define VIEW_H
-#include "../controller/Controller.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <map>
+#include "../model/ScreenConfig.h"
 
 class View {
 public:
