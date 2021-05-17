@@ -3,12 +3,12 @@
 
 View::View(){
 
-    texturesMario = {{'0', "../src/view/img/Sprites-Mario/mario_idle_back.bmp"},
+    texturesMario = {{'0', "../src/view/img/Sprites-Mario/mario_idle_back.png"},
                 {'4', "../src/view/img/Sprites-Mario/mario_climbing.bmp"},
-                {'r', "../src/view/img/Sprites-Mario/mario_ide_right.bmp"},
-                {'l',"../src/view/img/Sprites-Mario/mario_idle_left.bmp"},
-                {'7',"../src/view/img/Sprites-Mario/mario_walk_left.bmp"},
-                {'6',"../src/view/img/Sprites-Mario/mario_walk_right.bmp"}
+                {'r', "../src/view/img/Sprites-Mario/mario_ide_right.png"},
+                {'l',"../src/view/img/Sprites-Mario/mario_idle_left.png"},
+                {'7',"../src/view/img/Sprites-Mario/mario_walk_left.png"},
+                {'6',"../src/view/img/Sprites-Mario/mario_walk_right.png"}
 
     };
     texturesEntities = {{'P', "../src/view/img/Sprites-Entities/platfotm_2.png"},
@@ -16,7 +16,7 @@ View::View(){
                         {'b',"../src/view/img/Sprites-Entities/oil_barrel.png"},
                         {'f',"../src/view/img/Sprites-Entities/flame.png"},
                         {'p',"../src/view/img/Sprites-Entities/princess.png"}};
-    texturesMonkey = {{'0',"../src/view/img/sprites-Monkey/monkey_left_hand_up"}};
+    texturesMonkey = {{'0',"../src/view/img/Sprites-Monkey/monkey_left_hand_up.png"}};
 
     window = createWindow("Donkey Kong ii");
     windowRenderer = createRenderer(window);
