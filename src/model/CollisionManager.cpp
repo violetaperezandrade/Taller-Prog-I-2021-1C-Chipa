@@ -81,7 +81,7 @@ void CollisionManager::move(Character &character) {
     int x = character.getPosX() + speedX;
     int y = character.getPosY() + speedY;
     if (character.isMidair()){
-        character.setSpeedY(speedY-/*config.getGravity()*/3);
+        character.setSpeedY(speedY+/*config.getGravity()*/3);
     }
 
     if (x < 0){
