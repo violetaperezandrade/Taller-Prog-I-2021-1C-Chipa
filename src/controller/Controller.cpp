@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include <iostream>
+
 Config config;
 
 Controller::Controller(): game(config), view(){
@@ -30,7 +31,6 @@ void Controller::closeSDL() {
 int Controller::run(){
 
     bool quit = false;
-    View vista;
     SDL_Event event;
     while (!quit){
         while(SDL_PollEvent(&event) != 0){
@@ -84,11 +84,11 @@ int Controller::run(){
                 int height;
                 char state;
                 entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
-                vista.render(posX,posY,width,height,state,entityType);
+                view.render(posX,posY,width,height,state,entityType);
             }
         }
         game.update();
-        vista.refresh();
+        view.refresh();
     }
     closeSDL();
     return 0;

@@ -1,4 +1,5 @@
 #include "View.h"
+#include <iostream>
 
 View::View(){
 

@@ -93,26 +93,27 @@ void Game::update() { //nombre
     }
 
     bool removed = false;
-    for (int i = 0; i < vector.size(); i++){
-        switch(vector[i].getType()){
+    std::vector<Entity>::iterator it = vector.begin();
+    while(it != vector.end()){
+        switch(it->getType()){
             case 'P':
-                collisionManager.movePlatform(vector[i]);
+                collisionManager.movePlatform(*it);
+                ++it;
                 break;
             case 'E':
-                removed = collisionManager.moveEmber(vector[i]);
-                if (removed) {
-                    vector.erase(i);
-                    i--;
-                }
+                removed = collisionManager.moveEmber(*it);
                 break;
             case 'B':
-                collisionManager.moveBarrel(vector[i]);
-                if (removed) {
-                    vector.erase(i);
-                    i--;
-                }
+                removed = collisionManager.moveBarrel(*it);
                 break;
         }
+        if(removed){
+            it = vector.erase(it);
+        }
+        else{
+            ++it;
+        }
+        removed = false;
     }
 }
 /*
