@@ -91,6 +91,7 @@ void Game::moveCharacterRight() {
 
 void Game::update() { //nombre
     tickCounter++;
+    character.updateStatus();
     collisionManager.move(character);
 
     if(tickCounter % 15 == 0 && actLevel == 1){
