@@ -44,7 +44,7 @@ public:
 
     char getType();
 
-    virtual char getState() = 0; // REVISAR le pongo a todos un state?
+    virtual char getState(); // REVISAR le pongo a todos un state?
 
     //virtual ~Entity();
     ~Entity();

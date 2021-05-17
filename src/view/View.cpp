@@ -13,6 +13,7 @@ View::View(){
     };
     texturesEntities = {{'P', "../src/view/img/Platform.bmp"}};
     texturesMonkey = {{'0',"../src/view/img/Daco_187520.bmp"}};
+
     window = createWindow("Donkey Kong ii");
     windowRenderer = createRenderer(window);
 

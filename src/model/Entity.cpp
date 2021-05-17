@@ -65,6 +65,10 @@ char Entity::getType() {
     return type;
 }
 
+char Entity::getState(){
+    return '0';
+}
+
 Entity::~Entity(){}
 //virtual Entity::~Entity(){}
 

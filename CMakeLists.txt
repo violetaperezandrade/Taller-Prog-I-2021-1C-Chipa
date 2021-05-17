@@ -22,6 +22,7 @@ add_executable(DonkeyKong src/view/View.cpp
         src/model/entities/Princess.cpp
         src/model/entities/Stair.cpp
         src/Message.cpp
+        src/main.cpp
         )
 target_link_libraries(DonkeyKong jsoncpp SDL2 SDL2_image)
 

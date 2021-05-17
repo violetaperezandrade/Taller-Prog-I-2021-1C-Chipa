@@ -10,7 +10,7 @@
 #include "entities/Princess.h"
 #include "entities/Stair.h"
 
-Game::Game(Config& config) :
+/*Game::Game(Config& config) :
     config(config),
     character(0,0,59, 36,0,0),
     vector(),
@@ -19,8 +19,16 @@ Game::Game(Config& config) :
     actLevel(1)
 {
     setLevel1();
+}*/
+Game::Game() :
+        character(0,0,59, 36,0,0),
+        vector(),
+        collisionManager(character, vector),
+        tickCounter(0),
+        actLevel(1)
+    {
+    setLevel1();
 }
-
 Game::~Game() {}
 
 void Game::startMovingLeft(){

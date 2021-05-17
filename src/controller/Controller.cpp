@@ -1,9 +1,7 @@
 #include "Controller.h"
 #include <iostream>
 
-Config config;
-
-Controller::Controller(): game(config), view(){
+Controller::Controller():game(), view(){
     if(initSDL()) std::cerr << "Error al inicializar";
 }
 Controller::~Controller(){
