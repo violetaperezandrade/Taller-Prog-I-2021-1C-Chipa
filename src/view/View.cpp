@@ -15,7 +15,8 @@ View::View(){
                         {'B',"../src/view/img/Sprites-Entities/Barrel.png"},
                         {'b',"../src/view/img/Sprites-Entities/oil_barrel.png"},
                         {'f',"../src/view/img/Sprites-Entities/flame.png"},
-                        {'p',"../src/view/img/Sprites-Entities/princess.png"}};
+                        {'p',"../src/view/img/Sprites-Entities/princess.png"},
+                        {'S',"../src/view/img/Sprites-Entities/long_cyan_stair.png"}};
     texturesMonkey = {{'0',"../src/view/img/Sprites-Monkey/monkey_left_hand_up.png"}};
 
     window = createWindow("Donkey Kong ii");
@@ -75,16 +76,16 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Texture *textureEntity;
     switch (entityType) {
         case 'C': //mario
-            textureEntity = loadImageTexture(texturesMario[stateEntity], windowRenderer);
+            textureEntity = loadImageTexture(texturesMario['0'], windowRenderer);
             break;
         case 'B': //barrel
             textureEntity = loadImageTexture(texturesEntities['B'], windowRenderer);
             break;
-        case 'E': //embber
-            textureEntity = loadImageTexture(texturesEntities['E'], windowRenderer);
+        case 'E': //ember
+            textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
             break;
         case 'F': //Fire
-            textureEntity = loadImageTexture(texturesEntities['F'], windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
             break;
         case 'f': //flame
             textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
