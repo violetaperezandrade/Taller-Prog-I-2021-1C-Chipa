@@ -51,6 +51,9 @@ int Controller::run(){
                     case SDLK_l:
                         game.changeLevel();
                         break;
+                    case SDLK_SPACE:
+                        game.startJumping();
+                        break;
                     default:
                         break;
                 }
@@ -68,6 +71,9 @@ int Controller::run(){
                         break;
                     case SDLK_RIGHT:
                         game.stopMovingRight();
+                        break;
+                    case SDLK_SPACE:
+                        game.stopJumping();
                         break;
                     default:
                         break;
