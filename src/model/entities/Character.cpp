@@ -104,7 +104,7 @@ void Character::updateStatus(){
     }*/ else if (movement.shouldJump()){
         state = ABOUT_TO_JUMP;
         movement.setMidair(true);
-        //speedY = config.getJumpSpeed();
+        //speedY = -config.getJumpSpeed();
     } else if (movement.shouldMoveRight()){
         state = MOVING_RIGHT;
     } else if (movement.shouldMoveLeft()){
