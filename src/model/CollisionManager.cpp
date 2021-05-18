@@ -84,6 +84,7 @@ void CollisionManager::moveCharacter() {
     int map_height = 600;//config.get_map_heigth();
     int x = character.getPosX() + speedX;
     int y = character.getPosY() + speedY;
+    int height = character.getHeight();
 
     if (x < 0){
         x = 0;
@@ -91,11 +92,10 @@ void CollisionManager::moveCharacter() {
         x = map_width;
     }
 
-    if (y <= 0){
-        y = 0;
+    if (y <= height){
+        y = height;
         character.land();
         logger.debugMsg("Character has landed");
-        character.setSpeedY(0);
     } else if (y > map_width){
         y = map_width;
     }

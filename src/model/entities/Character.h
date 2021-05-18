@@ -3,6 +3,7 @@
 
 #include "../Entity.h"
 #include "Movement.h"
+#include "../../controller/Config.h"
 
 class Character : public Entity{
 private:
@@ -44,7 +45,7 @@ public:
 
     bool isMidair();
 
-    void updateStatus();
+    void updateStatus(Config& config);
 
     char getState() override;
 

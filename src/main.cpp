@@ -21,9 +21,10 @@ int main(int argc, char** argv){
         Game game;
         game.run();
     }*/
-    Logger logger(PATH, DEBUG);
+    Logger logger(PATH, DEBUG);//esto se tendria que sacar del config
     //aca creariamos el json
-    Controller cont(logger);
+    Config config(argv[0]);
+    Controller cont(config, logger);
     cont.run();
 
     return 0;

@@ -12,7 +12,7 @@
 
 class Game {
 private:
-    //Config& config;
+    Config& config;
     Logger& logger;
     Character character;
     std::vector<Entity> vector;
@@ -21,8 +21,7 @@ private:
     int actLevel;
 
 public:
-    //explicit Game(Config& config);
-    explicit Game(Logger& logger);
+    Game(Config& config,Logger& logger);
     ~Game();
 
     void startMovingLeft();
