@@ -1,33 +1,22 @@
 {
     "configuration": {
-    "log": {
-    "level": "ERROR"
+        "frame time": 1000,
+        "debug": 3,
+        "path" : "../log.txt",
+        "gravity" : 3
     },
-    "game": {
-    "enemies": [
-    {
-    "type": "class-1",
-    "quantity": "5"
-    }
-    ],
-    "stages": [
-    {
-    "fondo1": "/home/file21.bmp",
-    "fondo2": "/home/file22.bmp",
-    "fondo3": "/home/file23.bmp"
+    "character" : {
+        "climbing speed" : 10,
+        "jumping speed" : 20,
+        "moving speed" : 20
     },
-    {
-    "fondo1": "/home/file31.bmp",
-    "fondo2": "/home/file32.bmp",
-    "fondo3": "/home/file33.bmp"
-    }
-    ],
-    "resolution": [
-        {
-            "width": "1600",
-            "height": "900"
-        }
-    ]
-    }
+    "enemies" : {
+        "enemies quantity level 1" : 5,
+        "enemies quantity level 2" : 5,
+        "barrel quantity level 1" : 5
+    },
+    "resolution" : {
+        "width" : 800,
+        "heigth" : 600
     }
 }
