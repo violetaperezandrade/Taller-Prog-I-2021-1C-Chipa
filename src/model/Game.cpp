@@ -81,7 +81,7 @@ void Game::update() { //nombre
     str += character.getState();
     logger.debugMsg(str);
     str.clear();
-    collisionManager.move(character);
+    collisionManager.moveCharacter();
 
     if(tickCounter % 15 == 0 && actLevel == 1){
         lvl1SpawnEmber();

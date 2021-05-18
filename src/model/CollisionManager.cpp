@@ -74,6 +74,9 @@ bool CollisionManager::moveEmber(Entity &entity) {
 
 void CollisionManager::moveCharacter() {
     int speedX = character.getSpeedX();
+    if (speedX){
+        logger.superDebugMsg("speedX:" + std::to_string(speedX));
+    }
     int speedY = character.getSpeedY();
     //double angle = getAngle(speedX,speedY);
 
