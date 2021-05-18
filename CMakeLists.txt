@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 11)
 
 find_package(PkgConfig REQUIRED)
 find_package(nlohmann_json 3.2.0 REQUIRED)
+pkg_check_modules(JSONCPP jsoncpp)
+link_libraries(${JSONCPP_LIBRARIES})
 add_executable(DonkeyKong src/view/View.cpp
         src/controller/Controller.cpp
         src/model/Entity.cpp
@@ -23,6 +25,6 @@ add_executable(DonkeyKong src/view/View.cpp
         src/Message.cpp
         src/main.cpp
         )
-target_link_libraries(DonkeyKong SDL2 SDL2_image nlohmann_json::nlohmann_json)
+target_link_libraries(DonkeyKong jsoncpp SDL2 SDL2_image nlohmann_json::nlohmann_json)
 
 #target_link_libraries(game /src/controller/Config.cpp ${YAMLCPP_LIBRARIES})
