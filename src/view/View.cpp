@@ -16,7 +16,8 @@ View::View(Game& game,Logger& logger) : game(game),logger(logger){
                         {'b',"../src/view/img/Sprites-Entities/oil_barrel.png"},
                         {'f',"../src/view/img/Sprites-Entities/flame.png"},
                         {'p',"../src/view/img/Sprites-Entities/princess.png"},
-                        {'S',"../src/view/img/Sprites-Entities/long_cyan_stair.png"}};
+                        {'S',"../src/view/img/Sprites-Entities/long_cyan_stair.png"},
+                        {'E',"../src/view/img/Sprites-Entities/ember.png"}};
     texturesMonkey = {{'0',"../src/view/img/Sprites-Monkey/monkey_left_hand_up.png"}};
 
     window = createWindow("Donkey Kong ii");
@@ -97,7 +98,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
             textureEntity = loadImageTexture(texturesEntities['B'], windowRenderer);
             break;
         case 'E': //ember
-            textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['E'], windowRenderer);
             break;
         case 'F': //Fire
             textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
