@@ -1,9 +1,14 @@
 #include <iostream>
 #include "controller/Config.h"
 #include "controller/Controller.h"
+#include "controller/Logger.h"
 
 #define MAX_ARGC 1
 #define MIN_ARGC 0
+
+
+#define PATH "../log.txt"
+#define DEBUG 3
 
 int main(int argc, char** argv){
     /*if (argc < MIN_ARGC || argc > MAX_ARGC){ // (argc != ARGC_NUM)
@@ -16,7 +21,9 @@ int main(int argc, char** argv){
         Game game;
         game.run();
     }*/
-    Controller cont;
+    Logger logger(PATH, DEBUG);
+    //aca creariamos el json
+    Controller cont(logger);
     cont.run();
 
     return 0;
