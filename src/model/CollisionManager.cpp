@@ -99,4 +99,6 @@ void CollisionManager::moveCharacter() {
     } else if (y > map_width){
         y = map_width;
     }
+    character.setPosX(x);
+    character.setPosY(y);
 }
