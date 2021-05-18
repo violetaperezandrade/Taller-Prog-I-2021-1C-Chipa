@@ -1,10 +1,8 @@
 #include "Controller.h"
 #include <string>
 #define FRAME_TIME 1000
-#define PATH "../log.txt"
-#define DEBUG 3
 
-Controller::Controller():game(), view(game), logger(PATH, DEBUG){
+Controller::Controller(Logger& logger):game(), view(game), logger(logger){
     if(initSDL()) {
         std::string str("Error al inicializar SDL");
         logger.errorMsg(str);
