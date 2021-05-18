@@ -6,7 +6,7 @@
 class Message {
 private:
     int size;
-    char* info;
+    unsigned char* info;
     bool empty;
     int pos;
 public:
@@ -19,7 +19,7 @@ public:
                        int& width, int& height, char& state);
     bool isEmpty();
     int get_size();
-    char* get_info();
+    unsigned char* get_info();
     void write_char(char num);
     void write_int(int num);
 };

@@ -21,10 +21,10 @@ void Message::write_int(int num){
 
 void Message::add(Entity& entity) {
     if (empty){
-        info = (char*) malloc(sizeof(char)*ENTITY_LEN);
+        info = (unsigned char*) malloc(sizeof(unsigned char)*ENTITY_LEN);
         empty = false;
     } else {
-        info = (char*) realloc(info, sizeof(char)* (ENTITY_LEN + size));
+        info = (unsigned char*) realloc(info, sizeof(unsigned char)* (ENTITY_LEN + size));
     }
     write_char(entity.getType());
     write_int(entity.getPosX());
@@ -38,9 +38,11 @@ int Message::get_size() {
     return size;
 }
 
-char* Message::get_info() {
+unsigned char* Message::get_info() {
     return info;
 }
+
+#include <iostream>
 
 void Message::getEntityInfo(char& type, int& posX, int& posY,
                    int& width, int& height, char& state){
@@ -59,6 +61,22 @@ void Message::getEntityInfo(char& type, int& posX, int& posY,
     height += info[pos++];
     state = info[pos++]; // podria poner que no haya un byte de
     // state cuando no corresponda
+    if (posX < 0) {
+        std::cout << "posX negativa: " << std::hex << info[pos-9] << " ";
+        std::cout << std::hex << info[pos-8] << " -> " << posX << '\n';
+    }
+    if (posY < 0) {
+        std::cout << "posY negativa: " << std::hex << info[pos-7] << " ";
+        std::cout << std::hex << info[pos-6] << " -> " << posY << '\n';
+    }
+    if (width < 0) {
+        std::cout << "width negativa: " << std::hex << info[pos-5] << " ";
+        std::cout << std::hex << info[pos-4] << " -> " << posX << '\n';
+    }
+    if (height < 0) {
+        std::cout << "height negativa: " << std::hex << info[pos-3] << " ";
+        std::cout << std::hex << info[pos-2] << " -> " << posX << '\n';
+    }
 }
 bool Message::isEmpty() {
     if (pos >= size){
