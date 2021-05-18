@@ -10,8 +10,15 @@
 
 class Config {
 private:
-    int enemiesQuantity;
-    std::string enemiesType;
+    int frameTime;
+    int debug;
+    std::string path;
+    int gravity;
+    int climbingSpeed;
+    int jumpingSpeed;
+    int movingSpeed;
+    int flamesLevel1;
+    int barrelsLevel2;
     int resolutionWidth;
     int resolutionHeight;
 
@@ -19,8 +26,15 @@ public:
     Config();
     ~Config();
 
-    int getEnemiesQuantity();
-    char getEnemiesType();
+    int getFrameTime();
+    int getDebug();
+    std::string getPath();
+    int getGravity();
+    int getClimbingSpeed();
+    int getJumpingSpeed();
+    int getMovingSpeed();
+    int getFlamesLevel1();
+    int getBarrelsLevel2();
     int getResolutionWidth();
     int getResolutionHeight();
 

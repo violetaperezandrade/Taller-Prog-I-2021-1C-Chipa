@@ -10,10 +10,12 @@
         "jumping speed" : 20,
         "moving speed" : 20
     },
-    "enemies" : {
-        "enemies quantity level 1" : 5,
-        "enemies quantity level 2" : 5,
-        "barrel quantity level 1" : 5
+    "level 1" : {
+        "flames" : 4
+    },
+    "level 2" : {
+        "barrels" : 4
+
     },
     "resolution" : {
         "width" : 800,
