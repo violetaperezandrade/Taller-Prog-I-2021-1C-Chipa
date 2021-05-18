@@ -66,25 +66,25 @@ int Controller::run(){
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
                         str.clear();
-                        str += "Se preciona boton UP";
+                        str += "Se presiona boton UP";
                         logger.debugMsg(str);
                         game.startMovingUp();
                         break;
                     case SDLK_DOWN:
                         str.clear();
-                        str += "Se preciona boton DOWN";
+                        str += "Se presiona boton DOWN";
                         logger.debugMsg(str);
                         game.startMovingDown();
                         break;
                     case SDLK_LEFT:
                         str.clear();
-                        str += "Se preciona boton LEFT";
+                        str += "Se presiona boton LEFT";
                         logger.debugMsg(str);
                         game.startMovingLeft();
                         break;
                     case SDLK_RIGHT:
                         str.clear();
-                        str += "Se preciona boton RIGHT";
+                        str += "Se presiona boton RIGHT";
                         logger.debugMsg(str);
                         game.startMovingRight();
                         break;
