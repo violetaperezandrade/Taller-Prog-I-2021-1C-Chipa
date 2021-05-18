@@ -11,7 +11,7 @@
 class Config {
 private:
     int enemiesQuantity;
-    char enemiesType;
+    std::string enemiesType;
     int resolutionWidth;
     int resolutionHeight;
 
