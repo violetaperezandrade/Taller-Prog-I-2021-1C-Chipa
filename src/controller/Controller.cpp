@@ -1,4 +1,5 @@
 #include "Controller.h"
+#include "Logger.h"
 #include <iostream>
 #define FRAME_TIME 1000
 
@@ -91,7 +92,7 @@ int Controller::run(){
                 }
             }
         }
-        //game.update();
+        game.update();
 
         view.refresh();
         final_time = SDL_GetTicks();
