@@ -2,7 +2,7 @@
 #include <string>
 #define FRAME_TIME 1000
 
-Controller::Controller(Logger& logger):game(), view(game), logger(logger){
+Controller::Controller(Logger& logger):game(), view(game,logger), logger(logger){
     if(initSDL()) {
         std::string str("Error al inicializar SDL");
         logger.errorMsg(str);

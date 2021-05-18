@@ -63,8 +63,6 @@ SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
     }
     else{
         SDL_SetColorKey(imageSurface,SDL_TRUE,SDL_MapRGB(imageSurface->format,0,0,0));
-        std::string str("SDL_Surface Inicializado");
-        logger.infoMsg(str);
         finalTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
         if(!finalTexture) {
             std::string str("Error al inicializar SDL_Texture");
