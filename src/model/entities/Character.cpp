@@ -92,29 +92,75 @@ bool Character::isMidair(){
     return movement.isMidair();
 }
 
+/*
 void Character::updateStatus(){
     if (movement.shouldFall() && movement.shouldMoveRight()){
         state = FALLING_RIGHT;
+        speedX = 20;//config.getMoveSpeed();
     } else if (movement.shouldFall() && movement.shouldMoveLeft()){
         state = FALLING_LEFT;
+        speedX = -20;//config.getMoveSpeed();
     } else if (movement.shouldFall()){
         state = FALLING_STRAIGHT;
-    }/* else if (movement.shouldGetOnStairs()){
-        state = ABOUT_TO_CLIMB;
-    }*/ else if (movement.shouldJump()){
+    }// else if (movement.shouldGetOnStairs()){
+        //state = ABOUT_TO_CLIMB;
+    } else if (movement.shouldJump()){
         state = ABOUT_TO_JUMP;
         movement.setMidair(true);
-        //speedY = -config.getJumpSpeed();
+        speedY = -20;//config.getJumpSpeed();
     } else if (movement.shouldMoveRight()){
         state = MOVING_RIGHT;
+        speedX = 20;//config.getMoveSpeed();
     } else if (movement.shouldMoveLeft()){
         state = MOVING_LEFT;
+        speedX = -20;//config.getMoveSpeed();
     } else if (movement.shouldMoveUp()){
         state = MOVING_UP;
     } else if (movement.shouldMoveDown()) {
         state = MOVING_DOWN;
     } else {
         state = IDLE_BACK;
+    }
+}*/
+
+void Character::updateStatus(){
+    if (movement.shouldFall()){
+        speedY += 3;//config.getGravity();
+    }/* else if (movement.shouldC()) {
+        state = MOVING_UP;
+        if (movement.shouldMoveUp()){
+            speedY = -10;//config.getClimbSpeed();
+        } else if (movement.shouldMoveDown()){
+            state = MOVING_DOWN;
+            speedY = 10;//config.getClimbSpeed();
+        }
+    }*/ else {
+        if (movement.shouldMoveRight()){
+            state = MOVING_RIGHT;
+            speedX = 20;//config.getMoveSpeed();
+            if (movement.shouldJump()){
+                state = FALLING_RIGHT;
+                movement.setMidair(true);
+                speedY = -20;//config.getJumpSpeed();
+            }
+        } else if (movement.shouldMoveLeft()){
+            state = MOVING_LEFT;
+            speedX = -20;//config.getMoveSpeed();
+            if (movement.shouldJump()){
+                state = FALLING_LEFT;
+                movement.setMidair(true);
+                speedY = -20;//config.getJumpSpeed();
+            }
+        } else {
+            state = IDLE_BACK;
+            //use lastMovementDirection to chose what idle sprite to use
+            speedX = 0;
+            if (movement.shouldJump()){
+                state = FALLING_STRAIGHT;
+                movement.setMidair(true);
+                speedY = -20;//config.getJumpSpeed();
+            }
+        }
     }
 }
 

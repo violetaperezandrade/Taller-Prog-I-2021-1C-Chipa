@@ -80,9 +80,6 @@ void CollisionManager::move(Character &character) {
     int map_height = 600;//config.get_map_heigth();
     int x = character.getPosX() + speedX;
     int y = character.getPosY() + speedY;
-    if (character.isMidair()){
-        character.setSpeedY(speedY+/*config.getGravity()*/3);
-    }
 
     if (x < 0){
         x = 0;
