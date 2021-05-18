@@ -24,6 +24,7 @@ add_executable(DonkeyKong src/view/View.cpp
         src/model/entities/Stair.cpp
         src/Message.cpp
         src/main.cpp
+        src/controller/Logger.cpp
         )
 target_link_libraries(DonkeyKong jsoncpp SDL2 SDL2_image nlohmann_json::nlohmann_json)
 

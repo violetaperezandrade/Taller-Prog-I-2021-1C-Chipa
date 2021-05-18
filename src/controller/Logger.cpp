@@ -7,24 +7,25 @@ Logger::Logger(std::string path, int logLvl) :
     logLvl(logLvl)
 
 {
-    file.open(path);
+    file.open(path,std::ofstream::app);
     //if(!file.is_open()) hacemos algo
+    file << "------------------------------------------------------------------------------------------\n";
 }
 
 void Logger::debugMsg(std::string str){//logLvl DEBUG 3
     if(logLvl >= 3) {
-        file << currentDateTime() << "[DEBUG]" << str << std::endl;
+        file << currentDateTime() << " [DEBUG]: " << str << std::endl;
     }
 }
 
 void Logger::infoMsg(std::string str){//logLvl INFO 2
     if (logLvl >= 2) {
-        file << currentDateTime() << "[INFO]" << str << std::endl;
+        file << currentDateTime() << " [INFO]: " << str << std::endl;
     }
 }
 
 void Logger::errorMsg(std::string str){//logLvl ERROR 1
-    file << currentDateTime() << "[ERROR]" << str << std::endl;
+    file << currentDateTime() << " [ERROR]: " << str << std::endl;
 }
 
 std::string Logger::currentDateTime() {
