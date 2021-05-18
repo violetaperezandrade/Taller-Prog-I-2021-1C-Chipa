@@ -1,7 +1,7 @@
 #include "View.h"
 #include <iostream>
 
-View::View(Game& game,Logger& logger) : game(game),logger(logger){
+View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger), config(config){
 
     texturesMario = {{'0', "../src/view/img/Sprites-Mario/mario_idle_back.png"},
                 {'4', "../src/view/img/Sprites-Mario/mario_climbing.bmp"},

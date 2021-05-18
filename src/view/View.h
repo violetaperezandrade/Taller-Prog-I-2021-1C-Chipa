@@ -6,6 +6,7 @@
 #include "../model/ScreenConfig.h"
 #include "../model/Game.h"
 #include "../controller/Logger.h"
+#include "../controller/Config.h"
 
 class View {
 private:
@@ -16,6 +17,7 @@ private:
     SDL_Window* window;
     Game& game;
     Logger& logger;
+    Config& config;
 public:
     //void render(int x, int y, int width, int height, SDL_Texture* texture, SDL_Renderer* windowRenderer);
     void render(int x, int y, int width, int height, char stateEntity,char entityType);
@@ -28,11 +30,12 @@ public:
 
     void free(SDL_Texture* texture);
     //int run();
-    explicit View(Game& game, Logger& logger);
+    explicit View(Game& game, Logger& logger, Config& config);
 
     void refresh();
 
     void renderFilledQuad();
+
 };
 
 #endif //VIEW_H
