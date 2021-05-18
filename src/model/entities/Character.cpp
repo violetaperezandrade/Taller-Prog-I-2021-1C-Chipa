@@ -72,6 +72,7 @@ void Character::jump(){
 void Character::land(){
     movement.setMidair(false);
     movement.setClimbing(false);
+    speedY = 0;
 }
 
 void Character::climb(){
@@ -123,33 +124,33 @@ void Character::updateStatus(){
     }
 }*/
 
-void Character::updateStatus(){
+void Character::updateStatus(Config& config){
     if (movement.shouldFall()){
-        speedY += 3;//config.getGravity();
+        speedY += config.getGravity();
     }/* else if (movement.shouldC()) {
         state = MOVING_UP;
         if (movement.shouldMoveUp()){
-            speedY = -10;//config.getClimbSpeed();
+            speedY = -config.getClimbSpeed();
         } else if (movement.shouldMoveDown()){
             state = MOVING_DOWN;
-            speedY = 10;//config.getClimbSpeed();
+            speedY = config.getClimbSpeed();
         }
     }*/ else {
         if (movement.shouldMoveRight()){
             state = MOVING_RIGHT;
-            speedX = 20;//config.getMoveSpeed();
+            speedX = config.getMoveSpeed();
             if (movement.shouldJump()){
                 state = FALLING_RIGHT;
                 movement.setMidair(true);
-                speedY = -20;//config.getJumpSpeed();
+                speedY = -config.getJumpSpeed();
             }
         } else if (movement.shouldMoveLeft()){
             state = MOVING_LEFT;
-            speedX = -20;//config.getMoveSpeed();
+            speedX = -config.getMoveSpeed();
             if (movement.shouldJump()){
                 state = FALLING_LEFT;
                 movement.setMidair(true);
-                speedY = -20;//config.getJumpSpeed();
+                speedY = -config.getJumpSpeed();
             }
         } else {
             state = IDLE_BACK;
@@ -158,7 +159,7 @@ void Character::updateStatus(){
             if (movement.shouldJump()){
                 state = FALLING_STRAIGHT;
                 movement.setMidair(true);
-                speedY = -20;//config.getJumpSpeed();
+                speedY = -config.getJumpSpeed();
             }
         }
     }

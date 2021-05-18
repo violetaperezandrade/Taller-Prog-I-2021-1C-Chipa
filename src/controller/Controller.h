@@ -10,12 +10,12 @@
 
 class Controller {
 private:
+    Config& config;
     Game game;
     View view;
     Logger& logger;
 public:
-    //Controller(Config& config);
-    explicit Controller(Logger& logger);
+    Controller(Config& config, Logger& logger);
     ~Controller();
     int run();
     bool initSDL();

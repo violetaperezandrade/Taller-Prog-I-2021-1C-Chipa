@@ -22,7 +22,8 @@
 {
     setLevel1();
 }*/
-Game::Game(Logger& logger) :
+Game::Game(Config& config, Logger& logger) :
+        config(config),
         logger(logger),
         character(0,0,59, 36,0,0),
         vector(),
@@ -76,12 +77,12 @@ void Game::stopJumping(){
 
 void Game::update() { //nombre
     tickCounter++;
-    character.updateStatus();
+    character.updateStatus(config);
     std::string str("Updated character status:");
     str += character.getState();
     logger.debugMsg(str);
     str.clear();
-    collisionManager.move(character);
+    collisionManager.moveCharacter();
 
     if(tickCounter % 15 == 0 && actLevel == 1){
         lvl1SpawnEmber();
