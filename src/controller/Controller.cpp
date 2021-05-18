@@ -1,7 +1,8 @@
 #include "Controller.h"
 #include <iostream>
+#define FRAME_TIME 1000
 
-Controller::Controller():game(), view(){
+Controller::Controller():game(), view(game){
     if(initSDL()) std::cerr << "Error al inicializar";
 }
 Controller::~Controller(){
@@ -31,11 +32,19 @@ int Controller::run(){
     bool quit = false;
     SDL_Event event;
     view.renderFilledQuad();
+    //Timer counters
+    Uint32 initial_time;
+    Uint32 final_time;
     while (quit == false){
+        initial_time = SDL_GetTicks();
         while(SDL_PollEvent(&event) != 0){
-            if(event.type == SDL_QUIT) quit = true;
+            if(event.type == SDL_QUIT) {
+                std::cout <<"Enter quit\n";
+                quit = true;
+            }
                 //key pressed
             if(event.type == SDL_KEYDOWN && event.key.repeat == 0){
+                std::cout <<"Enter KeyDown\n";
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
                         game.startMovingUp();
@@ -60,6 +69,7 @@ int Controller::run(){
                 }
             }
             else if(event.type == SDL_KEYUP && event.key.repeat == 0){
+                std::cout <<"Enter KeyUp\n";
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
                         game.stopMovingUp();
@@ -80,20 +90,16 @@ int Controller::run(){
                         break;
                 }
             }
-            Message entityInfo = game.getStatus();
-            while(!entityInfo.isEmpty()){
-                char entityType;
-                int posX;
-                int posY;
-                int width;
-                int height;
-                char state;
-                entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
-                view.render(posX,posY,width,height,state,entityType);
-            }
         }
-        game.update();
+        //game.update();
+
         view.refresh();
+        final_time = SDL_GetTicks();
+        Uint32 used_time = final_time - initial_time;
+        if (used_time < FRAME_TIME) {
+            SDL_Delay(FRAME_TIME - used_time);
+            //std::cout << "Delay added of " << FRAME_TIME - used_time << "\n";
+        }
     }
     return 0;
 }

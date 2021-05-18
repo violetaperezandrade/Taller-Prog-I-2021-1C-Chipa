@@ -1,7 +1,7 @@
 #include "View.h"
 #include <iostream>
 
-View::View(){
+View::View(Game& game) : game(game){
 
     texturesMario = {{'0', "../src/view/img/Sprites-Mario/mario_idle_back.png"},
                 {'4', "../src/view/img/Sprites-Mario/mario_climbing.bmp"},
@@ -116,6 +116,17 @@ void View::free(SDL_Texture* texture){
     }
 }
 void View::refresh(){
+    Message entityInfo = game.getStatus();
+    while(!entityInfo.isEmpty()){
+        char entityType;
+        int posX;
+        int posY;
+        int width;
+        int height;
+        char state;
+        entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
+        render(posX,posY,width,height,state,entityType);
+    }
     SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
     SDL_RenderClear(windowRenderer);
     SDL_RenderPresent(windowRenderer);
