@@ -88,7 +88,7 @@ int Controller::run(){
                 int width;
                 int height;
                 char state;
-                entityInfo.getEntityInfo(entityType,posX,posY,width,height,state); printf("%c\n",state);
+                entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
                 view.render(posX,posY,width,height,state,entityType);
             }
         }
