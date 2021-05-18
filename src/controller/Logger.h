@@ -6,11 +6,11 @@
 
 class Logger {
 private:
-    char* path;
+    std::string path;
     std::ofstream file;
     int logLvl;
 public:
-    Logger(char* path, int logLvl);
+    Logger(std::string path, int logLvl);
 
     void debugMsg(std::string str);
 

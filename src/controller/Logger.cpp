@@ -1,7 +1,7 @@
 #include "Logger.h"
 #include <time.h>
 
-Logger::Logger(char *path, int logLvl) :
+Logger::Logger(std::string path, int logLvl) :
     path(path),
     file(),
     logLvl(logLvl)
