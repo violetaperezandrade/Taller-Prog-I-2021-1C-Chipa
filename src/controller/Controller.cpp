@@ -2,14 +2,12 @@
 #include <string>
 #define FRAME_TIME 1000
 
-Controller::Controller(Logger& logger):game(), view(game,logger), logger(logger){
+Controller::Controller(Logger& logger):game(logger), view(game,logger), logger(logger){
     if(initSDL()) {
-        std::string str("Error al inicializar SDL");
-        logger.errorMsg(str);
+        logger.errorMsg("Error al inicializar SDL");
     }
     else {
-        std::string str("SDL Inicializado");
-        logger.infoMsg(str);
+        logger.infoMsg("SDL Inicializado");
     }
 }
 Controller::~Controller(){
@@ -20,13 +18,11 @@ bool Controller::initSDL() {
 
     bool error = false;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::string str("Fallo inicializar video SDL");
-        logger.errorMsg(str);
+        logger.errorMsg("Fallo inicializar video SDL");
         error = true;
     }
     if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-        std::string str("Error al filtrar textura lineal");
-        logger.errorMsg(str);
+        logger.errorMsg("Error al filtrar textura lineal");
     }
     return error;
 }
@@ -34,8 +30,7 @@ bool Controller::initSDL() {
 void Controller::closeSDL() {
     IMG_Quit();
     SDL_Quit();
-    std::string str("Cerrar SDL");
-    logger.infoMsg(str);
+    logger.infoMsg("Cerrar SDL");
 }
 
 int Controller::run(){
@@ -47,15 +42,12 @@ int Controller::run(){
     Uint32 initial_time;
     Uint32 final_time;
     while (quit == false){
-        std::string str("Inicia gameloop");
-        logger.debugMsg(str);
+        logger.debugMsg("Inicia gameloop");
 
         initial_time = SDL_GetTicks();
         while(SDL_PollEvent(&event) != 0){
             if(event.type == SDL_QUIT) {
-                str.clear();
-                str += "Botón QUIT";
-                logger.debugMsg(str);
+                logger.debugMsg("Botón QUIT");
                 quit = true;
             }
                 //key pressed
@@ -63,39 +55,27 @@ int Controller::run(){
 
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
-                        str.clear();
-                        str += "Se presiona boton UP";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se presiona boton UP");
                         game.startMovingUp();
                         break;
                     case SDLK_DOWN:
-                        str.clear();
-                        str += "Se presiona boton DOWN";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se presiona boton DOWN");
                         game.startMovingDown();
                         break;
                     case SDLK_LEFT:
-                        str.clear();
-                        str += "Se presiona boton LEFT";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se presiona boton LEFT");
                         game.startMovingLeft();
                         break;
                     case SDLK_RIGHT:
-                        str.clear();
-                        str += "Se presiona boton RIGHT";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se presiona boton RIGHT");
                         game.startMovingRight();
                         break;
                     case SDLK_l:
-                        str.clear();
-                        str += "Tecla de cambio de nivel";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Tecla de cambio de nivel");
                         game.changeLevel();
                         break;
                     case SDLK_SPACE:
-                        str.clear();
-                        str += "Se presiona boton SPACE";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se presiona boton SPACE");
                         game.startJumping();
                         break;
                     default:
@@ -106,33 +86,23 @@ int Controller::run(){
 
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
-                        str.clear();
-                        str += "Se libera boton UP";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se libera boton UP");
                         game.stopMovingUp();
                         break;
                     case SDLK_DOWN:
-                        str.clear();
-                        str += "Se libera boton DOWN";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se libera boton DOWN");
                         game.stopMovingDown();
                         break;
                     case SDLK_LEFT:
-                        str.clear();
-                        str += "Se libera boton LEFT";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se libera boton LEFT");
                         game.stopMovingLeft();
                         break;
                     case SDLK_RIGHT:
-                        str.clear();
-                        str += "Se libera boton RIGHT";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se libera boton RIGHT");
                         game.stopMovingRight();
                         break;
                     case SDLK_SPACE:
-                        str.clear();
-                        str += "Se libera boton SPACE";
-                        logger.debugMsg(str);
+                        logger.debugMsg("Se libera boton SPACE");
                         game.stopJumping();
                         break;
                     default:

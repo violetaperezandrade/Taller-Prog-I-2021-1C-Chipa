@@ -4,17 +4,16 @@
 #include "vector"
 #include "Entity.h"
 #include "entities/Character.h"
+#include "../controller/Logger.h"
 
 class CollisionManager {
 private:
     Character& character;
     std::vector<Entity>& vector;
-    void move_midair(Character& character);
-    void move_left(Character& character);
-    void move_right(Character& character);
+    Logger& logger;
 
 public:
-    CollisionManager(Character& character, std::vector<Entity>& vector);
+    CollisionManager(Character& character, std::vector<Entity>& vector, Logger& logger);
 
     void movePlatform(Entity &entity);
 
@@ -22,7 +21,7 @@ public:
 
     bool moveEmber(Entity &entity);
 
-    void move(Character& character);
+    void moveCharacter();
 
     ~CollisionManager();
 };

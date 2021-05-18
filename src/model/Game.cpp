@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include <string>
+
 #include "entities/Barrel.h"
 #include "entities/Character.h"
 #include "entities/Ember.h"
@@ -20,10 +22,11 @@
 {
     setLevel1();
 }*/
-Game::Game() :
+Game::Game(Logger& logger) :
+        logger(logger),
         character(0,0,59, 36,0,0),
         vector(),
-        collisionManager(character, vector),
+        collisionManager(character, vector, logger),
         tickCounter(0),
         actLevel(1)
     {
@@ -71,27 +74,13 @@ void Game::stopJumping(){
     character.stopJumping();
 }
 
-/*
-void Game::makeCharacterJump() {
-    character.setJumping();
-}
-
-void Game::moveCharacterLeft() {
-    if (!character.isMidair()){
-        character.setSpeedX(config.getCharacterSpeed() * -1);
-    }
-}
-
-void Game::moveCharacterRight() {
-    if (!character.isMidair()){
-        character.setSpeedX(config.getCharacterSpeed());
-    }
-}
-*/
-
 void Game::update() { //nombre
     tickCounter++;
     character.updateStatus();
+    std::string str("Updated character status:");
+    str += character.getState();
+    logger.debugMsg(str);
+    str.clear();
     collisionManager.move(character);
 
     if(tickCounter % 15 == 0 && actLevel == 1){
@@ -107,17 +96,20 @@ void Game::update() { //nombre
         switch(it->getType()){
             case 'P':
                 collisionManager.movePlatform(*it);
-                ++it;
+                logger.superDebugMsg("moved platform");
                 break;
             case 'E':
                 removed = collisionManager.moveEmber(*it);
+                logger.superDebugMsg("moved ember");
                 break;
             case 'B':
                 removed = collisionManager.moveBarrel(*it);
+                logger.superDebugMsg("moved barrel");
                 break;
         }
         if(removed){
             it = vector.erase(it);
+            logger.debugMsg("removed entity");
         }
         else{
             ++it;
@@ -155,6 +147,8 @@ void Game::lvl1SpawnEmber(){
     int randSpawn = spawns[rand()%4];
     Ember ember(randSpawn, 560, 60, 40, 0, -2);
     this->vector.push_back(ember);
+
+    logger.infoMsg("Spawned ember on X=" + std::to_string(randSpawn));
 }
 
 void Game::lvl2SpawnBarrel(){
@@ -163,10 +157,13 @@ void Game::lvl2SpawnBarrel(){
     int randSpawn = spawns[rand()%4];
     Barrel barrel(randSpawn, 560, 60, 40, 0, 2);
     this->vector.push_back(barrel);
+
+    logger.infoMsg("Spawned barrel on X=" + std::to_string(randSpawn));
 }
 
 //800x600 grid
 void Game::setLevel1(){
+    logger.infoMsg("Set Level 1");
 
     Monkey monkey(84, 146, 148, 52, 0, 0);
     this->vector.push_back(monkey);
@@ -294,6 +291,8 @@ void Game::setLevel1(){
     this->vector.push_back(platform_5_9);
 }
 void Game::setLevel2() {
+    logger.infoMsg("Set Level 2");
+
     Monkey monkey(84, 146, 148, 52, 0, 0);
     this->vector.push_back(monkey);
     Princess princess(312, 79, 57, 52, 0, 0);
