@@ -95,6 +95,5 @@ int Controller::run(){
         game.update();
         view.refresh();
     }
-    closeSDL();
     return 0;
 }
