@@ -116,9 +116,9 @@ void View::free(SDL_Texture* texture){
     }
 }
 void View::refresh(){
-    SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
-    SDL_RenderClear(windowRenderer);
-    SDL_RenderPresent(windowRenderer);
+    //SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
+    //SDL_RenderClear(windowRenderer);
+    //SDL_RenderPresent(windowRenderer);
     Message entityInfo = game.getStatus();
     while(!entityInfo.isEmpty()){
         char entityType;
@@ -129,7 +129,9 @@ void View::refresh(){
         char state;
         entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
         render(posX,posY,width,height,state,entityType);
+        SDL_RenderPresent(windowRenderer);
     }
+    SDL_RenderPresent(windowRenderer);
 }
 void View::renderFilledQuad(){
     SDL_Rect fillRect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
@@ -212,3 +214,4 @@ void View::renderFilledQuad(){
     return 0;
 
 }*/
+
