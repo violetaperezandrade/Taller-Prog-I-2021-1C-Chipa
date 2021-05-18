@@ -12,6 +12,12 @@ Logger::Logger(std::string path, int logLvl) :
     file << "------------------------------------------------------------------------------------------\n";
 }
 
+void Logger::superDebugMsg(std::string str){//logLvl SUPER_DEBUG 4
+    if(logLvl >= 4) {
+        file << currentDateTime() << " [DEBUG]: " << str << std::endl;
+    }
+}
+
 void Logger::debugMsg(std::string str){//logLvl DEBUG 3
     if(logLvl >= 3) {
         file << currentDateTime() << " [DEBUG]: " << str << std::endl;

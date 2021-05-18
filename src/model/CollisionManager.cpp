@@ -4,9 +4,10 @@
 
 #define PI 3.14159265
 
-CollisionManager::CollisionManager(Character &character, std::vector<Entity> &vector) :
+CollisionManager::CollisionManager(Character &character, std::vector<Entity> &vector, Logger& logger) :
     character(character),
-    vector(vector)
+    vector(vector),
+    logger(logger)
 {}
 
 CollisionManager::~CollisionManager() {}
@@ -71,7 +72,7 @@ bool CollisionManager::moveEmber(Entity &entity) {
     return angle;
 }*/
 
-void CollisionManager::move(Character &character) {
+void CollisionManager::moveCharacter() {
     int speedX = character.getSpeedX();
     int speedY = character.getSpeedY();
     //double angle = getAngle(speedX,speedY);
@@ -90,6 +91,7 @@ void CollisionManager::move(Character &character) {
     if (y <= 0){
         y = 0;
         character.land();
+        logger.debugMsg("Character has landed");
         character.setSpeedY(0);
     } else if (y > map_width){
         y = map_width;

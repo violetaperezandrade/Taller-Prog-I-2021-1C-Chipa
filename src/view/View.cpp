@@ -1,7 +1,7 @@
 #include "View.h"
 #include <iostream>
 
-View::View(Game& game) : game(game){
+View::View(Game& game,Logger& logger) : game(game),logger(logger){
 
     texturesMario = {{'0', "../src/view/img/Sprites-Mario/mario_idle_back.png"},
                 {'4', "../src/view/img/Sprites-Mario/mario_climbing.bmp"},
@@ -26,18 +26,30 @@ View::View(Game& game) : game(game){
 
 SDL_Renderer* View::createRenderer(SDL_Window* window) {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
-    if(!renderer) std::cerr << "Error al crear renderer";
+    if(!renderer) {
+        std::string str("Error al inicializar SDL_Renderer");
+        logger.errorMsg(str);
+    }
     else{
         SDL_SetRenderDrawColor(renderer,0,0,0,255);
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
+        std::string str("SDL_Renderer Inicializado");
+        logger.infoMsg(str);
     }
     return renderer;
 }
 
 SDL_Window* View::createWindow(const char* title){
     SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if(!window) std::cerr << "Error al crear ventana";
+    if(!window) {
+        std::string str("Error al inicializar SDL_Window");
+        logger.errorMsg(str);
+    }
+    else{
+        std::string str("SDL_Window Inicializado");
+        logger.infoMsg(str);
+    }
     return window;
 }
 
@@ -45,14 +57,17 @@ SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
 
     SDL_Texture* finalTexture = NULL;
     SDL_Surface* imageSurface = IMG_Load(path.c_str());
-    if(!imageSurface) printf("Error al cargar imagen %s. SDL_image error: %s\n",
-                             path.c_str(), IMG_GetError());
+    if(!imageSurface) {
+        std::string str("Error al inicializar SDL_Surface");
+        logger.errorMsg(str);
+    }
     else{
         SDL_SetColorKey(imageSurface,SDL_TRUE,SDL_MapRGB(imageSurface->format,0,0,0));
         finalTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
-        if(!finalTexture) printf("Error al cargar textura %s. SDL_Error: %s\n",
-                                 path.c_str(),
-                                 SDL_GetError());
+        if(!finalTexture) {
+            std::string str("Error al inicializar SDL_Texture");
+            logger.errorMsg(str);
+        }
         SDL_FreeSurface(imageSurface);
     }
     return finalTexture;

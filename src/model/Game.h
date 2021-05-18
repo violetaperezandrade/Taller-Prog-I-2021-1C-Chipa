@@ -7,11 +7,13 @@
 #include "../controller/Config.h"
 #include "entities/Character.h"
 #include "../Message.h"
+#include "../controller/Logger.h"
 
 
 class Game {
 private:
     //Config& config;
+    Logger& logger;
     Character character;
     std::vector<Entity> vector;
     CollisionManager collisionManager;
@@ -20,7 +22,7 @@ private:
 
 public:
     //explicit Game(Config& config);
-    Game();
+    explicit Game(Logger& logger);
     ~Game();
 
     void startMovingLeft();

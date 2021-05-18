@@ -5,6 +5,7 @@
 #include <map>
 #include "../model/ScreenConfig.h"
 #include "../model/Game.h"
+#include "../controller/Logger.h"
 
 class View {
 private:
@@ -14,6 +15,7 @@ private:
     SDL_Renderer* windowRenderer;
     SDL_Window* window;
     Game& game;
+    Logger& logger;
 public:
     //void render(int x, int y, int width, int height, SDL_Texture* texture, SDL_Renderer* windowRenderer);
     void render(int x, int y, int width, int height, char stateEntity,char entityType);
@@ -26,7 +28,7 @@ public:
 
     void free(SDL_Texture* texture);
     //int run();
-    explicit View(Game& game);
+    explicit View(Game& game, Logger& logger);
 
     void refresh();
 
