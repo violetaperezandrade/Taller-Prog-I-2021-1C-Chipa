@@ -23,9 +23,12 @@ Config::Config(char* str){
         std::ifstream readFile("../src/controller/default_data.json");
         readFile >> actualJson;
     }
-    Json::Reader reader;
-    reader.parse(readFile, actualJson);
+
     if(!valid){
+        std::ifstream readFile("../src/controller/default_data.json");
+        Json::Value actualJson;
+        Json::Reader reader;
+        reader.parse(readFile, actualJson);
         frameTime = actualJson["configuration"]["frame time"].asInt();
         debug = actualJson["configuration"]["debug"].asInt();
         path = actualJson["configuration"]["path"].asString();
@@ -39,6 +42,8 @@ Config::Config(char* str){
         resolutionHeight = actualJson["resolution"]["height"].asInt();
     }
     else{
+        Json::Reader reader;
+        reader.parse(readFile, actualJson);
         Json::Value defaultJson;
         std::ifstream defaultFile("../src/controller/default_data.json");
         defaultFile >> defaultJson;

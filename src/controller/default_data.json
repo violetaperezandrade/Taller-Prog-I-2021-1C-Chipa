@@ -1,14 +1,14 @@
 {
   "configuration": {
-    "frame time": 1000,
+    "frame time": 33,
     "debug": 3,
     "path" : "../log.txt",
-    "gravity" : 3
+    "gravity" : 8
   },
   "character" : {
     "climbing speed" : 10,
     "jumping speed" : 20,
-    "moving speed" : 20
+    "moving speed" : 15
   },
   "level 1" : {
     "flames" : 4
@@ -19,6 +19,6 @@
   },
   "resolution" : {
     "width" : 800,
-    "heigth" : 600
+    "height" : 600
   }
 }
