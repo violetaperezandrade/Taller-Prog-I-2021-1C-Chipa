@@ -1,6 +1,9 @@
 #include "Game.h"
 
 #include <string>
+#include <algorithm>
+#include <random>
+#include <chrono>
 
 #include "entities/Barrel.h"
 #include "entities/Character.h"
@@ -165,8 +168,15 @@ void Game::lvl2SpawnBarrel(){
 void Game::spawnFlames(){
     int spawnsX[21] = {80,90,100,235,245,255,375,385,395,515,525,535,545,675,685,50,60,70,670,680,690};
     int spawnsY[21] = {435,435,435,435,435,435,435,435,435,435,435,435,435,435,435,540,540,540,540,540,540};
+    std::vector<int> positions;
+    for (int i = 0; i< 21; i++){
+        positions.push_back(i);
+    }
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+    shuffle (positions.begin(), positions.end(), std::default_random_engine(seed));
     for(int i=0; i < config.getFlamesLevel1(); i++) {
-        Flame flame(spawnsX[i], spawnsY[i], 60, 40, 0, 0);
+        Flame flame(spawnsX[positions[i]], spawnsY[positions[i]], 60, 40, 0, 0);
         this->vector.push_back(flame);
     }
 }
