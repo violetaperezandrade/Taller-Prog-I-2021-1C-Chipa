@@ -87,7 +87,7 @@ void Game::update() { //nombre
     if(tickCounter % 15 == 0 && actLevel == 1){
         lvl1SpawnEmber();
     }
-    else if(tickCounter % 15 == 0 && actLevel == 2){
+    else if(tickCounter % 80 == 0 && actLevel == 2){
         lvl2SpawnBarrel();
     }
 
