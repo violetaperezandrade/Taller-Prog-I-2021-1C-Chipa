@@ -1,5 +1,4 @@
 #include "Config.h"
-
 #include <iostream>
 
 Config::Config(char* path){
@@ -145,11 +144,11 @@ int Config::getMovingSpeed(){
     return movingSpeed;
 };
 
-int getFlamesLevel1(){
+int Config::getFlamesLevel1(){
     return flamesLevel1;
 };
 
-int getBarrelsLevel2(){
+int Config::getBarrelsLevel2(){
     return barrelsLevel2;
 };
 
