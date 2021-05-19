@@ -7,20 +7,16 @@
 
 #define FALLING_RIGHT '1'
 #define FALLING_LEFT '2'
-#define FALLING_STRAIGHT '3'
-#define ABOUT_TO_CLIMB '4'
-#define ABOUT_TO_JUMP '5'
 #define MOVING_RIGHT '6'
 #define MOVING_LEFT '7'
 #define MOVING_UP '8'
 #define MOVING_DOWN '9'
-#define IDLE_BACK '0'
 #define IDLE_RIGHT 'r'
 #define IDLE_LEFT 'l'
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY),
-    state(GROUNDED), movement()
+    state(GROUNDED), movement(), lastDirection('r')
 {}
 
 void Character::startMovingLeft(){
@@ -144,6 +140,7 @@ void Character::updateStatus(Config& config){
                 movement.setMidair(true);
                 speedY = -config.getJumpingSpeed();
             }
+            lastDirection = 'r';
         } else if (movement.shouldMoveLeft()){
             state = MOVING_LEFT;
             speedX = -config.getMovingSpeed();
@@ -152,15 +149,26 @@ void Character::updateStatus(Config& config){
                 movement.setMidair(true);
                 speedY = -config.getJumpingSpeed();
             }
+            lastDirection = 'l';
         } else {
-            state = IDLE_BACK;
-            //use lastMovementDirection to chose what idle sprite to use
             speedX = 0;
-            if (movement.shouldJump()){
-                state = FALLING_STRAIGHT;
-                movement.setMidair(true);
-                speedY = -config.getJumpingSpeed();
+            if (lastDirection == 'l'){
+                state = IDLE_LEFT;
+                if (movement.shouldJump()){
+                    state = FALLING_LEFT;
+                    movement.setMidair(true);
+                    speedY = -config.getJumpingSpeed();
+                }
+            } else {
+                state = IDLE_RIGHT;
+                if (movement.shouldJump()){
+                    state = FALLING_RIGHT;
+                    movement.setMidair(true);
+                    speedY = -config.getJumpingSpeed();
+                }
             }
+            //use lastMovementDirection to chose what idle sprite to use
+
         }
     }
 }

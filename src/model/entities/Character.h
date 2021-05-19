@@ -9,6 +9,7 @@ class Character : public Entity{
 private:
     char state;
     Movement movement;
+    char lastDirection;
 
 public:
     Character(int posX, int posY, int width, int height, int speedX, int speedY);
