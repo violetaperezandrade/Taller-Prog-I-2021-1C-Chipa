@@ -19,9 +19,9 @@ void CollisionManager::movePlatform(Entity &entity) {
 
     entity.setPosX(posX + speedX);
 
-    if(speedX > 0 && posX >= 742){
+    if(speedX > 0 && posX >= 680){
         entity.setPosX(86);
-    }else if(speedX < 0 && posX <= 86){
+    }else if(speedX < 0 && posX <= 60){
         entity.setPosX(742);
     }
 }
