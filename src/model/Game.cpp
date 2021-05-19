@@ -15,16 +15,6 @@
 #include "entities/Princess.h"
 #include "entities/Stair.h"
 
-/*Game::Game(Config& config) :
-    config(config),
-    character(0,0,59, 36,0,0),
-    vector(),
-    collisionManager(character, vector),
-    tickCounter(0),
-    actLevel(1)
-{
-    setLevel1();
-}*/
 Game::Game(Config& config, Logger& logger) :
         config(config),
         logger(logger),
@@ -121,20 +111,6 @@ void Game::update() { //nombre
         removed = false;
     }
 }
-/*
-void Game::moveCharacterUp(){
-    if(character.isGrounded() && colisionManagerStairCheck){
-        character.climb();
-        character.setSpeedY(config.getClimbingSpeed); //Go up
-    }
-}
-
-void Game::moveCharacterDown(){
-    if(character.isGrounded() && colisionMangerStairCheck){
-        character.climb();
-        character.setSpeedY(config.getClimbingSpeed * -1); //Go down
-    }
-} */
 
 Message Game::getStatus() {
     Message message;
@@ -159,7 +135,7 @@ void Game::lvl2SpawnBarrel(){
     int spawns[4] = {168,312,456,600};
 
     int randSpawn = spawns[rand()%4];
-    Barrel barrel(randSpawn, 100, 60, 40, 0, 4);
+    Barrel barrel(randSpawn, 100, 75, 48, 0, 4);
     this->vector.push_back(barrel);
 
     logger.infoMsg("Spawned barrel on X=" + std::to_string(randSpawn));
@@ -552,7 +528,3 @@ void Game::changeLevel(){
     setLevel2();
     actLevel = 2;
 }
-/*
-void Game::run() {
-    entityManager.
-} */
