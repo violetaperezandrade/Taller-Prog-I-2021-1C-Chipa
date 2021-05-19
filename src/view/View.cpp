@@ -125,9 +125,6 @@ void View::free(SDL_Texture* texture){
     }
 }
 void View::refresh(){
-    //SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
-    //SDL_RenderClear(windowRenderer);
-    //SDL_RenderPresent(windowRenderer);
     Message entityInfo = game.getStatus();
     while(!entityInfo.isEmpty()){
         char entityType;
