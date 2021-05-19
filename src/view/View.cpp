@@ -74,15 +74,6 @@ SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
     return finalTexture;
 }
 
-/*void View::render(int x, int y, int width, int height, SDL_Texture* texture, SDL_Renderer* windowRenderer){
-    SDL_Rect renderQuad = {x,y,width,height};
-    SDL_Rect* clip = NULL;
-    double angle = 0.0;
-    SDL_Point* center = NULL;
-    SDL_RendererFlip flip = SDL_FLIP_NONE;
-    SDL_RenderCopyEx(windowRenderer,texture,clip,&renderQuad,angle,center,flip);
-}*/
-//Para usar en controller
 void View::render(int x, int y, int width, int height, char stateEntity,char entityType) {
     SDL_Rect renderQuad = {x, y, width, height};
     SDL_Rect *clip = NULL;
@@ -154,80 +145,6 @@ void View::renderFilledQuad(){
     SDL_SetRenderDrawColor( windowRenderer, 0x00, 0x00, 0x00, 0xFF );
     SDL_RenderFillRect( windowRenderer, &fillRect );
 }
-/*int View::run(){
 
-    SDL_Window* window = createWindow("Donkey Kong II");
-    SDL_Renderer* windowRenderer = createRenderer(window);
-    SDL_Texture* textureMario = loadImageTexture(texturesMario["mario idle back"],windowRenderer);
-    SDL_Texture* textureLadder = loadImageTexture(texturesEntities["ladder with platform"],windowRenderer);
-    SDL_Texture* texturePlatform = loadImageTexture(texturesEntities["P"],windowRenderer);
 
-    //Render filled quad
-    SDL_Rect fillRect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
-    SDL_SetRenderDrawColor( windowRenderer, 0x00, 0x00, 0x00, 0xFF );
-    SDL_RenderFillRect( windowRenderer, &fillRect );
-
-    //Render initialmario texture
-    render(0,0,50,50,textureMario,windowRenderer);
-
-    //Esto iria en controlador pero hasta q no tengamos el Game lo dejo aca
-    bool quit = false;
-    SDL_Event e;
-    Entity mario('mario',0,0,20,20);
-    while(!quit){
-        while(SDL_PollEvent(&e) != 0){
-            if(e.type == SDL_QUIT) quit = true;
-            if(e.type == SDL_KEYDOWN){
-                switch(e.key.keysym.sym){
-                    case SDLK_UP:
-                        textureMario = loadImageTexture(texturesMario["mario climbing"],windowRenderer);
-                        break;
-                    case SDLK_DOWN:
-                        textureMario = loadImageTexture(texturesMario["mario idle back"],windowRenderer);
-                        break;
-                    case SDLK_LEFT:
-                        textureMario = loadImageTexture(texturesMario["mario walking left"],windowRenderer);
-                        break;
-                    case SDLK_RIGHT:
-                        textureMario = loadImageTexture(texturesMario["mario walking right"],windowRenderer);
-                        break;
-                    default:
-                        textureMario = loadImageTexture(texturesMario["mario idle back"],windowRenderer);
-                        break;
-                }
-            }
-            else if(e.type == SDL_KEYUP){
-                switch(e.key.keysym.sym){
-                    case SDLK_UP:
-                        textureMario = loadImageTexture(texturesMario["mario idle back"],windowRenderer);
-                        break;
-                    case SDLK_DOWN:
-                        textureMario = loadImageTexture(texturesMario["mario idle back"],windowRenderer);
-                        break;
-                    case SDLK_LEFT:
-                        textureMario = loadImageTexture(texturesMario["mario idle left"],windowRenderer);
-                        break;
-                    case SDLK_RIGHT:
-                        textureMario = loadImageTexture(texturesMario["mario idle right"],windowRenderer);
-                        break;
-                    default:
-                        textureMario = loadImageTexture(texturesMario["mario idle back"],windowRenderer);
-                        break;
-                }
-            }
-            mario.handleEvent(e);
-        }
-        mario.move();
-        //Esto seria el refresh que hay en controller
-        SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
-        SDL_RenderClear(windowRenderer);
-        render(0,50,400,100,textureLadder,windowRenderer);
-        render(0,500,40,10,texturePlatform,windowRenderer);
-        render(mario.getPosX(),mario.getPosY(),50,50,textureMario,windowRenderer);
-        SDL_RenderPresent(windowRenderer);
-    }
-    SDL_RenderPresent(windowRenderer);
-    return 0;
-
-}*/
 
