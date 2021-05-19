@@ -135,10 +135,10 @@ void Game::moveCharacterDown(){
 
 Message Game::getStatus() {
     Message message;
-    message.add(character);
     for (int i = 0; i < vector.size(); i++){
         message.add(vector[i]);
     }
+    message.add(character);
     return std::move(message);
 }
 
