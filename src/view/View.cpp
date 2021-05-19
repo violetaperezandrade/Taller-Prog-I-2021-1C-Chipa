@@ -21,7 +21,7 @@ View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger
 
     };
     texturesEntities = {{'P', loadImageTexture("../src/view/img/Sprites-Entities/blue_platform.png", windowRenderer)},
-                        {'B',loadImageTexture("../src/view/img/Sprites-Entities/Barrel.png", windowRenderer)},
+                        {'B',loadImageTexture("../src/view/img/Sprites-Entities/front_barrel.png", windowRenderer)},
                         {'b',loadImageTexture("../src/view/img/Sprites-Entities/oil_barrel.png", windowRenderer)},
                         {'f',loadImageTexture("../src/view/img/Sprites-Entities/flame.png", windowRenderer)},
                         {'F',loadImageTexture("../src/view/img/Sprites-Entities/fire.png", windowRenderer)},
@@ -85,7 +85,7 @@ void View::closeSDL() {
 
 void View::changeLevel(){
     texturesEntities = {{'P', loadImageTexture("../src/view/img/Sprites-Entities/pink_platform.png", windowRenderer)},
-                        {'B',loadImageTexture("../src/view/img/Sprites-Entities/Barrel.png", windowRenderer)},
+                        {'B',loadImageTexture("../src/view/img/Sprites-Entities/front_barrel.png", windowRenderer)},
                         {'b',loadImageTexture("../src/view/img/Sprites-Entities/oil_barrel.png", windowRenderer)},
                         {'f',loadImageTexture("../src/view/img/Sprites-Entities/flame.png", windowRenderer)},
                         {'F',loadImageTexture("../src/view/img/Sprites-Entities/fire.png", windowRenderer)},
