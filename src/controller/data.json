@@ -11,10 +11,10 @@
         "moving speed" : 15
     },
     "level 1" : {
-        "flames" : 4
+        "flames" : 80
     },
     "level 2" : {
-        "barrels" : 4
+        "barrels" : 80
 
     },
     "resolution" : {
