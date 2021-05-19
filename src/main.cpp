@@ -7,8 +7,8 @@
 #define MIN_ARGC 0
 
 
-#define PATH "../log.txt"
-#define DEBUG 3
+#define LOG_PATH "../log.txt"
+#define JSON_DEBUG_LVL 3
 
 int main(int argc, char** argv){
     /*if (argc < MIN_ARGC || argc > MAX_ARGC){ // (argc != ARGC_NUM)
@@ -21,9 +21,9 @@ int main(int argc, char** argv){
         Game game;
         game.run();
     }*/
-    Logger logger(PATH, DEBUG);//esto se tendria que sacar del config
-    //aca creariamos el json
-    Config config(argv[0]);
+    Logger logger(LOG_PATH, JSON_DEBUG_LVL);
+    Config config(argv[0], logger);
+    logger.setLevel(config.getDebug());
     Controller cont(config, logger);
     cont.run();
 

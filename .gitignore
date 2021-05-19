@@ -31,6 +31,6 @@
 *.out
 *.app
 
-log.txt
+*.txt
 cmake-build-debug/
 .vscode/
