@@ -24,7 +24,7 @@ private:
     int enemiesQuantity;
 
 public:
-    explicit Config(char* path);
+    Config(char* str);
     ~Config();
 
     int getFrameTime();

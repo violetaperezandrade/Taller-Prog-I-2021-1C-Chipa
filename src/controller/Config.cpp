@@ -1,9 +1,9 @@
 #include "Config.h"
 #include <iostream>
 
-Config::Config(char* pth){
+Config::Config(char* str){
     Json::Value actualJson;
-    std::ifstream readFile(pth);
+    std::ifstream readFile("../src/controller/data.json");
     bool valid = true;
     if (readFile) {
         try {
