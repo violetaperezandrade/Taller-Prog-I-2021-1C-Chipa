@@ -8,12 +8,15 @@ View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger
     window = createWindow("Donkey Kong ii");
     windowRenderer = createRenderer(window);
 
-    texturesMario = {{'0', loadImageTexture("../src/view/img/Sprites-Mario/mario_idle_back.png", windowRenderer)},
-                {'4', loadImageTexture("../src/view/img/Sprites-Mario/mario_climbing.bmp", windowRenderer)},
-                {'r', loadImageTexture("../src/view/img/Sprites-Mario/mario_idle_right.png", windowRenderer)},
-                {'l',loadImageTexture("../src/view/img/Sprites-Mario/mario_climbing.bmp", windowRenderer)},
-                {'7',loadImageTexture("../src/view/img/Sprites-Mario/mario_walk_left.png", windowRenderer)},
-                {'6',loadImageTexture("../src/view/img/Sprites-Mario/mario_walk_right.png", windowRenderer)}
+    texturesMario = {
+                {'1', loadImageTexture("../src/view/img/Sprites-Mario/mario_jump_right.png", windowRenderer)},
+                {'2', loadImageTexture("../src/view/img/Sprites-Mario/mario_jump_left.png", windowRenderer)},
+                {'6', loadImageTexture("../src/view/img/Sprites-Mario/mario_walk_right.png", windowRenderer)},
+                {'7', loadImageTexture("../src/view/img/Sprites-Mario/mario_walk_left.png", windowRenderer)},
+                {'8', loadImageTexture("../src/view/img/Sprites-Mario/mario_climbing.png", windowRenderer)},
+                {'9',loadImageTexture("../src/view/img/Sprites-Mario/mario_climbing.png", windowRenderer)},
+                {'r',loadImageTexture("../src/view/img/Sprites-Mario/mario_idle_right.png", windowRenderer)},
+                {'l',loadImageTexture("../src/view/img/Sprites-Mario/mario_idle_left.png", windowRenderer)}
 
 
     };
@@ -109,7 +112,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Texture *textureEntity;
     switch (entityType) {
         case 'C': //mario
-            textureEntity = texturesMario['0'];
+            textureEntity = texturesMario[stateEntity];
             break;
         case 'B': //barrel
             textureEntity = texturesEntities['B'];
