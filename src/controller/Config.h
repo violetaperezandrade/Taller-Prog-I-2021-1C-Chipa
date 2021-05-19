@@ -21,9 +21,10 @@ private:
     int barrelsLevel2;
     int resolutionWidth;
     int resolutionHeight;
+    int enemiesQuantity;
 
 public:
-    Config(char* path);
+    explicit Config(char* path);
     ~Config();
 
     int getFrameTime();

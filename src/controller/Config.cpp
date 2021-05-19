@@ -1,10 +1,9 @@
 #include "Config.h"
 #include <iostream>
 
-Config::Config(char* path){
-
+Config::Config(char* pth){
     Json::Value actualJson;
-    std::ifstream readFile(path);
+    std::ifstream readFile(pth);
     bool valid = true;
     if (readFile) {
         try {
@@ -56,10 +55,10 @@ Config::Config(char* path){
             debug = actualJson["configuration"]["debug"].asInt();
         }
         if(actualJson["configuration"]["path"].isNull() || actualJson["configuration"]["path"].isNumeric()){
-            path = defaultJsonactualJson["configuration"]["path"]].asString();
+            path = defaultJson["configuration"]["path"].asString();
         }
         else{
-            path = actualJsonactualJson["configuration"]["path"].asString();
+            path = actualJson["configuration"]["path"].asString();
         }
         if(!actualJson["configuration"]["gravity"].isNumeric() || actualJson["configuration"]["gravity"].isNull()){
             gravity = defaultJson["configuration"]["gravity"].asInt();
@@ -109,11 +108,8 @@ Config::Config(char* path){
         else{
             resolutionHeight = actualJson["resolution"]["height"].asInt();
         }
-
     }
 }
-
-
 
 
 int Config::getFrameTime(){
@@ -133,7 +129,7 @@ int Config::getGravity(){
 };
 
 int Config::getClimbingSpeed(){
-    return climbingSpeed
+    return climbingSpeed;
 };
 
 int Config::getJumpingSpeed(){

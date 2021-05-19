@@ -20,3 +20,295 @@
 2021-05-18.16:49:37 [DEBUG]: Inicia gameloop
 2021-05-18.16:49:37 [DEBUG]: Botón QUIT
 2021-05-18.16:49:38 [INFO]: Cerrar SDL
+------------------------------------------------------------------------------------------
+2021-05-18.22:58:10 [INFO]: Set Level 1
+2021-05-18.22:58:10 [INFO]: SDL_Window Inicializado
+2021-05-18.22:58:11 [INFO]: SDL_Renderer Inicializado
+2021-05-18.22:58:11 [INFO]: SDL Inicializado
+2021-05-18.22:58:11 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:11 [DEBUG]: Updated character status:0
+2021-05-18.22:58:12 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:12 [DEBUG]: Updated character status:0
+2021-05-18.22:58:14 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:14 [DEBUG]: Updated character status:0
+2021-05-18.22:58:16 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:16 [DEBUG]: Updated character status:0
+2021-05-18.22:58:17 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:17 [DEBUG]: Updated character status:0
+2021-05-18.22:58:19 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:19 [DEBUG]: Updated character status:0
+2021-05-18.22:58:21 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:21 [DEBUG]: Updated character status:0
+2021-05-18.22:58:23 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:23 [DEBUG]: Updated character status:0
+2021-05-18.22:58:24 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:24 [DEBUG]: Updated character status:0
+2021-05-18.22:58:26 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:26 [DEBUG]: Updated character status:0
+2021-05-18.22:58:28 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:28 [DEBUG]: Updated character status:0
+2021-05-18.22:58:29 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:29 [DEBUG]: Updated character status:0
+2021-05-18.22:58:31 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:31 [DEBUG]: Updated character status:0
+2021-05-18.22:58:33 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:33 [DEBUG]: Updated character status:0
+2021-05-18.22:58:35 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:35 [DEBUG]: Updated character status:0
+2021-05-18.22:58:35 [INFO]: Spawned ember on X=600
+2021-05-18.22:58:36 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:36 [DEBUG]: Updated character status:0
+2021-05-18.22:58:38 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:38 [DEBUG]: Updated character status:0
+2021-05-18.22:58:40 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:40 [DEBUG]: Updated character status:0
+2021-05-18.22:58:42 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:42 [DEBUG]: Updated character status:0
+2021-05-18.22:58:43 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:43 [DEBUG]: Updated character status:0
+2021-05-18.22:58:45 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:45 [DEBUG]: Updated character status:0
+2021-05-18.22:58:47 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:47 [DEBUG]: Updated character status:0
+2021-05-18.22:58:49 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:49 [DEBUG]: Updated character status:0
+2021-05-18.22:58:50 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:50 [DEBUG]: Updated character status:0
+2021-05-18.22:58:52 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:52 [DEBUG]: Updated character status:0
+2021-05-18.22:58:54 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:54 [DEBUG]: Updated character status:0
+2021-05-18.22:58:56 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:56 [DEBUG]: Updated character status:0
+2021-05-18.22:58:57 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:57 [DEBUG]: Updated character status:0
+2021-05-18.22:58:59 [DEBUG]: Inicia gameloop
+2021-05-18.22:58:59 [DEBUG]: Updated character status:0
+2021-05-18.22:59:01 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:01 [DEBUG]: Updated character status:0
+2021-05-18.22:59:01 [INFO]: Spawned ember on X=456
+2021-05-18.22:59:03 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:03 [DEBUG]: Updated character status:0
+2021-05-18.22:59:04 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:04 [DEBUG]: Updated character status:0
+2021-05-18.22:59:06 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:06 [DEBUG]: Updated character status:0
+2021-05-18.22:59:08 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:08 [DEBUG]: Updated character status:0
+2021-05-18.22:59:10 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:10 [DEBUG]: Updated character status:0
+2021-05-18.22:59:11 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:11 [DEBUG]: Updated character status:0
+2021-05-18.22:59:13 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:13 [DEBUG]: Updated character status:0
+2021-05-18.22:59:15 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:15 [DEBUG]: Updated character status:0
+2021-05-18.22:59:17 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:17 [DEBUG]: Updated character status:0
+2021-05-18.22:59:19 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:19 [DEBUG]: Updated character status:0
+2021-05-18.22:59:20 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:20 [DEBUG]: Updated character status:0
+2021-05-18.22:59:22 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:22 [DEBUG]: Updated character status:0
+2021-05-18.22:59:24 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:24 [DEBUG]: Updated character status:0
+2021-05-18.22:59:26 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:26 [DEBUG]: Updated character status:0
+2021-05-18.22:59:28 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:28 [DEBUG]: Updated character status:0
+2021-05-18.22:59:28 [INFO]: Spawned ember on X=312
+2021-05-18.22:59:29 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:29 [DEBUG]: Updated character status:0
+2021-05-18.22:59:31 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:31 [DEBUG]: Updated character status:0
+2021-05-18.22:59:33 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:33 [DEBUG]: Updated character status:0
+2021-05-18.22:59:35 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:35 [DEBUG]: Updated character status:0
+2021-05-18.22:59:37 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:37 [DEBUG]: Updated character status:0
+2021-05-18.22:59:38 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:38 [DEBUG]: Updated character status:0
+2021-05-18.22:59:40 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:40 [DEBUG]: Updated character status:0
+2021-05-18.22:59:42 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:42 [DEBUG]: Updated character status:0
+2021-05-18.22:59:44 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:44 [DEBUG]: Updated character status:0
+2021-05-18.22:59:46 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:46 [DEBUG]: Updated character status:0
+2021-05-18.22:59:48 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:48 [DEBUG]: Updated character status:0
+2021-05-18.22:59:49 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:49 [DEBUG]: Updated character status:0
+2021-05-18.22:59:51 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:51 [DEBUG]: Updated character status:0
+2021-05-18.22:59:53 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:53 [DEBUG]: Updated character status:0
+2021-05-18.22:59:55 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:55 [DEBUG]: Updated character status:0
+2021-05-18.22:59:55 [INFO]: Spawned ember on X=600
+2021-05-18.22:59:57 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:57 [DEBUG]: Updated character status:0
+2021-05-18.22:59:58 [DEBUG]: Inicia gameloop
+2021-05-18.22:59:58 [DEBUG]: Updated character status:0
+2021-05-18.23:00:00 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:00 [DEBUG]: Updated character status:0
+2021-05-18.23:00:02 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:02 [DEBUG]: Updated character status:0
+2021-05-18.23:00:04 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:04 [DEBUG]: Updated character status:0
+2021-05-18.23:00:06 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:06 [DEBUG]: Updated character status:0
+2021-05-18.23:00:08 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:08 [DEBUG]: Updated character status:0
+2021-05-18.23:00:10 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:10 [DEBUG]: Updated character status:0
+2021-05-18.23:00:11 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:11 [DEBUG]: Updated character status:0
+2021-05-18.23:00:13 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:13 [DEBUG]: Updated character status:0
+2021-05-18.23:00:15 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:15 [DEBUG]: Updated character status:0
+2021-05-18.23:00:17 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:17 [DEBUG]: Updated character status:0
+2021-05-18.23:00:19 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:19 [DEBUG]: Updated character status:0
+2021-05-18.23:00:21 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:21 [DEBUG]: Updated character status:0
+2021-05-18.23:00:23 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:23 [DEBUG]: Updated character status:0
+2021-05-18.23:00:23 [INFO]: Spawned ember on X=312
+2021-05-18.23:00:24 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:24 [DEBUG]: Updated character status:0
+2021-05-18.23:00:26 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:26 [DEBUG]: Updated character status:0
+2021-05-18.23:00:28 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:28 [DEBUG]: Updated character status:0
+2021-05-18.23:00:30 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:30 [DEBUG]: Updated character status:0
+2021-05-18.23:00:32 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:32 [DEBUG]: Updated character status:0
+2021-05-18.23:00:34 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:34 [DEBUG]: Updated character status:0
+2021-05-18.23:00:36 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:36 [DEBUG]: Updated character status:0
+2021-05-18.23:00:38 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:38 [DEBUG]: Updated character status:0
+2021-05-18.23:00:39 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:39 [DEBUG]: Updated character status:0
+2021-05-18.23:00:41 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:41 [DEBUG]: Updated character status:0
+2021-05-18.23:00:43 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:43 [DEBUG]: Updated character status:0
+2021-05-18.23:00:45 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:45 [DEBUG]: Updated character status:0
+2021-05-18.23:00:47 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:47 [DEBUG]: Updated character status:0
+2021-05-18.23:00:49 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:49 [DEBUG]: Updated character status:0
+2021-05-18.23:00:51 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:51 [DEBUG]: Updated character status:0
+2021-05-18.23:00:51 [INFO]: Spawned ember on X=600
+2021-05-18.23:00:53 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:53 [DEBUG]: Updated character status:0
+2021-05-18.23:00:55 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:55 [DEBUG]: Updated character status:0
+2021-05-18.23:00:57 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:57 [DEBUG]: Updated character status:0
+2021-05-18.23:00:58 [DEBUG]: Inicia gameloop
+2021-05-18.23:00:58 [DEBUG]: Updated character status:0
+2021-05-18.23:01:00 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:00 [DEBUG]: Updated character status:0
+2021-05-18.23:01:02 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:02 [DEBUG]: Updated character status:0
+2021-05-18.23:01:04 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:04 [DEBUG]: Updated character status:0
+2021-05-18.23:01:06 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:06 [DEBUG]: Updated character status:0
+2021-05-18.23:01:08 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:08 [DEBUG]: Updated character status:0
+2021-05-18.23:01:10 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:10 [DEBUG]: Updated character status:0
+2021-05-18.23:01:12 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:12 [DEBUG]: Updated character status:0
+2021-05-18.23:01:14 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:14 [DEBUG]: Updated character status:0
+2021-05-18.23:01:16 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:16 [DEBUG]: Updated character status:0
+2021-05-18.23:01:18 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:18 [DEBUG]: Updated character status:0
+2021-05-18.23:01:20 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:20 [DEBUG]: Updated character status:0
+2021-05-18.23:01:20 [INFO]: Spawned ember on X=456
+2021-05-18.23:01:21 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:21 [DEBUG]: Updated character status:0
+2021-05-18.23:01:23 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:23 [DEBUG]: Updated character status:0
+2021-05-18.23:01:25 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:25 [DEBUG]: Updated character status:0
+2021-05-18.23:01:27 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:27 [DEBUG]: Updated character status:0
+2021-05-18.23:01:29 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:29 [DEBUG]: Updated character status:0
+2021-05-18.23:01:31 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:31 [DEBUG]: Updated character status:0
+2021-05-18.23:01:33 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:33 [DEBUG]: Updated character status:0
+2021-05-18.23:01:35 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:35 [DEBUG]: Updated character status:0
+2021-05-18.23:01:37 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:37 [DEBUG]: Updated character status:0
+2021-05-18.23:01:39 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:39 [DEBUG]: Updated character status:0
+2021-05-18.23:01:41 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:41 [DEBUG]: Updated character status:0
+2021-05-18.23:01:43 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:43 [DEBUG]: Updated character status:0
+2021-05-18.23:01:45 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:45 [DEBUG]: Updated character status:0
+2021-05-18.23:01:47 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:47 [DEBUG]: Updated character status:0
+2021-05-18.23:01:49 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:49 [DEBUG]: Updated character status:0
+2021-05-18.23:01:49 [INFO]: Spawned ember on X=168
+2021-05-18.23:01:51 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:51 [DEBUG]: Updated character status:0
+2021-05-18.23:01:53 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:53 [DEBUG]: Updated character status:0
+2021-05-18.23:01:55 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:55 [DEBUG]: Updated character status:0
+2021-05-18.23:01:57 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:57 [DEBUG]: Updated character status:0
+2021-05-18.23:01:59 [DEBUG]: Inicia gameloop
+2021-05-18.23:01:59 [DEBUG]: Updated character status:0
+2021-05-18.23:02:01 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:01 [DEBUG]: Updated character status:0
+2021-05-18.23:02:03 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:03 [DEBUG]: Updated character status:0
+2021-05-18.23:02:05 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:05 [DEBUG]: Updated character status:0
+2021-05-18.23:02:07 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:07 [DEBUG]: Updated character status:0
+2021-05-18.23:02:09 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:09 [DEBUG]: Updated character status:0
+2021-05-18.23:02:11 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:11 [DEBUG]: Updated character status:0
+2021-05-18.23:02:13 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:13 [DEBUG]: Updated character status:0
+2021-05-18.23:02:15 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:15 [DEBUG]: Updated character status:0
+2021-05-18.23:02:17 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:17 [DEBUG]: Updated character status:0
+2021-05-18.23:02:19 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:19 [DEBUG]: Updated character status:0
+2021-05-18.23:02:19 [INFO]: Spawned ember on X=312
+2021-05-18.23:02:21 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:21 [DEBUG]: Updated character status:0
+2021-05-18.23:02:23 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:23 [DEBUG]: Updated character status:0
+2021-05-18.23:02:25 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:25 [DEBUG]: Updated character status:0
+2021-05-18.23:02:27 [DEBUG]: Inicia gameloop
+2021-05-18.23:02:27 [DEBUG]: Updated character status:0
