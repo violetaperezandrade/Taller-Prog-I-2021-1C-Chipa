@@ -7,7 +7,7 @@
     },
     "character" : {
         "climbing speed" : 10,
-        "jumping speed" : 30,
+        "jumping speed" : 20,
         "moving speed" : 20
     },
     "level 1" : {
