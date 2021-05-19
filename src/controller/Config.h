@@ -1,15 +1,18 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #include <iostream>
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/json.h>
 #include <fstream>
 #include <string>
 #include <typeinfo>
-#ifndef DONKEYKONG_CONFIG_H
-#define DONKEYKONG_CONFIG_H
 
+#include "Logger.h"
 
 class Config {
 private:
+    Logger& logger;
     int frameTime;
     int debug;
     std::string path;
@@ -24,7 +27,7 @@ private:
     int enemiesQuantity;
 
 public:
-    Config(char* str);
+    Config(char* str, Logger& logger);
     ~Config();
 
     int getFrameTime();

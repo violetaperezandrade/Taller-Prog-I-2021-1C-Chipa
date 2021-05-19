@@ -1,7 +1,7 @@
 #include "Config.h"
 #include <iostream>
 
-Config::Config(char* str){
+Config::Config(char* str, Logger& logger) : logger(logger) {
     Json::Value actualJson;
     std::ifstream readFile("../src/controller/data.json");
     bool valid = true;
@@ -11,15 +11,14 @@ Config::Config(char* str){
         }
         catch (const std::exception& e) {
             valid = false;
-            std::cerr << e.what() << std::endl;
-            std::cout<< "json file not valid, using default file" << std::endl;
+            logger.errorMsg("json file not valid, using default file");
             std::ifstream readFile("../src/controller/default_data.json");
             readFile >> actualJson;
         }
     }
     else {
         valid = false;
-        std::cerr << "Json file not found, using default file" << std::endl;
+        logger.errorMsg("Json file not found, using default file");
         std::ifstream readFile("../src/controller/default_data.json");
         readFile >> actualJson;
     }
@@ -49,12 +48,14 @@ Config::Config(char* str){
         defaultFile >> defaultJson;
         if(!actualJson["configuration"]["frame time"].isNumeric() || actualJson["configuration"]["frame time"].isNull()){
             enemiesQuantity = defaultJson["configuration"]["frame time"].asInt();
+            logger.debugMsg("Frame time not found, read from default");
         }
         else{
             frameTime = actualJson["configuration"]["frame time"].asInt();
         }
         if(!actualJson["configuration"]["debug"].isNumeric() || actualJson["configuration"]["debug"].isNull()){
             debug = defaultJson["configuration"]["debug"].asInt();
+            logger.debugMsg("Debug level not found, read from default");
         }
         else{
             debug = actualJson["configuration"]["debug"].asInt();

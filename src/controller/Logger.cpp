@@ -13,6 +13,10 @@ Logger::Logger(std::string path, int logLvl) :
     file << "------------------------------------------------------------------------------------------\n";
 }
 
+void Logger::setLevel(int lvl) {
+    logLvl = lvl;
+}
+
 void Logger::superDebugMsg(std::string str){//logLvl SUPER_DEBUG 4
     if(logLvl >= 4) {
         file << currentDateTime() << " [DEBUG]: " << str << std::endl;

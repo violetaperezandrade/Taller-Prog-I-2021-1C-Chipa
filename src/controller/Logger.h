@@ -12,6 +12,8 @@ private:
 public:
     Logger(std::string path, int logLvl);
 
+    void setLevel(int lvl);
+
     void superDebugMsg(std::string str);
 
     void debugMsg(std::string str);

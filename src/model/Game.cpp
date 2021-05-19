@@ -162,10 +162,19 @@ void Game::lvl2SpawnBarrel(){
     logger.infoMsg("Spawned barrel on X=" + std::to_string(randSpawn));
 }
 
+void Game::spawnFlames(){
+    int spawnsX[21] = {80,90,100,235,245,255,375,385,395,515,525,535,545,675,685,50,60,70,670,680,690};
+    int spawnsY[21] = {435,435,435,435,435,435,435,435,435,435,435,435,435,435,435,540,540,540,540,540,540};
+    for(int i=0; i < config.getFlamesLevel1(); i++) {
+        Flame flame(spawnsX[i], spawnsY[i], 60, 40, 0, 0);
+        this->vector.push_back(flame);
+    }
+}
+
 //800x600 grid
 void Game::setLevel1(){
     logger.infoMsg("Set Level 1");
-
+    spawnFlames();
     Monkey monkey(84, 146, 148, 52, 0, 0);
     this->vector.push_back(monkey);
 
