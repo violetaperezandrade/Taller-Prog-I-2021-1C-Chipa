@@ -2,36 +2,10 @@
 #include <string>
 #define FRAME_TIME 33
 
-Controller::Controller(Config& config, Logger& logger):config(config), game(config, logger), view(game,logger, config), logger(logger){
-    if(initSDL()) {
-        logger.errorMsg("Error al inicializar SDL");
-    }
-    else {
-        logger.infoMsg("SDL Inicializado");
-    }
-}
-Controller::~Controller(){
-    closeSDL();
-}
+Controller::Controller(Config& config, Logger& logger):config(config), game(config, logger), view(game,logger, config), logger(logger){}
+Controller::~Controller(){}
 
-bool Controller::initSDL() {
 
-    bool error = false;
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        logger.errorMsg("Fallo inicializar video SDL");
-        error = true;
-    }
-    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-        logger.errorMsg("Error al filtrar textura lineal");
-    }
-    return error;
-}
-
-void Controller::closeSDL() {
-    IMG_Quit();
-    SDL_Quit();
-    logger.infoMsg("Cerrar SDL");
-}
 
 int Controller::run(){
 

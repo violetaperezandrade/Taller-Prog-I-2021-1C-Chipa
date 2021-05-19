@@ -2,6 +2,9 @@
 #include <iostream>
 
 View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger), config(config){
+    if (initSDL() < 0){
+        logger.errorMsg("Fallo initSDL");
+    }
     window = createWindow("Donkey Kong ii");
     windowRenderer = createRenderer(window);
 
@@ -55,6 +58,26 @@ SDL_Window* View::createWindow(const char* title){
         logger.infoMsg(str);
     }
     return window;
+}
+
+bool View::initSDL() {
+
+    bool error = false;
+    int perro = SDL_Init(SDL_INIT_VIDEO);
+    if (perro < 0) {
+        logger.errorMsg("Fallo inicializar video SDL");
+        error = true;
+    }
+    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+        logger.errorMsg("Error al filtrar textura lineal");
+    }
+    return error;
+}
+
+void View::closeSDL() {
+    IMG_Quit();
+    SDL_Quit();
+    logger.infoMsg("Cerrar SDL");
 }
 
 SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
@@ -143,6 +166,10 @@ void View::renderFilledQuad(){
     SDL_Rect fillRect = { 0, 0, config.getResolutionWidth(), config.getResolutionHeight()};
     SDL_SetRenderDrawColor( windowRenderer, 0x00, 0x00, 0x00, 0xFF );
     SDL_RenderFillRect( windowRenderer, &fillRect );
+}
+
+View::~View(){
+    closeSDL();
 }
 
 

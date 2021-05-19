@@ -18,6 +18,9 @@ private:
     Game& game;
     Logger& logger;
     Config& config;
+
+    bool initSDL();
+    void closeSDL();
 public:
     //void render(int x, int y, int width, int height, SDL_Texture* texture, SDL_Renderer* windowRenderer);
     void render(int x, int y, int width, int height, char stateEntity,char entityType);
@@ -30,7 +33,9 @@ public:
 
     void free(SDL_Texture* texture);
     //int run();
-    explicit View(Game& game, Logger& logger, Config& config);
+    View(Game& game, Logger& logger, Config& config);
+
+    ~View();
 
     void refresh();
 
