@@ -21,6 +21,7 @@ private:
     int jumpingSpeed;
     int movingSpeed;
     int flamesLevel1;
+    int embersLevel1;
     int barrelsLevel2;
     int resolutionWidth;
     int resolutionHeight;
@@ -38,6 +39,7 @@ public:
     int getJumpingSpeed();
     int getMovingSpeed();
     int getFlamesLevel1();
+    int getEmbersLevel1();
     int getBarrelsLevel2();
     int getResolutionWidth();
     int getResolutionHeight();

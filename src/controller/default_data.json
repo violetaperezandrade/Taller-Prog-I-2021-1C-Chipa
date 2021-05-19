@@ -11,7 +11,8 @@
     "moving speed" : 15
   },
   "level 1" : {
-    "flames" : 4
+    "flames" : 4,
+    "embers" : 80
   },
   "level 2" : {
     "barrels" : 4

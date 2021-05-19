@@ -36,6 +36,7 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
         jumpingSpeed = actualJson["character"]["jumping speed"].asInt();
         movingSpeed = actualJson["character"]["moving speed"].asInt();
         flamesLevel1 = actualJson["level 1"]["flames"].asInt();
+        embersLevel1 = actualJson["level 1"]["embers"].asInt();
         barrelsLevel2 = actualJson["level 2"]["barrels"].asInt();
         resolutionWidth = actualJson["resolution"]["width"].asInt();
         resolutionHeight = actualJson["resolution"]["height"].asInt();
@@ -95,7 +96,14 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
         else{
             movingSpeed = actualJson["character"]["moving speed"].asInt();
         }
-        if(!actualJson["level 1"]["flames"].isNumeric() || actualJson["level 1"]["flames"].isNull()){
+        if(!actualJson["level 1"]["embers"].isNumeric() || actualJson["level 1"]["embers"].isNull()){
+            embersLevel1 = defaultJson["level 1"]["embers"].asInt();
+            logger.debugMsg("Level 1 embers quantity not found, reading from default");
+        }
+        else{
+            embersLevel1 = actualJson["level 1"]["embers"].asInt();
+        }
+        if(!actualJson["level 1"]["flames"].isNumeric() || actualJson["level 1"]["flames"].isNull() || actualJson["level 1"]["flames"].asInt() < 0 || actualJson["level 1"]["flames"].asInt() > 21){
             flamesLevel1 = defaultJson["level 1"]["flames"].asInt();
             logger.debugMsg("Level 1 flames quantity not found, reading from default");
         }
