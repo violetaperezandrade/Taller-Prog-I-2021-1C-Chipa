@@ -26,7 +26,7 @@ View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger
                         {'f',loadImageTexture("../src/view/img/Sprites-Entities/flame.png", windowRenderer)},
                         {'F',loadImageTexture("../src/view/img/Sprites-Entities/fire.png", windowRenderer)},
                         {'p',loadImageTexture("../src/view/img/Sprites-Entities/princess.png", windowRenderer)},
-                        {'S',loadImageTexture("../src/view/img/Sprites-Entities/long_cyan_stair.png", windowRenderer)},
+                        {'S',loadImageTexture("../src/view/img/Sprites-Entities/yellow_stair.png", windowRenderer)},
                         {'E',loadImageTexture("../src/view/img/Sprites-Entities/flame.png", windowRenderer)}
     };
 
@@ -81,6 +81,19 @@ void View::closeSDL() {
     IMG_Quit();
     SDL_Quit();
     logger.infoMsg("Cerrar SDL");
+}
+
+void View::changeLevel(){
+    texturesEntities = {{'P', loadImageTexture("../src/view/img/Sprites-Entities/pink_platform.png", windowRenderer)},
+                        {'B',loadImageTexture("../src/view/img/Sprites-Entities/Barrel.png", windowRenderer)},
+                        {'b',loadImageTexture("../src/view/img/Sprites-Entities/oil_barrel.png", windowRenderer)},
+                        {'f',loadImageTexture("../src/view/img/Sprites-Entities/flame.png", windowRenderer)},
+                        {'F',loadImageTexture("../src/view/img/Sprites-Entities/fire.png", windowRenderer)},
+                        {'p',loadImageTexture("../src/view/img/Sprites-Entities/princess.png", windowRenderer)},
+                        {'S',loadImageTexture("../src/view/img/Sprites-Entities/long_cyan_stair.png", windowRenderer)},
+                        {'E',loadImageTexture("../src/view/img/Sprites-Entities/flame.png", windowRenderer)}
+    };
+
 }
 
 SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){

@@ -35,6 +35,8 @@ public:
     //int run();
     View(Game& game, Logger& logger, Config& config);
 
+    void changeLevel();
+
     ~View();
 
     void refresh();
