@@ -197,7 +197,7 @@ void Game::setLevel1(){
     Platform platform_1_6(660, 580, 84, 20, 0, 0);
     this->vector.push_back(platform_1_6);
     Platform platform_1_7(744, 580, 84, 20, 0, 0);
-    this->vector.push_back(platform_1_6);
+    this->vector.push_back(platform_1_7);
 
     //level 2
     Platform platform_2_1(0, 468, 84, 20, 0, 0);
@@ -294,7 +294,6 @@ void Game::setLevel1(){
     this->vector.push_back(stair_6_1);
     Stair stair_6_2(282, 73, 32, 124, 0, 0);
     this->vector.push_back(stair_6_2);
-
 
 }
 void Game::setLevel2() {
