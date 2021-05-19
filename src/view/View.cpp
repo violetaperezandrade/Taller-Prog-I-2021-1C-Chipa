@@ -11,10 +11,11 @@ View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger
                 {'6',"../src/view/img/Sprites-Mario/mario_walk_right.png"}
 
     };
-    texturesEntities = {{'P', "../src/view/img/Sprites-Entities/platfotm_2.png"},
+    texturesEntities = {{'P', "../src/view/img/Sprites-Entities/blue_platform.png"},
                         {'B',"../src/view/img/Sprites-Entities/Barrel.png"},
                         {'b',"../src/view/img/Sprites-Entities/oil_barrel.png"},
                         {'f',"../src/view/img/Sprites-Entities/flame.png"},
+                        {'F',"../src/view/img/Sprites-Entities/fire.png"},
                         {'p',"../src/view/img/Sprites-Entities/princess.png"},
                         {'S',"../src/view/img/Sprites-Entities/long_cyan_stair.png"},
                         {'E',"../src/view/img/Sprites-Entities/ember.png"}};
@@ -92,7 +93,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
             textureEntity = loadImageTexture(texturesEntities['E'], windowRenderer);
             break;
         case 'F': //Fire
-            textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
+            textureEntity = loadImageTexture(texturesEntities['F'], windowRenderer);
             break;
         case 'f': //flame
             textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
@@ -138,6 +139,7 @@ void View::refresh(){
         render(posX,posY,width,height,state,entityType);
         SDL_RenderPresent(windowRenderer);
     }
+    SDL_RenderClear(windowRenderer);
     SDL_RenderPresent(windowRenderer);
 }
 void View::renderFilledQuad(){
