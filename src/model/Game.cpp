@@ -401,11 +401,11 @@ void Game::setLevel2() {
     Platform platform_3_14(756, 413, 54, 20, 0, 0);
     this->vector.push_back(platform_3_14);
 
-    Stair brokenStair_3_1(216, 340, 30, 84, 0, 0);
+    Stair brokenStair_3_1(216, 340, 30, 94, 0, 0);
     this->vector.push_back(brokenStair_3_1);
     Stair stair_3_2(398, 348, 30, 76, 0, 0);
     this->vector.push_back(stair_3_2);
-    Stair stair_3_3(654, 388, 30, 27, 0, 0);
+    Stair stair_3_3(654, 354, 30, 64, 0, 0);
     this->vector.push_back(stair_3_3);
 
     //level 4
