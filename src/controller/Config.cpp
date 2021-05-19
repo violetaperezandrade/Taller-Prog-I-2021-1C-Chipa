@@ -167,6 +167,10 @@ int Config::getFlamesLevel1(){
     return flamesLevel1;
 };
 
+int Config::getEmbersLevel1(){
+    return embersLevel1;
+};
+
 int Config::getBarrelsLevel2(){
     return barrelsLevel2;
 };
