@@ -88,8 +88,11 @@ SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
     SDL_Texture* finalTexture = NULL;
     SDL_Surface* imageSurface = IMG_Load(path.c_str());
     if(!imageSurface) {
-        std::string str("Error al inicializar SDL_Surface");
-        logger.errorMsg(str);
+        logger.errorMsg("Error al inicializar SDL_Surface");
+        imageSurface = IMG_Load("../src/view/img/missing.png");
+    }
+    if(!imageSurface) {
+        logger.errorMsg("Error al inicializar missing.png");
     }
     else{
         SDL_SetColorKey(imageSurface,SDL_TRUE,SDL_MapRGB(imageSurface->format,0,0,0));
