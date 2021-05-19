@@ -27,7 +27,7 @@ View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger
                         {'F',loadImageTexture("../src/view/img/Sprites-Entities/fire.png", windowRenderer)},
                         {'p',loadImageTexture("../src/view/img/Sprites-Entities/princess.png", windowRenderer)},
                         {'S',loadImageTexture("../src/view/img/Sprites-Entities/long_cyan_stair.png", windowRenderer)},
-                        {'E',loadImageTexture("../src/view/img/Sprites-Entities/ember.png", windowRenderer)}
+                        {'E',loadImageTexture("../src/view/img/Sprites-Entities/flame.png", windowRenderer)}
     };
 
     texturesMonkey = {{'0',loadImageTexture("../src/view/img/Sprites-Monkey/monkey_left_hand_up.png", windowRenderer)}};

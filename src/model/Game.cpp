@@ -84,7 +84,7 @@ void Game::update() { //nombre
     str.clear();
     collisionManager.moveCharacter();
 
-    if(tickCounter % 15 == 0 && actLevel == 1){
+    if(tickCounter % 80 == 0 && actLevel == 1){
         lvl1SpawnEmber();
     }
     else if(tickCounter % 80 == 0 && actLevel == 2){
@@ -146,7 +146,7 @@ void Game::lvl1SpawnEmber(){
     int spawns[4] = {168,312,456,600};
 
     int randSpawn = spawns[rand()%4];
-    Ember ember(randSpawn, 560, 60, 40, 0, -2);
+    Ember ember(randSpawn, 560, 60, 40, 0, -12);
     this->vector.push_back(ember);
 
     logger.infoMsg("Spawned ember on X=" + std::to_string(randSpawn));
@@ -156,7 +156,7 @@ void Game::lvl2SpawnBarrel(){
     int spawns[4] = {168,312,456,600};
 
     int randSpawn = spawns[rand()%4];
-    Barrel barrel(randSpawn, 100, 60, 40, 0, 2);
+    Barrel barrel(randSpawn, 100, 60, 40, 0, 4);
     this->vector.push_back(barrel);
 
     logger.infoMsg("Spawned barrel on X=" + std::to_string(randSpawn));
@@ -290,8 +290,10 @@ void Game::setLevel1(){
     this->vector.push_back(platform_5_8);
     Platform platform_5_9(397, 131, 84, 20, 0, 0);
     this->vector.push_back(platform_5_9);
-    Stair stair_5_2(451, 131, 30, 64, 0, 0);
-    this->vector.push_back(stair_5_2);
+    Stair stair_6_1(225, 73, 32, 124, 0, 0);
+    this->vector.push_back(stair_6_1);
+    Stair stair_6_2(282, 73, 32, 124, 0, 0);
+    this->vector.push_back(stair_6_2);
 
 
 }

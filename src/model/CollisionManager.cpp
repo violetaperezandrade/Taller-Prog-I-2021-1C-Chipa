@@ -45,7 +45,7 @@ bool CollisionManager::moveEmber(Entity &entity) {
     entity.setPosY(posY + speedY);
 
     if(posY <= 241){
-        entity.setSpeedY(-2);
+        entity.setSpeedY(12);
         return false;
     }else if(posY >= 565){
         return true;
