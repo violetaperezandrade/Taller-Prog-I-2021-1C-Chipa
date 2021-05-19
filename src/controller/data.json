@@ -8,7 +8,7 @@
     "character" : {
         "climbing speed" : 10,
         "jumping speed" : 20,
-        "moving speed" : 20
+        "moving speed" : 15
     },
     "level 1" : {
         "flames" : 4
