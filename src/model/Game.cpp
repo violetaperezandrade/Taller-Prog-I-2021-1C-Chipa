@@ -84,7 +84,7 @@ void Game::update() { //nombre
     str.clear();
     collisionManager.moveCharacter();
 
-    if(tickCounter % config.getFlamesLevel1() == 0 && actLevel == 1){
+    if(tickCounter % config.getEmbersLevel1() == 0 && actLevel == 1){
         lvl1SpawnEmber();
     }
     else if(tickCounter % config.getBarrelsLevel2() == 0 && actLevel == 2){

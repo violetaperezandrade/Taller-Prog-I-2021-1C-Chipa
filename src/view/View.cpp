@@ -88,7 +88,7 @@ SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
     SDL_Texture* finalTexture = NULL;
     SDL_Surface* imageSurface = IMG_Load(path.c_str());
     if(!imageSurface) {
-        logger.errorMsg("Error al inicializar SDL_Surface");
+        logger.errorMsg("Error al inicializar SDL_Surface utilizando el path: " + path);
         imageSurface = IMG_Load("../src/view/img/missing.png");
     }
     if(!imageSurface) {
