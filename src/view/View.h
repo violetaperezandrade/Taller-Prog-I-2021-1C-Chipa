@@ -10,9 +10,9 @@
 
 class View {
 private:
-    std::map<char, std::string> texturesMario; //only mario
-    std::map<char, std::string> texturesEntities; //entities - mario - monkey
-    std::map<char, std::string> texturesMonkey; //only monkey
+    std::map<char, SDL_Texture*> texturesMario; //only mario
+    std::map<char, SDL_Texture*> texturesEntities; //entities - mario - monkey
+    std::map<char, SDL_Texture*> texturesMonkey; //only monkey
     SDL_Renderer* windowRenderer;
     SDL_Window* window;
     Game& game;

@@ -2,27 +2,29 @@
 #include <iostream>
 
 View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger), config(config){
-
-    texturesMario = {{'0', "../src/view/img/Sprites-Mario/mario_idle_back.png"},
-                {'4', "../src/view/img/Sprites-Mario/mario_climbing.bmp"},
-                {'r', "../src/view/img/Sprites-Mario/mario_ide_right.png"},
-                {'l',"../src/view/img/Sprites-Mario/mario_idle_left.png"},
-                {'7',"../src/view/img/Sprites-Mario/mario_walk_left.png"},
-                {'6',"../src/view/img/Sprites-Mario/mario_walk_right.png"}
-
-    };
-    texturesEntities = {{'P', "../src/view/img/Sprites-Entities/blue_platform.png"},
-                        {'B',"../src/view/img/Sprites-Entities/Barrel.png"},
-                        {'b',"../src/view/img/Sprites-Entities/oil_barrel.png"},
-                        {'f',"../src/view/img/Sprites-Entities/flame.png"},
-                        {'F',"../src/view/img/Sprites-Entities/fire.png"},
-                        {'p',"../src/view/img/Sprites-Entities/princess.png"},
-                        {'S',"../src/view/img/Sprites-Entities/long_cyan_stair.png"},
-                        {'E',"../src/view/img/Sprites-Entities/ember.png"}};
-    texturesMonkey = {{'0',"../src/view/img/Sprites-Monkey/monkey_left_hand_up.png"}};
-
     window = createWindow("Donkey Kong ii");
     windowRenderer = createRenderer(window);
+
+    texturesMario = {{'0', loadImageTexture("../src/view/img/Sprites-Mario/mario_idle_back.png", windowRenderer)},
+                {'4', loadImageTexture("../src/view/img/Sprites-Mario/mario_climbing.bmp", windowRenderer)},
+                {'r', loadImageTexture("../src/view/img/Sprites-Mario/mario_idle_right.png", windowRenderer)},
+                {'l',loadImageTexture("../src/view/img/Sprites-Mario/mario_climbing.bmp", windowRenderer)},
+                {'7',loadImageTexture("../src/view/img/Sprites-Mario/mario_walk_left.png", windowRenderer)},
+                {'6',loadImageTexture("../src/view/img/Sprites-Mario/mario_walk_right.png", windowRenderer)}
+
+
+    };
+    texturesEntities = {{'P', loadImageTexture("../src/view/img/Sprites-Entities/blue_platform.png", windowRenderer)},
+                        {'B',loadImageTexture("../src/view/img/Sprites-Entities/Barrel.png", windowRenderer)},
+                        {'b',loadImageTexture("../src/view/img/Sprites-Entities/oil_barrel.png", windowRenderer)},
+                        {'f',loadImageTexture("../src/view/img/Sprites-Entities/flame.png", windowRenderer)},
+                        {'F',loadImageTexture("../src/view/img/Sprites-Entities/fire.png", windowRenderer)},
+                        {'p',loadImageTexture("../src/view/img/Sprites-Entities/princess.png", windowRenderer)},
+                        {'S',loadImageTexture("../src/view/img/Sprites-Entities/long_cyan_stair.png", windowRenderer)},
+                        {'E',loadImageTexture("../src/view/img/Sprites-Entities/ember.png", windowRenderer)}
+    };
+
+    texturesMonkey = {{'0',loadImageTexture("../src/view/img/Sprites-Monkey/monkey_left_hand_up.png", windowRenderer)}};
 
 }
 
@@ -84,37 +86,36 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Texture *textureEntity;
     switch (entityType) {
         case 'C': //mario
-            textureEntity = loadImageTexture(texturesMario['0'], windowRenderer);
+            textureEntity = texturesMario['0'];
             break;
         case 'B': //barrel
-            textureEntity = loadImageTexture(texturesEntities['B'], windowRenderer);
+            textureEntity = texturesEntities['B'];
             break;
         case 'E': //ember
-            textureEntity = loadImageTexture(texturesEntities['E'], windowRenderer);
+            textureEntity = texturesEntities['E'];
             break;
         case 'F': //Fire
-            textureEntity = loadImageTexture(texturesEntities['F'], windowRenderer);
+            textureEntity = texturesEntities['F'];
             break;
         case 'f': //flame
-            textureEntity = loadImageTexture(texturesEntities['f'], windowRenderer);
+            textureEntity = texturesEntities['f'];
             break;
         case 'M': //monkey
-            textureEntity = loadImageTexture(texturesMonkey['0'], windowRenderer);
+            textureEntity = texturesMonkey['0'];
             break;
         case 'P': //platform
-            textureEntity = loadImageTexture(texturesEntities['P'], windowRenderer);
+            textureEntity = texturesEntities['P'];
             break;
         case 'p': //princess
-            textureEntity = loadImageTexture(texturesEntities['p'], windowRenderer);
+            textureEntity = texturesEntities['p'];
             break;
         case 'S': //stair
-            textureEntity = loadImageTexture(texturesEntities['S'], windowRenderer);
+            textureEntity = texturesEntities['S'];
             break;
         default:
             break;
     }
     SDL_RenderCopyEx(windowRenderer, textureEntity, clip, &renderQuad, angle, center, flip);
-    SDL_RenderPresent(windowRenderer);
 }
 
 void View::free(SDL_Texture* texture){
@@ -137,10 +138,9 @@ void View::refresh(){
         char state;
         entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
         render(posX,posY,width,height,state,entityType);
-        SDL_RenderPresent(windowRenderer);
     }
-    SDL_RenderClear(windowRenderer);
     SDL_RenderPresent(windowRenderer);
+    SDL_RenderClear(windowRenderer);
 }
 void View::renderFilledQuad(){
     SDL_Rect fillRect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
