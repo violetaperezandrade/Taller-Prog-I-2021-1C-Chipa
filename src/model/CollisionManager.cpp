@@ -3,6 +3,7 @@
 #include <cmath>
 
 #define PI 3.14159265
+#define PLATFORM_HEIGHT 20
 
 CollisionManager::CollisionManager(Character &character, std::vector<Entity> &vector, Logger& logger) :
     character(character),
@@ -92,12 +93,12 @@ void CollisionManager::moveCharacter() {
         x = map_width;
     }
 
-    if (y <= height){
-        y = height;
+    if (y >= 600-(height+PLATFORM_HEIGHT)){
+        y = 600-(height+PLATFORM_HEIGHT);
         character.land();
         logger.debugMsg("Character has landed");
-    } else if (y > map_width){
-        y = map_width;
+    } else if (y <= 0){
+        y = 0;
     }
     character.setPosX(x);
     character.setPosY(y);

@@ -7,7 +7,8 @@ Logger::Logger(std::string path, int logLvl) :
     logLvl(logLvl)
 
 {
-    file.open(path,std::ofstream::app);
+    file.open(path);
+    //file.open(path,std::ofstream::app);
     //if(!file.is_open()) hacemos algo
     file << "------------------------------------------------------------------------------------------\n";
 }
