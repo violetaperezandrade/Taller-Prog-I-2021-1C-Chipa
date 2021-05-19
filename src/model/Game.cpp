@@ -199,19 +199,19 @@ void Game::setLevel1(){
     this->vector.push_back(platform_1_1);
     Platform platform_1_2(84, 580, 84, 20, 0, 0);
     this->vector.push_back(platform_1_2);
-    Fire fire(168, 560, 60, 40, 0, 0);
+    Fire fire(168, 560, 60, 60, 0, 0);
     this->vector.push_back(fire);
     Platform platform_1_3(228, 580, 84, 20, 0, 0);
     this->vector.push_back(platform_1_3);
-    Fire fire_2(312, 560, 60, 40, 0, 0);
+    Fire fire_2(312, 560, 60, 60, 0, 0);
     this->vector.push_back(fire_2);
     Platform platform_1_4(372, 580, 84, 20, 0, 0);
     this->vector.push_back(platform_1_4);
-    Fire fire_3(456, 560, 60, 40, 0, 0);
+    Fire fire_3(456, 560, 60, 60, 0, 0);
     this->vector.push_back(fire_3);
     Platform platform_1_5(516, 580, 84, 20, 0, 0);
     this->vector.push_back(platform_1_5);
-    Fire fire_4(600, 560, 60, 40, 0, 0);
+    Fire fire_4(600, 560, 60, 60, 0, 0);
     this->vector.push_back(fire_4);
     Platform platform_1_6(660, 580, 84, 20, 0, 0);
     this->vector.push_back(platform_1_6);
@@ -354,6 +354,8 @@ void Game::setLevel2() {
     this->vector.push_back(platform_1_13);
     Platform platform_1_14(702, 566, 54, 20, 0, 0);
     this->vector.push_back(platform_1_14);
+    Platform platform_1_15(756, 566, 54, 20, 0, 0);
+    this->vector.push_back(platform_1_15);
 
     Stair brokenStair_1_1(285, 497, 30, 84, 0, 0);
     this->vector.push_back(brokenStair_1_1);
@@ -420,6 +422,8 @@ void Game::setLevel2() {
     this->vector.push_back(platform_3_12);
     Platform platform_3_13(702, 413, 54, 20, 0, 0);
     this->vector.push_back(platform_3_13);
+    Platform platform_3_14(756, 413, 54, 20, 0, 0);
+    this->vector.push_back(platform_3_14);
 
     Stair brokenStair_3_1(216, 340, 30, 84, 0, 0);
     this->vector.push_back(brokenStair_3_1);
@@ -490,6 +494,8 @@ void Game::setLevel2() {
     this->vector.push_back(platform_5_12);
     Platform platform_5_13(702, 258, 54, 20, 0, 0);
     this->vector.push_back(platform_5_13);
+    Platform platform_5_14(756, 258, 54, 20, 0, 0);
+    this->vector.push_back(platform_5_14);
 
     Stair brokenStair_5_1(313, 195, 30, 79, 0, 0);
     this->vector.push_back(brokenStair_5_1);
