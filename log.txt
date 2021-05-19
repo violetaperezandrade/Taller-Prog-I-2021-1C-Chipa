@@ -1,11 +1,175 @@
 ------------------------------------------------------------------------------------------
-2021-05-18.23:20:38 [INFO]: Set Level 1
-2021-05-18.23:20:38 [INFO]: SDL_Window Inicializado
-2021-05-18.23:20:38 [INFO]: SDL_Renderer Inicializado
-2021-05-18.23:20:38 [INFO]: SDL Inicializado
-2021-05-18.23:20:38 [DEBUG]: Inicia gameloop
-2021-05-18.23:20:38 [DEBUG]: Updated character status:0
-2021-05-18.23:20:40 [DEBUG]: Inicia gameloop
-2021-05-18.23:20:40 [DEBUG]: Botón QUIT
-2021-05-18.23:20:40 [DEBUG]: Updated character status:0
-2021-05-18.23:20:41 [INFO]: Cerrar SDL
+2021-05-18.23:36:53 [INFO]: Set Level 1
+2021-05-18.23:36:53 [INFO]: SDL_Window Inicializado
+2021-05-18.23:36:53 [INFO]: SDL_Renderer Inicializado
+2021-05-18.23:36:53 [INFO]: SDL Inicializado
+2021-05-18.23:36:53 [DEBUG]: Inicia gameloop
+2021-05-18.23:36:53 [DEBUG]: Updated character status:0
+2021-05-18.23:36:53 [DEBUG]: Character has landed
+2021-05-18.23:36:55 [DEBUG]: Inicia gameloop
+2021-05-18.23:36:55 [DEBUG]: Updated character status:0
+2021-05-18.23:36:55 [DEBUG]: Character has landed
+2021-05-18.23:36:56 [DEBUG]: Inicia gameloop
+2021-05-18.23:36:56 [DEBUG]: Se presiona boton RIGHT
+2021-05-18.23:36:56 [DEBUG]: Updated character status:6
+2021-05-18.23:36:56 [DEBUG]: Character has landed
+2021-05-18.23:36:58 [DEBUG]: Inicia gameloop
+2021-05-18.23:36:58 [DEBUG]: Updated character status:6
+2021-05-18.23:36:58 [DEBUG]: Character has landed
+2021-05-18.23:37:00 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:00 [DEBUG]: Updated character status:6
+2021-05-18.23:37:00 [DEBUG]: Character has landed
+2021-05-18.23:37:02 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:02 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:02 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:02 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:02 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:02 [DEBUG]: Updated character status:6
+2021-05-18.23:37:02 [DEBUG]: Character has landed
+2021-05-18.23:37:03 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:03 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:03 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:03 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:03 [DEBUG]: Updated character status:1
+2021-05-18.23:37:05 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:05 [DEBUG]: Se libera boton RIGHT
+2021-05-18.23:37:05 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:05 [DEBUG]: Updated character status:1
+2021-05-18.23:37:07 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:07 [DEBUG]: Updated character status:1
+2021-05-18.23:37:08 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:08 [DEBUG]: Updated character status:1
+2021-05-18.23:37:10 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:10 [DEBUG]: Updated character status:1
+2021-05-18.23:37:12 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:12 [DEBUG]: Se presiona boton LEFT
+2021-05-18.23:37:12 [DEBUG]: Updated character status:1
+2021-05-18.23:37:14 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:14 [DEBUG]: Se libera boton LEFT
+2021-05-18.23:37:14 [DEBUG]: Updated character status:1
+2021-05-18.23:37:15 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:15 [DEBUG]: Updated character status:1
+2021-05-18.23:37:17 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:17 [DEBUG]: Updated character status:1
+2021-05-18.23:37:17 [INFO]: Spawned ember on X=600
+2021-05-18.23:37:19 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:19 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:19 [DEBUG]: Updated character status:1
+2021-05-18.23:37:20 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:20 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:20 [DEBUG]: Updated character status:1
+2021-05-18.23:37:22 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:22 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:22 [DEBUG]: Updated character status:1
+2021-05-18.23:37:24 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:24 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:24 [DEBUG]: Updated character status:1
+2021-05-18.23:37:26 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:26 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:26 [DEBUG]: Updated character status:1
+2021-05-18.23:37:27 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:27 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:27 [DEBUG]: Updated character status:1
+2021-05-18.23:37:27 [DEBUG]: Character has landed
+2021-05-18.23:37:29 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:29 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:29 [DEBUG]: Updated character status:0
+2021-05-18.23:37:29 [DEBUG]: Character has landed
+2021-05-18.23:37:31 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:31 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:31 [DEBUG]: Updated character status:0
+2021-05-18.23:37:31 [DEBUG]: Character has landed
+2021-05-18.23:37:33 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:33 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:33 [DEBUG]: Se presiona boton LEFT
+2021-05-18.23:37:33 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:33 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:33 [DEBUG]: Updated character status:7
+2021-05-18.23:37:33 [DEBUG]: Character has landed
+2021-05-18.23:37:34 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:34 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:34 [DEBUG]: Se libera boton LEFT
+2021-05-18.23:37:34 [DEBUG]: Se presiona boton LEFT
+2021-05-18.23:37:34 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:34 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:34 [DEBUG]: Updated character status:7
+2021-05-18.23:37:34 [DEBUG]: Character has landed
+2021-05-18.23:37:36 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:36 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:36 [DEBUG]: Se libera boton LEFT
+2021-05-18.23:37:36 [DEBUG]: Updated character status:0
+2021-05-18.23:37:36 [DEBUG]: Character has landed
+2021-05-18.23:37:38 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:38 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:38 [DEBUG]: Se presiona boton LEFT
+2021-05-18.23:37:38 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:38 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:38 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:38 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:38 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:38 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:38 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:38 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:38 [DEBUG]: Updated character status:7
+2021-05-18.23:37:38 [DEBUG]: Character has landed
+2021-05-18.23:37:40 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:40 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:40 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:40 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:40 [DEBUG]: Se presiona boton SPACE
+2021-05-18.23:37:40 [DEBUG]: Updated character status:2
+2021-05-18.23:37:41 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:41 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:41 [DEBUG]: Se libera boton SPACE
+2021-05-18.23:37:41 [DEBUG]: Se libera boton LEFT
+2021-05-18.23:37:41 [DEBUG]: Updated character status:2
+2021-05-18.23:37:43 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:43 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:43 [DEBUG]: Updated character status:2
+2021-05-18.23:37:43 [INFO]: Spawned ember on X=456
+2021-05-18.23:37:45 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:45 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:45 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:45 [DEBUG]: Updated character status:2
+2021-05-18.23:37:47 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:47 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:47 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:47 [DEBUG]: Updated character status:2
+2021-05-18.23:37:48 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:49 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:49 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:49 [DEBUG]: Updated character status:2
+2021-05-18.23:37:50 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:50 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:50 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:50 [DEBUG]: Updated character status:2
+2021-05-18.23:37:52 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:52 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:52 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:52 [DEBUG]: Updated character status:2
+2021-05-18.23:37:54 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:54 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:54 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:54 [DEBUG]: Updated character status:2
+2021-05-18.23:37:56 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:56 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:56 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:56 [DEBUG]: Updated character status:2
+2021-05-18.23:37:57 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:57 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:57 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:57 [DEBUG]: Updated character status:2
+2021-05-18.23:37:59 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:59 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:37:59 [DEBUG]: Inicia gameloop
+2021-05-18.23:37:59 [DEBUG]: Updated character status:2
+2021-05-18.23:38:01 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:38:01 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:38:01 [DEBUG]: Inicia gameloop
+2021-05-18.23:38:01 [DEBUG]: Botón QUIT
+2021-05-18.23:38:01 [DEBUG]: Botón QUIT
+2021-05-18.23:38:01 [DEBUG]: Botón QUIT
+2021-05-18.23:38:01 [DEBUG]: Updated character status:2
+2021-05-18.23:38:03 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:38:03 [ERROR]: Error al inicializar SDL_Surface
+2021-05-18.23:38:03 [INFO]: Cerrar SDL
