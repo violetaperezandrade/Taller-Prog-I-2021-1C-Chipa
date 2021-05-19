@@ -58,6 +58,8 @@ public:
 
     void changeLevel();
 
+    void spawnFlames();
+
     //void run();
 };
 
