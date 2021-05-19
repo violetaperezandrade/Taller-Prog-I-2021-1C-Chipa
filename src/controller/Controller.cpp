@@ -115,9 +115,10 @@ int Controller::run(){
         view.refresh();
         final_time = SDL_GetTicks();
         Uint32 used_time = final_time - initial_time;
-        if (used_time < FRAME_TIME) {
-            SDL_Delay(FRAME_TIME - used_time);
-            //std::cout << "Delay added of " << FRAME_TIME - used_time << "\n";
+        int frameTime = config.getFrameTime();
+        if (used_time < frameTime) {
+            SDL_Delay(frameTime - used_time);
+            //std::cout << "Delay added of " << frameTime - used_time << "\n";
         }
     }
     return 0;

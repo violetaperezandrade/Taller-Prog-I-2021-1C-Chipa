@@ -45,7 +45,7 @@ SDL_Renderer* View::createRenderer(SDL_Window* window) {
 }
 
 SDL_Window* View::createWindow(const char* title){
-    SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, config.getResolutionWidth(), config.getResolutionHeight(), SDL_WINDOW_SHOWN);
     if(!window) {
         std::string str("Error al inicializar SDL_Window");
         logger.errorMsg(str);
@@ -143,7 +143,7 @@ void View::refresh(){
     SDL_RenderClear(windowRenderer);
 }
 void View::renderFilledQuad(){
-    SDL_Rect fillRect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    SDL_Rect fillRect = { 0, 0, config.getResolutionWidth(), config.getResolutionHeight()};
     SDL_SetRenderDrawColor( windowRenderer, 0x00, 0x00, 0x00, 0xFF );
     SDL_RenderFillRect( windowRenderer, &fillRect );
 }

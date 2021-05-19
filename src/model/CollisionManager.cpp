@@ -97,8 +97,8 @@ void CollisionManager::moveCharacter() {
         y = 600-(height+PLATFORM_HEIGHT);
         character.land();
         logger.debugMsg("Character has landed");
-    } else if (y > map_width){
-        y = map_width;
+    } else if (y <= 0){
+        y = 0;
     }
     character.setPosX(x);
     character.setPosY(y);
