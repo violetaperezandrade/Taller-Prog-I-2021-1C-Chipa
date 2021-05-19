@@ -86,11 +86,12 @@ void CollisionManager::moveCharacter() {
     int x = character.getPosX() + speedX;
     int y = character.getPosY() + speedY;
     int height = character.getHeight();
+    int width = character.getWidth();
 
     if (x < 0){
         x = 0;
-    } else if (x > map_width){
-        x = map_width;
+    } else if (x > map_width-width){
+        x = map_width-width;
     }
 
     if (y >= 600-(height+PLATFORM_HEIGHT)){
