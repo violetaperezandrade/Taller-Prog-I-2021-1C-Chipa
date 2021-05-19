@@ -47,6 +47,7 @@ int Controller::run(){
                     case SDLK_l:
                         logger.debugMsg("Tecla de cambio de nivel");
                         game.changeLevel();
+                        view.changeLevel();
                         break;
                     case SDLK_SPACE:
                         logger.debugMsg("Se presiona boton SPACE");
