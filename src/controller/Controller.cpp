@@ -1,6 +1,6 @@
 #include "Controller.h"
 #include <string>
-#define FRAME_TIME 1000
+#define FRAME_TIME 33
 
 Controller::Controller(Config& config, Logger& logger):config(config), game(config, logger), view(game,logger, config), logger(logger){
     if(initSDL()) {
