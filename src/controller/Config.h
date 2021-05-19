@@ -23,7 +23,7 @@ private:
     int resolutionHeight;
 
 public:
-    Config();
+    Config(char* path);
     ~Config();
 
     int getFrameTime();

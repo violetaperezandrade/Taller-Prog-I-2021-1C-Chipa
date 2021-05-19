@@ -138,19 +138,19 @@ void Character::updateStatus(Config& config){
     }*/ else {
         if (movement.shouldMoveRight()){
             state = MOVING_RIGHT;
-            speedX = config.getMoveSpeed();
+            speedX = config.getMovingSpeed();
             if (movement.shouldJump()){
                 state = FALLING_RIGHT;
                 movement.setMidair(true);
-                speedY = -config.getJumpSpeed();
+                speedY = -config.getJumpingSpeed();
             }
         } else if (movement.shouldMoveLeft()){
             state = MOVING_LEFT;
-            speedX = -config.getMoveSpeed();
+            speedX = -config.getMovingSpeed();
             if (movement.shouldJump()){
                 state = FALLING_LEFT;
                 movement.setMidair(true);
-                speedY = -config.getJumpSpeed();
+                speedY = -config.getJumpingSpeed();
             }
         } else {
             state = IDLE_BACK;
@@ -159,7 +159,7 @@ void Character::updateStatus(Config& config){
             if (movement.shouldJump()){
                 state = FALLING_STRAIGHT;
                 movement.setMidair(true);
-                speedY = -config.getJumpSpeed();
+                speedY = -config.getJumpingSpeed();
             }
         }
     }
