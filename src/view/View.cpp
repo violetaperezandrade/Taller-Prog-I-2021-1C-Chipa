@@ -109,7 +109,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Texture *textureEntity;
     switch (entityType) {
         case 'C': //mario
-            textureEntity = texturesMario['0'];
+            textureEntity = texturesMario[stateEntity];
             break;
         case 'B': //barrel
             textureEntity = texturesEntities['B'];
