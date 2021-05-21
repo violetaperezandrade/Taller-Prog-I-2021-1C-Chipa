@@ -11,7 +11,7 @@
         "moving speed" : 15
     },
     "level 1" : {
-        "flames" : 80,
+        "flames" : 8
         "embers" : 80
     },
     "level 2" : {

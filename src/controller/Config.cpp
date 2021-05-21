@@ -133,7 +133,7 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
         }
     }
 
-    defaultLog = valid;
+    defaultLog = !valid; //json not valid then use default log true
 }
 
 
