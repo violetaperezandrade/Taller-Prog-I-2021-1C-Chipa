@@ -26,6 +26,7 @@ private:
     int resolutionWidth;
     int resolutionHeight;
     int enemiesQuantity;
+    bool defaultLog;
 
 public:
     Config(char* str, Logger& logger);
@@ -43,6 +44,7 @@ public:
     int getBarrelsLevel2();
     int getResolutionWidth();
     int getResolutionHeight();
+    bool getDefault();
 
 };
 #endif //DONKEYKONG_CONFIG_H

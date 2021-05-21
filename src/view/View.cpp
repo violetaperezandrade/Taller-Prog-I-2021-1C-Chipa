@@ -32,6 +32,7 @@ View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger
 
     texturesMonkey = {{'0',loadImageTexture("../src/view/img/Sprites-Monkey/monkey_left_hand_up.png", windowRenderer)}};
 
+    defaultConfig = loadImageTexture("../src/view/img/default.png", windowRenderer);
 }
 
 SDL_Renderer* View::createRenderer(SDL_Window* window) {
@@ -154,6 +155,8 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
         case 'S': //stair
             textureEntity = texturesEntities['S'];
             break;
+        case 'd'://default water mark
+            textureEntity = defaultConfig;
         default:
             break;
     }
@@ -167,6 +170,9 @@ void View::free(SDL_Texture* texture){
     }
 }
 void View::refresh(){
+    if(config.getDefault()){
+        render(0,200,800,200,'\0','d');
+    }
     Message entityInfo = game.getStatus();
     while(!entityInfo.isEmpty()){
         char entityType;

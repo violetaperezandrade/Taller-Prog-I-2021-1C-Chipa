@@ -18,6 +18,7 @@ private:
     Game& game;
     Logger& logger;
     Config& config;
+    SDL_Texture* defaultConfig;
 
     bool initSDL();
     void closeSDL();

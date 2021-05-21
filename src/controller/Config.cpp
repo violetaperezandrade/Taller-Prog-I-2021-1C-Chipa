@@ -132,6 +132,8 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
             resolutionHeight = actualJson["resolution"]["height"].asInt();
         }
     }
+
+    defaultLog = valid;
 }
 
 
@@ -182,5 +184,9 @@ int Config::getResolutionWidth(){
 int Config::getResolutionHeight(){
     return resolutionHeight;
 };
+
+bool Config::getDefault(){
+    return defaultLog;
+}
 
 Config::~Config() {}
