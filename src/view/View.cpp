@@ -67,8 +67,7 @@ SDL_Window* View::createWindow(const char* title){
 bool View::initSDL() {
 
     bool error = false;
-    int perro = SDL_Init(SDL_INIT_VIDEO);
-    if (perro < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         logger.errorMsg("Fallo inicializar video SDL");
         error = true;
     }
