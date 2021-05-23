@@ -17,26 +17,41 @@ void Logger::setLevel(int lvl) {
     logLvl = lvl;
 }
 
-void Logger::superDebugMsg(std::string str){//logLvl SUPER_DEBUG 4
-    if(logLvl >= 4) {
-        file << currentDateTime() << " [DEBUG]: " << str << std::endl;
+void Logger::superDebugMsg(std::string str, std::string filename, int line){//logLvl SUPER_DEBUG 4
+    if(logLvl < 4) {
+        return;
     }
+    file << currentDateTime() << " [S.DEBUG]: ";
+    int pos = filename.find_last_of("/");
+    file << filename.substr(pos+1) << ':' << std::to_string(line) << ". ";
+    file << str << std::endl;
 }
 
-void Logger::debugMsg(std::string str){//logLvl DEBUG 3
-    if(logLvl >= 3) {
-        file << currentDateTime() << " [DEBUG]: " << str << std::endl;
+void Logger::debugMsg(std::string str, std::string filename, int line){//logLvl DEBUG 3
+    if(logLvl < 3) {
+        return;
     }
+    file << currentDateTime() << " [DEBUG]: ";
+    int pos = filename.find_last_of("/");
+    file << filename.substr(pos+1) << ':' << std::to_string(line) << ". ";
+    file << str << std::endl;
 }
 
-void Logger::infoMsg(std::string str){//logLvl INFO 2
-    if (logLvl >= 2) {
-        file << currentDateTime() << " [INFO]: " << str << std::endl;
+void Logger::infoMsg(std::string str, std::string filename, int line){//logLvl INFO 2
+    if (logLvl < 2) {
+        return;
     }
+    file << currentDateTime() << " [INFO]: ";
+    int pos = filename.find_last_of("/");
+    file << filename.substr(pos+1) << ':' << std::to_string(line) << ". ";
+    file << str << std::endl;
 }
 
-void Logger::errorMsg(std::string str){//logLvl ERROR 1
-    file << currentDateTime() << " [ERROR]: " << str << std::endl;
+void Logger::errorMsg(std::string str, std::string filename, int line){//logLvl ERROR 1
+    file << currentDateTime() << " [ERROR]: ";
+    int pos = filename.find_last_of("/");
+    file << filename.substr(pos+1) << ':' << std::to_string(line) << ". ";
+    file << str << std::endl;
 }
 
 std::string Logger::currentDateTime() {

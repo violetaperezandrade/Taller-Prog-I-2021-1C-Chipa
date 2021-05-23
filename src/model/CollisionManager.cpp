@@ -76,7 +76,7 @@ bool CollisionManager::moveEmber(Entity &entity) {
 void CollisionManager::moveCharacter() {
     int speedX = character.getSpeedX();
     if (speedX){
-        logger.superDebugMsg("speedX:" + std::to_string(speedX));
+        logger.superDebugMsg("speedX:" + std::to_string(speedX), __FILE__, __LINE__);
     }
     int speedY = character.getSpeedY();
     //double angle = getAngle(speedX,speedY);
@@ -97,7 +97,7 @@ void CollisionManager::moveCharacter() {
     if (y >= 600-(height+PLATFORM_HEIGHT)){
         y = 600-(height+PLATFORM_HEIGHT);
         character.land();
-        logger.debugMsg("Character has landed");
+        logger.debugMsg("Character has landed", __FILE__, __LINE__);
     } else if (y <= 0){
         y = 0;
     }

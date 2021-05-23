@@ -16,12 +16,12 @@ int Controller::run(){
     Uint32 initial_time;
     Uint32 final_time;
     while (quit == false){
-        logger.debugMsg("Inicia gameloop");
+        logger.debugMsg("Inicia gameloop", __FILE__, __LINE__);
 
         initial_time = SDL_GetTicks();
         while(SDL_PollEvent(&event) != 0){
             if(event.type == SDL_QUIT) {
-                logger.debugMsg("Botón QUIT");
+                logger.debugMsg("Botón QUIT", __FILE__, __LINE__);
                 quit = true;
             }
                 //key pressed
@@ -29,28 +29,28 @@ int Controller::run(){
 
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
-                        logger.debugMsg("Se presiona boton UP");
+                        logger.debugMsg("Se presiona boton UP", __FILE__, __LINE__);
                         game.startMovingUp();
                         break;
                     case SDLK_DOWN:
-                        logger.debugMsg("Se presiona boton DOWN");
+                        logger.debugMsg("Se presiona boton DOWN", __FILE__, __LINE__);
                         game.startMovingDown();
                         break;
                     case SDLK_LEFT:
-                        logger.debugMsg("Se presiona boton LEFT");
+                        logger.debugMsg("Se presiona boton LEFT", __FILE__, __LINE__);
                         game.startMovingLeft();
                         break;
                     case SDLK_RIGHT:
-                        logger.debugMsg("Se presiona boton RIGHT");
+                        logger.debugMsg("Se presiona boton RIGHT", __FILE__, __LINE__);
                         game.startMovingRight();
                         break;
                     case SDLK_l:
-                        logger.debugMsg("Tecla de cambio de nivel");
+                        logger.debugMsg("Tecla de cambio de nivel", __FILE__, __LINE__);
                         game.changeLevel();
                         view.changeLevel();
                         break;
                     case SDLK_SPACE:
-                        logger.debugMsg("Se presiona boton SPACE");
+                        logger.debugMsg("Se presiona boton SPACE", __FILE__, __LINE__);
                         game.startJumping();
                         break;
                     default:
@@ -61,23 +61,23 @@ int Controller::run(){
 
                 switch(event.key.keysym.sym){
                     case SDLK_UP:
-                        logger.debugMsg("Se libera boton UP");
+                        logger.debugMsg("Se libera boton UP", __FILE__, __LINE__);
                         game.stopMovingUp();
                         break;
                     case SDLK_DOWN:
-                        logger.debugMsg("Se libera boton DOWN");
+                        logger.debugMsg("Se libera boton DOWN", __FILE__, __LINE__);
                         game.stopMovingDown();
                         break;
                     case SDLK_LEFT:
-                        logger.debugMsg("Se libera boton LEFT");
+                        logger.debugMsg("Se libera boton LEFT", __FILE__, __LINE__);
                         game.stopMovingLeft();
                         break;
                     case SDLK_RIGHT:
-                        logger.debugMsg("Se libera boton RIGHT");
+                        logger.debugMsg("Se libera boton RIGHT", __FILE__, __LINE__);
                         game.stopMovingRight();
                         break;
                     case SDLK_SPACE:
-                        logger.debugMsg("Se libera boton SPACE");
+                        logger.debugMsg("Se libera boton SPACE", __FILE__, __LINE__);
                         game.stopJumping();
                         break;
                     default:

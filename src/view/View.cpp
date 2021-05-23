@@ -3,7 +3,7 @@
 
 View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger), config(config){
     if (initSDL() < 0){
-        logger.errorMsg("Fallo initSDL");
+        logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
     }
     window = createWindow("Donkey Kong ii");
     windowRenderer = createRenderer(window);
@@ -38,15 +38,13 @@ View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger
 SDL_Renderer* View::createRenderer(SDL_Window* window) {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
     if(!renderer) {
-        std::string str("Error al inicializar SDL_Renderer");
-        logger.errorMsg(str);
+        logger.errorMsg("Error al inicializar SDL_Renderer", __FILE__, __LINE__);
     }
     else{
         SDL_SetRenderDrawColor(renderer,0,0,0,255);
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
-        std::string str("SDL_Renderer Inicializado");
-        logger.infoMsg(str);
+        logger.infoMsg("SDL_Renderer Inicializado", __FILE__, __LINE__);
     }
     return renderer;
 }
@@ -54,12 +52,10 @@ SDL_Renderer* View::createRenderer(SDL_Window* window) {
 SDL_Window* View::createWindow(const char* title){
     SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, config.getResolutionWidth(), config.getResolutionHeight(), SDL_WINDOW_SHOWN);
     if(!window) {
-        std::string str("Error al inicializar SDL_Window");
-        logger.errorMsg(str);
+        logger.errorMsg("Error al inicializar SDL_Window", __FILE__, __LINE__);
     }
     else{
-        std::string str("SDL_Window Inicializado");
-        logger.infoMsg(str);
+        logger.infoMsg("SDL_Window Inicializado", __FILE__, __LINE__);
     }
     return window;
 }
@@ -68,11 +64,11 @@ bool View::initSDL() {
 
     bool error = false;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        logger.errorMsg("Fallo inicializar video SDL");
+        logger.errorMsg("Fallo inicializar video SDL", __FILE__, __LINE__);
         error = true;
     }
     if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-        logger.errorMsg("Error al filtrar textura lineal");
+        logger.errorMsg("Error al filtrar textura lineal", __FILE__, __LINE__);
     }
     return error;
 }
@@ -80,7 +76,7 @@ bool View::initSDL() {
 void View::closeSDL() {
     IMG_Quit();
     SDL_Quit();
-    logger.infoMsg("Cerrar SDL");
+    logger.infoMsg("Cerrar SDL", __FILE__, __LINE__);
 }
 
 void View::changeLevel(){
@@ -101,18 +97,17 @@ SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
     SDL_Texture* finalTexture = NULL;
     SDL_Surface* imageSurface = IMG_Load(path.c_str());
     if(!imageSurface) {
-        logger.errorMsg("Error al inicializar SDL_Surface utilizando el path: " + path);
+        logger.errorMsg("Error al inicializar SDL_Surface utilizando el path: " + path, __FILE__, __LINE__);
         imageSurface = IMG_Load("../src/view/img/missing.png");
     }
     if(!imageSurface) {
-        logger.errorMsg("Error al inicializar missing.png");
+        logger.errorMsg("Error al inicializar missing.png", __FILE__, __LINE__);
     }
     else{
         SDL_SetColorKey(imageSurface,SDL_TRUE,SDL_MapRGB(imageSurface->format,0,0,0));
         finalTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
         if(!finalTexture) {
-            std::string str("Error al inicializar SDL_Texture");
-            logger.errorMsg(str);
+            logger.errorMsg("Error al inicializar SDL_Texture", __FILE__, __LINE__);
         }
         SDL_FreeSurface(imageSurface);
     }

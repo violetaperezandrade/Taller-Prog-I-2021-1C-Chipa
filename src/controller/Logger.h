@@ -14,13 +14,13 @@ public:
 
     void setLevel(int lvl);
 
-    void superDebugMsg(std::string str);
+    void superDebugMsg(std::string str, std::string filename, int line);
 
-    void debugMsg(std::string str);
+    void debugMsg(std::string str, std::string filename, int line);
 
-    void infoMsg(std::string str);
+    void infoMsg(std::string str, std::string filename, int line);
 
-    void errorMsg(std::string str);
+    void errorMsg(std::string str, std::string filename, int line);
 
     std::string currentDateTime();
 

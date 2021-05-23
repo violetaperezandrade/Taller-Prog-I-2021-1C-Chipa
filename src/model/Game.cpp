@@ -73,7 +73,7 @@ void Game::update() { //nombre
     character.updateStatus(config);
     std::string str("Updated character status:");
     str += character.getState();
-    logger.debugMsg(str);
+    logger.debugMsg(str, __FILE__, __LINE__);
     str.clear();
     collisionManager.moveCharacter();
 
@@ -90,20 +90,20 @@ void Game::update() { //nombre
         switch(it->getType()){
             case 'P':
                 collisionManager.movePlatform(*it);
-                logger.superDebugMsg("moved platform");
+                logger.superDebugMsg("moved platform", __FILE__, __LINE__);
                 break;
             case 'E':
                 removed = collisionManager.moveEmber(*it);
-                logger.superDebugMsg("moved ember");
+                logger.superDebugMsg("moved ember", __FILE__, __LINE__);
                 break;
             case 'B':
                 removed = collisionManager.moveBarrel(*it);
-                logger.superDebugMsg("moved barrel");
+                logger.superDebugMsg("moved barrel", __FILE__, __LINE__);
                 break;
         }
         if(removed){
             it = vector.erase(it);
-            logger.debugMsg("removed entity");
+            logger.debugMsg("removed entity", __FILE__, __LINE__);
         }
         else{
             ++it;
@@ -128,7 +128,7 @@ void Game::lvl1SpawnEmber(){
     Ember ember(randSpawn, 560, 60, 40, 0, -12);
     this->vector.push_back(ember);
 
-    logger.infoMsg("Spawned ember on X=" + std::to_string(randSpawn));
+    logger.infoMsg("Spawned ember on X=" + std::to_string(randSpawn), __FILE__, __LINE__);
 }
 
 void Game::lvl2SpawnBarrel(){
@@ -138,7 +138,7 @@ void Game::lvl2SpawnBarrel(){
     Barrel barrel(randSpawn, 100, 75, 48, 0, 4);
     this->vector.push_back(barrel);
 
-    logger.infoMsg("Spawned barrel on X=" + std::to_string(randSpawn));
+    logger.infoMsg("Spawned barrel on X=" + std::to_string(randSpawn), __FILE__, __LINE__);
 }
 
 void Game::spawnFlames(){
@@ -159,7 +159,7 @@ void Game::spawnFlames(){
 
 //800x600 grid
 void Game::setLevel1(){
-    logger.infoMsg("Set Level 1");
+    logger.infoMsg("Set Level 1", __FILE__, __LINE__);
     spawnFlames();
     Monkey monkey(84, 146, 148, 52, 0, 0);
     this->vector.push_back(monkey);
@@ -292,7 +292,7 @@ void Game::setLevel1(){
 
 }
 void Game::setLevel2() {
-    logger.infoMsg("Set Level 2");
+    logger.infoMsg("Set Level 2", __FILE__, __LINE__);
 
     Monkey monkey(84, 146, 148, 52, 0, 0);
     this->vector.push_back(monkey);
