@@ -3,12 +3,12 @@
     "frame time": 33,
     "debug": 3,
     "path" : "../log.txt",
-    "gravity" : 8
+    "gravity" : 2
   },
   "character" : {
     "climbing speed" : 10,
-    "jumping speed" : 20,
-    "moving speed" : 15
+    "jumping speed" : 15,
+    "moving speed" : 8
   },
   "level 1" : {
     "flames" : 4,
