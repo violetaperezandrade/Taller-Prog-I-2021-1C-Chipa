@@ -135,7 +135,7 @@ void Game::lvl2SpawnBarrel(){
     int spawns[4] = {168,312,456,600};
 
     int randSpawn = spawns[rand()%4];
-    Barrel barrel(randSpawn, 100, 75, 48, 0, 4);
+    Barrel barrel(randSpawn, 100, 48, 48, 0, 4);
     this->vector.push_back(barrel);
 
     logger.infoMsg("Spawned barrel on X=" + std::to_string(randSpawn), __FILE__, __LINE__);
