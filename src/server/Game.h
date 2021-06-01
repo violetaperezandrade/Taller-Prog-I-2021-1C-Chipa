@@ -14,7 +14,7 @@ class Game {
 private:
     Config& config;
     Logger& logger;
-    Character character;
+    std::vector<Character> players;
     std::vector<Entity> vector;
     CollisionManager collisionManager;
     int tickCounter;
