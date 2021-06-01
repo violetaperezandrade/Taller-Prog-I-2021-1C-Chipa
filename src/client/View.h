@@ -3,8 +3,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <map>
-#include "../model/ScreenConfig.h"
-#include "../model/Game.h"
+#include "../server/ScreenConfig.h"
+#include "../server/Game.h"
 #include "../controller/Logger.h"
 #include "../controller/Config.h"
 
