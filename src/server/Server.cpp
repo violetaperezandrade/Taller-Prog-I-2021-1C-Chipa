@@ -13,6 +13,12 @@ Server::Server(char* port, int playersAmount, Config& config, Logger& logger) :
 void Server::run(){
     sktListener.bind(ip, port);
     sktListener.listen(playersAmount);
+
+    for(int i = 0; i < playersAmount, i++){
+        Peer client(sktListener.accept());
+        clients.push_back(client);
+        clients[i].validate();
+    }
 }
 
 
