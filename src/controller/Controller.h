@@ -3,8 +3,8 @@
 
 #include <string>
 #include <iostream>
-#include "../model/Game.h"
-#include "../view/View.h"
+#include "../server/Game.h"
+#include "../client/View.h"
 #include "Config.h"
 #include "Logger.h"
 
