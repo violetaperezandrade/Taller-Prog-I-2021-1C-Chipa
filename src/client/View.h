@@ -5,8 +5,8 @@
 #include <map>
 #include "../server/ScreenConfig.h"
 #include "../server/Game.h"
-#include "../controller/Logger.h"
-#include "../controller/Config.h"
+#include "../common/Logger.h"
+#include "../server/Config.h"
 
 class View {
 private:

@@ -4,10 +4,10 @@
 #include <vector>
 #include "Entity.h"
 #include "CollisionManager.h"
-#include "../controller/Config.h"
+#include "Config.h"
 #include "entities/Character.h"
 #include "../Message.h"
-#include "../controller/Logger.h"
+#include "../common/Logger.h"
 
 
 class Game {

@@ -4,7 +4,7 @@
 #include "vector"
 #include "Entity.h"
 #include "entities/Character.h"
-#include "../controller/Logger.h"
+#include "../common/Logger.h"
 
 class CollisionManager {
 private:

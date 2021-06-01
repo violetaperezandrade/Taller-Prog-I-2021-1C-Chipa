@@ -1,7 +1,7 @@
 #include <iostream>
-#include "controller/Config.h"
+#include "server/Config.h"
 #include "controller/Controller.h"
-#include "controller/Logger.h"
+#include "common/Logger.h"
 
 #define MAX_ARGC 1
 #define MIN_ARGC 0

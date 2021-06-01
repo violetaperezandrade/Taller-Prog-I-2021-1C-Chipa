@@ -8,7 +8,7 @@
 #include <string>
 #include <typeinfo>
 
-#include "Logger.h"
+#include "../common/Logger.h"
 
 class Config {
 private:

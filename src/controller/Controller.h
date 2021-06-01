@@ -5,8 +5,8 @@
 #include <iostream>
 #include "../server/Game.h"
 #include "../client/View.h"
-#include "Config.h"
-#include "Logger.h"
+#include "../server/Config.h"
+#include "../common/Logger.h"
 
 class Controller {
 private:
