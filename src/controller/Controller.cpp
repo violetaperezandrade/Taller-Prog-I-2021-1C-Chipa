@@ -5,8 +5,6 @@
 Controller::Controller(Config& config, Logger& logger):config(config), game(config, logger), view(game,logger, config), logger(logger){}
 Controller::~Controller(){}
 
-
-
 int Controller::run(){
 
     bool quit = false;

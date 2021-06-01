@@ -10,7 +10,7 @@ private:
     std::ofstream file;
     int logLvl;
 public:
-    Logger(std::string path, int logLvl);
+    Logger(std::string path);
 
     void setLevel(int lvl);
 

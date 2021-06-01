@@ -1,10 +1,10 @@
 #include "Logger.h"
 #include <time.h>
 
-Logger::Logger(std::string path, int logLvl) :
+Logger::Logger(std::string path) :
     path(path),
     file(),
-    logLvl(logLvl)
+    logLvl(1)
 
 {
     file.open(path);

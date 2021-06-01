@@ -6,7 +6,6 @@
 #define MAX_ARGC 1
 #define MIN_ARGC 0
 
-
 #define LOG_PATH "../log.txt"
 #define JSON_DEBUG_LVL 3
 
