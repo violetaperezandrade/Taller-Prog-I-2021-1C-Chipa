@@ -1,5 +1,5 @@
-#ifndef DONKEYKONG_SOCKET_H
-#define DONKEYKONG_SOCKET_H
+#ifndef SOCKET_H
+#define SOCKET_H
 
 #define _POSIX_C_SOURCE 200809L // Habilita getaddrinfo
 #include <cstdio> //strerr
@@ -35,4 +35,4 @@ public:
 
 };
 
-#endif //DONKEYKONG_SOCKET_H
+#endif //SOCKET_H
