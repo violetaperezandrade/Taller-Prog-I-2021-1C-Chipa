@@ -93,7 +93,6 @@ int Controller::run(){
         int frameTime = config.getFrameTime();
         if (used_time < frameTime) {
             SDL_Delay(frameTime - used_time);
-            //std::cout << "Delay added of " << frameTime - used_time << "\n";
         }
     }
     return 0;
