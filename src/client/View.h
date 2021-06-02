@@ -3,7 +3,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <map>
-#include "../server/ScreenConfig.h"
 #include "../server/Game.h"
 #include "../common/Logger.h"
 #include "../server/Config.h"
