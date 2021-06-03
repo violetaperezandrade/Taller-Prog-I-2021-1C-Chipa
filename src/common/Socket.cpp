@@ -142,7 +142,29 @@ int Socket::receive(char* buf, size_t len){
 void Socket::shutdown(){
     if (::shutdown(fileDescriptor, SHUT_RDWR) != 0){
         std::string str(strerror(errno));
-        logger.debugMsg("Shutdown error: " + str, __FILE__, __LINE__);
+        logger.debugMsg("ShutdownRDWR error: " + str, __FILE__, __LINE__);
+    }
+}
+
+void Socket::shutdownRead(){
+    if (::shutdown(fileDescriptor, SHUT_RD) != 0){
+        std::string str(strerror(errno));
+        logger.debugMsg("ShutdownRD error: " + str, __FILE__, __LINE__);
+    }
+}
+
+void Socket::shutdownWrite(){
+    if (::shutdown(fileDescriptor, SHUT_WR) != 0){
+        std::string str(strerror(errno));
+        logger.debugMsg("ShutdownWR error: " + str, __FILE__, __LINE__);
+    }
+}
+
+
+void Socket::close(){
+    if (::close(fileDescriptor) != 0){
+        std::string str(strerror(errno));
+        logger.debugMsg("Closing error: " + str, __FILE__, __LINE__);
     }
 }
 
@@ -150,8 +172,5 @@ Socket::~Socket(){
     if (fileDescriptor == -1){
         return;
     }
-    if (close(fileDescriptor) != 0){
-        std::string str(strerror(errno));
-        logger.debugMsg("Closing error: " + str, __FILE__, __LINE__);
-    }
+    close();
 }

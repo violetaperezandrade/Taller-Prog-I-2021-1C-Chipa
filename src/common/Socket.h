@@ -32,6 +32,9 @@ public:
     int send(const char* buf, size_t len);
     int receive(char* buf, size_t len);
     void shutdown();
+    void shutdownRead();
+    void shutdownWrite();
+    void close();
 
 };
 
