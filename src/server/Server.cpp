@@ -16,8 +16,7 @@ void Server::run(){
 
     int ready = 0;
     while(ready != playersAmount){
-        Socket clientSkt;
-        clientSkt = sktListener.accept();
+        Socket clientSkt = std::move(sktListener.accept());
         if(validateClient(clientSkt)){
             Peer client(std::move(clientSkt));
             clients.push_back(client);
