@@ -18,12 +18,14 @@ private:
     std::map<std::string, std::string> usersKeys;
     Config& config;
     Logger& logger;
-    // Input Messages Queue
 
 public:
     Server(char* port, int playersAmount, Config& config, Logger& logger);
 
     void run();
+
+    bool validateClient(Socket& skt);
+
     ~Server();
 };
 

@@ -9,8 +9,10 @@ private:
     //Thread Sender
     //Thread Receiver
 public:
-
+    Peer(Socket&& peerSkt) : peer(peerSkt){}
+    ~Peer();
+    void send();
+    void receive();
 };
-
 
 #endif //PEER_H
