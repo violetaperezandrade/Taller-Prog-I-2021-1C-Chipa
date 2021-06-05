@@ -30,6 +30,10 @@ public:
 
     void startGame();
 
+    void sendNew();
+
+    void sendAll();
+
     ~Server();
 };
 

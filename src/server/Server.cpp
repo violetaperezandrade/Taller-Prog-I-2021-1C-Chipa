@@ -21,11 +21,45 @@ void Server::run(){
     startGame();
 }
 
-void Server::startGame(){
-    //todo send initial entities (all)
-    std::chrono::milliseconds frameTime(30);
-    bool finish = false;
+void Server::sendAll(){
+    const std::vector<Entity>& entities = game.getEntities();
+    const std::vector<Character>& characters = game.getPlayers();
 
+    for(int i = 0; i < playersAmount; i++){
+        for(int j = 0; j < entities.size(); j++){
+            players[i].send(entities[j],game.getPermanency(entities[j]));
+        }
+        for(int j = 0; j < characters.size(); i++){
+            players[i].send(characters[i],game.getPermanency(characters[j]));
+        }
+        players[i].sendBreak();
+    }
+
+}
+
+void Server::sendNew(){
+    const std::vector<Entity>& entities = game.getEntities();
+    const std::vector<Character>& characters = game.getPlayers();
+
+    for(int i = 0; i < playersAmount; i++){
+        for(int j = 0; j < entities.size(); j++){
+            char c = game.getPermanency(entities[j]);
+            if(c == '0') {
+                players[i].send(entities[j], c);
+            }
+        }
+        for(int j = 0; j < characters.size(); i++){
+            players[i].send(characters[i],game.getPermanency(characters[j]));
+        }
+        players[i].sendBreak();
+    }
+}
+
+void Server::startGame(){
+    sendAll();
+    std::chrono::milliseconds frameTime(30);
+
+    bool finish = false;
     while(!finish) {
         std::chrono::steady_clock::time_point initialTime = std::chrono::steady_clock::now();
         std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
@@ -39,13 +73,9 @@ void Server::startGame(){
                 //todo y el tipo de instrucción tengo que llamar a una cierta funcion de game
             }
         }
-
         game.update();
         finish = game.isFinished();
-        //todo proccess send
-        //todo for e in (entities on game): // all updated entities on game
-        //      for c in clients:
-        //          peer.send() Esto ya encola con protocolo y t0do y se hace el send
+        sendNew();
         std::this_thread::sleep_until(timeSpan);
     }
 }

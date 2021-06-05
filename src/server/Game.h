@@ -62,7 +62,7 @@ public:
 
     void spawnFlames();
 
-    int getPermanency(Entity& entity);
+    char getPermanency(Entity& entity);
 
     const std::vector<Entity>& getEntities();
 
