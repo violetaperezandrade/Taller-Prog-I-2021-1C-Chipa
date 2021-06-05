@@ -15,34 +15,36 @@ private:
     Config& config;
     Logger& logger;
     std::vector<Character> players;
-    std::vector<Entity> vector;
+    std::vector<Entity> entities;
     CollisionManager collisionManager;
     int tickCounter;
     int actLevel;
+    int amountPlayers;
 
 public:
-    Game(Config& config,Logger& logger);
+    Game(Config& config,Logger& logger, int amountPlayers);
+
     ~Game();
 
-    void startMovingLeft();
+    void startMovingLeft(int i);
 
-    void startMovingRight();
+    void startMovingRight(int i);
 
-    void startMovingUp();
+    void startMovingUp(int i);
 
-    void startMovingDown();
+    void startMovingDown(int i);
 
-    void startJumping();
+    void startJumping(int i);
 
-    void stopMovingLeft();
+    void stopMovingLeft(int i);
 
-    void stopMovingRight();
+    void stopMovingRight(int i);
 
-    void stopMovingUp();
+    void stopMovingUp(int i);
 
-    void stopMovingDown();
+    void stopMovingDown(int i);
 
-    void stopJumping();
+    void stopJumping(int i);
 
     void update();
 
@@ -60,7 +62,11 @@ public:
 
     void spawnFlames();
 
-    //void run();
+    int getPermanency(Entity& entity);
+
+    const std::vector<Entity>& getEntities();
+
+    const std::vector<Character>& getPlayers();
 };
 
 #endif //GAME_H
