@@ -26,6 +26,10 @@ public:
 
     bool validateClient(Socket& skt);
 
+    void acceptClients();
+
+    void startGame();
+
     ~Server();
 };
 

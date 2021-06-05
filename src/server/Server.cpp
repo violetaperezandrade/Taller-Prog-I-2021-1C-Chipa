@@ -1,4 +1,6 @@
 #include "Server.h"
+#include <chrono>
+#include <thread>
 
 Server::Server(char* port, int playersAmount, Config& config, Logger& logger) :
     ip(c_str("127.0.0.1")),
@@ -14,6 +16,41 @@ void Server::run(){
     sktListener.bind(ip, port);
     sktListener.listen(playersAmount);
 
+    acceptClients();
+    sktListener.shutdown();
+    startGame();
+}
+
+void Server::startGame(){
+    //todo send initial entities (all)
+    std::chrono::milliseconds frameTime(30);
+    bool finish = false;
+
+    while(!finish) {
+        std::chrono::steady_clock::time_point initialTime = std::chrono::steady_clock::now();
+        std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
+        for (int i = 0; i < playersAmount; i++) {
+            while (clients[i].hasIncoming()) {
+                clients[i].receive();
+                //todo proccess receive
+                //todo acá se puede hacer una factory o algo por el estilo
+                //todo pero primero hay que traducirlo de protocolo
+                //todo una vez que se que significa, sabiendo el numero de cliente
+                //todo y el tipo de instrucción tengo que llamar a una cierta funcion de game
+            }
+        }
+
+        game.update();
+        finish = game.isFinished();
+        //todo proccess send
+        //todo for e in (entities on game): // all updated entities on game
+        //      for c in clients:
+        //          peer.send() Esto ya encola con protocolo y t0do y se hace el send
+        std::this_thread::sleep_until(timeSpan);
+    }
+}
+
+void Server::acceptClients(){
     int ready = 0;
     while(ready != playersAmount){
         Socket clientSkt = std::move(sktListener.accept());
@@ -23,9 +60,6 @@ void Server::run(){
             ready++;
         }
     }
-    sktListener.shutdown();
-
-    startGame();
 }
 
 bool Server::validateClient(Socket& skt){
@@ -49,7 +83,4 @@ bool Server::validateClient(Socket& skt){
     return true;
 }
 
-void Server::startGame(){
-
-}
 Server::~Server() {}
