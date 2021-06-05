@@ -61,6 +61,12 @@ public:
     void changeLevel();
 
     void spawnFlames();
+
+    int getPermanency(Entity& entity);
+
+    const std::vector<Entity>& getEntities();
+
+    const std::vector<Character>& getPlayers();
 };
 
 #endif //GAME_H
