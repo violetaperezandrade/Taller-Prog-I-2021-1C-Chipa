@@ -8,12 +8,12 @@
 
 class CollisionManager {
 private:
-    Character& character;
+    std::vector<Character>& character;
     std::vector<Entity>& vector;
     Logger& logger;
 
 public:
-    CollisionManager(Character& character, std::vector<Entity>& vector, Logger& logger);
+    CollisionManager(std::vector<Character>& character, std::vector<Entity>& vector, Logger& logger);
 
     void movePlatform(Entity &entity);
 
