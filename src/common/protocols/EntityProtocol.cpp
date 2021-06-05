@@ -45,7 +45,7 @@ Entity EntityProtocol::entityFromBuff(char* buff){
     return entity;
 }*/
 
-void EntityProtocol::readEntities(int &socket, EntityContainer& container) {
+void EntityProtocol::readEntities(Socket &socket, EntityContainer& container) {
     char buff[MSG_LEN];
     bool keepGoing = true;
     bool firstIteration = true;
