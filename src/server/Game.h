@@ -62,8 +62,6 @@ public:
 
     void spawnFlames();
 
-    char getPermanency(Entity& entity);
-
     const std::vector<Entity>& getEntities();
 
     const std::vector<Character>& getPlayers();

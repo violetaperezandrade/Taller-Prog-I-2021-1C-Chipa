@@ -530,15 +530,6 @@ void Game::setLevel2() {
     this->entities.push_back(platform_7_3);
 }
 
-char Game::getPermanency(Entity& entity){
-    char type = entity.getType();
-    if (type == 'p' || type== 'S' || type== 'F' || type== 'M'
-    || (type == 'P' && entity.getSpeedX()==0)){
-        return '1';
-    }
-    return '0';
-}
-
 const std::vector<Entity>& Game::getEntities(){
     return entities;
 }

@@ -4,7 +4,7 @@
 #define FIRE_STATE 'F'
 
 Fire::Fire(int posX, int posY, int width, int height, int speedX, int speedY) :
-        Entity(FIRE_CODE, posX, posY, width, height, speedX, speedY)
+        Entity(FIRE_CODE, posX, posY, width, height, speedX, speedY,'1')
 {}
 
 Fire::~Fire(){}

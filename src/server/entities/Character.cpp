@@ -15,7 +15,7 @@
 #define IDLE_LEFT 'l'
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
-    Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY),
+    Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY,'0'),
     state(GROUNDED), movement(), lastDirection('r')
 {}
 
