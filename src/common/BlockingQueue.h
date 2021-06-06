@@ -5,10 +5,10 @@
 #include <mutex>
 #include <queue>
 
-template<class T>
+
 class BlockingQueue {
 private:
-    std::queue<T> queue;
+    std::queue<std::pair<char*,int>> queue;
     std::mutex m;
     std::condition_variable condition_variable;
 
@@ -17,13 +17,13 @@ public:
 
     ~BlockingQueue() {}
 
-    void push(T t) {
+    void push(std::pair<char*,int> t) {
         std::unique_lock<std::mutex> lock(m);
         queue.push(std::move(t));
         condition_variable.notify_all();
     }
 
-    T pop() {
+    std::pair<char*,int> pop() {
         std::unique_lock<std::mutex> lock(m);
         while(queue.empty()){
             condition_variable.wait(lock);

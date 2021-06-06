@@ -27,31 +27,31 @@ void Server::sendAll(){
 
     for(int i = 0; i < playersAmount; i++){
         for(int j = 0; j < entities.size(); j++){
-            players[i].send(entities[j],game.getPermanency(entities[j]));
+            clients[i].send(entities[j]);
         }
         for(int j = 0; j < characters.size(); i++){
-            players[i].send(characters[i],game.getPermanency(characters[j]));
+            clients[i].send(characters[j]);
         }
-        players[i].sendBreak();
+        clients[i].sendBreak();
     }
 
 }
 
 void Server::sendNew(){
     const std::vector<Entity>& entities = game.getEntities();
-    const std::vector<Character>& characters = game.getPlayers();
+    const std::vector<Character>& players = game.getPlayers();
 
     for(int i = 0; i < playersAmount; i++){
         for(int j = 0; j < entities.size(); j++){
-            char c = game.getPermanency(entities[j]);
-            if(c == '0') {
-                players[i].send(entities[j], c);
+            char c = entities[j].getPermanency();
+            if(c == '0'){
+                clients[i].send(entities[j]);
             }
         }
         for(int j = 0; j < characters.size(); i++){
-            players[i].send(characters[i],game.getPermanency(characters[j]));
+            clients[i].send(characters[i]);
         }
-        players[i].sendBreak();
+        clients[i].sendBreak();
     }
 }
 
@@ -65,12 +65,8 @@ void Server::startGame(){
         std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
         for (int i = 0; i < playersAmount; i++) {
             while (clients[i].hasIncoming()) {
-                clients[i].receive();
-                //todo proccess receive
-                //todo acá se puede hacer una factory o algo por el estilo
-                //todo pero primero hay que traducirlo de protocolo
-                //todo una vez que se que significa, sabiendo el numero de cliente
-                //todo y el tipo de instrucción tengo que llamar a una cierta funcion de game
+                char command = clients[i].receive();
+                makeCommand(c,i);
             }
         }
         game.update();
@@ -111,6 +107,53 @@ bool Server::validateClient(Socket& skt){
     responde[0] = 'G';
     skt.send(buffer,1);
     return true;
+}
+
+void Server::makeCommand(char& command,int& i){
+    switch(command) {
+        case SDLK_UP:
+            logger.debugMsg("Se presiona boton UP", __FILE__, __LINE__);
+            game.startMovingUp(i);
+            break;
+        case SDLK_DOWN:
+            logger.debugMsg("Se presiona boton DOWN", __FILE__, __LINE__);
+            game.startMovingDown(i);
+            break;
+        case SDLK_LEFT:
+            logger.debugMsg("Se presiona boton LEFT", __FILE__, __LINE__);
+            game.startMovingLeft(i);
+            break;
+        case SDLK_RIGHT:
+            logger.debugMsg("Se presiona boton RIGHT", __FILE__, __LINE__);
+            game.startMovingRight(i);
+            break;
+        case SDLK_SPACE:
+            logger.debugMsg("Se presiona boton SPACE", __FILE__, __LINE__);
+            game.startJumping(i);
+            break;
+        case SDLK_UP:
+            logger.debugMsg("Se libera boton UP", __FILE__, __LINE__);
+            game.stopMovingUp(i);
+            break;
+        case SDLK_DOWN:
+            logger.debugMsg("Se libera boton DOWN", __FILE__, __LINE__);
+            game.stopMovingDown(i);
+            break;
+        case SDLK_LEFT:
+            logger.debugMsg("Se libera boton LEFT", __FILE__, __LINE__);
+            game.stopMovingLeft(i);
+            break;
+        case SDLK_RIGHT:
+            logger.debugMsg("Se libera boton RIGHT", __FILE__, __LINE__);
+            game.stopMovingRight(i);
+            break;
+        case SDLK_SPACE:
+            logger.debugMsg("Se libera boton SPACE", __FILE__, __LINE__);
+            game.stopJumping(i);
+            break;
+        default:
+            break;
+    }
 }
 
 Server::~Server() {}

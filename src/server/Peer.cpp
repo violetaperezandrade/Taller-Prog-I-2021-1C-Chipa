@@ -1,4 +1,5 @@
 #include "Peer.h"
+#include "../common/protocols/EntityProtocol.h"
 
 Peer::Peer(Socket &&peerSkt) :
     peer(peerSkt),
@@ -10,10 +11,18 @@ Peer::Peer(Socket &&peerSkt) :
 
 Peer::~Peer(){}
 
-void Peer::send(Entity& entity, char permanency) {
-
+void Peer::send(Entity& entity) {
+    EntityProtocol::sendEntity(outcoming, entity);
 }
 
-void sendBreak();
+void Peer::sendBreak(){
+    EntityProtocol::sendBreak(outcoming);
+}
 
-void receive();
+char Peer::receive(){
+    return incoming.pop();
+}
+
+bool Peer::hasIncoming() {
+    return !incoming.empty();
+}

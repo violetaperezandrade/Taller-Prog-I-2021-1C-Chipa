@@ -7,11 +7,12 @@ class Sender : public Thread {
 private:
     BlockingQueue<Entity>& outgoing;
     Socket& peer;
-
 public:
-    Thread();
+    Sender(BlockingQueue<Entity>& queue, Socket& peerSkt);
 
-    ~Thread();
+    ~Sender();
+
+    void stop();
 
     void run() override;
 

@@ -1,10 +1,22 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
+#include <queue>
 #include "../common/Thread.h"
 
-class Receiver : public Thread{
 
+class Receiver : public Thread{
+private:
+    std::queue<char>& incoming;
+    Socket& peer;
+public:
+    Receiver(std::queue<char>& queue, Socket& peerSkt);
+
+    ~Receiver();
+
+    void stop();
+
+    void run() override;
 };
 
 

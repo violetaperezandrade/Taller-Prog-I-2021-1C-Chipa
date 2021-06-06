@@ -34,6 +34,8 @@ public:
 
     void sendAll();
 
+    void makeCommand(char& command);
+
     ~Server();
 };
 

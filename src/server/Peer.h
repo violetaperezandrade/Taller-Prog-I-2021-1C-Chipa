@@ -12,16 +12,19 @@ private:
     Sender sender;
     Receiver receiver;
     std::queue<char*> incoming;
-    BlockingQueue<Entity> outgoing;
+    BlockingQueue<std::pair<char*,int>> outgoing;
 public:
     Peer(Socket&& peerSkt);
 
     ~Peer();
-    void send();
+
+    void send(Entity& entity);
 
     void sendBreak();
 
-    void receive();
+    char receive();
+
+    bool hasIncoming();
 };
 
 #endif //PEER_H
