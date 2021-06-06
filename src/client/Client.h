@@ -21,7 +21,7 @@ private:
     Config& config;
 
 public:
-    Client(char* ip, char* port,Logger& logger);
+    Client(char* ip, char* port, Logger& logger);
     void run();
     ~Client();
     int connect(char*ip, char* port);
