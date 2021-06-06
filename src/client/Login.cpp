@@ -115,7 +115,8 @@ int Login::runLoginWindow() {
     while(!quit){
         bool renderText = false;
 
-        while(SDL_PollEvent(&e) != 0){
+        //while(SDL_PollEvent(&e) != 0){
+        while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_QUIT) quit = true;
             if(e.type == SDL_KEYDOWN){
 
