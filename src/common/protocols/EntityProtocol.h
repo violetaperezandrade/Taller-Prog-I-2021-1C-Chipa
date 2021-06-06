@@ -10,9 +10,9 @@ private:
     void writeInt(char* ptr, int num);
     int getInt(char* ptr);
 public:
-    void sendEntity(Socket& socket, Entity entity,
+    void sendEntity(BlockingQueue<std::pair<char*, int>>& queue, Entity entity,
                     char permanency);
-    void sendBreak(Socket& socket);
+    void sendBreak(BlockingQueue<std::pair<char*, int>>& queue);
     void readEntities(Socket& socket, EntityContainer& container);
 };
 

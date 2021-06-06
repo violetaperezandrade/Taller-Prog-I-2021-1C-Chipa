@@ -115,7 +115,8 @@ int Login::runLoginWindow() {
     while(!quit){
         bool renderText = false;
 
-        while(SDL_PollEvent(&e) != 0){
+        //while(SDL_PollEvent(&e) != 0){
+        while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_QUIT) quit = true;
             if(e.type == SDL_KEYDOWN){
 
@@ -147,10 +148,10 @@ int Login::runLoginWindow() {
                 }
             }
         }
-
+        std::string invisiblePsw (inputTextPsw.length(),'*');
         if(renderText){
             if(renderPass){
-                if(inputTextPsw != "") inputTextTexturePsw = loadFromRenderedText(inputTextPsw.c_str(),textColorInput,windowRendererLogin,globalFont);
+                if(inputTextPsw != "") inputTextTexturePsw = loadFromRenderedText(invisiblePsw.c_str(),textColorInput,windowRendererLogin,globalFont);
                 else inputTextTexturePsw = loadFromRenderedText("|",textColorInput,windowRendererLogin,globalFont);
             }
             else{

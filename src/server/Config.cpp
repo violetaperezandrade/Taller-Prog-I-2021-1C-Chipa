@@ -48,7 +48,7 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
         std::ifstream defaultFile("../src/controller/default_data.json");
         defaultFile >> defaultJson;
         if(!actualJson["configuration"]["frame time"].isNumeric() || actualJson["configuration"]["frame time"].isNull()){
-            enemiesQuantity = defaultJson["configuration"]["frame time"].asInt();
+            frameTime = defaultJson["configuration"]["frame time"].asInt();
             logger.debugMsg("Frame time value not found, reading from default", __FILE__, __LINE__);
         }
         else{

@@ -13,7 +13,8 @@ void EntityProtocol::writeInt(char* ptr, int num){
     ptr[1] = num & 0xFF; // last byte
 }
 
-void EntityProtocol::sendEntity(Socket& socket, Entity entity, char permanency) {
+void EntityProtocol::sendEntity(BlockingQueue<std::pair<char*, int>>& queue,
+                                Entity entity, char permanency) {
     char msg[MSG_LEN];
     writeChar(ptr, entity.getType());
     writeInt(ptr+1, entity.getPosX());
@@ -22,15 +23,19 @@ void EntityProtocol::sendEntity(Socket& socket, Entity entity, char permanency) 
     writeInt(ptr+7, entity.getHeight());
     writeChar(ptr+9, entity.getState());
     writeChar(ptr+10, permanency);
-    socket.send(msg, MSG_LEN);
+
+    std::pair<char*, int> pair(msg, MSG_LEN);
+    queue.push(pair);
 }
 
-void EntityProtocol::sendBreak(Socket& socket) {
+void EntityProtocol::sendBreak(BlockingQueue<std::pair<char*, int>>& queue) {
     char msg[MSG_LEN];
     for(int i = 0; i < MSG_LEN; i++){
         ptr[i] = -1;
     }
-    socket.send(msg, MSG_LEN);
+
+    std::pair<char*, int> pair(msg, MSG_LEN);
+    queue.push(pair);
 }
 
 int EntityProtocol::getInt(char* ptr){
