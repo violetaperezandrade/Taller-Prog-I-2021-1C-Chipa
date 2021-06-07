@@ -177,13 +177,14 @@ int Login::runLoginWindow() {
         renderLogin(50,140,200,200,monkey,windowRendererLogin);
         SDL_RenderPresent(windowRendererLogin);
     }
-    sktLogin.send(inputTextUser.c_str(), inputTextUser.length());
+    //Va adentro edl while en una funcion
+    /*sktLogin.send(inputTextUser.c_str(), inputTextUser.length());
     sktLogin.send(inputTextPsw.c_str(), inputTextPsw.length());
     char succesLogin[1];
     sktLogin.receive(succesLogin,1);
     if(succesLogin[0] == 'F'){
         //Renderizar ventana de error
-    }
+    }*/
     SDL_StopTextInput();
     return 0;
 }
