@@ -140,11 +140,32 @@ int Login::runLoginWindow() {
                     renderText = true;
                 }
             }
-            else if(e.type == SDL_TEXTINPUT){
+            if(e.type == SDL_TEXTINPUT){
                 if(!(SDL_GetModState() & KMOD_CTRL && (tolower(e.text.text[0]) == 'c' || tolower(e.text.text[0]) == 'v'))){
                     if(renderPass) inputTextPsw += e.text.text;
                     else inputTextUser += e.text.text;
                     renderText = true;
+                }
+            }
+            else if(e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP){
+                int x,y;
+                SDL_GetMouseState(&x,&y);
+                //Chequear si mouse esta dentro del boton
+                bool onButton = false;
+                //Posiciones del boton en la pantalla
+                if((x > 220 && x < 420) && (y > 350 && y < 420)) onButton = true;
+                if(onButton == true){
+                    switch(e.type){
+                        case SDL_MOUSEMOTION:
+                            playButton = loadImageTexture("../src/client/img/playHover.png",windowRenderer);
+                            break;
+                        case SDL_MOUSEBUTTONDOWN:
+                            playButton = loadImageTexture("../src/client/img/playClick.png",windowRenderer);
+                            break;
+                    }
+                }
+                else{
+                    playButton = loadImageTexture("play.png",windowRenderer);
                 }
             }
         }
