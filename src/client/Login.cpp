@@ -179,6 +179,11 @@ int Login::runLoginWindow() {
     }
     sktLogin.send(inputTextUser.c_str(), inputTextUser.length());
     sktLogin.send(inputTextPsw.c_str(), inputTextPsw.length());
+    char succesLogin[1];
+    sktLogin.receive(succesLogin,1);
+    if(succesLogin[0] == 'F'){
+        //Renderizar ventana de error
+    }
     SDL_StopTextInput();
     return 0;
 }
