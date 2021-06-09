@@ -1,5 +1,12 @@
 #include "Config.h"
+#include <nlohmann/json.hpp>
+#include <jsoncpp/json/json.h>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <iostream>
+#include <string_view>
+using json = nlohmann::json;
 
 Config::Config(char* str, Logger& logger) : logger(logger) {
     Json::Value actualJson;
@@ -25,6 +32,8 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
 
     if(!valid){
         std::ifstream readFile("../src/controller/default_data.json");
+        std::ifstream nhFile("../src/controller/data.json");
+        json j = json::parse(nhFile);
         Json::Value actualJson;
         Json::Reader reader;
         reader.parse(readFile, actualJson);
@@ -40,10 +49,15 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
         barrelsLevel2 = actualJson["level 2"]["barrels"].asInt();
         resolutionWidth = actualJson["resolution"]["width"].asInt();
         resolutionHeight = actualJson["resolution"]["height"].asInt();
+        userPass = j.at("user password").get<std::map<std::string, std::string>>();
     }
     else{
         Json::Reader reader;
         reader.parse(readFile, actualJson);
+        std::ifstream nhFile("../src/controller/data.json");
+        json j = json::parse(nhFile);
+        std::ifstream nhFileDefault("../src/controller/data.json");
+        json jDefault = json::parse(nhFileDefault);
         Json::Value defaultJson;
         std::ifstream defaultFile("../src/controller/default_data.json");
         defaultFile >> defaultJson;
@@ -131,6 +145,20 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
         else{
             resolutionHeight = actualJson["resolution"]["height"].asInt();
         }
+        if(!j.contains("user password")){
+            userPass = jDefault.at("user password").get<std::map<std::string, std::string>>();
+            logger.debugMsg("Usernames and passwords values not found, reading from default", __FILE__, __LINE__);
+        }
+        else{
+            if(json::accept(j.at("user password"))){
+                userPass = j.at("user password").get<std::map<std::string, std::string>>();
+            }
+            else{
+                userPass = jDefault.at("user password").get<std::map<std::string, std::string>>();
+                logger.debugMsg("Usernames and passwords values not valid, reading from default", __FILE__, __LINE__);
+            }
+        }
+
     }
 
     defaultLog = !valid; //json not valid then use default log true
@@ -183,6 +211,10 @@ int Config::getResolutionWidth(){
 
 int Config::getResolutionHeight(){
     return resolutionHeight;
+};
+
+std::map<std::string, std::string> Config::getUserPass(){
+    return userPass;
 };
 
 bool Config::getDefault(){
