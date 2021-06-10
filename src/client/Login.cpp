@@ -130,12 +130,12 @@ int Login::runLoginWindow() {
         while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_QUIT) quit = true;
             //if mouse was clicked username prompt
-            if(mouseWasClickedInPosition(300,600,80,130,&e) == true){
+            if(mouseWasClickedOnPosition(300,600,80,130,&e) == true){
                 renderPass = false;
                 canWrite = true;
             }
             //if mouse was clicked password prompt
-            else if(mouseWasClickedInPosition(300,600,180,230,&e) == true){
+            else if(mouseWasClickedOnPosition(300,600,180,230,&e) == true){
                 renderPass = true;
                 canWrite = true;
             }
