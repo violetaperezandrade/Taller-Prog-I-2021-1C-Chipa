@@ -104,7 +104,7 @@ bool Server::validateClient(Socket& skt){
         skt.send(buffer,1);
         return false;
     }
-    responde[0] = 'G';
+    response[0] = 'G';
     skt.send(buffer,1);
     return true;
 }

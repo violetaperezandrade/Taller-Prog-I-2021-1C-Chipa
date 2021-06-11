@@ -31,6 +31,7 @@ public:
     TextRendered loadFromRenderedText(std::string textureText,
                                       SDL_Color textColor,
                                       SDL_Renderer* renderer, TTF_Font* font);
+    bool mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event* e);
     int runLoginWindow();
     Login(Logger& logger,Socket& skt);
     ~Login();

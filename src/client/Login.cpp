@@ -79,6 +79,17 @@ void Login::renderLogin(int x, int y, int width, int height, SDL_Texture *textur
     SDL_RenderCopyEx(windowRendererLogin,texture,clip,&renderQuad,angle,center,flip);
 }
 
+bool View::mouseWasClickedInPosition(int x1, int x2, int y1, int y2, SDL_Event* e){
+
+    bool ok = false;
+    if(e->type == SDL_MOUSEBUTTONDOWN){
+        int x,y;
+        SDL_GetMouseState(&x,&y);
+        if((x > x1 && x < x2) && (y > y1 && y < y2)) ok = true;
+    }
+    return ok;
+}
+
 int Login::runLoginWindow() {
 
     std::string inputTextUser = "";
@@ -94,6 +105,7 @@ int Login::runLoginWindow() {
     TextRendered inputTextTextureUser;
     TextRendered inputTextTexturePsw;
     TextRendered playButtonText;
+    TextRendered loginError;
 
     inputTextTextureUser = loadFromRenderedText(inputTextUser.c_str(),textColorInput,windowRendererLogin,globalFont);
     inputTextTexturePsw = loadFromRenderedText(inputTextPsw.c_str(),textColorInput,windowRendererLogin,globalFont);
@@ -108,43 +120,83 @@ int Login::runLoginWindow() {
     SDL_StartTextInput();
 
     bool renderPass = false;
-
+    bool canWrite = false;
     bool quit = false;
+
     SDL_Event e;
 
     while(!quit){
         bool renderText = false;
-
-        //while(SDL_PollEvent(&e) != 0){
         while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_QUIT) quit = true;
-            if(e.type == SDL_KEYDOWN){
+            //if mouse was clicked username prompt
+            if(mouseWasClickedOnPosition(300,600,80,130,&e) == true){
+                renderPass = false;
+                canWrite = true;
+            }
+            //if mouse was clicked password prompt
+            else if(mouseWasClickedOnPosition(300,600,180,230,&e) == true){
+                renderPass = true;
+                canWrite = true;
+            }
 
-                if(e.key.keysym.sym == SDLK_TAB || e.key.keysym.sym == SDLK_RETURN){
-                    renderPass = true;
-                    continue;
-                }
-                if(e.key.keysym.sym == SDLK_BACKSPACE && (inputTextUser.length() > 0 || inputTextPsw.length() > 0)){
-                    if(renderPass) inputTextPsw.pop_back();
-                    else inputTextUser.pop_back();
-                    renderText = true;
-                }
+            if(canWrite){
+                if(e.type == SDL_KEYDOWN){
+                    if(e.key.keysym.sym == SDLK_BACKSPACE && (inputTextUser.length() > 0 || inputTextPsw.length() > 0)){
+                        if(renderPass) inputTextPsw.pop_back();
+                        else inputTextUser.pop_back();
+                        renderText = true;
+                    }
                     //copy paste
-                else if(e.key.keysym.sym == SDLK_c && SDL_GetModState() & KMOD_CTRL){
-                    if(renderPass) SDL_SetClipboardText(inputTextPsw.c_str());
-                    else SDL_SetClipboardText(inputTextUser.c_str());
+                    else if(e.key.keysym.sym == SDLK_c && SDL_GetModState() & KMOD_CTRL){
+                        if(renderPass) SDL_SetClipboardText(inputTextPsw.c_str());
+                        else SDL_SetClipboardText(inputTextUser.c_str());
+                    }
+                    else if(e.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL){
+                        if(renderPass) inputTextPsw = SDL_GetClipboardText();
+                        else inputTextUser = SDL_GetClipboardText();
+                        renderText = true;
+                    }
                 }
-                else if(e.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL){
-                    if(renderPass) inputTextPsw = SDL_GetClipboardText();
-                    else inputTextUser = SDL_GetClipboardText();
-                    renderText = true;
+                if(e.type == SDL_TEXTINPUT){
+                    if(!(SDL_GetModState() & KMOD_CTRL && (tolower(e.text.text[0]) == 'c' || tolower(e.text.text[0]) == 'v'))){
+                        if(renderPass) inputTextPsw += e.text.text;
+                        else inputTextUser += e.text.text;
+                        renderText = true;
+                    }
                 }
             }
-            else if(e.type == SDL_TEXTINPUT){
-                if(!(SDL_GetModState() & KMOD_CTRL && (tolower(e.text.text[0]) == 'c' || tolower(e.text.text[0]) == 'v'))){
-                    if(renderPass) inputTextPsw += e.text.text;
-                    else inputTextUser += e.text.text;
-                    renderText = true;
+            if(e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN ||){
+                int x,y;
+                SDL_GetMouseState(&x,&y);
+                //Chequear si mouse esta dentro del boton
+                bool onButton = false;
+                //Posiciones del boton en la pantalla
+                if((x > 220 && x < 420) && (y > 300 && y < 370)) onButton = true;
+
+                if(onButton == true){
+                    switch(e.type){
+                        case SDL_MOUSEMOTION:
+                            playButton = loadImageTexture("../src/client/img/playHover.png",windowRendererLogin);
+                            break;
+                        case SDL_MOUSEBUTTONDOWN:
+                            playButton = loadImageTexture("../src/client/img/playClick.png",windowRendererLogin);
+                            sktLogin.send(inputTextUser.c_str(), inputTextUser.length());
+                            sktLogin.send(inputTextPsw.c_str(), inputTextPsw.length());
+                            char succesLogin[1];
+                            sktLogin.receive(succesLogin,1);
+                            if(succesLogin[0] == 'F'){
+                                loginError = loadFromRenderedText("User or pass invalid, try again.",{255,0,0},windowRendererLogin,globalFont);
+                            }
+                            else{
+                                loginError = NULL;
+                                quit = true;
+                            }
+                            break;
+                    }
+                }
+                else{
+                    playButton = loadImageTexture("play.png",windowRenderer);
                 }
             }
         }
@@ -163,22 +215,22 @@ int Login::runLoginWindow() {
         SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
         SDL_RenderClear(windowRendererLogin);
 
-        renderLogin(300,150,300,50,textbox,windowRendererLogin);
-        renderLogin(300,250,300,50,textbox,windowRendererLogin);
+        renderLogin(300,80,300,50,textbox,windowRendererLogin);
+        renderLogin(300,180,300,50,textbox,windowRendererLogin);
 
-        renderLogin(300,120, prompTextureUsr.width,prompTextureUsr.height,prompTextureUsr.texture,windowRendererLogin);
-        renderLogin(310,165,inputTextTextureUser.width,inputTextTextureUser.height,inputTextTextureUser.texture,windowRendererLogin);
-        renderLogin(300,220,prompTexturePsw.width,prompTexturePsw.height,prompTexturePsw.texture,windowRendererLogin);
-        renderLogin(310,265,inputTextTexturePsw.width,inputTextTexturePsw.height,inputTextTexturePsw.texture,windowRendererLogin);
+        renderLogin(300,50, prompTextureUsr.width,prompTextureUsr.height,prompTextureUsr.texture,windowRendererLogin);
+        renderLogin(310,95,inputTextTextureUser.width,inputTextTextureUser.height,inputTextTextureUser.texture,windowRendererLogin);
+        renderLogin(300,150,prompTexturePsw.width,prompTexturePsw.height,prompTexturePsw.texture,windowRendererLogin);
+        renderLogin(310,195,inputTextTexturePsw.width,inputTextTexturePsw.height,inputTextTexturePsw.texture,windowRendererLogin);
 
-        renderLogin(220,350,200,70,playButton,windowRendererLogin);
-        renderLogin(253,359,playButtonText.width+50,playButtonText.height+30,playButtonText.texture,windowRendererLogin);
+        renderLogin(220,300,200,70,playButton,windowRendererLogin);
+        renderLogin(253,310,playButtonText.width+50,playButtonText.height+30,playButtonText.texture,windowRendererLogin);
 
-        renderLogin(50,140,200,200,monkey,windowRendererLogin);
+        renderLogin(50,380,loginError.width-50,loginError.height,loginError.texture,windowRendererLogin);
+
+        renderLogin(60,70,200,200,monkey,windowRendererLogin);
         SDL_RenderPresent(windowRendererLogin);
     }
-    sktLogin.send(inputTextUser.c_str(), inputTextUser.length());
-    sktLogin.send(inputTextPsw.c_str(), inputTextPsw.length());
     SDL_StopTextInput();
     return 0;
 }
