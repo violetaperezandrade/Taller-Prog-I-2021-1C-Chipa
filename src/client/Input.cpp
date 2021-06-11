@@ -46,5 +46,5 @@ void run(){
                         break;
                 }
             }
-            this->socket.send(msg, 1)
+            this->socket.send(msg, 1);
         }
