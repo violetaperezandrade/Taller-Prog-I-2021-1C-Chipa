@@ -77,14 +77,19 @@ void Server::startGame(){
 }
 
 void Server::acceptClients(){
-    int ready = 0;
-    while(ready != playersAmount){
+    std::vector<LoginManager*> logins;
+    for(int i = 0; i != playersAmount; i++){
         Socket clientSkt = std::move(sktListener.accept());
-        if(validateClient(clientSkt)){
-            Peer client(std::move(clientSkt));
-            clients.push_back(client);
-            ready++;
-        }
+        Peer client(std::move(clientSkt));
+        clients.push_back(client);
+        logins.push_back(new LoginManager(clients));
+    }
+
+    std::vector<LoginManager*>::iterator it = logins.begin();
+    while (it != logins.end()){
+        (*it)->join();
+        delete *it;
+        it = processors.erase(it);
     }
 }
 
