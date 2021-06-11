@@ -1,6 +1,7 @@
 #include "Server.h"
 #include <chrono>
 #include <thread>
+#include "../common/protocols/InputProtocol.h"
 
 Server::Server(char* port, int playersAmount, Config& config, Logger& logger) :
     ip(c_str("127.0.0.1")),
@@ -34,7 +35,6 @@ void Server::sendAll(){
         }
         clients[i].sendBreak();
     }
-
 }
 
 void Server::sendNew(){
@@ -111,43 +111,43 @@ bool Server::validateClient(Socket& skt){
 
 void Server::makeCommand(char& command,int& i){
     switch(command) {
-        case SDLK_UP:
+        case PRESS_UP:
             logger.debugMsg("Se presiona boton UP", __FILE__, __LINE__);
             game.startMovingUp(i);
             break;
-        case SDLK_DOWN:
+        case PRESS_DOWN:
             logger.debugMsg("Se presiona boton DOWN", __FILE__, __LINE__);
             game.startMovingDown(i);
             break;
-        case SDLK_LEFT:
+        case PRESS_LEFT:
             logger.debugMsg("Se presiona boton LEFT", __FILE__, __LINE__);
             game.startMovingLeft(i);
             break;
-        case SDLK_RIGHT:
+        case PRESS_RIGHT:
             logger.debugMsg("Se presiona boton RIGHT", __FILE__, __LINE__);
             game.startMovingRight(i);
             break;
-        case SDLK_SPACE:
+        case PRESS_JUMP:
             logger.debugMsg("Se presiona boton SPACE", __FILE__, __LINE__);
             game.startJumping(i);
             break;
-        case SDLK_UP:
+        case RELEASE_UP:
             logger.debugMsg("Se libera boton UP", __FILE__, __LINE__);
             game.stopMovingUp(i);
             break;
-        case SDLK_DOWN:
+        case RELEASE_DOWN:
             logger.debugMsg("Se libera boton DOWN", __FILE__, __LINE__);
             game.stopMovingDown(i);
             break;
-        case SDLK_LEFT:
+        case RELEASE_LEFT:
             logger.debugMsg("Se libera boton LEFT", __FILE__, __LINE__);
             game.stopMovingLeft(i);
             break;
-        case SDLK_RIGHT:
+        case RELEASE_RIGHT:
             logger.debugMsg("Se libera boton RIGHT", __FILE__, __LINE__);
             game.stopMovingRight(i);
             break;
-        case SDLK_SPACE:
+        case RELEASE_JUMP:
             logger.debugMsg("Se libera boton SPACE", __FILE__, __LINE__);
             game.stopJumping(i);
             break;
