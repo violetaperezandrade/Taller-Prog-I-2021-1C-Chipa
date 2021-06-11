@@ -23,8 +23,7 @@ add_executable(DonkeyKong src/client/View.cpp
         src/server/entities/Platform.cpp
         src/server/entities/Princess.cpp
         src/server/entities/Stair.cpp
-        src/Message.cpp
-        src/main.cpp
+        src/common/Message.cpp
         src/common/Logger.cpp
         src/server/Config.cpp
         )

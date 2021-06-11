@@ -1,7 +1,7 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
-#include "server/Entity.h"
+#include "../server/Entity.h"
 
 class Message {
 private:
