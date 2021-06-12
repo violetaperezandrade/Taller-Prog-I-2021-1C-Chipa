@@ -25,6 +25,10 @@ public:
     char receive();
 
     bool hasIncoming();
+
+    void receive(char* msg, int length);
+
+    void send(char* msh, int length);
 };
 
 #endif //PEER_H

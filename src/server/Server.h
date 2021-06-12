@@ -24,8 +24,6 @@ public:
 
     void run();
 
-    bool validateClient(Socket& skt);
-
     void acceptClients();
 
     void startGame();

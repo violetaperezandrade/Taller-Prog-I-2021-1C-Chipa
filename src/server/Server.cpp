@@ -82,7 +82,9 @@ void Server::acceptClients(){
         Socket clientSkt = std::move(sktListener.accept());
         Peer client(std::move(clientSkt));
         clients.push_back(client);
-        logins.push_back(new LoginManager(clients));
+        LoginManager* login = new LoginManager(client);
+        login->start();
+        logins.push_back(login);
     }
 
     std::vector<LoginManager*>::iterator it = logins.begin();
@@ -91,27 +93,6 @@ void Server::acceptClients(){
         delete *it;
         it = processors.erase(it);
     }
-}
-
-bool Server::validateClient(Socket& skt){
-    char user[30];
-    char password[30];
-    char response[1]; //F for fail - G for good
-
-    if(skt.receive(user,30) < 1) return false;
-    if(skt.receive(password,30) < 1) return false;
-
-    std::string usr(user);
-    std::string pw(password);
-
-    if(usersKeys[usr] != pw){
-        response[0] = 'F';
-        skt.send(buffer,1);
-        return false;
-    }
-    response[0] = 'G';
-    skt.send(buffer,1);
-    return true;
 }
 
 void Server::makeCommand(char& command,int& i){

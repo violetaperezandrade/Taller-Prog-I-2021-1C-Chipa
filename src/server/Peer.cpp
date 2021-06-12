@@ -26,3 +26,11 @@ char Peer::receive(){
 bool Peer::hasIncoming() {
     return !incoming.empty();
 }
+
+void Peer::receive(char* msg, int length){
+    peer.receive(msg,lenght);
+}
+
+void Peer::send(char* msh, int length){
+    peer.send(msg,lenght);
+}
