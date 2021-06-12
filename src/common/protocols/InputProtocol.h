@@ -14,9 +14,25 @@
 
 class InputProtocol {
 public:
-    void sendEvent(BlockingQueue<char>& queue, SDL_event& e);
-    // no le pongo readEvent para en el server directamente usar un switch con
-    // el char que me llega
+    void sendPressUpEvent(Socket socket);
+
+    void sendReleaseUpEvent(Socket socket);
+
+    void sendPressDownEvent(Socket socket);
+
+    void sendReleaseDownEvent(Socket socket);
+
+    void sendPressLeftEvent(Socket socket);
+
+    void sendReleaseLeftEvent(Socket socket);
+
+    void sendPressRightEvent(Socket socket);
+
+    void sendReleaseRightEvent(Socket socket);
+
+    void sendPressJumpEvent(Socket socket);
+
+    void sendReleaseJumpEvent(Socket socket);
 };
 
 #endif //INPUTPROTOCOL_H

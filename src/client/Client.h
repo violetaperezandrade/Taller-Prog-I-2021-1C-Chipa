@@ -8,14 +8,15 @@
 #include "../server/Game.h"
 #include "../server/Config.h"
 #include "Login.h"
+#include "Processor.h"
+#include "Input.h"
 
 class Client {
 private:
     Socket skt;
     Logger& logger;
     View view;
-    std::vector<Entity> staticEntities;
-    std::vector<Entity> mobileEntities;
+    std::vector<Entity> entities;
     char* ip;
     char* port;
     Config& config;

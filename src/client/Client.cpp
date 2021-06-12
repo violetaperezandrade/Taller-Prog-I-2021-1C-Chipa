@@ -23,6 +23,11 @@ void Client::run(){
     connect(ip,port);
     Login login(logger, skt);
     login.runLoginWindow();
+    Processor processor(entities,skt);
+    processor.readEntities();
+
+    processor.joinThread();
+
 
 
 }

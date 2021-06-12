@@ -150,12 +150,13 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
             logger.debugMsg("Usernames and passwords values not found, reading from default", __FILE__, __LINE__);
         }
         else{
-            if(json::accept(j.at("user password"))){
-                userPass = j.at("user password").get<std::map<std::string, std::string>>();
-            }
-            else{
-                userPass = jDefault.at("user password").get<std::map<std::string, std::string>>();
-                logger.debugMsg("Usernames and passwords values not valid, reading from default", __FILE__, __LINE__);
+            userPass = j.at("user password").get<std::map<std::string, std::string>>();
+            //if(json::accept(j.at("user password"))){
+            //    userPass = j.at("user password").get<std::map<std::string, std::string>>();
+            //}
+            //else{
+            //    userPass = jDefault.at("user password").get<std::map<std::string, std::string>>();
+            //    logger.debugMsg("Usernames and passwords values not valid, reading from default", __FILE__, __LINE__);
             }
         }
 
