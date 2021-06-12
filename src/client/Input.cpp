@@ -1,54 +1,50 @@
 #include "Input.h"
-#include "../common/protocols/InputProtocol.h"
-
-Input::Input(Socket socket) : socket(socket){}
-
-void Input::run() {
+void run(){
+    SDL_Event e;
+    char msg;
     while(!quit){
         while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_KEYDOWN){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
-                        InputProtocol::sendPressUpEvent(this->socket);
+                        msg = 1;
                         break;
                     case SDLK_DOWN:
-                        InputProtocol::sendPressDownEvent(this->socket);
+                        msg = 3;
                         break;
                     case SDLK_LEFT:
-                        InputProtocol::sendPressLeftEvent(this->socket);
+                        msg = 5;
                         break;
                     case SDLK_RIGHT:
-                        InputProtocol::sendPressRightEvent(this->socket);
+                        msg = 7;
                         break;
                     case SDLK_SPACE:
-                        InputProtocol::sendPressJumpEvent(this->socket);
+                        msg = 9;
                         break;
                     default:
                         break;
                 }
             }
-            else if(e::type == SDL_KEYUP){
-                switch(e::key::keysym::sym){
+            else if(e.type == SDL_KEYUP){
+                switch(e.key.keysym.sym){
                     case SDLK_UP:
-                        InputProtocol::sendReleaseUpEvent(this->socket);
+                        msg = 2;
                         break;
                     case SDLK_DOWN:
-                        InputProtocol::sendReleaseDownEvent(this->socket);
+                        msg = 4;
                         break;
                     case SDLK_LEFT:
-                        InputProtocol::sendReleaseLeftEvent(this->socket);
+                        msg = 6;
                         break;
                     case SDLK_RIGHT:
-                        InputProtocol::sendReleaseRightEvent(this->socket);
+                        msg = 8;
                         break;
                     case SDLK_SPACE:
-                        InputProtocol::sendReleaseJumpEvent(this->socket);
+                        msg = 10;
                         break;
                     default:
                         break;
                 }
             }
+            this->socket.send(msg, 1)
         }
-    }
-
-}
