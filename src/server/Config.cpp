@@ -159,9 +159,6 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
             //    logger.debugMsg("Usernames and passwords values not valid, reading from default", __FILE__, __LINE__);
             }
         }
-
-    }
-
     defaultLog = !valid; //json not valid then use default log true
 }
 
