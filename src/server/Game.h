@@ -20,6 +20,7 @@ private:
     int tickCounter;
     int actLevel;
     int amountPlayers;
+    bool finished;
 
 public:
     Game(Config& config,Logger& logger, int amountPlayers);
@@ -65,6 +66,8 @@ public:
     const std::vector<Entity>& getEntities();
 
     const std::vector<Character>& getPlayers();
+
+    bool isFinished();
 };
 
 #endif //GAME_H

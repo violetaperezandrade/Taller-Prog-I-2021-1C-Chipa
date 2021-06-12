@@ -3,13 +3,25 @@
 
 Peer::Peer(Socket &&peerSkt) :
     peer(peerSkt),
-    sender(),
-    receiver(),
+    sender(new Sender),
+    receiver(new Receiver),
     incoming(),
     outgoing()
-{}
+{
+    sender->start();
+    receiver->start();
+}
 
-Peer::~Peer(){}
+void Peer::finish(){
+    peer.shutdown();
+    sender->join();
+    receiver->join();
+}
+
+Peer::~Peer(){
+    delete sender;
+    delete receiver;
+}
 
 void Peer::send(Entity& entity) {
     EntityProtocol::sendEntity(outcoming, entity);

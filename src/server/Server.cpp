@@ -20,6 +20,13 @@ void Server::run(){
     acceptClients();
     sktListener.shutdown();
     startGame();
+    disconnectClients();
+}
+
+void Server::disconnectClients(){
+    for(int i = 0; i < playersAmount; i++){
+        clients[i].finish();
+    }
 }
 
 void Server::sendAll(){
@@ -70,8 +77,8 @@ void Server::startGame(){
             }
         }
         game.update();
-        finish = game.isFinished();
         sendNew();
+        finish = game.isFinished();
         std::this_thread::sleep_until(timeSpan);
     }
 }

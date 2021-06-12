@@ -32,6 +32,8 @@ public:
 
     void sendAll();
 
+    void disconnectClients();
+
     void makeCommand(char& command);
 
     ~Server();

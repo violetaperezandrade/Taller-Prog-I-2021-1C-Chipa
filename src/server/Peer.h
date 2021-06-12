@@ -9,8 +9,8 @@
 class Peer {
 private:
     Socket peer;
-    Sender sender;
-    Receiver receiver;
+    Sender* sender;
+    Receiver* receiver;
     std::queue<char*> incoming;
     BlockingQueue<std::pair<char*,int>> outgoing;
 public:
@@ -29,6 +29,7 @@ public:
     void receive(char* msg, int length);
 
     void send(char* msh, int length);
+
 };
 
 #endif //PEER_H

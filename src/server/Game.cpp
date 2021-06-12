@@ -21,7 +21,8 @@ Game::Game(Config& config, Logger& logger, int amountPlayers) :
         entities(),
         collisionManager(players, entities, logger),
         tickCounter(0),
-        actLevel(1)
+        actLevel(1),
+        finished(false)
     {
     setLevel1();
 }
@@ -536,6 +537,10 @@ const std::vector<Entity>& Game::getEntities(){
 
 const std::vector<Character>& Game::getPlayers(){
     return players;
+}
+
+bool Game::isFinished() {
+    return finished;
 }
 
 void Game::changeLevel(){
