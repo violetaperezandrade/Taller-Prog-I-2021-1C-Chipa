@@ -7,9 +7,9 @@ class ClientInput : public Thread {
 private:
     Socket socket;
 public:
-    Sender(Socket socket);
+    ClientInput(Socket socket);
 
-    ~Sender();
+    ~ClientInput();
 
     void run() override;
 };

@@ -1,16 +1,12 @@
 #ifndef PROCESSOR_H
 #define PROCESSOR_H
-#include "../common/protocols/EntityProtocol.h"
 #include "../common/Thread.h"
-#include <mutex>
-
+#include <vector>
+#include "Monitor.h"
 
 class Processor : public Thread {
 private:
-    std::mutex vectorMutex;
     Socket socket;
-    //Recurso compartido
-    std::vector<Entity>& entities;
 
 public:
     void readEntities();

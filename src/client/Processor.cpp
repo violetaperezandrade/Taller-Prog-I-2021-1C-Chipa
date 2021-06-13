@@ -3,8 +3,7 @@
 Processor::Processor(std::vector<Entity>& vect,Socket skt) : socket(skt),entities(vect){}
 
 void Processor::readEntities() {
-    const std::lock_guard<std::mutex> lock(vectorMutex);
-    EntityProtocol::readEntities(socket,entities);
+    Monitor::setEntityVector(vect,socket);
 }
 
 void Processor::joinThread(){
@@ -14,3 +13,5 @@ void Processor::joinThread(){
 void Processor::run() {
     readEntities();
 }
+
+Processor::~Processor(){};

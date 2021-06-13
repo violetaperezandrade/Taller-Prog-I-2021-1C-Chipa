@@ -4,8 +4,11 @@
 ClientInput::ClientInput(Socket socket) : socket(socket){}
 
 void ClientInput::run() {
+
+    bool quit = false;
     while(!quit){
         while(SDL_WaitEvent(&e) != 0){
+            if(e.type == SDL_QUIT) quit = true;
             if(e.type == SDL_KEYDOWN){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
