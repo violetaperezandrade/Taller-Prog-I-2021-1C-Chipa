@@ -7,8 +7,8 @@
 #include "../server/Game.h"
 #include "../server/Config.h"
 #include "Login.h"
+#include "ClientInput.h"
 #include "Processor.h"
-#include "Input.h"
 
 class Client {
 private:

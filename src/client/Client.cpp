@@ -23,6 +23,8 @@ void Client::run(){
     connect(ip,port);
     Login login(logger, skt);
     login.runLoginWindow();
+    ClientInput input(this->socket);
+    input.run();
     Processor processor(entities,skt);
     processor.readEntities();
 
