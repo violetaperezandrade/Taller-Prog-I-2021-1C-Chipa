@@ -1,9 +1,9 @@
-#include "Input.h"
+#include "ClientInput.h"
 #include "../common/protocols/InputProtocol.h"
 
-Input::Input(Socket socket) : socket(socket){}
+ClientInput::ClientInput(Socket socket) : socket(socket){}
 
-void Input::run() {
+void ClientInput::run() {
     while(!quit){
         while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_KEYDOWN){

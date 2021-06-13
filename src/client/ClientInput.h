@@ -1,9 +1,9 @@
-#ifndef DONKEYKONG_INPUT_H
-#define DONKEYKONG_INPUT_H
+#ifndef DONKEYKONG_CLIENTINPUT_H
+#define DONKEYKONG_CLIENTINPUT_H
 #include "../common/Socket.h"
 #include "../common/Thread.h"
 
-class Input : public Thread {
+class ClientInput : public Thread {
 private:
     Socket socket;
 public:
@@ -14,4 +14,4 @@ public:
     void run() override;
 };
 
-#endif //DONKEYKONG_SENDER_H
+#endif //DONKEYKONG_CLIENTINPUT_H
