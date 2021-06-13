@@ -7,6 +7,7 @@
 #include "../server/Game.h"
 #include "../common/Logger.h"
 #include "../server/Config.h"
+#include "../client/Monitor.h"
 
 class View {
 private:
@@ -15,10 +16,11 @@ private:
     std::map<char, SDL_Texture*> texturesMonkey; //only monkey
     SDL_Renderer* windowRenderer;
     SDL_Window* window;
-    Game& game;
+    //Game& game;
     Logger& logger;
     Config& config;
     SDL_Texture* defaultConfig;
+    Monitor& monitor;
 
     bool initSDL();
     void closeSDL();
@@ -34,7 +36,7 @@ public:
 
     void free(SDL_Texture* texture);
     //int run();
-    View(Game& game, Logger& logger, Config& config);
+    View(Monitor& monitor,Logger& logger, Config& config);
 
     void changeLevel();
 

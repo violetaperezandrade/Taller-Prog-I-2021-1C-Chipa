@@ -1,7 +1,7 @@
 #include "View.h"
 #include <iostream>
 
-View::View(Game& game,Logger& logger, Config& config) : game(game),logger(logger), config(config){
+View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), config(config),monitor(monitor){
     if (initSDL() < 0){
         logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
     }
@@ -169,7 +169,7 @@ void View::refresh(){
     if(config.getDefault()){
         render(0,200,800,200,'\0','d');
     }
-    Message entityInfo = game.getStatus();
+    /*Message entityInfo = game.getStatus();
     while(!entityInfo.isEmpty()){
         char entityType;
         int posX;
@@ -179,6 +179,17 @@ void View::refresh(){
         char state;
         entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
         render(posX,posY,width,height,state,entityType);
+    }*/
+    std::vector<Entity> entityVector = monitor.getEntityVector();
+    std::vector<Entity>::iterator it = entityVector.begin();
+    while(it != entityVector.end()) {
+        char type = it->getType();
+        int posX = it->getPosX();
+        int posY = it->getPosY();
+        int width = it->getWidth();
+        int height = it->getHeight();
+        char state = it->getState();
+        render(posX, posY, width, height, state, type);
     }
     SDL_RenderPresent(windowRenderer);
     SDL_RenderClear(windowRenderer);

@@ -1,9 +1,9 @@
 #include "Processor.h"
 
-Processor::Processor(std::vector<Entity>& vect,Socket skt) : socket(skt),entities(vect){}
+Processor::Processor(Monitor& monitor) : monitor(monitor){}
 
 void Processor::readEntities() {
-    Monitor::setEntityVector(vect,socket);
+    monitor.setEntityVector();
 }
 
 void Processor::joinThread(){

@@ -1,6 +1,6 @@
 #include "Client.h"
 
-Client::Client(char *ip, char *port,Logger& logger) : skt(),logger(logger),view(logger,Config& config),ip(ip),port(port){}
+Client::Client(char *ip, char *port,Logger& logger) : skt(),logger(logger),ip(ip),port(port){}
 
 Client::~Client(){
     skt.shutdown();
@@ -27,11 +27,15 @@ void Client::run(){
     ClientInput input(skt);
     input.run();
 
-    Processor processor(entities,skt);
+    Monitor monitor(skt,entities);
+    Processor processor(monitor);
     processor.readEntities();
 
-    processor.joinThread();
+    View view(&monitor,logger,config);
+    view.refresh();
 
+    processor.joinThread();
+    input.joinThread();
 
 
 }

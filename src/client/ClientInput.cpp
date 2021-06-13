@@ -55,3 +55,7 @@ void ClientInput::run() {
     }
 
 }
+
+void ClientInput::joinThread(){
+    join();
+}

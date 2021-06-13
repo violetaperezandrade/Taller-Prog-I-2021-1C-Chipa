@@ -12,9 +12,8 @@
 
 class Client {
 private:
-    Socket skt;
+    Socket& skt;
     Logger& logger;
-    View view;
     std::vector<Entity> entities;
     char* ip;
     char* port;

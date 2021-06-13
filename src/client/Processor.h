@@ -6,13 +6,12 @@
 
 class Processor : public Thread {
 private:
-    Socket socket;
-
+    Monitor& monitor;
 public:
     void readEntities();
     void run() override;
     void joinThread();
-    Processor(std::vector<Entity>& vect, Socket skt);
+    Processor(Monitor& monitor);
     ~Processor();
 };
 

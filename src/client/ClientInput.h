@@ -12,6 +12,7 @@ public:
     ~ClientInput();
 
     void run() override;
+    void joinThread();
 };
 
 #endif //DONKEYKONG_CLIENTINPUT_H
