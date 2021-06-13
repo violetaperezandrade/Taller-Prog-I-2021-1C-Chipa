@@ -1,7 +1,6 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 #include "View.h"
-#include "../common/Socket.h"
 #include <vector>
 #include "../server/Entity.h"
 #include "../common/Logger.h"
