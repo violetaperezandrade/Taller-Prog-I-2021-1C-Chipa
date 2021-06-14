@@ -1,11 +1,10 @@
 #include "ClientInput.h"
 #include "../common/protocols/InputProtocol.h"
 
-ClientInput::ClientInput(Socket socket) : socket(socket){}
+ClientInput::ClientInput(Socket socket) : socket(socket),quit(false){}
 
 void ClientInput::run() {
 
-    bool quit = false;
     while(!quit){
         while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_QUIT) quit = true;
@@ -53,5 +52,8 @@ void ClientInput::run() {
             }
         }
     }
+}
 
+void ClientInput::stop(){
+    quit = true;
 }

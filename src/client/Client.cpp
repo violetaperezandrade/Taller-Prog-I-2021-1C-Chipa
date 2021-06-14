@@ -34,6 +34,8 @@ void Client::run(){
     View view(monitor,logger,config);
     view->refresh();
 
+    input->stop();
+
     processor->join();
     input->join();
 

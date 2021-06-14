@@ -6,12 +6,14 @@
 class ClientInput : public Thread {
 private:
     Socket socket;
+    bool quit;
 public:
     ClientInput(Socket socket);
 
     ~ClientInput();
 
     void run() override;
+    void stop();
 };
 
 #endif //DONKEYKONG_CLIENTINPUT_H
