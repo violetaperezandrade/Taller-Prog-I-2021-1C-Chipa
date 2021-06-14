@@ -12,9 +12,8 @@ private:
     void writeInt(char* ptr, int num);
     int getInt(char* ptr);
 public:
-    void sendEntity(BlockingQueue<std::pair<char*, int>>& queue, Entity entity,
-                    char permanency);
-    void sendBreak(BlockingQueue<std::pair<char*, int>>& queue);
+    void sendEntity(BlockingQueue& queue, Entity entity, char permanency);
+    void sendBreak(BlockingQueue& queue);
     void readEntities(Socket& socket, Monitor& container);
 };
 

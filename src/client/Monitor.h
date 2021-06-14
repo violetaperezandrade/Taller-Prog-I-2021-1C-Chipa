@@ -1,6 +1,5 @@
 #ifndef MONITOR_H
 #define MONITOR_H
-#include "../common/protocols/EntityProtocol.h"
 #include <mutex>
 #include <vector>
 

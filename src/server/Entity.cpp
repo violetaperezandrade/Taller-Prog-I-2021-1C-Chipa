@@ -7,7 +7,7 @@ Entity::Entity(char type, int posX, int posY, int width, int height) :
     width(width),
     height(height),
     speedX(0),
-    speedY(0),
+    speedY(0)
 {}
 
 Entity::Entity(char type, int posX, int posY,
@@ -19,7 +19,7 @@ Entity::Entity(char type, int posX, int posY,
     height(height),
     speedX(speedX),
     speedY(speedY),
-    permanency(),
+    permanency()
 {}
 
 void Entity::setPosY(int i){
@@ -74,7 +74,7 @@ char Entity::getPermanency() {
     return permanency;
 }
 
-char Entity::setPermanency(char c) {
+void Entity::setPermanency(char c) {
     permanency = c;
 }
 
