@@ -4,11 +4,11 @@
 ClientInput::ClientInput(Socket socket) : socket(socket),quit(false){}
 
 void ClientInput::run() {
-
+    SDL_Event e;
     while(!quit){
         while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_QUIT) quit = true;
-            if(e.type == SDL_KEYDOWN){
+            if(e.type == SDL_KEYDOWN && e.key.repeat == 0){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
                         InputProtocol::sendPressUpEvent(this->socket);
@@ -29,7 +29,7 @@ void ClientInput::run() {
                         break;
                 }
             }
-            else if(e::type == SDL_KEYUP){
+            else if(e::type == SDL_KEYUP && e.key.repeat == 0){
                 switch(e::key::keysym::sym){
                     case SDLK_UP:
                         InputProtocol::sendReleaseUpEvent(this->socket);
@@ -56,4 +56,7 @@ void ClientInput::run() {
 
 void ClientInput::stop(){
     quit = true;
+}
+
+ClientInput::~ClientInput(){
 }

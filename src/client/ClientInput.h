@@ -13,6 +13,7 @@ public:
     ~ClientInput();
 
     void run() override;
+
     void stop();
 };
 
