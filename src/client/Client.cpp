@@ -26,8 +26,8 @@ void Client::run(){
     ClientInput* input = new ClientInput(skt);
     input->start();
 
-    Monitor monitor(skt,entities);
-    Processor* processor = new Processor(monitor);
+    Monitor monitor(entities);
+    Processor* processor = new Processor(monitor, skt);
     processor->start();
 
     View view(monitor,logger,config);

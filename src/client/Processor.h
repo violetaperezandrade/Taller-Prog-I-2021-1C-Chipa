@@ -7,12 +7,13 @@
 class Processor : public Thread {
 private:
     Monitor& monitor;
+    Socket& socket;
 public:
+    Processor(Monitor& monitor, Socket& socket);
     void readEntities();
     void run() override;
-    Processor(Monitor& monitor);
+    void stop();
     ~Processor();
 };
-
 
 #endif //PROCESSOR_H

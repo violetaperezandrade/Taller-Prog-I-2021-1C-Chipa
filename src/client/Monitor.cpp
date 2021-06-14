@@ -1,22 +1,39 @@
 #include "Monitor.h"
 
-Monitor::Monitor(Socket& socket, std::vector<Entity>& vect) : socket(socket), entityVector(vect){}
+Monitor::Monitor(std::vector<Entity>& vect) : entityVector(vect){}
 
-void Monitor::setEntityVector(){
+void Monitor::addEntity(Entity e){
     const std::lock_guard<std::mutex> lock(vectorMutex);
-    EntityProtocol::readEntities(socket, vect);
+    vect.push_back(e);
+}
+
+void Monitor::cleanPermanent(Entity e){
+    for (int i = 0, i < vect.size(), i++){
+        Entity e = vec(i);
+        if (e.getPermanency == 1){ //es permanente
+            const std::lock_guard<std::mutex> lock(vectorMutex);
+            vect.erase(i);
+        }
+    }
+}
+
+void Monitor::cleanTemporary(Entity e){
+    for (int i = 0, i < vect.size(), i++){
+        Entity e = vec(i);
+        if (e.getPermanency == 0){ //es temporal
+            const std::lock_guard<std::mutex> lock(vectorMutex);
+            vect.erase(i);
+        }
+    }
+}
+
+void Monitor::cleanEntityVector(){
+    Monitor::cleanPermanent();
+    Monitor::cleanTemporary();
 }
 
 std::vector<Entity>& Monitor::getEntityVector(){
     return entityVector;
 }
 
-void Monitor::cleanEntityVector(){
-    vect.clear();
-}
-
-void Monitor::stop(){
-    socket.shutdownRead();
-}
-
-Monitor::~Monitor{}
+Monitor::~Monitor() {}

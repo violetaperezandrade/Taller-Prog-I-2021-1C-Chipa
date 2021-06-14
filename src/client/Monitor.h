@@ -7,15 +7,15 @@
 class Monitor {
 
 private:
-    Socket& socket;
     std::vector<Entity>& entityVector;
     std::mutex vectorMutex;
 public:
-    Monitor(Socket& socket, std::vector<Entity>&vect);
-    void setEntityVector();
+    Monitor(std::vector<Entity>&vect);
+    void addEntity(Entity e);
+    void cleanPermanent();
+    void cleanTemporary();
     void cleanEntityVector();
     std::vector<Entity>& getEntityVector();
-    void stop();
     ~Monitor();
 };
 
