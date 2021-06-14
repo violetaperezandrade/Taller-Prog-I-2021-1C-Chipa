@@ -60,16 +60,11 @@ void EntityProtocol::readEntities(Socket &socket, EntityContainer& container) {
         socket.read(buff, MSG_LEN);
         if(buff[MSG_LEN - 1] == -1){
             keepGoing = false;
-        } else if(buff[MSG_LEN - 1] == 1) {
-            if(firstIteration){
-                container.cleanPermanent();
-            }
-            Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5), getInt(buff+7), buff[9]);
-            container.addPermanent(entity)
-        } else {
-            Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5), getInt(buff+7), buff[9]);
-            container.addTemporary(entity)
+        } else if(firstIteration && buff[MSG_LEN - 1] == 1) {
+            container.cleanPermanent();
         }
+        Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5), getInt(buff+7), buff[9]);
+        container.add(entity);
         firstIteration = false;
     }
 }
