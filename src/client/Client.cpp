@@ -25,11 +25,11 @@ void Client::run(){
     login.runLoginWindow();
 
     ClientInput* input = new ClientInput(skt);
-    input->run();
+    input->start();
 
     Monitor monitor(skt,entities);
     Processor* processor = new Processor(monitor);
-    processor->readEntities();
+    processor->start();
 
     View view(monitor,logger,config);
     view->refresh();
