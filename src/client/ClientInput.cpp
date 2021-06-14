@@ -59,4 +59,5 @@ void ClientInput::stop(){
 }
 
 ClientInput::~ClientInput(){
+    this->socket.shutdownWrite();
 }
