@@ -10,3 +10,7 @@ void Monitor::setEntityVector(){
 std::vector<Entity>& Monitor::getEntityVector(){
     return entityVector;
 }
+
+Monitor::~Monitor{
+    socket.shutdownRead();
+};

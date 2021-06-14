@@ -9,7 +9,6 @@ pkg_check_modules(JSONCPP jsoncpp)
 link_libraries(${JSONCPP_LIBRARIES})
 
 add_executable(DonkeyKong src/client/View.cpp
-        src/controller/Controller.cpp
         src/server/Entity.cpp
         src/server/CollisionManager.cpp
         src/server/Game.cpp
