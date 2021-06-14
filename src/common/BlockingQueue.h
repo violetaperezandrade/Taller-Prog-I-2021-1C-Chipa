@@ -28,7 +28,7 @@ public:
         while(queue.empty()){
             condition_variable.wait(lock);
         }
-        T t = std::move(queue.front());
+        std::pair<char*,int> t = std::move(queue.front());
         queue.pop();
         return t;
     }
