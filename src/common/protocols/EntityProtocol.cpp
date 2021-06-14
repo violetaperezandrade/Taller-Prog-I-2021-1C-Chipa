@@ -64,7 +64,7 @@ void EntityProtocol::readEntities(Socket &socket, EntityContainer& container) {
             container.cleanPermanent();
         }
         Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5), getInt(buff+7), buff[9]);
-        container.add(entity);
+        container.addEntity(entity);
         firstIteration = false;
     }
 }
