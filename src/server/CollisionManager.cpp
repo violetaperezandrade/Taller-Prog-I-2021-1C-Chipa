@@ -5,8 +5,8 @@
 #define PI 3.14159265
 #define PLATFORM_HEIGHT 20
 
-CollisionManager::CollisionManager(Character &character, std::vector<Entity> &vector, Logger& logger) :
-    character(character),
+CollisionManager::CollisionManager(std::vector<Character>& character, std::vector<Entity> &vector, Logger& logger) :
+    characters(character),
     vector(vector),
     logger(logger)
 {}
@@ -73,20 +73,20 @@ bool CollisionManager::moveEmber(Entity &entity) {
     return angle;
 }*/
 
-void CollisionManager::moveCharacter() {
-    int speedX = character.getSpeedX();
+void CollisionManager::moveCharacter(int i) {
+    int speedX = characters[i].getSpeedX();
     if (speedX){
         logger.superDebugMsg("speedX:" + std::to_string(speedX), __FILE__, __LINE__);
     }
-    int speedY = character.getSpeedY();
+    int speedY = characters[i].getSpeedY();
     //double angle = getAngle(speedX,speedY);
 
     int map_width = 800;//config.get_map_width();
     int map_height = 600;//config.get_map_heigth();
-    int x = character.getPosX() + speedX;
-    int y = character.getPosY() + speedY;
-    int height = character.getHeight();
-    int width = character.getWidth();
+    int x = characters[i].getPosX() + speedX;
+    int y = characters[i].getPosY() + speedY;
+    int height = characters[i].getHeight();
+    int width = characters[i].getWidth();
 
     if (x < 0){
         x = 0;
@@ -96,11 +96,11 @@ void CollisionManager::moveCharacter() {
 
     if (y >= 600-(height+PLATFORM_HEIGHT)){
         y = 600-(height+PLATFORM_HEIGHT);
-        character.land();
+        characters[i].land();
         logger.debugMsg("Character has landed", __FILE__, __LINE__);
     } else if (y <= 0){
         y = 0;
     }
-    character.setPosX(x);
-    character.setPosY(y);
+    characters[i].setPosX(x);
+    characters[i].setPosY(y);
 }

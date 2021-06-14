@@ -8,7 +8,7 @@
 
 class CollisionManager {
 private:
-    std::vector<Character>& character;
+    std::vector<Character>& characters;
     std::vector<Entity>& vector;
     Logger& logger;
 
@@ -21,7 +21,7 @@ public:
 
     bool moveEmber(Entity &entity);
 
-    void moveCharacter();
+    void moveCharacter(int i);
 
     ~CollisionManager();
 };

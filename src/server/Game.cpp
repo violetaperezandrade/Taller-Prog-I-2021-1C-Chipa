@@ -22,6 +22,7 @@ Game::Game(Config& config, Logger& logger, int amountPlayers) :
         collisionManager(players, entities, logger),
         tickCounter(0),
         actLevel(1),
+        amountPlayers(amountPlayers),
         finished(false)
     {
     setLevel1();
@@ -77,7 +78,9 @@ void Game::update() {
         logger.debugMsg(str, __FILE__, __LINE__);
         str.clear();
     }
-    collisionManager.moveCharacter();
+    for (int i = 0; i < amountPlayers; i++){
+        collisionManager.moveCharacter(i);
+    }
 
     if(tickCounter % config.getEmbersLevel1() == 0 && actLevel == 1){
         lvl1SpawnEmber();
