@@ -10,7 +10,6 @@ private:
 public:
     void readEntities();
     void run() override;
-    void joinThread();
     Processor(Monitor& monitor);
     ~Processor();
 };

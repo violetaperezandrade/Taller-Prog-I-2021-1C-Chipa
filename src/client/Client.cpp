@@ -25,15 +25,18 @@ void Client::run(){
     login.runLoginWindow();
 
     ClientInput* input = new ClientInput(skt);
-    input.run();
+    input->run();
 
     Monitor monitor(skt,entities);
     Processor* processor = new Processor(monitor);
-    processor.readEntities();
+    processor->readEntities();
 
     View view(monitor,logger,config);
-    view.refresh();
+    view->refresh();
 
-    processor.join();
-    input.join();
+    processor->join();
+    input->join();
+
+    delete input;
+    delete processor;
 }

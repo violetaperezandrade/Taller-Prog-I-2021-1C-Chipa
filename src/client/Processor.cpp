@@ -6,10 +6,6 @@ void Processor::readEntities() {
     monitor.setEntityVector();
 }
 
-void Processor::joinThread(){
-    join();
-}
-
 void Processor::run() {
     readEntities();
 }
