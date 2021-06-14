@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "../Socket.h"
+#include "../BlockingQueue.h"
 
 class EntityProtocol {
 private:

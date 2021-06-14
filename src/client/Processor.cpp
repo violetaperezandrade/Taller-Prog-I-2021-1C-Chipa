@@ -7,7 +7,10 @@ void Processor::readEntities() {
 }
 
 void Processor::run() {
-    readEntities();
+    while (//no reciba eof){
+        readEntities();
+    }
+    monitor.cleanEntityVector();
 }
 
-Processor::~Processor(){};
+Processor::~Processor(){}

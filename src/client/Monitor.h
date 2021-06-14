@@ -11,9 +11,11 @@ private:
     std::vector<Entity>& entityVector;
     std::mutex vectorMutex;
 public:
-    Monitor(Socket& soket, std::vector<Entity>&vect);
+    Monitor(Socket& socket, std::vector<Entity>&vect);
     void setEntityVector();
+    void cleanEntityVector();
     std::vector<Entity>& getEntityVector();
+    void stop();
     ~Monitor();
 };
 
