@@ -11,6 +11,9 @@ private:
     std::vector<Character>& characters;
     std::vector<Entity>& vector;
     Logger& logger;
+    void getEdgeInfo(int* cornerInfo, Entity& entity);
+    void fixCharacterHitbox(int* edgeInfo);
+    bool checkCollision(Entity& a, Entity& b);
 
 public:
     CollisionManager(std::vector<Character>& character, std::vector<Entity>& vector, Logger& logger);
