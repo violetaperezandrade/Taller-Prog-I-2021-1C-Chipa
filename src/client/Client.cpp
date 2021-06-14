@@ -20,7 +20,6 @@ int Cliend::recv(char* msg, size_t len){
 
 void Client::run(){
 
-    connect(ip,port);
     Login login(logger, skt);
     login.runLoginWindow();
 
