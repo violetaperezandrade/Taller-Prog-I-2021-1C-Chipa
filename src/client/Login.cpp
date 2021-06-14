@@ -90,8 +90,20 @@ bool View::mouseWasClickedInPosition(int x1, int x2, int y1, int y2, SDL_Event* 
     return ok;
 }
 
-int Login::runLoginWindow() {
+int Login::runLoginWindow(char* ip, char* port) {
 
+    int success = sktLogin.connect(ip,port);
+    if(success < 0){
+        TextRendered connError = loadFromRenderedText("Server unreachable or full, try again.",{255,0,0},windowRenderer,globalFont);
+        SDL_Texture* warning = loadImageTexture("../src/client/img/warning.png",windowRenderer);
+        SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
+        SDL_RenderClear(windowRenderer);
+        render(5,210,connError.width-50,connError.height,connError.texture,windowRenderer);
+        render(260,300,100,100,warning,windowRenderer);
+        SDL_RenderPresent(windowRenderer);
+        SDL_Delay(3000);
+        return -1;
+    }
     std::string inputTextUser = "";
     std::string inputTextPsw = "";
     std::string playText = "PLAY!";
