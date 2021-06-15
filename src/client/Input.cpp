@@ -1,4 +1,4 @@
-#include "ClientInput.h"
+#include "Input.h"
 #include "../common/protocols/InputProtocol.h"
 
 ClientInput::ClientInput(Socket socket) : socket(socket),quit(false){}

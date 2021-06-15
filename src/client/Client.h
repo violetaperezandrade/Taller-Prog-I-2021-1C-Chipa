@@ -7,7 +7,7 @@
 #include "../server/Game.h"
 #include "../server/Config.h"
 #include "Login.h"
-#include "ClientInput.h"
+#include "Input.h"
 #include "Processor.h"
 
 class Client {
