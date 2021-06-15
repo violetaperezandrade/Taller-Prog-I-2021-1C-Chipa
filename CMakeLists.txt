@@ -14,7 +14,7 @@ add_executable(Client
         src/client/Client.cpp
         src/client/clientMain.cpp
         src/client/Input.cpp
-        #src/client/Login.cpp
+        src/client/Login.cpp
         src/client/Monitor.cpp
         src/client/Processor.cpp
         src/client/View.cpp
