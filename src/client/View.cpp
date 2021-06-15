@@ -1,7 +1,7 @@
 #include "View.h"
 #include <iostream>
 
-View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), config(config), monitor(monitor){
+View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), config(config), monitor(monitor),keepRuning(true){
     if (initSDL() < 0){
         logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
     }
@@ -231,24 +231,27 @@ void View::renderFilledQuad(){
     SDL_RenderFillRect( windowRenderer, &fillRect );
 }
 
-int View::run(){
+int View::run() {
     renderFilledQuad();
-    std::vector<Entity> entityVector = monitor.getEntities();
-    std::vector<Entity>::iterator it = entityVector.begin();
-    while(it != entityVector.end()) {
-        char type = it->getType();
-        if (type == 'c'){
-            playerID++;
-        };
-        int posX = it->getPosX();
-        int posY = it->getPosY();
-        int width = it->getWidth();
-        int height = it->getHeight();
-        char state = it->getState();
-        render(posX, posY, width, height, state, type);
+    while(keepRuning) {
+        std::vector<Entity> entityVector = monitor.getEntities();
+        std::vector<Entity>::iterator it = entityVector.begin();
+        while (it != entityVector.end()) {
+            char type = it->getType();
+            if (type == 'c') {
+                playerID++;
+            }
+            int posX = it->getPosX();
+            int posY = it->getPosY();
+            int width = it->getWidth();
+            int height = it->getHeight();
+            char state = it->getState();
+            render(posX, posY, width, height, state, type);
+        }
+        SDL_RenderPresent(windowRenderer);
+        SDL_RenderClear(windowRenderer);
     }
-    SDL_RenderPresent(windowRenderer);
-    SDL_RenderClear(windowRenderer);
+    return 0;
 }
 
 View::~View(){

@@ -26,6 +26,7 @@ private:
     int playerID;
     bool initSDL();
     void closeSDL();
+    bool keepRuning;
 public:
 
     void render(int x, int y, int width, int height, char stateEntity,char entityType);
