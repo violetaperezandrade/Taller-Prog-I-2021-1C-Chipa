@@ -159,7 +159,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Texture *textureEntity;
     switch (entityType) {
         case 'C': //mario
-            textureEntity = texturesMario[stateEntity];
+            textureEntity = texturesMario1[stateEntity]; //hay que fijarse cual jugador es para ver cual color de mario cargar
             break;
         case 'B': //barrel
             textureEntity = texturesEntities['B'];
@@ -203,7 +203,7 @@ void View::free(SDL_Texture* texture){
     if(config.getDefault()){
         render(0,200,800,200,'\0','d');
     }
-    /*Message entityInfo = game.getStatus();
+    Message entityInfo = game.getStatus();
     while(!entityInfo.isEmpty()){
         char entityType;
         int posX;
@@ -236,7 +236,7 @@ void View::renderFilledQuad(){
 
 int View::run(){
     renderFilledQuad();
-    std::vector<Entity> entityVector = monitor.getEntityVector();
+    std::vector<Entity> entityVector = monitor.getEntities();
     std::vector<Entity>::iterator it = entityVector.begin();
     while(it != entityVector.end()) {
         char type = it->getType();

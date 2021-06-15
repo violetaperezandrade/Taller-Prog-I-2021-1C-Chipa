@@ -3,7 +3,7 @@ project(DonkeyKong)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_FLAGS "-std=c++11")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -pedantic-errors -pthread")
 
 find_package(PkgConfig REQUIRED)
 find_package(nlohmann_json 3.2.0 REQUIRED)
