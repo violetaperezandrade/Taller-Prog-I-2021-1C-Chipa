@@ -30,9 +30,9 @@ void LoginManager::validate(){
 
         if (usersKeys[usr] != pw) {
             response[0] = 'F';
-            skt.send(buffer, 1);
+            skt.send(response, 1);
         }
     }
     response[0] = 'G';
-    skt.send(buffer,1);
+    skt.send(response,1);
 }

@@ -12,7 +12,7 @@ private:
     static void writeInt(char* ptr, int num);
     static int getInt(char* ptr);
 public:
-    static void sendEntity(BlockingQueue& queue, Entity entity, char permanency);
+    static void sendEntity(BlockingQueue& queue, Entity entity);
     static void sendBreak(BlockingQueue& queue);
     static void readEntities(Socket& socket, Monitor& container);
 };
