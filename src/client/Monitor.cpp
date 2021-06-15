@@ -7,7 +7,7 @@ void Monitor::addEntity(Entity e){
     vect.push_back(e);
 }
 
-void Monitor::cleanPermanent(Entity e){
+void Monitor::cleanPermanent(){
     for (int i = 0, i < vect.size(), i++){
         Entity e = vec(i);
         if (e.getPermanency == 1){ //es permanente
@@ -17,7 +17,7 @@ void Monitor::cleanPermanent(Entity e){
     }
 }
 
-void Monitor::cleanTemporary(Entity e){
+void Monitor::cleanTemporary(){
     for (int i = 0, i < vect.size(), i++){
         Entity e = vec(i);
         if (e.getPermanency == 0){ //es temporal
@@ -34,6 +34,18 @@ void Monitor::cleanEntityVector(){
 
 std::vector<Entity>& Monitor::getEntityVector(){
     return entityVector;
+}
+
+char Monitor::getState(){
+    return state;
+}
+
+void Monitor::setState(char c){
+    this->state = &c;
+}
+
+void Monitor::notify(){
+    cond_var.notify_all();
 }
 
 Monitor::~Monitor() {}

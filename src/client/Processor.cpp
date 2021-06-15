@@ -14,6 +14,8 @@ void Processor::run() {
 
 void Processor::close(){
     socket.shutdownRead();
+    monitor.setState(0);
+    monitor.notify();
 }
 
 Processor::~Processor(){}
