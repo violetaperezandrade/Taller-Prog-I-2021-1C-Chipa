@@ -15,7 +15,7 @@ void EntityProtocol::writeInt(char* ptr, int num){
 
 void EntityProtocol::sendEntity(BlockingQueue& queue,
                                 Entity entity, char permanency) {
-    char msg[MSG_LEN];
+    char ptr[MSG_LEN];
     writeChar(ptr, entity.getType());
     writeInt(ptr+1, entity.getPosX());
     writeInt(ptr+3, entity.getPosY());
@@ -24,17 +24,17 @@ void EntityProtocol::sendEntity(BlockingQueue& queue,
     writeChar(ptr+9, entity.getState());
     writeChar(ptr+10, permanency);
 
-    std::pair<char*, int> pair(msg, MSG_LEN);
+    std::pair<char*, int> pair(ptr, MSG_LEN);
     queue.push(pair);
 }
 
 void EntityProtocol::sendBreak(BlockingQueue& queue) {
-    char msg[MSG_LEN];
+    char ptr[MSG_LEN];
     for(int i = 0; i < MSG_LEN; i++){
         ptr[i] = -1;
     }
 
-    std::pair<char*, int> pair(msg, MSG_LEN);
+    std::pair<char*, int> pair(ptr, MSG_LEN);
     queue.push(pair);
 }
 
@@ -63,7 +63,8 @@ void EntityProtocol::readEntities(Socket &socket, Monitor& container) {
         } else if(firstIteration && buff[MSG_LEN - 1] == 1) {
             container.cleanPermanent();
         }
-        Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5), getInt(buff+7), buff[9]);
+        Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5),
+                      getInt(buff+7), 0, 0, buff[9]);
         container.addEntity(entity);
         firstIteration = false;
     }
