@@ -3,6 +3,7 @@
 #include <thread>
 #include <string>
 #include "../common/protocols/InputProtocol.h"
+#include "LoginManager.h"
 
 Server::Server(char* ip, char* port, int playersAmount, Config& config, Logger& logger) :
     ip(ip),
@@ -90,7 +91,7 @@ void Server::acceptClients(){
         Socket clientSkt = std::move(sktListener.accept());
         Peer client(std::move(clientSkt));
         clients.push_back(client);
-        LoginManager* login = new LoginManager(client);
+        LoginManager* login = new LoginManager(client, config, clientSkt); //Necesita toodo esto?
         login->start();
         logins.push_back(login);
     }
