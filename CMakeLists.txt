@@ -8,8 +8,21 @@ find_package(nlohmann_json 3.2.0 REQUIRED)
 pkg_check_modules(JSONCPP jsoncpp)
 link_libraries(${JSONCPP_LIBRARIES})
 
-#add_executable(Client src/client/View.cpp Y LO DEMAS)
-#target_link_libraries(Client jsoncpp SDL2 SDL2_image nlohmann_json::nlohmann_json)
+add_executable(Client
+        src/client/Client.cpp
+        src/client/clientMain.cpp
+        src/client/Input.cpp
+        src/client/Login.cpp
+        src/client/Monitor.cpp
+        src/client/Processor.cpp
+        src/client/View.cpp
+        src/common/protocols/EntityProtocol.cpp
+        src/common/protocols/InputProtocol.cpp
+        src/common/Logger.cpp
+        src/common/Message.cpp
+        src/common/Socket.cpp
+        src/common/Thread.cpp)
+target_link_libraries(Client jsoncpp SDL2 SDL2_image nlohmann_json::nlohmann_json)
 
 add_executable(Server
         src/common/protocols/EntityProtocol.cpp
