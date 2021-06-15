@@ -7,56 +7,24 @@
 
 class Monitor{
 private:
-    std::vector<Entity>& eVector;
-    std::mutex m;
+    std::vector<Entity> entities;
+    std::mutex mtx;
     std::condition_variable cond_var;
     bool notified = false;
+
 public:
-    Monitor() : eVector(), m(), cond_var() {}
+    Monitor();
 
-    ~Monitor() {}
+    ~Monitor();
 
-    void addEntity(Entity e){
-        std::unique_lock<std::mutex> lock(m);
-        eVector.push_back(e);
-        notified = true;
-        cond_var.notify_all();
-    }
+    void addEntity(Entity& e);
 
-    Entity pop(){
-        Entity e;
-        std::unique_lock<std::mutex> lock(m);
-        while(!notified){
-            cond_var.wait(lock);
-        }
-        while (!eVector.empty()) {
-            e = eVector.back();
-        }
-        notified = false;
-        return e;
-    }
+    std::vector<Entity> getEntities();
 
-    void cleanPermanent(){
-        for (int i = 0; i < eVector.size(); i++){
-            Entity e = eVector[i];
-            if (e.getPermanency() == 1){ //es permanente
-                const std::lock_guard<std::mutex> lock(m);
-                eVector.erase(eVector.begin() + i);
-            }
-        }
-    }
+    void cleanPermanent();
 
-    void cleanTemporary(){
-        for (int i = 0; i < eVector.size(); i++){
-            Entity e = eVector[i];
-            if (e.getPermanency() == 0){ //es temporal
-                const std::lock_guard<std::mutex> lock(m);
-                eVector.erase(eVector.begin() + i);
-            }
-        }
-    }
-    void empty(){
-        eVector.clear();
-    }
+    void cleanTemporary();
+
+    void notify();
 };
 #endif //MONITOR_H
