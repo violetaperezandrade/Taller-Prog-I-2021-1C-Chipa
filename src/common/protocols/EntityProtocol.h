@@ -5,7 +5,6 @@
 #include "../Socket.h"
 #include "../BlockingQueue.h"
 #include "../../client/Monitor.h"
-//#include "../../client/exMonitor.h"
 
 class EntityProtocol {
 private:
