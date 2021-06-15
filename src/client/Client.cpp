@@ -20,8 +20,8 @@ int Client::recv(char* msg, size_t len){
 
 void Client::run(){
 
-    //Login login(logger, skt);
-    //login.runLoginWindow(this->ip, this->port);
+    Login login(logger, skt);
+    login.runLoginWindow(this->ip, this->port);
 
     Input* input = new Input(skt);
     input->start();
