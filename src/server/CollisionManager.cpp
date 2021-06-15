@@ -236,16 +236,21 @@ bool CollisionManager::moveCharacter(int i) {
         edgeInfo[BOTTOM] = height;
     }
 
+    int previousY = edgeInfo[TOP];
+
     for (int j = 0; j < vector.size(); j++){
-        if (isPlayerMovementEntity(vector[i]) && checkCollision(characters[i], vector[j])){
-            char type = vector[i].getType();
+        if (isPlayerMovementEntity(vector[j]) && checkCollision(characters[i], vector[j])){
+            char type = vector[j].getType();
             if(type == BARREL_CODE || type == EMBER_CODE || type == FIRE_CODE ||
                type == FLAME_CODE){
                 //maybe halt movement
                 //hit
-            } else if(vector[i].getType() == PLATFORM_CODE){
-                haltMovement(characters[i], vector[i], edgeInfo);
-            } else if(vector[i].getType() == PRINCESS_CODE){
+            } else if(vector[j].getType() == PLATFORM_CODE){
+                haltMovement(characters[i], vector[j], edgeInfo);
+                if (previousY > edgeInfo[TOP]){
+                    characters[i].land();
+                }
+            } else if(vector[j].getType() == PRINCESS_CODE){
                 switchLevel = true;
             }
         }
