@@ -132,7 +132,7 @@ int Login::runLoginWindow(char* ip, char* port) {
 
     int success = sktLogin.connect(ip,port);
     if(success < 0){
-        TextRendered connError = loadFromRenderedText("Server unreachable or full, try again.",{255,0,0},windowRendererLogin,globalFont);
+        TextRendered connError = loadFromRenderedText("Server unreachable or full.",{255,0,0},windowRendererLogin,globalFont);
         SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
         SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
         SDL_RenderClear(windowRendererLogin);

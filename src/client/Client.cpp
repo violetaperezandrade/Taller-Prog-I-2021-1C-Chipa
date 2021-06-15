@@ -21,7 +21,8 @@ int Client::recv(char* msg, size_t len){
 void Client::run(){
 
     Login login(logger, skt);
-    login.runLoginWindow(this->ip, this->port);
+    int status = login.runLoginWindow(ip,port);
+    if(status < 0) return;
 
     Input* input = new Input(skt);
     input->start();
