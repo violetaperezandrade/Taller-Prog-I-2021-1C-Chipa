@@ -3,6 +3,7 @@
 #include <condition_variable>
 #include <mutex>
 #include <iostream>
+#include <vector>
 #include "../server/Entity.h"
 
 class Monitor{

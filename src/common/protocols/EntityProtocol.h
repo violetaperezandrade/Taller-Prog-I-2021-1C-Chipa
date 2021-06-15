@@ -12,9 +12,9 @@ private:
     void writeInt(char* ptr, int num);
     int getInt(char* ptr);
 public:
-    void sendEntity(BlockingQueue& queue, Entity entity, char permanency);
-    void sendBreak(BlockingQueue& queue);
-    void readEntities(Socket& socket, Monitor& container);
+    static void sendEntity(BlockingQueue& queue, Entity entity, char permanency);
+    static void sendBreak(BlockingQueue& queue);
+    static void readEntities(Socket& socket, Monitor& container);
 };
 
 #endif //ENTITYPROTOCOL_H

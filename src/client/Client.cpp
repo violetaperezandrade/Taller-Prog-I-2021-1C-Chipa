@@ -1,6 +1,6 @@
 #include "Client.h"
 
-Client::Client(char *ip, char *port,Logger& logger) : skt(),logger(logger),ip(ip),port(port){}
+Client::Client(char *ip, char *port, Logger& logger, Config& config) : skt(), logger(logger), entities(), ip(ip), port(port), config(config){}
 
 Client::~Client(){
     skt.shutdown();
@@ -20,17 +20,17 @@ int Client::recv(char* msg, size_t len){
 
 void Client::run(){
 
-    Login login(logger, skt);
-    login.runLoginWindow();
+    //Login login(logger, skt);
+    //login.runLoginWindow(this->ip, this->port);
 
-    ClientInput* input = new ClientInput(skt);
+    Input* input = new Input(skt);
     input->start();
 
-    Monitor monitor();
+    Monitor monitor;
     Processor* processor = new Processor(monitor, skt);
     processor->start();
 
-    View view(monitor,logger,config);
+    View view(monitor, logger, config);
 
     input->stop();
     processor->stop();
