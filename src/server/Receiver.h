@@ -3,6 +3,7 @@
 
 #include <queue>
 #include "../common/Thread.h"
+#include "../common/Socket.h"
 
 
 class Receiver : public Thread{
@@ -18,6 +19,5 @@ public:
 
     void run() override;
 };
-
 
 #endif //RECEIVER_H

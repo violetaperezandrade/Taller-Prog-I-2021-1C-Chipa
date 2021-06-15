@@ -11,10 +11,10 @@
 class Peer {
 private:
     Socket peer;
+    std::queue<char> incoming;
+    BlockingQueue outgoing;
     Sender* sender;
     Receiver* receiver;
-    std::queue<char*> incoming;
-    BlockingQueue outgoing;
 public:
     Peer(Socket&& peerSkt);
 
@@ -30,7 +30,9 @@ public:
 
     void receive(char* msg, int length);
 
-    void send(char* msh, int length);
+    void send(char* msg, int length);
+
+    void finish();
 
 };
 

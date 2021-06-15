@@ -2,6 +2,8 @@
 #define SENDER_H
 
 #include "../common/Thread.h"
+#include "../common/BlockingQueue.h"
+#include "../common/Socket.h"
 
 class Sender : public Thread {
 private:

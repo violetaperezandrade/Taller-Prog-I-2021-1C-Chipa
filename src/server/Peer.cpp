@@ -2,11 +2,11 @@
 #include "../common/protocols/EntityProtocol.h"
 
 Peer::Peer(Socket &&peerSkt) :
-    peer(peerSkt),
-    sender(new Sender),
-    receiver(new Receiver),
+    peer(std::move(peerSkt)),
     incoming(),
-    outgoing()
+    outgoing(),
+    sender(new Sender(outgoing, peerSkt)),
+    receiver(new Receiver(incoming, peer))
 {
     sender->start();
     receiver->start();
@@ -24,15 +24,17 @@ Peer::~Peer(){
 }
 
 void Peer::send(Entity& entity) {
-    EntityProtocol::sendEntity(outcoming, entity);
+    EntityProtocol::sendEntity(outgoing, entity);
 }
 
 void Peer::sendBreak(){
-    EntityProtocol::sendBreak(outcoming);
+    EntityProtocol::sendBreak(outgoing);
 }
 
 char Peer::receive(){
-    return incoming.pop();
+    char c = incoming.front();
+    incoming.pop();
+    return c;
 }
 
 bool Peer::hasIncoming() {
@@ -40,9 +42,9 @@ bool Peer::hasIncoming() {
 }
 
 void Peer::receive(char* msg, int length){
-    peer.receive(msg,lenght);
+    peer.receive(msg,length);
 }
 
-void Peer::send(char* msh, int length){
-    peer.send(msg,lenght);
+void Peer::send(char* msg, int length){
+    peer.send(msg,length);
 }

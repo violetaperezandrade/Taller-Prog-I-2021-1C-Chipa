@@ -12,7 +12,7 @@ void Receiver::stop(){
 }
 
 void Receiver::run(){
-    char c[1] = '\0';
+    char c[1] = "";
     peer.receive(c,1);
     incoming.push(c[0]);
 }
