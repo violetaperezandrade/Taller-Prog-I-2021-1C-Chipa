@@ -1,5 +1,7 @@
-#include "socket.h"
+#include "Socket.h"
 #include <iostream>
+
+#include "Logger.h"
 
 Socket::Socket() : fileDescriptor(-1) {}
 

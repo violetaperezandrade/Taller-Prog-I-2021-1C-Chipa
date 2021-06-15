@@ -1,6 +1,8 @@
 #ifndef INPUTPROTOCOL_H
 #define INPUTPROTOCOL_H
 
+#include "../Socket.h"
+
 #define PRESS_UP 1
 #define RELEASE_UP 2
 #define PRESS_DOWN 3
@@ -14,25 +16,25 @@
 
 class InputProtocol {
 public:
-    void sendPressUpEvent(Socket socket);
+    void sendPressUpEvent(Socket& socket);
 
-    void sendReleaseUpEvent(Socket socket);
+    void sendReleaseUpEvent(Socket& socket);
 
-    void sendPressDownEvent(Socket socket);
+    void sendPressDownEvent(Socket& socket);
 
-    void sendReleaseDownEvent(Socket socket);
+    void sendReleaseDownEvent(Socket& socket);
 
-    void sendPressLeftEvent(Socket socket);
+    void sendPressLeftEvent(Socket& socket);
 
-    void sendReleaseLeftEvent(Socket socket);
+    void sendReleaseLeftEvent(Socket& socket);
 
-    void sendPressRightEvent(Socket socket);
+    void sendPressRightEvent(Socket& socket);
 
-    void sendReleaseRightEvent(Socket socket);
+    void sendReleaseRightEvent(Socket& socket);
 
-    void sendPressJumpEvent(Socket socket);
+    void sendPressJumpEvent(Socket& socket);
 
-    void sendReleaseJumpEvent(Socket socket);
+    void sendReleaseJumpEvent(Socket& socket);
 };
 
 #endif //INPUTPROTOCOL_H
