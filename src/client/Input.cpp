@@ -1,9 +1,9 @@
 #include "Input.h"
 #include "../common/protocols/InputProtocol.h"
 
-ClientInput::ClientInput(Socket socket) : socket(socket),quit(false){}
+Input::Input(Socket& socket) : socket(socket),quit(false){}
 
-void ClientInput::run() {
+void Input::run() {
     SDL_Event e;
     while(!quit){
         while(SDL_WaitEvent(&e) != 0){
@@ -11,7 +11,7 @@ void ClientInput::run() {
             if(e.type == SDL_KEYDOWN && e.key.repeat == 0){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
-                        InputProtocol::sendPressUpEvent(this->socket);
+                        InputProtocol::sendPressUpEvent(socket);
                         break;
                     case SDLK_DOWN:
                         InputProtocol::sendPressDownEvent(this->socket);
@@ -54,10 +54,10 @@ void ClientInput::run() {
     }
 }
 
-void ClientInput::stop(){
+void Input::stop(){
     quit = true;
     this->socket.shutdownWrite();
 }
 
-ClientInput::~ClientInput(){
+Input::~Input(){
 }

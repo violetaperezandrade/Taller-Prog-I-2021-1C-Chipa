@@ -41,7 +41,7 @@ public:
 
     void free(SDL_Texture* texture);
 
-    View(Monitor& monitor,Logger& logger, Config& config);
+    View(Monitor& monitor, Logger& logger, Config& config);
 
     void changeLevel();
 

@@ -9,10 +9,11 @@
 #include "Login.h"
 #include "Input.h"
 #include "Processor.h"
+#include "Monitor.h"
 
 class Client {
 private:
-    Socket& skt;
+    Socket skt;
     Logger& logger;
     std::vector<Entity> entities;
     char* ip;
@@ -20,7 +21,7 @@ private:
     Config& config;
 
 public:
-    Client(char* ip, char* port, Logger& logger);
+    Client(char* ip, char* port, Logger& logger, Config& config);
     void run();
     ~Client();
     int connect(char*ip, char* port);

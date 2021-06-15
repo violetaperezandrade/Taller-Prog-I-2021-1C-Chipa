@@ -1,21 +1,21 @@
-#ifndef CLIENTINPUT_H
-#define CLIENTINPUT_H
+#ifndef INPUT_H
+#define INPUT_H
 #include "../common/Socket.h"
 #include "../common/Thread.h"
 #include <SDL2/SDL.h>
 
-class ClientInput : public Thread {
+class Input : public Thread {
 private:
-    Socket socket;
+    Socket& socket;
     bool quit;
 public:
-    ClientInput(Socket socket);
+    Input(Socket& socket);
 
-    ~ClientInput();
+    ~Input();
 
     void run() override;
 
     void stop();
 };
 
-#endif //CLIENTINPUT_H
+#endif //INPUT_H
