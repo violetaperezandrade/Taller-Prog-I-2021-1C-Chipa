@@ -165,55 +165,55 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
 
 int Config::getFrameTime(){
     return frameTime;
-};
+}
 
 int Config::getDebug(){
     return debug;
-};
+}
 
 std::string Config::getPath(){
     return path;
-};
+}
 
 int Config::getGravity(){
     return gravity;
-};
+}
 
 int Config::getClimbingSpeed(){
     return climbingSpeed;
-};
+}
 
 int Config::getJumpingSpeed(){
     return jumpingSpeed;
-};
+}
 
 int Config::getMovingSpeed(){
     return movingSpeed;
-};
+}
 
 int Config::getFlamesLevel1(){
     return flamesLevel1;
-};
+}
 
 int Config::getEmbersLevel1(){
     return embersLevel1;
-};
+}
 
 int Config::getBarrelsLevel2(){
     return barrelsLevel2;
-};
+}
 
 int Config::getResolutionWidth(){
     return resolutionWidth;
-};
+}
 
 int Config::getResolutionHeight(){
     return resolutionHeight;
-};
+}
 
 std::map<std::string, std::string> Config::getUserPass(){
     return userPass;
-};
+}
 
 bool Config::getDefault(){
     return defaultLog;

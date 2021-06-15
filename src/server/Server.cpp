@@ -1,13 +1,14 @@
 #include "Server.h"
 #include <chrono>
 #include <thread>
+#include <string>
 #include "../common/protocols/InputProtocol.h"
 
-Server::Server(char* port, int playersAmount, Config& config, Logger& logger) :
-    ip(c_str("127.0.0.1")),
+Server::Server(char* ip, char* port, int playersAmount, Config& config, Logger& logger) :
+    ip(ip),
     port(port),
     playersAmount(playersAmount),
-    game(config, logger),
+    game(config, logger, playersAmount),
     sktListener(),
     config(config),
     logger(logger)
@@ -30,8 +31,8 @@ void Server::disconnectClients(){
 }
 
 void Server::sendAll(){
-    const std::vector<Entity>& entities = game.getEntities();
-    const std::vector<Character>& characters = game.getPlayers();
+    std::vector<Entity>& entities = game.getEntities();
+    std::vector<Character>& characters = game.getCharacters();
 
     for(int i = 0; i < playersAmount; i++){
         for(int j = 0; j < entities.size(); j++){
@@ -45,8 +46,8 @@ void Server::sendAll(){
 }
 
 void Server::sendNew(){
-    const std::vector<Entity>& entities = game.getEntities();
-    const std::vector<Character>& players = game.getPlayers();
+    std::vector<Entity>& entities = game.getEntities();
+    std::vector<Character>& characters = game.getCharacters();
 
     for(int i = 0; i < playersAmount; i++){
         for(int j = 0; j < entities.size(); j++){
