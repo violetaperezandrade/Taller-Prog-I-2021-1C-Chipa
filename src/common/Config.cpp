@@ -10,7 +10,7 @@ using json = nlohmann::json;
 
 Config::Config(char* str, Logger& logger) : logger(logger) {
     Json::Value actualJson;
-    std::ifstream readFile("../src/controller/data.json");
+    std::ifstream readFile("../src/common/data.json");
     bool valid = true;
     if (readFile) {
         try {
@@ -19,20 +19,20 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
         catch (const std::exception& e) {
             valid = false;
             logger.errorMsg("json file not valid, using default file", __FILE__, __LINE__);
-            std::ifstream readFile("../src/controller/default_data.json");
+            std::ifstream readFile("../src/common/default_data.json");
             readFile >> actualJson;
         }
     }
     else {
         valid = false;
         logger.errorMsg("Json file not found, using default file", __FILE__, __LINE__);
-        std::ifstream readFile("../src/controller/default_data.json");
+        std::ifstream readFile("../src/common/default_data.json");
         readFile >> actualJson;
     }
 
     if(!valid){
-        std::ifstream readFile("../src/controller/default_data.json");
-        std::ifstream nhFile("../src/controller/data.json");
+        std::ifstream readFile("../src/common/default_data.json");
+        std::ifstream nhFile("../src/common/data.json");
         json j = json::parse(nhFile);
         Json::Value actualJson;
         Json::Reader reader;
@@ -54,12 +54,12 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
     else{
         Json::Reader reader;
         reader.parse(readFile, actualJson);
-        std::ifstream nhFile("../src/controller/data.json");
+        std::ifstream nhFile("../src/common/data.json");
         json j = json::parse(nhFile);
-        std::ifstream nhFileDefault("../src/controller/data.json");
+        std::ifstream nhFileDefault("../src/common/data.json");
         json jDefault = json::parse(nhFileDefault);
         Json::Value defaultJson;
-        std::ifstream defaultFile("../src/controller/default_data.json");
+        std::ifstream defaultFile("../src/common/default_data.json");
         defaultFile >> defaultJson;
         if(!actualJson["configuration"]["frame time"].isNumeric() || actualJson["configuration"]["frame time"].isNull()){
             frameTime = defaultJson["configuration"]["frame time"].asInt();

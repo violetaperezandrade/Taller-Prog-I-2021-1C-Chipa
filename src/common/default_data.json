@@ -21,5 +21,11 @@
   "resolution" : {
     "width" : 800,
     "height" : 600
+  },
+  "user password" : {
+    "gonza" : "contraseña",
+    "lauti" : "contraseña",
+    "mau" : "contraseña",
+    "violeta" : "contraseña"
   }
 }
