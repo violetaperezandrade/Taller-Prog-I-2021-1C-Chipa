@@ -1,4 +1,4 @@
-#include "Monitor.h"
+/*#include "exMonitor.h"
 
 Monitor::Monitor(std::vector<Entity>& vect) : entityVector(vect){}
 
@@ -48,4 +48,4 @@ void Monitor::notify(){
     cond_var.notify_all();
 }
 
-Monitor::~Monitor() {}
+Monitor::~Monitor() {}/*

@@ -1,4 +1,4 @@
-#ifndef MONITOR_H
+/*#ifndef MONITOR_H
 #define MONITOR_H
 #include <mutex>
 #include <vector>
@@ -6,7 +6,7 @@
 #include <iostream>
 #include <atomic>
 
-class Monitor {
+class exMonitor {
 
 private:
     std::vector<Entity>& entityVector;
@@ -14,7 +14,7 @@ private:
     std::atomic<bool> state; //1 si el bloque fue leido, 0 si no
     std::condition_variable cond_var;
 public:
-    Monitor(std::vector<Entity>&vect);
+    exMonitor(std::vector<Entity>&vect);
     void addEntity(Entity e);
     void cleanPermanent();
     void cleanTemporary();
@@ -23,7 +23,7 @@ public:
     bool getState();
     void setState(bool c);
     void notify();
-    ~Monitor();
+    ~exMonitor();
 };
 
-#endif //MONITOR_H
+#endif //MONITOR_H*/
