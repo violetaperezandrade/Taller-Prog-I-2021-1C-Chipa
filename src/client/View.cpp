@@ -165,7 +165,7 @@ void View::free(SDL_Texture* texture){
         texture = NULL;
     }
 }
-void View::refresh(){
+/*void View::refresh(){
     if(config.getDefault()){
         render(0,200,800,200,'\0','d');
     }
@@ -179,7 +179,7 @@ void View::refresh(){
         char state;
         entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
         render(posX,posY,width,height,state,entityType);
-    }*/
+    }
     std::vector<Entity> entityVector = monitor.getEntityVector();
     std::vector<Entity>::iterator it = entityVector.begin();
     while(it != entityVector.end()) {
@@ -193,11 +193,28 @@ void View::refresh(){
     }
     SDL_RenderPresent(windowRenderer);
     SDL_RenderClear(windowRenderer);
-}
+}*/
 void View::renderFilledQuad(){
     SDL_Rect fillRect = { 0, 0, config.getResolutionWidth(), config.getResolutionHeight()};
     SDL_SetRenderDrawColor( windowRenderer, 0x00, 0x00, 0x00, 0xFF );
     SDL_RenderFillRect( windowRenderer, &fillRect );
+}
+
+int View::run(){
+    renderFilledQuad();
+    std::vector<Entity> entityVector = monitor.getEntityVector();
+    std::vector<Entity>::iterator it = entityVector.begin();
+    while(it != entityVector.end()) {
+        char type = it->getType();
+        int posX = it->getPosX();
+        int posY = it->getPosY();
+        int width = it->getWidth();
+        int height = it->getHeight();
+        char state = it->getState();
+        render(posX, posY, width, height, state, type);
+    }
+    SDL_RenderPresent(windowRenderer);
+    SDL_RenderClear(windowRenderer);
 }
 
 View::~View(){

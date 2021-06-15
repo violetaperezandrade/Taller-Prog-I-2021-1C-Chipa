@@ -8,6 +8,7 @@
 #include "../common/Logger.h"
 #include "../server/Config.h"
 #include "../client/Monitor.h"
+#include <condition_variable>
 
 class View {
 private:
@@ -21,6 +22,7 @@ private:
     Config& config;
     SDL_Texture* defaultConfig;
     Monitor& monitor;
+    std::condition_variable condVar;
 
     bool initSDL();
     void closeSDL();
@@ -35,7 +37,7 @@ public:
     SDL_Texture* loadImageTexture(std::string path, SDL_Renderer* renderer);
 
     void free(SDL_Texture* texture);
-    //int run();
+
     View(Monitor& monitor,Logger& logger, Config& config);
 
     void changeLevel();
@@ -45,6 +47,8 @@ public:
     void refresh();
 
     void renderFilledQuad();
+
+    int run();
 
 };
 
