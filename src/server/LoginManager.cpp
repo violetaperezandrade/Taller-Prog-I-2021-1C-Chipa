@@ -1,6 +1,6 @@
 #include "LoginManager.h"
 
-LoginManager::LoginManager(Peer& client, Config& config, Socket& skt) :
+LoginManager::LoginManager(Peer* client, Config& config, Socket& skt) :
     client(client),
     config(config),
     skt(skt)
@@ -22,8 +22,8 @@ void LoginManager::validate(){
     bool correctCredentials = false;
     while(!correctCredentials) {
 
-        client.receive(user, 30);
-        client.receive(password, 30);
+        client->receive(user, 30);
+        client->receive(password, 30);
 
         std::string usr(user);
         std::string pw(password);
@@ -31,7 +31,9 @@ void LoginManager::validate(){
         if (usersKeys[usr] != pw) {
             response[0] = 'F';
             skt.send(response, 1);
+            continue;
         }
+        correctCredentials = true;
     }
     response[0] = 'G';
     skt.send(response,1);

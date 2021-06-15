@@ -51,4 +51,4 @@ public:
     bool getDefault();
 
 };
-#endif //DONKEYKONG_CONFIG_H
+#endif //CONFIG_H

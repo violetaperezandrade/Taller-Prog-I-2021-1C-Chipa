@@ -9,12 +9,12 @@
 
 class LoginManager : public Thread {
 private:
-    Peer& client;
+    Peer* client;
     std::map<std::string,std::string> usersKeys;
     Config& config;
     Socket& skt;
 public:
-    LoginManager(Peer& client, Config& config, Socket& skt);
+    LoginManager(Peer* client, Config& config, Socket& skt);
 
     ~LoginManager();
 

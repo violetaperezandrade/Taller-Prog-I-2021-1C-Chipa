@@ -27,7 +27,7 @@ void Server::run(){
 
 void Server::disconnectClients(){
     for(int i = 0; i < playersAmount; i++){
-        clients[i].finish();
+        clients[i]->finish();
     }
 }
 
@@ -37,12 +37,12 @@ void Server::sendAll(){
 
     for(int i = 0; i < playersAmount; i++){
         for(int j = 0; j < entities.size(); j++){
-            clients[i].send(entities[j]);
+            clients[i]->send(entities[j]);
         }
         for(int j = 0; j < characters.size(); i++){
-            clients[i].send(characters[j]);
+            clients[i]->send(characters[j]);
         }
-        clients[i].sendBreak();
+        clients[i]->sendBreak();
     }
 }
 
@@ -54,13 +54,13 @@ void Server::sendNew(){
         for(int j = 0; j < entities.size(); j++){
             char c = entities[j].getPermanency();
             if(c == '0'){
-                clients[i].send(entities[j]);
+                clients[i]->send(entities[j]);
             }
         }
         for(int j = 0; j < characters.size(); i++){
-            clients[i].send(characters[i]);
+            clients[i]->send(characters[i]);
         }
-        clients[i].sendBreak();
+        clients[i]->sendBreak();
     }
 }
 
@@ -73,9 +73,9 @@ void Server::startGame(){
         std::chrono::steady_clock::time_point initialTime = std::chrono::steady_clock::now();
         std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
         for (int i = 0; i < playersAmount; i++) {
-            while (clients[i].hasIncoming()) {
-                char command = clients[i].receive();
-                makeCommand(c,i);
+            while (clients[i]->hasIncoming()) {
+                char command = clients[i]->receive();
+                makeCommand(command,i);
             }
         }
         game.update();
@@ -89,7 +89,7 @@ void Server::acceptClients(){
     std::vector<LoginManager*> logins;
     for(int i = 0; i != playersAmount; i++){
         Socket clientSkt = std::move(sktListener.accept());
-        Peer client(std::move(clientSkt));
+        Peer* client = new Peer(std::move(clientSkt));
         clients.push_back(client);
         LoginManager* login = new LoginManager(client, config, clientSkt); //Necesita toodo esto?
         login->start();
@@ -100,11 +100,11 @@ void Server::acceptClients(){
     while (it != logins.end()){
         (*it)->join();
         delete *it;
-        it = processors.erase(it);
+        it = logins.erase(it);
     }
 }
 
-void Server::makeCommand(char& command,int& i){
+void Server::makeCommand(char command,int i){
     switch(command) {
         case PRESS_UP:
             logger.debugMsg("Se presiona boton UP", __FILE__, __LINE__);

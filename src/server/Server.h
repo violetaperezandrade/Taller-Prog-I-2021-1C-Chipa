@@ -15,7 +15,7 @@ private:
     int playersAmount;
     Game game;
     Socket sktListener;
-    std::vector<Peer> clients;
+    std::vector<Peer*> clients;
     std::map<std::string, std::string> usersKeys;
     Config& config;
     Logger& logger;
@@ -35,7 +35,7 @@ public:
 
     void disconnectClients();
 
-    void makeCommand(char& command);
+    void makeCommand(char command,int i);
 
     ~Server();
 };
