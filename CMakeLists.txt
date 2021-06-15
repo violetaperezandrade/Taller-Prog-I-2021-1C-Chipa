@@ -24,7 +24,7 @@ add_executable(Client
         src/common/Message.cpp
         src/common/Socket.cpp
         src/common/Thread.cpp)
-target_link_libraries(Client jsoncpp SDL2 SDL2_image nlohmann_json::nlohmann_json)
+target_link_libraries(Client jsoncpp SDL2 SDL2_image SDL2_ttf nlohmann_json::nlohmann_json)
 
 add_executable(Server
         src/common/protocols/EntityProtocol.cpp
