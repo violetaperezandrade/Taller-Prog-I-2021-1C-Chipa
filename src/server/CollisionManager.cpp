@@ -1,6 +1,7 @@
 #include "CollisionManager.h"
 
 #include <cmath>
+#include <stdlib.h>
 
 #define PI 3.14159265
 #define PLATFORM_HEIGHT 20
@@ -115,6 +116,38 @@ void CollisionManager::fixCharacterHitbox(int* edgeInfo){
     edgeInfo[TOP] += CHARACTER_TOP_PADDING;
 }
 
+bool CollisionManager::checkHorizontalMatch(int* edgeInfoA, int* edgeInfoB){
+    if((edgeInfoA[LEFT] >= edgeInfoB[LEFT]) && (edgeInfoA[LEFT] <= edgeInfoB[RIGHT])){
+        return true;
+    }
+    if((edgeInfoA[RIGHT] >= edgeInfoB[LEFT]) && (edgeInfoA[RIGHT] <= edgeInfoB[RIGHT])){
+        return true;
+    }
+    if((edgeInfoB[LEFT] >= edgeInfoA[LEFT]) && (edgeInfoB[LEFT] <= edgeInfoA[RIGHT])){
+        return true;
+    }
+    if((edgeInfoB[RIGHT] >= edgeInfoA[LEFT]) && (edgeInfoB[RIGHT] <= edgeInfoA[RIGHT])){
+        return true;
+    }
+    return false;
+}
+
+bool CollisionManager::checkVerticalMatch(int* edgeInfoA, int* edgeInfoB){
+    if((edgeInfoA[TOP] >= edgeInfoB[TOP]) && (edgeInfoA[TOP] <= edgeInfoB[BOTTOM])){
+        return true;
+    }
+    if((edgeInfoA[BOTTOM] >= edgeInfoB[TOP]) && (edgeInfoA[BOTTOM] <= edgeInfoB[BOTTOM])){
+        return true;
+    }
+    if((edgeInfoB[TOP] >= edgeInfoA[TOP]) && (edgeInfoB[TOP] <= edgeInfoA[BOTTOM])){
+        return true;
+    }
+    if((edgeInfoB[BOTTOM] >= edgeInfoA[TOP]) && (edgeInfoB[BOTTOM] <= edgeInfoA[BOTTOM])){
+        return true;
+    }
+    return false;
+}
+
 bool CollisionManager::checkCollision(Entity &a, Entity &b) {
     int edgeInfoA[4], edgeInfoB[4];
     getEdgeInfo(edgeInfoA, a);
@@ -126,33 +159,8 @@ bool CollisionManager::checkCollision(Entity &a, Entity &b) {
         fixCharacterHitbox(edgeInfoB);
     }
 
-    bool verticalMatch = false;
-    bool horizontalMatch = false;
-
-    if((edgeInfoA[LEFT] >= edgeInfoB[LEFT]) && (edgeInfoA[LEFT] <= edgeInfoB[RIGHT])){
-        horizontalMatch = true;
-    }
-    if((edgeInfoA[RIGHT] >= edgeInfoB[LEFT]) && (edgeInfoA[RIGHT] <= edgeInfoB[RIGHT])){
-        horizontalMatch = true;
-    }
-    if((edgeInfoB[LEFT] >= edgeInfoA[LEFT]) && (edgeInfoB[LEFT] <= edgeInfoA[RIGHT])){
-        horizontalMatch = true;
-    }
-    if((edgeInfoB[RIGHT] >= edgeInfoA[LEFT]) && (edgeInfoB[RIGHT] <= edgeInfoA[RIGHT])){
-        horizontalMatch = true;
-    }
-    if((edgeInfoA[TOP] >= edgeInfoB[TOP]) && (edgeInfoA[TOP] <= edgeInfoB[BOTTOM])){
-        verticalMatch = true;
-    }
-    if((edgeInfoA[BOTTOM] >= edgeInfoB[TOP]) && (edgeInfoA[BOTTOM] <= edgeInfoB[BOTTOM])){
-        verticalMatch = true;
-    }
-    if((edgeInfoB[TOP] >= edgeInfoA[TOP]) && (edgeInfoB[TOP] <= edgeInfoA[BOTTOM])){
-        verticalMatch = true;
-    }
-    if((edgeInfoB[BOTTOM] >= edgeInfoA[TOP]) && (edgeInfoB[BOTTOM] <= edgeInfoA[BOTTOM])){
-        verticalMatch = true;
-    }
+    bool verticalMatch = checkHorizontalMatch(edgeInfoA, edgeInfoB);
+    bool horizontalMatch = checkVerticalMatch(edgeInfoA, edgeInfoB);
     return (verticalMatch && horizontalMatch);
 }
 
@@ -163,6 +171,41 @@ bool CollisionManager::isPlayerMovementEntity(Entity& entity) {
         return true;
     }
     return false;
+}
+
+void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeInfoA) {
+    int speedX = moving.getSpeedX();
+    int speedY = moving.getSpeedY();
+    int deltaX = 0, deltaY = 0;
+
+    int edgeInfoB[4];
+    getEdgeInfo(edgeInfoB, obstacle);
+    if (moving.getType() == CHARACTER_CODE){
+        fixCharacterHitbox(edgeInfoA);
+    }
+    if (obstacle.getType() == CHARACTER_CODE){
+        fixCharacterHitbox(edgeInfoB);
+    }
+
+    if (speedX > 0){
+        deltaX = 1 + edgeInfoA[RIGHT] - edgeInfoB[LEFT];
+    } else if (speedX < 0){
+        deltaX = -1 + edgeInfoA[LEFT] - edgeInfoB[RIGHT];
+    }
+
+    if (speedY > 0){
+        deltaY = 1 + edgeInfoA[BOTTOM] - edgeInfoB[TOP];
+    } else if (speedY < 0){
+        deltaY = -1 + edgeInfoA[TOP] - edgeInfoB[BOTTOM];
+    }
+
+    if (abs(deltaX) > abs(deltaY)){
+        edgeInfoA[LEFT] -= deltaX;
+        edgeInfoA[RIGHT] -= deltaX;
+    } else {
+        edgeInfoA[TOP] -= deltaY;
+        edgeInfoA[BOTTOM] -= deltaY;
+    }
 }
 
 bool CollisionManager::moveCharacter(int i) {
@@ -193,16 +236,21 @@ bool CollisionManager::moveCharacter(int i) {
         edgeInfo[BOTTOM] = height;
     }
 
+    int previousY = edgeInfo[TOP];
+
     for (int j = 0; j < vector.size(); j++){
-        if (isPlayerMovementEntity(vector[i]) && checkCollision(characters[i], vector[j])){
-            char type = vector[i].getType();
+        if (isPlayerMovementEntity(vector[j]) && checkCollision(characters[i], vector[j])){
+            char type = vector[j].getType();
             if(type == BARREL_CODE || type == EMBER_CODE || type == FIRE_CODE ||
                type == FLAME_CODE){
                 //maybe halt movement
                 //hit
-            } else if(vector[i].getType() == PLATFORM_CODE){
-                //halt movement
-            } else if(vector[i].getType() == PRINCESS_CODE){
+            } else if(vector[j].getType() == PLATFORM_CODE){
+                haltMovement(characters[i], vector[j], edgeInfo);
+                if (previousY > edgeInfo[TOP]){
+                    characters[i].land();
+                }
+            } else if(vector[j].getType() == PRINCESS_CODE){
                 switchLevel = true;
             }
         }

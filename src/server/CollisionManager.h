@@ -13,9 +13,12 @@ private:
     Logger& logger;
     void getEdgeInfo(int* cornerInfo, Entity& entity);
     void fixCharacterHitbox(int* edgeInfo);
+    bool checkHorizontalMatch(int* edgeInfoA, int* edgeInfoB);
+    bool checkVerticalMatch(int* edgeInfoA, int* edgeInfoB);
     bool checkCollision(Entity& a, Entity& b);
 
     bool isPlayerMovementEntity(Entity& entity);
+    void haltMovement(Entity& moving, Entity& obstacle, int* edgeInfo);
 
 public:
     CollisionManager(std::vector<Character>& character, std::vector<Entity>& vector, Logger& logger);
