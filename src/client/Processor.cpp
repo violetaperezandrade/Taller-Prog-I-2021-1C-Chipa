@@ -4,8 +4,7 @@
 Processor::Processor(Monitor& monitor, Socket& socket) : monitor(monitor), socket(socket){}
 
 void Processor::readEntities() {
-    std::vector<Entity>& entities = monitor.getEntityVector();
-    EntityProtocol::readEntities(socket, entities);
+    EntityProtocol::readEntities(socket, monitor);
 }
 
 void Processor::run() {
@@ -14,6 +13,7 @@ void Processor::run() {
 
 void Processor::close(){
     socket.shutdownRead();
+
 }
 
 Processor::~Processor(){}
