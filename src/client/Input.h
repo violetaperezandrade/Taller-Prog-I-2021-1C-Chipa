@@ -1,5 +1,5 @@
-#ifndef DONKEYKONG_CLIENTINPUT_H
-#define DONKEYKONG_CLIENTINPUT_H
+#ifndef CLIENTINPUT_H
+#define CLIENTINPUT_H
 #include "../common/Socket.h"
 #include "../common/Thread.h"
 
@@ -17,4 +17,4 @@ public:
     void stop();
 };
 
-#endif //DONKEYKONG_CLIENTINPUT_H
+#endif //CLIENTINPUT_H

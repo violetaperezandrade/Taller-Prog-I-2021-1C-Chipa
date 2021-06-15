@@ -179,7 +179,7 @@ void Game::setLevel1(){
     this->entities.push_back(princess);
 
     for(int i = 0; i < amountPlayers; i++){
-        Character player(10,544,59, 36,0,0);
+        Character player(5 + (i*20),544,59, 36,0,0);
         players.push_back(player);
     }
 
@@ -313,7 +313,7 @@ void Game::setLevel2() {
     this->entities.push_back(princess);
 
     for(int i = 0 ; i < amountPlayers ; i++){
-        players[i].setPosX(10);
+        players[i].setPosX(5 + (i*20));
         players[i].setPosY(544);
     }
 
@@ -490,7 +490,7 @@ void Game::setLevel2() {
     this->entities.push_back(platform_5_14);
 
     Stair brokenStair_5_1(313, 195, 30, 79, 0, 0);
-    this->entities.push_back(brokenStair_5_1);
+    this->entities.push_back(brokenStair_5_1);2
     Stair stair_5_2(654, 203, 30, 56, 0, 0);
     this->entities.push_back(stair_5_2);
 
