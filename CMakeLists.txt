@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.19)
 project(DonkeyKong)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -pthread")
 
 find_package(PkgConfig REQUIRED)
 find_package(nlohmann_json 3.2.0 REQUIRED)
@@ -51,4 +53,4 @@ add_executable(Server
         src/server/Sender.cpp
         src/server/Server.cpp
         src/server/serverMain.cpp)
-target_link_libraries(Server pthread jsoncpp nlohmann_json::nlohmann_json)
+target_link_libraries(Server jsoncpp nlohmann_json::nlohmann_json)
