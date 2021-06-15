@@ -29,8 +29,8 @@ void ClientInput::run() {
                         break;
                 }
             }
-            else if(e::type == SDL_KEYUP && e.key.repeat == 0){
-                switch(e::key::keysym::sym){
+            else if(e.type == SDL_KEYUP && e.key.repeat == 0){
+                switch(e.key.keysym.sym){
                     case SDLK_UP:
                         InputProtocol::sendReleaseUpEvent(this->socket);
                         break;

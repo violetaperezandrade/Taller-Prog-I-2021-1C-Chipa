@@ -14,7 +14,7 @@ int Client::send(const char* msg, size_t len){
     return skt.send(msg, len);
 }
 
-int Cliend::recv(char* msg, size_t len){
+int Client::recv(char* msg, size_t len){
     return skt.receive(msg,len);
 }
 
@@ -26,7 +26,7 @@ void Client::run(){
     ClientInput* input = new ClientInput(skt);
     input->start();
 
-    Monitor monitor(entities);
+    Monitor monitor();
     Processor* processor = new Processor(monitor, skt);
     processor->start();
 

@@ -27,7 +27,6 @@ public:
     int send(const char* msg, size_t len);
     int recv(char* msg, size_t len);
 
-    void run();
 };
 
 

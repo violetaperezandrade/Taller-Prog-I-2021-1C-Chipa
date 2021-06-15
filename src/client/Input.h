@@ -2,6 +2,7 @@
 #define CLIENTINPUT_H
 #include "../common/Socket.h"
 #include "../common/Thread.h"
+#include <SDL2/SDL.h>
 
 class ClientInput : public Thread {
 private:

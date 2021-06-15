@@ -3,6 +3,7 @@
 #include "../common/Thread.h"
 #include <vector>
 #include "Monitor.h"
+#include "../common/Socket.h"
 
 class Processor : public Thread {
 private:
