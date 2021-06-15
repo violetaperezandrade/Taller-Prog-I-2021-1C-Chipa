@@ -36,12 +36,12 @@ std::vector<Entity>& Monitor::getEntityVector(){
     return entityVector;
 }
 
-char Monitor::getState(){
+bool Monitor::getState(){
     return state;
 }
 
-void Monitor::setState(char c){
-    this->state = &c;
+void Monitor::setState(bool c){
+    this->state = c;
 }
 
 void Monitor::notify(){

@@ -10,12 +10,13 @@ void Processor::readEntities() {
 
 void Processor::run() {
     readEntities();
+    monitor.setState(false);
+    monitor.notify();
 }
 
 void Processor::close(){
     socket.shutdownRead();
-    monitor.setState(0);
-    monitor.notify();
+
 }
 
 Processor::~Processor(){}
