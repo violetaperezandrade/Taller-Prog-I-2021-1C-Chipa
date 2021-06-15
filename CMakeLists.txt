@@ -20,6 +20,8 @@ add_executable(Client
         src/client/View.cpp
         src/common/protocols/EntityProtocol.cpp
         src/common/protocols/InputProtocol.cpp
+        src/common/Config.cpp
+        src/common/Entity.cpp
         src/common/Logger.cpp
         src/common/Message.cpp
         src/common/Socket.cpp
@@ -29,6 +31,8 @@ target_link_libraries(Client jsoncpp SDL2 SDL2_image SDL2_ttf nlohmann_json::nlo
 add_executable(Server
         src/common/protocols/EntityProtocol.cpp
         src/common/protocols/InputProtocol.cpp
+        src/common/Config.cpp
+        src/common/Entity.cpp
         src/common/Logger.cpp
         src/common/Message.cpp
         src/common/Socket.cpp
@@ -44,8 +48,6 @@ add_executable(Server
         src/server/entities/Princess.cpp
         src/server/entities/Stair.cpp
         src/server/CollisionManager.cpp
-        src/common/Config.cpp
-        src/server/Entity.cpp
         src/server/Game.cpp
         src/server/LoginManager.cpp
         src/server/Peer.cpp

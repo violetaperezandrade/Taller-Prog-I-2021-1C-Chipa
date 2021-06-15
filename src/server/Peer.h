@@ -4,7 +4,7 @@
 #include <queue>
 #include "../common/Socket.h"
 #include "../common/BlockingQueue.h"
-#include "Entity.h"
+#include "../common/Entity.h"
 #include "Sender.h"
 #include "Receiver.h"
 

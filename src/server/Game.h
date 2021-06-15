@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include <vector>
-#include "Entity.h"
+#include "../common/Entity.h"
 #include "CollisionManager.h"
 #include "../common/Config.h"
 #include "entities/Character.h"

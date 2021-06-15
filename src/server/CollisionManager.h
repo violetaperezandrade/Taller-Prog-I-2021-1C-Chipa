@@ -2,7 +2,7 @@
 #define COLLISIONMANAGER_H
 
 #include "vector"
-#include "Entity.h"
+#include "../common/Entity.h"
 #include "entities/Character.h"
 #include "../common/Logger.h"
 

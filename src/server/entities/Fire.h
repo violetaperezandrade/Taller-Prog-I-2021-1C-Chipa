@@ -1,7 +1,7 @@
 #ifndef FIRE_H
 #define FIRE_H
 
-#include "../Entity.h"
+#include "../../common/Entity.h"
 
 class Fire : public Entity {
 public:

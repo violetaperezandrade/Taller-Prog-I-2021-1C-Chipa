@@ -1,7 +1,7 @@
 #ifndef EMBER_H
 #define EMBER_H
 
-#include "../Entity.h"
+#include "../../common/Entity.h"
 
 class Ember : public Entity {
 public:

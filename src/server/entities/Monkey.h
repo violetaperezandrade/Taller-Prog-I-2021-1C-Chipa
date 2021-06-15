@@ -1,7 +1,7 @@
 #ifndef MONKEY_H
 #define MONKEY_H
 
-#include "../Entity.h"
+#include "../../common/Entity.h"
 
 class Monkey : public Entity {
 public:

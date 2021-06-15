@@ -4,7 +4,7 @@
 #include <mutex>
 #include <iostream>
 #include <vector>
-#include "../server/Entity.h"
+#include "../common/Entity.h"
 
 class Monitor{
 private:

@@ -1,7 +1,7 @@
 #ifndef PRINCESS_H
 #define PRINCESS_H
 
-#include "../Entity.h"
+#include "../../common/Entity.h"
 
 class Princess : public Entity {
 public:

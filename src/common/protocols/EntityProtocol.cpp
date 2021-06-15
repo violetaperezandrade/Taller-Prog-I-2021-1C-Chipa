@@ -1,6 +1,6 @@
 #include "EntityProtocol.h"
 
-#include "../../server/Entity.h"
+#include "../Entity.h"
 
 #define MSG_LEN 11
 

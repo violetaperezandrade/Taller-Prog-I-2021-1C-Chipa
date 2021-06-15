@@ -1,7 +1,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "../Entity.h"
+#include "../../common/Entity.h"
 #include "Movement.h"
 #include "../../common/Config.h"
 

@@ -1,7 +1,7 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
-#include "../Entity.h"
+#include "../../common/Entity.h"
 
 class Platform : public Entity {
 public:

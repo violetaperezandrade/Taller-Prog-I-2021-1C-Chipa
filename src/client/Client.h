@@ -2,7 +2,7 @@
 #define CLIENT_H
 #include "View.h"
 #include <vector>
-#include "../server/Entity.h"
+#include "../common/Entity.h"
 #include "../common/Logger.h"
 #include "../server/Game.h"
 #include "../common/Config.h"
