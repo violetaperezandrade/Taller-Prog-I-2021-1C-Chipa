@@ -3,6 +3,7 @@
 
 #include "Game.h"
 #include "../common/Socket.h"
+#include "Peer.h"
 #include <vector>
 #include <map>
 #include <string>

@@ -1,4 +1,4 @@
-#include "socket.h"
+#include "Socket.h"
 #include <iostream>
 
 Socket::Socket() : fileDescriptor(-1) {}
@@ -29,40 +29,40 @@ void Socket::getaddrinfo(struct addrinfo **addr_list,
     if (status != 0) {
         freeaddrinfo(*addr_list);
         std::string str(strerror(errno));
-        logger.debugMsg("Getaddrinfo error: " + str, __FILE__, __LINE__);
+        //logger.debugMsg("Getaddrinfo error: " + str, __FILE__, __LINE__);
     }
 }
 
 int Socket::connect(char* ip, char* port){
     struct addrinfo *addressList, *ptr;
 
-    getaddrinfo(addressList,ip,port,0);
+    getaddrinfo(&addressList,ip,port,0);
 
-    status = 0;
+    int status = 0;
 
     for(ptr = addressList; ptr; ptr = ptr->ai_next){
         fileDescriptor = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
         if(fileDescriptor < 0) {
             std::string str(strerror(errno));
-            logger.debugMsg("Socket error: " + str, __FILE__, __LINE__);
+            //logger.debugMsg("Socket error: " + str, __FILE__, __LINE__);
         }
         else{
-            status = connect(fileDescriptor, ptr->ai_addr, ptr->ai_addrlen);
+            status = ::connect(fileDescriptor, ptr->ai_addr, ptr->ai_addrlen);
             if(status < 0){
                 std::string str(strerror(errno));
-                logger.debugMsg("Connect error: " + str, __FILE__, __LINE__);
-                socketDestroy();
+                //logger.debugMsg("Connect error: " + str, __FILE__, __LINE__);
+                close();
             }
         }
     }
-    freeaddrinfo(addrList);
+    freeaddrinfo(addressList);
     return status;
 }
 
 int Socket::bind(char* ip, char* port){
     struct addrinfo *addressList, *ptr;
 
-    getaddrinfo(addressList,ip,port,AI_PASSIVE);
+    getaddrinfo(&addressList,ip,port,AI_PASSIVE);
 
     int status = 0;
     int val = 1;
@@ -71,15 +71,15 @@ int Socket::bind(char* ip, char* port){
         fileDescriptor = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
         if(fileDescriptor < 0) {
             std::string str(strerror(errno));
-            logger.debugMsg("Socket error: " + str, __FILE__, __LINE__);
+            //logger.debugMsg("Socket error: " + str, __FILE__, __LINE__);
         }
         else{
             setsockopt(fileDescriptor,SOL_SOCKET,SO_REUSEADDR,&val,sizeof(val));
-            status = bind(fileDescriptor, ptr->ai_addr, ptr->ai_addrlen);
+            status = ::bind(fileDescriptor, ptr->ai_addr, ptr->ai_addrlen);
             if(status < 0){
                 std::string str(strerror(errno));
-                logger.debugMsg("Bind error: " + str, __FILE__, __LINE__);
-                socketDestroy();
+                //logger.debugMsg("Bind error: " + str, __FILE__, __LINE__);
+                close();
             }
         }
     }
@@ -89,19 +89,19 @@ int Socket::bind(char* ip, char* port){
 
 int Socket::listen(int maxQueueLen){
     int status = 0;
-    status = listen(fileDescriptor, maxQueueLen);
+    status = ::listen(fileDescriptor, maxQueueLen);
     if(status < 0 ) {
         std::string str(strerror(errno));
-        logger.debugMsg("Listen error: " + str, __FILE__, __LINE__);;
+        //logger.debugMsg("Listen error: " + str, __FILE__, __LINE__);;
     }
     return status;
 }
 
 Socket Socket::accept(){
-    int newFileDescriptor = accept(fileDescriptor,NULL,NULL);
-    if(newFileDescriptor< 0) {
+    int newFileDescriptor = ::accept(fileDescriptor,NULL,NULL);
+    if(newFileDescriptor < 0) {
         std::string str(strerror(errno));
-        logger.debugMsg("Accept error: " + str, __FILE__, __LINE__);
+        //logger.debugMsg("Accept error: " + str, __FILE__, __LINE__);
     }
     return Socket(newFileDescriptor);
 }
@@ -110,10 +110,10 @@ int Socket::send(const char* buf, size_t len){
     int totalBytesSent = 0;
     int bytesSent = 0;
     for(; bytesSent < len;){
-        bytesSent = send(fileDescriptor,&(buf[totalBytesSent]),len - totalBytesSent,MSG_NOSIGNAL);
+        bytesSent = ::send(fileDescriptor,&(buf[totalBytesSent]),len - totalBytesSent,MSG_NOSIGNAL);
         if(bytesSent < 0) {
             std::string str(strerror(errno));
-            logger.debugMsg("Send error: " + str, __FILE__, __LINE__);
+            //logger.debugMsg("Send error: " + str, __FILE__, __LINE__);
         }
         else{
             totalBytesSent += bytesSent;
@@ -129,7 +129,7 @@ int Socket::receive(char* buf, size_t len){
         bytesRcvd = recv(fileDescriptor,&(buf[totalBytesRcvd]),len - totalBytesRcvd,0);
         if(bytesRcvd < 0){
             std::string str(strerror(errno));
-            logger.debugMsg("Receive error: " + str, __FILE__, __LINE__);
+            //logger.debugMsg("Receive error: " + str, __FILE__, __LINE__);
             break;
         }
         if(bytesRcvd == 0) break;
@@ -142,21 +142,21 @@ int Socket::receive(char* buf, size_t len){
 void Socket::shutdown(){
     if (::shutdown(fileDescriptor, SHUT_RDWR) != 0){
         std::string str(strerror(errno));
-        logger.debugMsg("ShutdownRDWR error: " + str, __FILE__, __LINE__);
+        //logger.debugMsg("ShutdownRDWR error: " + str, __FILE__, __LINE__);
     }
 }
 
 void Socket::shutdownRead(){
     if (::shutdown(fileDescriptor, SHUT_RD) != 0){
         std::string str(strerror(errno));
-        logger.debugMsg("ShutdownRD error: " + str, __FILE__, __LINE__);
+        //logger.debugMsg("ShutdownRD error: " + str, __FILE__, __LINE__);
     }
 }
 
 void Socket::shutdownWrite(){
     if (::shutdown(fileDescriptor, SHUT_WR) != 0){
         std::string str(strerror(errno));
-        logger.debugMsg("ShutdownWR error: " + str, __FILE__, __LINE__);
+        //logger.debugMsg("ShutdownWR error: " + str, __FILE__, __LINE__);
     }
 }
 
@@ -164,7 +164,7 @@ void Socket::shutdownWrite(){
 void Socket::close(){
     if (::close(fileDescriptor) != 0){
         std::string str(strerror(errno));
-        logger.debugMsg("Closing error: " + str, __FILE__, __LINE__);
+        //logger.debugMsg("Closing error: " + str, __FILE__, __LINE__);
     }
 }
 
