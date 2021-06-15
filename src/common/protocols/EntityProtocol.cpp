@@ -14,7 +14,7 @@ void EntityProtocol::writeInt(char* ptr, int num){
 }
 
 void EntityProtocol::sendEntity(BlockingQueue& queue,
-                                Entity entity, char permanency) {
+                                Entity entity) {
     char ptr[MSG_LEN];
     writeChar(ptr, entity.getType());
     writeInt(ptr+1, entity.getPosX());
@@ -22,7 +22,7 @@ void EntityProtocol::sendEntity(BlockingQueue& queue,
     writeInt(ptr+5, entity.getWidth());
     writeInt(ptr+7, entity.getHeight());
     writeChar(ptr+9, entity.getState());
-    writeChar(ptr+10, permanency);
+    writeChar(ptr+10, entity.getPermanency());
 
     std::pair<char*, int> pair(ptr, MSG_LEN);
     queue.push(pair);

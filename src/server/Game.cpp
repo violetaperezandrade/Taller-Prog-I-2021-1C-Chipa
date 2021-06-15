@@ -15,14 +15,14 @@
 #include "entities/Princess.h"
 #include "entities/Stair.h"
 
-Game::Game(Config& config, Logger& logger, int amountPlayers) :
+Game::Game(Config& config, Logger& logger, int amountCharacters) :
         config(config),
         logger(logger),
         entities(),
-        collisionManager(players, entities, logger),
+        collisionManager(characters, entities, logger),
         tickCounter(0),
         actLevel(1),
-        amountPlayers(amountPlayers),
+        amountCharacters(amountCharacters),
         finished(false)
     {
     setLevel1();
@@ -30,56 +30,56 @@ Game::Game(Config& config, Logger& logger, int amountPlayers) :
 Game::~Game() {}
 
 void Game::startMovingLeft(int i){
-    players[i].startMovingLeft();
+    characters[i].startMovingLeft();
 }
 
 void Game::startMovingRight(int i){
-    players[i].startMovingRight();
+    characters[i].startMovingRight();
 }
 
 void Game::startMovingUp(int i){
-    players[i].startMovingUp();
+    characters[i].startMovingUp();
 }
 
 void Game::startMovingDown(int i){
-    players[i].startMovingDown();
+    characters[i].startMovingDown();
 }
 
 void Game::startJumping(int i){
-    players[i].startJumping();
+    characters[i].startJumping();
 }
 
 void Game::stopMovingLeft(int i){
-    players[i].stopMovingLeft();
+    characters[i].stopMovingLeft();
 }
 
 void Game::stopMovingRight(int i){
-    players[i].stopMovingRight();
+    characters[i].stopMovingRight();
 }
 
 void Game::stopMovingUp(int i){
-    players[i].stopMovingUp();
+    characters[i].stopMovingUp();
 }
 
 void Game::stopMovingDown(int i){
-    players[i].stopMovingDown();
+    characters[i].stopMovingDown();
 }
 
 void Game::stopJumping(int i){
-    players[i].stopJumping();
+    characters[i].stopJumping();
 }
 
 void Game::update() {
     bool switchLevel = false;
     tickCounter++;
-    for(int i = 0; i < amountPlayers; i++){
-        players[i].updateStatus(config);
+    for(int i = 0; i < amountCharacters; i++){
+        characters[i].updateStatus(config);
         std::string str("Updated character " + std::to_string(i) + "status:");
-        str += players[i].getState();
+        str += characters[i].getState();
         logger.debugMsg(str, __FILE__, __LINE__);
         str.clear();
     }
-    for (int i = 0; i < amountPlayers; i++) {
+    for (int i = 0; i < amountCharacters; i++) {
         switchLevel = collisionManager.moveCharacter(i);
         if (switchLevel){
             changeLevel();
@@ -126,8 +126,8 @@ Message Game::getStatus() {
     for (int i = 0; i < entities.size(); i++){
         message.add(entities[i]);
     }
-    for(int i = 0; i < amountPlayers; i++){
-        message.add(players[i]);
+    for(int i = 0; i < amountCharacters; i++){
+        message.add(characters[i]);
     }
     return std::move(message);
 }
@@ -178,9 +178,9 @@ void Game::setLevel1(){
     Princess princess(312, 79, 57, 52, 0, 0);
     this->entities.push_back(princess);
 
-    for(int i = 0; i < amountPlayers; i++){
+    for(int i = 0; i < amountCharacters; i++){
         Character player(5 + (i*20),544,59, 36,0,0);
-        players.push_back(player);
+        characters.push_back(player);
     }
 
     //level 1
@@ -312,9 +312,9 @@ void Game::setLevel2() {
     Princess princess(312, 79, 57, 52, 0, 0);
     this->entities.push_back(princess);
 
-    for(int i = 0 ; i < amountPlayers ; i++){
-        players[i].setPosX(5 + (i*20));
-        players[i].setPosY(544);
+    for(int i = 0 ; i < amountCharacters ; i++){
+        characters[i].setPosX(5 + (i*20));
+        characters[i].setPosY(544);
     }
 
     //level 1
@@ -490,7 +490,7 @@ void Game::setLevel2() {
     this->entities.push_back(platform_5_14);
 
     Stair brokenStair_5_1(313, 195, 30, 79, 0, 0);
-    this->entities.push_back(brokenStair_5_1);2
+    this->entities.push_back(brokenStair_5_1);
     Stair stair_5_2(654, 203, 30, 56, 0, 0);
     this->entities.push_back(stair_5_2);
 
@@ -538,12 +538,12 @@ void Game::setLevel2() {
     this->entities.push_back(platform_7_3);
 }
 
-const std::vector<Entity>& Game::getEntities(){
+std::vector<Entity>& Game::getEntities(){
     return entities;
 }
 
-const std::vector<Character>& Game::getPlayers(){
-    return players;
+std::vector<Character>& Game::getCharacters(){
+    return characters;
 }
 
 bool Game::isFinished() {

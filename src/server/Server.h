@@ -21,7 +21,7 @@ private:
     Logger& logger;
 
 public:
-    Server(char* port, int playersAmount, Config& config, Logger& logger);
+    Server(char* ip, char* port, int playersAmount, Config& config, Logger& logger);
 
     void run();
 

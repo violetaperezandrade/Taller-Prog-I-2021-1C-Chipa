@@ -14,16 +14,16 @@ class Game {
 private:
     Config& config;
     Logger& logger;
-    std::vector<Character> players;
+    std::vector<Character> characters;
     std::vector<Entity> entities;
     CollisionManager collisionManager;
     int tickCounter;
     int actLevel;
-    int amountPlayers;
+    int amountCharacters;
     bool finished;
 
 public:
-    Game(Config& config,Logger& logger, int amountPlayers);
+    Game(Config& config,Logger& logger, int amountCharacters);
 
     ~Game();
 
@@ -63,9 +63,9 @@ public:
 
     void spawnFlames();
 
-    const std::vector<Entity>& getEntities();
+    std::vector<Entity>& getEntities();
 
-    const std::vector<Character>& getPlayers();
+    std::vector<Character>& getCharacters();
 
     bool isFinished();
 };
