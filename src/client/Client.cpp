@@ -31,7 +31,6 @@ void Client::run(){
     processor->start();
 
     View view(monitor,logger,config);
-    view->refresh();
 
     input->stop();
     processor->stop();

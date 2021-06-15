@@ -6,6 +6,7 @@ Processor::Processor(Monitor& monitor, Socket& socket) : monitor(monitor), socke
 void Processor::readEntities() {
     while(keepRunning) {
         EntityProtocol::readEntities(socket, monitor);
+        monitor.notify();
     }
 }
 
