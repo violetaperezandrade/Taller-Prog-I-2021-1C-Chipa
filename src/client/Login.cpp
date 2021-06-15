@@ -95,7 +95,7 @@ int Login::runLoginWindow(char* ip, char* port) {
     int success = sktLogin.connect(ip,port);
     if(success < 0){
         TextRendered connError = loadFromRenderedText("Server unreachable or full, try again.",{255,0,0},windowRenderer,globalFont);
-        SDL_Texture* warning = loadImageTexture("../src/client/img/warning.png",windowRenderer);
+        SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRenderer);
         SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
         SDL_RenderClear(windowRenderer);
         render(5,210,connError.width-50,connError.height,connError.texture,windowRenderer);
@@ -125,9 +125,9 @@ int Login::runLoginWindow(char* ip, char* port) {
     prompTexturePsw = loadFromRenderedText("Password: ",textColorPrompt,windowRendererLogin,globalFont);
     playButtonText = loadFromRenderedText(playText.c_str(),textColorPlay,windowRendererLogin,globalFont);
 
-    SDL_Texture* textbox = loadImageTexture("../src/client/img/textbox-blue.png",windowRendererLogin);
-    SDL_Texture* playButton = loadImageTexture("../src/client/img/play.png",windowRendererLogin);
-    SDL_Texture* monkey = loadImageTexture("../src/client/img/dk2.png",windowRendererLogin);
+    SDL_Texture* textbox = loadImageTexture("../src/client/img/Login/textbox-blue.png",windowRendererLogin);
+    SDL_Texture* playButton = loadImageTexture("../src/client/img/Login/play.png",windowRendererLogin);
+    SDL_Texture* monkey = loadImageTexture("../src/client/img/Login/dk2.png",windowRendererLogin);
 
     SDL_StartTextInput();
 
@@ -189,10 +189,10 @@ int Login::runLoginWindow(char* ip, char* port) {
                 if(onButton == true){
                     switch(e.type){
                         case SDL_MOUSEMOTION:
-                            playButton = loadImageTexture("../src/client/img/playHover.png",windowRendererLogin);
+                            playButton = loadImageTexture("../src/client/img/Login/playHover.png",windowRendererLogin);
                             break;
                         case SDL_MOUSEBUTTONDOWN:
-                            playButton = loadImageTexture("../src/client/img/playClick.png",windowRendererLogin);
+                            playButton = loadImageTexture("../src/client/img/Login/playClick.png",windowRendererLogin);
                             sktLogin.send(inputTextUser.c_str(), inputTextUser.length());
                             sktLogin.send(inputTextPsw.c_str(), inputTextPsw.length());
                             char succesLogin[1];
@@ -208,7 +208,7 @@ int Login::runLoginWindow(char* ip, char* port) {
                     }
                 }
                 else{
-                    playButton = loadImageTexture("play.png",windowRenderer);
+                    playButton = loadImageTexture("../src/client/img/Login/play.png",windowRenderer);
                 }
             }
         }
