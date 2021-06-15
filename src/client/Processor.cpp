@@ -9,8 +9,6 @@ void Processor::readEntities() {
 
 void Processor::run() {
     readEntities();
-    monitor.setState(false);
-    monitor.notify();
 }
 
 void Processor::close(){
