@@ -15,6 +15,8 @@ private:
     void fixCharacterHitbox(int* edgeInfo);
     bool checkCollision(Entity& a, Entity& b);
 
+    bool isPlayerMovementEntity(Entity& entity);
+
 public:
     CollisionManager(std::vector<Character>& character, std::vector<Entity>& vector, Logger& logger);
 
@@ -24,7 +26,7 @@ public:
 
     bool moveEmber(Entity &entity);
 
-    void moveCharacter(int i);
+    bool moveCharacter(int i);
 
     ~CollisionManager();
 };

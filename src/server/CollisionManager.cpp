@@ -10,7 +10,15 @@
 #define TOP 2
 #define BOTTOM 3
 
+#define BARREL_CODE 'B'
 #define CHARACTER_CODE 'C'
+#define EMBER_CODE 'E'
+#define FIRE_CODE 'F'
+#define FLAME_CODE 'f'
+#define MONKEY_CODE 'M'
+#define PLATFORM_CODE 'P'
+#define PRINCESS_CODE 'p'
+#define STAIR_CODE 'S'
 
 #define CHARACTER_SIDE_PADDING 16;
 #define CHARACTER_TOP_PADDING 9;
@@ -103,7 +111,7 @@ void CollisionManager::getEdgeInfo(int* edgeInfo, Entity& entity){
 
 void CollisionManager::fixCharacterHitbox(int* edgeInfo){
     edgeInfo[LEFT] += CHARACTER_SIDE_PADDING;
-    edgeInfo[RIGHT] += CHARACTER_SIDE_PADDING;
+    edgeInfo[RIGHT] -= CHARACTER_SIDE_PADDING;
     edgeInfo[TOP] += CHARACTER_TOP_PADDING;
 }
 
@@ -148,7 +156,17 @@ bool CollisionManager::checkCollision(Entity &a, Entity &b) {
     return (verticalMatch && horizontalMatch);
 }
 
-void CollisionManager::moveCharacter(int i) {
+bool CollisionManager::isPlayerMovementEntity(Entity& entity) {
+    char type = entity.getType();
+    if (type == BARREL_CODE || type == EMBER_CODE || type == FIRE_CODE ||
+        type == FLAME_CODE || type == PLATFORM_CODE || type == PRINCESS_CODE){
+        return true;
+    }
+    return false;
+}
+
+bool CollisionManager::moveCharacter(int i) {
+    bool switchLevel = false;
     int mapWidth = 800;//config.get_map_width();
     int mapHeight = 600;//config.get_map_heigth();
     int height = characters[i].getHeight();
@@ -165,9 +183,9 @@ void CollisionManager::moveCharacter(int i) {
         edgeInfo[RIGHT] = mapWidth;
     }
 
-    if (edgeInfo[BOTTOM] >= 600-(PLATFORM_HEIGHT)){
-        edgeInfo[BOTTOM] = 600-(PLATFORM_HEIGHT);
-        edgeInfo[TOP] = 600-(height+PLATFORM_HEIGHT);
+    if (edgeInfo[BOTTOM] >= mapHeight-(PLATFORM_HEIGHT)){
+        edgeInfo[BOTTOM] = mapHeight-(PLATFORM_HEIGHT);
+        edgeInfo[TOP] = mapHeight-(height+PLATFORM_HEIGHT);
         characters[i].land();
         logger.debugMsg("Character has landed", __FILE__, __LINE__);
     } else if (edgeInfo[TOP] <= 0){
@@ -175,13 +193,22 @@ void CollisionManager::moveCharacter(int i) {
         edgeInfo[BOTTOM] = height;
     }
 
-
     for (int j = 0; j < vector.size(); j++){
-        if (checkCollision(characters[i], vector[j])){
-            //aca iria la colision
+        if (isPlayerMovementEntity(vector[i]) && checkCollision(characters[i], vector[j])){
+            char type = vector[i].getType();
+            if(type == BARREL_CODE || type == EMBER_CODE || type == FIRE_CODE ||
+               type == FLAME_CODE){
+                //maybe halt movement
+                //hit
+            } else if(vector[i].getType() == PLATFORM_CODE){
+                //halt movement
+            } else if(vector[i].getType() == PRINCESS_CODE){
+                switchLevel = true;
+            }
         }
     }
 
     characters[i].setPosX(edgeInfo[LEFT]);
     characters[i].setPosY(edgeInfo[RIGHT]);
+    return switchLevel;
 }

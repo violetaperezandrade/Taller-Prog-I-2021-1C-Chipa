@@ -70,6 +70,7 @@ void Game::stopJumping(int i){
 }
 
 void Game::update() {
+    bool switchLevel = false;
     tickCounter++;
     for(int i = 0; i < amountPlayers; i++){
         players[i].updateStatus(config);
@@ -78,8 +79,11 @@ void Game::update() {
         logger.debugMsg(str, __FILE__, __LINE__);
         str.clear();
     }
-    for (int i = 0; i < amountPlayers; i++){
-        collisionManager.moveCharacter(i);
+    for (int i = 0; i < amountPlayers; i++) {
+        switchLevel = collisionManager.moveCharacter(i);
+        if (switchLevel){
+            changeLevel();
+        }
     }
 
     if(tickCounter % config.getEmbersLevel1() == 0 && actLevel == 1){
