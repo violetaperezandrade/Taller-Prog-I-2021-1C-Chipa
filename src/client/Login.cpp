@@ -5,16 +5,54 @@ Login::Login(Logger& logger,Socket& skt) : logger(logger),sktLogin(skt){
     if (initSDL() < 0){
         logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
     }
-    windowLogin = createWindow("Login game",SCREEN_WIDTH_LOGIN,SCREEN_HEIGHT_LOGIN);
+    windowLogin = createWindow("Login game");
     windowRendererLogin = createRenderer(windowLogin);
     globalFont = createFont("../src/client/fonts/Kongtext Regular.ttf");
 }
-
 TTF_Font* Login::createFont(std::string path){
 
     TTF_Font* font = TTF_OpenFont(path.c_str(),FONTSIZE);
     if(font == NULL) logger.errorMsg("Error al cargar fuente",__FILE__,__LINE__);
     return font;
+}
+
+SDL_Window* Login::createWindow(const char* title){
+    SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH_LOGIN, SCREEN_HEIGHT_LOGIN, SDL_WINDOW_SHOWN);
+    if(!window) {
+        logger.errorMsg("Error al crear ventana SDL",__FILE__,__LINE__);
+    }
+    return window;
+}
+
+SDL_Renderer* Login::createRenderer(SDL_Window* window) {
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
+    if(!renderer) {
+        logger.errorMsg("Error al crear renderer",__FILE__,__LINE__);
+    }
+    else{
+        SDL_SetRenderDrawColor(renderer,0,0,0,255);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
+    }
+    return renderer;
+}
+
+SDL_Texture* Login::loadImageTexture(std::string path, SDL_Renderer* renderer){
+
+    SDL_Texture* finalTexture = NULL;
+    SDL_Surface* imageSurface = IMG_Load(path.c_str());
+    if(!imageSurface) {
+        logger.errorMsg("Error al cargar superifice",__FILE__,__LINE__);
+    }
+    else{
+        SDL_SetColorKey(imageSurface,SDL_TRUE,SDL_MapRGB(imageSurface->format,0,0,0));
+        finalTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
+        if(!finalTexture) {
+            logger.errorMsg("Error al cargar textura",__FILE__,__LINE__);
+        }
+        SDL_FreeSurface(imageSurface);
+    }
+    return finalTexture;
 }
 
 TextRendered Login::loadFromRenderedText(std::string textureText,
@@ -79,7 +117,7 @@ void Login::renderLogin(int x, int y, int width, int height, SDL_Texture *textur
     SDL_RenderCopyEx(windowRendererLogin,texture,clip,&renderQuad,angle,center,flip);
 }
 
-bool View::mouseWasClickedInPosition(int x1, int x2, int y1, int y2, SDL_Event* e){
+bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event* e){
 
     bool ok = false;
     if(e->type == SDL_MOUSEBUTTONDOWN){
@@ -94,13 +132,13 @@ int Login::runLoginWindow(char* ip, char* port) {
 
     int success = sktLogin.connect(ip,port);
     if(success < 0){
-        TextRendered connError = loadFromRenderedText("Server unreachable or full, try again.",{255,0,0},windowRenderer,globalFont);
-        SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRenderer);
-        SDL_SetRenderDrawColor(windowRenderer,0,0,0,0xFF);
-        SDL_RenderClear(windowRenderer);
-        render(5,210,connError.width-50,connError.height,connError.texture,windowRenderer);
-        render(260,300,100,100,warning,windowRenderer);
-        SDL_RenderPresent(windowRenderer);
+        TextRendered connError = loadFromRenderedText("Server unreachable or full, try again.",{255,0,0},windowRendererLogin,globalFont);
+        SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
+        SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
+        SDL_RenderClear(windowRendererLogin);
+        renderLogin(5,210,connError.width-50,connError.height,connError.texture,windowRendererLogin);
+        renderLogin(260,300,100,100,warning,windowRendererLogin);
+        SDL_RenderPresent(windowRendererLogin);
         SDL_Delay(3000);
         return -1;
     }
@@ -178,7 +216,7 @@ int Login::runLoginWindow(char* ip, char* port) {
                     }
                 }
             }
-            if(e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN ||){
+            if(e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN){
                 int x,y;
                 SDL_GetMouseState(&x,&y);
                 //Chequear si mouse esta dentro del boton
@@ -201,14 +239,14 @@ int Login::runLoginWindow(char* ip, char* port) {
                                 loginError = loadFromRenderedText("User or pass invalid, try again.",{255,0,0},windowRendererLogin,globalFont);
                             }
                             else{
-                                loginError = NULL;
+                                loginError.texture = NULL;
                                 quit = true;
                             }
                             break;
                     }
                 }
                 else{
-                    playButton = loadImageTexture("../src/client/img/Login/play.png",windowRenderer);
+                    playButton = loadImageTexture("../src/client/img/Login/play.png",windowRendererLogin);
                 }
             }
         }
