@@ -5,54 +5,51 @@ View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), co
     if (initSDL() < 0){
         logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
     }
-    window = createWindow("Donkey Kong ii",config.getResolutionWidth(),config.getResolutionHeight());
+    window = createWindow("Donkey Kong ii", config.getResolutionWidth(), config.getResolutionHeight());
     windowRenderer = createRenderer(window);
 
-    texturesMario1 = { //red
-                {'1', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_jump_right.png", windowRenderer)},
-                {'2', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_jump_left.png", windowRenderer)},
-                {'6', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_walk_right.png", windowRenderer)},
-                {'7', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_walk_left.png", windowRenderer)},
-                {'8', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_climbing.png", windowRenderer)},
-                {'9',loadImageTexture("../src/view/img/Sprites-Mario/red/mario_climbing.png", windowRenderer)},
-                {'r',loadImageTexture("../src/view/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer)},
-                {'l',loadImageTexture("../src/view/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer)}
+    texturesMario = {
+            {1, { //red
+                        {'1', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_jump_right.png", windowRenderer)},
+                        {'2', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_jump_left.png", windowRenderer)},
+                        {'6', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_walk_right.png", windowRenderer)},
+                        {'7', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_walk_left.png", windowRenderer)},
+                        {'8', loadImageTexture("../src/view/img/Sprites-Mario/red/mario_climbing.png", windowRenderer)},
+                        {'9',loadImageTexture("../src/view/img/Sprites-Mario/red/mario_climbing.png", windowRenderer)},
+                        {'r',loadImageTexture("../src/view/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer)},
+                        {'l',loadImageTexture("../src/view/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer)}
+                }},
+            {2, { //yellow
+                    {'1', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_jump_right.png", windowRenderer)},
+                    {'2', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_jump_left.png", windowRenderer)},
+                    {'6', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_walk_right.png", windowRenderer)},
+                    {'7', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_walk_left.png", windowRenderer)},
+                    {'8', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_climbing.png", windowRenderer)},
+                    {'9',loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_climbing.png", windowRenderer)},
+                    {'r',loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_idle_right.png", windowRenderer)},
+                    {'l',loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_idle_left.png", windowRenderer)}
+            }},
+            {3, { //lilac
+                        {'1', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_jump_right.png", windowRenderer)},
+                        {'2', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_jump_left.png", windowRenderer)},
+                        {'6', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_walk_right.png", windowRenderer)},
+                        {'7', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_walk_left.png", windowRenderer)},
+                        {'8', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_climbing.png", windowRenderer)},
+                        {'9',loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_climbing.png", windowRenderer)},
+                        {'r',loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_idle_right.png", windowRenderer)},
+                        {'l',loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_idle_left.png", windowRenderer)}
+                }},
+            {4, {//green
+                        {'1', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_jump_right.png", windowRenderer)},
+                        {'2', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_jump_left.png", windowRenderer)},
+                        {'6', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_walk_right.png", windowRenderer)},
+                        {'7', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_walk_left.png", windowRenderer)},
+                        {'8', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_climbing.png", windowRenderer)},
+                        {'9',loadImageTexture("../src/view/img/Sprites-Mario/green/mario_climbing.png", windowRenderer)},
+                        {'r',loadImageTexture("../src/view/img/Sprites-Mario/green/mario_idle_right.png", windowRenderer)},
+                        {'l',loadImageTexture("../src/view/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer)}
+                }}
     };
-
-    texturesMario2 = { //yellow
-            {'1', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_jump_right.png", windowRenderer)},
-            {'2', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_jump_left.png", windowRenderer)},
-            {'6', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_walk_right.png", windowRenderer)},
-            {'7', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_walk_left.png", windowRenderer)},
-            {'8', loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_climbing.png", windowRenderer)},
-            {'9',loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_climbing.png", windowRenderer)},
-            {'r',loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_idle_right.png", windowRenderer)},
-            {'l',loadImageTexture("../src/view/img/Sprites-Mario/yellow/mario_idle_left.png", windowRenderer)}
-    };
-
-    texturesMario3 = { //lilac
-            {'1', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_jump_right.png", windowRenderer)},
-            {'2', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_jump_left.png", windowRenderer)},
-            {'6', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_walk_right.png", windowRenderer)},
-            {'7', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_walk_left.png", windowRenderer)},
-            {'8', loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_climbing.png", windowRenderer)},
-            {'9',loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_climbing.png", windowRenderer)},
-            {'r',loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_idle_right.png", windowRenderer)},
-            {'l',loadImageTexture("../src/view/img/Sprites-Mario/lilac/mario_idle_left.png", windowRenderer)}
-    };
-
-    texturesMario4 = { //green
-            {'1', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_jump_right.png", windowRenderer)},
-            {'2', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_jump_left.png", windowRenderer)},
-            {'6', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_walk_right.png", windowRenderer)},
-            {'7', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_walk_left.png", windowRenderer)},
-            {'8', loadImageTexture("../src/view/img/Sprites-Mario/green/mario_climbing.png", windowRenderer)},
-            {'9',loadImageTexture("../src/view/img/Sprites-Mario/green/mario_climbing.png", windowRenderer)},
-            {'r',loadImageTexture("../src/view/img/Sprites-Mario/green/mario_idle_right.png", windowRenderer)},
-            {'l',loadImageTexture("../src/view/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer)}
-    };
-
-
 
     texturesEntities = {{'P', loadImageTexture("../src/view/img/Sprites-Entities/blue_platform.png", windowRenderer)},
                         {'B',loadImageTexture("../src/view/img/Sprites-Entities/front_barrel.png", windowRenderer)},
@@ -159,7 +156,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Texture *textureEntity;
     switch (entityType) {
         case 'C': //mario
-            textureEntity = texturesMario1[stateEntity]; //hay que fijarse cual jugador es para ver cual color de mario cargar
+            textureEntity = texturesMario[playerID][stateEntity];
             break;
         case 'B': //barrel
             textureEntity = texturesEntities['B'];
@@ -240,6 +237,9 @@ int View::run(){
     std::vector<Entity>::iterator it = entityVector.begin();
     while(it != entityVector.end()) {
         char type = it->getType();
+        if (type == 'c'){
+            playerID++;
+        };
         int posX = it->getPosX();
         int posY = it->getPosY();
         int width = it->getWidth();
