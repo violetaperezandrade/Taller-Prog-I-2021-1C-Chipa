@@ -123,15 +123,15 @@ void Character::updateStatus(){
 void Character::updateStatus(Config& config){
     if (movement.shouldFall()){
         speedY += config.getGravity();
-    }/* else if (movement.shouldC()) {
+    } else if (movement.shouldClimb()) {
         state = MOVING_UP;
         if (movement.shouldMoveUp()){
             speedY = -config.getClimbSpeed();
         } else if (movement.shouldMoveDown()){
             state = MOVING_DOWN;
             speedY = config.getClimbSpeed();
-        }
-    }*/ else {
+        } //SIN PROBAR, necesita fijarse si colisiona con escalera
+    } else {
         if (movement.shouldMoveRight()){
             state = MOVING_RIGHT;
             speedX = config.getMovingSpeed();

@@ -208,7 +208,36 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
     }
 }
 
+void CollisionManager::climb(int i) {
+    int edgeInfo[4];
+    getEdgeInfo(edgeInfo, characters[i]);
+    fixCharacterHitbox(edgeInfo);
+    bool stairCollision = false;
+
+    for (int j = 0; j < vector.size(); j++){
+        if (checkCollision(characters[i], vector[j])){
+            char type = vector[j].getType();
+            if(type == BARREL_CODE || type == EMBER_CODE || type == FIRE_CODE ||
+               type == FLAME_CODE){
+                //maybe halt movement
+                //hit
+            } else if(type == STAIR_CODE){
+                stairCollision = true;
+            }
+        }
+    }
+
+    if (stairCollision){
+        characters[i].setPosX(edgeInfo[LEFT]);
+        characters[i].setPosY(edgeInfo[RIGHT]);
+    }
+}
+
 bool CollisionManager::moveCharacter(int i) {
+    if (characters[i].isClimbing()){
+        climb(i);
+        return false;
+    }
     bool switchLevel = false;
     int mapWidth = 800;//config.get_map_width();
     int mapHeight = 600;//config.get_map_heigth();
@@ -245,12 +274,12 @@ bool CollisionManager::moveCharacter(int i) {
                type == FLAME_CODE){
                 //maybe halt movement
                 //hit
-            } else if(vector[j].getType() == PLATFORM_CODE){
+            } else if(type == PLATFORM_CODE){
                 haltMovement(characters[i], vector[j], edgeInfo);
                 if (previousY > edgeInfo[TOP]){
                     characters[i].land();
                 }
-            } else if(vector[j].getType() == PRINCESS_CODE){
+            } else if(type == PRINCESS_CODE){
                 switchLevel = true;
             }
         }

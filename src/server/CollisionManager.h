@@ -20,6 +20,8 @@ private:
     bool isPlayerMovementEntity(Entity& entity);
     void haltMovement(Entity& moving, Entity& obstacle, int* edgeInfo);
 
+    void climb(int i);
+
 public:
     CollisionManager(std::vector<Character>& character, std::vector<Entity>& vector, Logger& logger);
 
