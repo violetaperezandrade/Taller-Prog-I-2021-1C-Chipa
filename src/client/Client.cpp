@@ -34,6 +34,7 @@ void Client::run(){
     view->refresh();
 
     input->stop();
+    processor->stop();
 
     processor->join();
     input->join();

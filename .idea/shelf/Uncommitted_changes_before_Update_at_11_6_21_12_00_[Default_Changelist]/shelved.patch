@@ -1,0 +1,36 @@
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision 9a6e3ede3045360cd8376a1dcf5483a4f9f894d5)
++++ /dev/null	(revision 9a6e3ede3045360cd8376a1dcf5483a4f9f894d5)
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectModuleManager\">\n    <modules>\n      <module fileurl=\"file://$PROJECT_DIR$/.idea/DonkeyKong.iml\" filepath=\"$PROJECT_DIR$/.idea/DonkeyKong.iml\" />\n      <module fileurl=\"file://$PROJECT_DIR$/.idea/Taller-Prog-I-2021-1C-Chipa.iml\" filepath=\"$PROJECT_DIR$/.idea/Taller-Prog-I-2021-1C-Chipa.iml\" />\n    </modules>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+--- a/.idea/modules.xml	(revision 9a6e3ede3045360cd8376a1dcf5483a4f9f894d5)
++++ b/.idea/modules.xml	(date 1622941576714)
+@@ -2,7 +2,6 @@
+ <project version="4">
+   <component name="ProjectModuleManager">
+     <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/DonkeyKong.iml" filepath="$PROJECT_DIR$/.idea/DonkeyKong.iml" />
+       <module fileurl="file://$PROJECT_DIR$/.idea/Taller-Prog-I-2021-1C-Chipa.iml" filepath="$PROJECT_DIR$/.idea/Taller-Prog-I-2021-1C-Chipa.iml" />
+     </modules>
+   </component>
+diff --git a/.idea/DonkeyKong.iml b/.idea/Taller-Prog-I-2021-1C-Chipa.iml
+rename from .idea/DonkeyKong.iml
+rename to .idea/Taller-Prog-I-2021-1C-Chipa.iml

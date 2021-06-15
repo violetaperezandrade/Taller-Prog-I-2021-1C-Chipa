@@ -1,19 +1,21 @@
 #include "Processor.h"
 #include "../common/protocols/EntityProtocol.h"
 
-Processor::Processor(Monitor& monitor, Socket& socket) : monitor(monitor), socket(socket){}
+Processor::Processor(Monitor& monitor, Socket& socket) : monitor(monitor), socket(socket), keepRuning(false){}
 
 void Processor::readEntities() {
-    EntityProtocol::readEntities(socket, monitor);
+    while(keepRunning) {
+        EntityProtocol::readEntities(socket, monitor);
+    }
 }
 
 void Processor::run() {
     readEntities();
 }
 
-void Processor::close(){
+void Processor::stop(){
+    keepRunning = false;
     socket.shutdownRead();
-
 }
 
 Processor::~Processor(){}
