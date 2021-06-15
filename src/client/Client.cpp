@@ -33,7 +33,6 @@ void Client::run(){
     View view(monitor,logger,config);
 
     input->stop();
-    processor->stop();
 
     processor->join();
     input->join();

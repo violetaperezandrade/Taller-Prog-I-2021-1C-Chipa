@@ -8,7 +8,6 @@ class Processor : public Thread {
 private:
     Monitor& monitor;
     Socket& socket;
-    bool keepRunning;
 public:
     Processor(Monitor& monitor, Socket& socket);
     void readEntities();
