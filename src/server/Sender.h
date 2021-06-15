@@ -5,10 +5,10 @@
 
 class Sender : public Thread {
 private:
-    BlockingQueue<Entity>& outgoing;
+    BlockingQueue& outgoing;
     Socket& peer;
 public:
-    Sender(BlockingQueue<Entity>& queue, Socket& peerSkt);
+    Sender(BlockingQueue& queue, Socket& peerSkt);
 
     ~Sender();
 
