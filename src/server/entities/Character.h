@@ -3,7 +3,7 @@
 
 #include "../Entity.h"
 #include "Movement.h"
-#include "../Config.h"
+#include "../../common/Config.h"
 
 class Character : public Entity{
 private:

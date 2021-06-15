@@ -5,7 +5,7 @@
 #include "../server/Entity.h"
 #include "../common/Logger.h"
 #include "../server/Game.h"
-#include "../server/Config.h"
+#include "../common/Config.h"
 #include "Login.h"
 #include "Input.h"
 #include "Processor.h"

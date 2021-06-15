@@ -42,7 +42,7 @@ add_executable(Server
         src/server/entities/Princess.cpp
         src/server/entities/Stair.cpp
         src/server/CollisionManager.cpp
-        src/server/Config.cpp
+        src/common/Config.cpp
         src/server/Entity.cpp
         src/server/Game.cpp
         src/server/LoginManager.cpp

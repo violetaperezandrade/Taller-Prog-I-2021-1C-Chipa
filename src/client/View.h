@@ -6,7 +6,7 @@
 #include <map>
 #include "../server/Game.h"
 #include "../common/Logger.h"
-#include "../server/Config.h"
+#include "../common/Config.h"
 #include "../client/Monitor.h"
 #include <condition_variable>
 

@@ -5,6 +5,8 @@
 #include "../common/Socket.h"
 #include "../common/BlockingQueue.h"
 #include "Entity.h"
+#include "Sender.h"
+#include "Receiver.h"
 
 class Peer {
 private:
@@ -12,7 +14,7 @@ private:
     Sender* sender;
     Receiver* receiver;
     std::queue<char*> incoming;
-    BlockingQueue<std::pair<char*,int>> outgoing;
+    BlockingQueue outgoing;
 public:
     Peer(Socket&& peerSkt);
 

@@ -1,7 +1,7 @@
 #include "Server.h"
 #include <cstdlib> //atoi
 #include "../common/Logger.h"
-#include "Config.h"
+#include "../common/Config.h"
 
 int main(int argc, char** argv){
     Logger logger(argv[2]);

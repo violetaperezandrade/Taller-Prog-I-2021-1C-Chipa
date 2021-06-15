@@ -4,7 +4,7 @@
 #include <vector>
 #include "Entity.h"
 #include "CollisionManager.h"
-#include "Config.h"
+#include "../common/Config.h"
 #include "entities/Character.h"
 #include "../common/Message.h"
 #include "../common/Logger.h"

@@ -8,7 +8,7 @@
 #include <string>
 #include <typeinfo>
 
-#include "../common/Logger.h"
+#include "Logger.h"
 
 class Config {
 private:
@@ -46,6 +46,7 @@ public:
     int getBarrelsLevel2();
     int getResolutionWidth();
     int getResolutionHeight();
+    int getClimbSpeed();
     std::map<std::string, std::string> getUserPass();
     bool getDefault();
 

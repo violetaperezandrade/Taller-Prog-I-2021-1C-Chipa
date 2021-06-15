@@ -1,6 +1,6 @@
 #include "Client.h"
 #include "../common/Logger.h"
-#include "../server/Config.h"
+#include "../common/Config.h"
 
 int main(int argc, char** argv){
     char host[10] = "localhost";
