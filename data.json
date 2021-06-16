@@ -24,9 +24,9 @@
         "height" : 600
     },
     "user password" : {
-        "gonza" : "contraseña",
-        "lauti" : "contraseña",
-        "mau" : "contraseña",
-        "violeta" : "contraseña"
+        "gonza" : "contrasenia",
+        "lauti" : "contrasenia",
+        "mau" : "123",
+        "violeta" : "contrasenia"
     }
 }
