@@ -8,7 +8,6 @@
 #include "entities/Character.h"
 #include "../common/Logger.h"
 
-
 class Game {
 private:
     Config& config;
