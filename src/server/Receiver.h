@@ -11,6 +11,7 @@ private:
     std::queue<char>& incoming;
     Socket& peer;
     Logger& logger;
+    bool keepRunning;
 public:
     Receiver(std::queue<char>& queue, Socket& peerSkt, Logger& logger);
 

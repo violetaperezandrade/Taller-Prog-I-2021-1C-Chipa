@@ -29,12 +29,12 @@ void Client::run(){
         return;
     }
 
-    Input* input = new Input(skt);
+    Input* input = new Input(skt,logger);
     logger.debugMsg("Se lanza thread INPUT",__FILE__,__LINE__);
     input->start();
 
     Monitor monitor(logger);
-    Processor* processor = new Processor(monitor, skt);
+    Processor* processor = new Processor(monitor, skt,logger);
     logger.debugMsg("Se lanza thread PROCESSOR",__FILE__,__LINE__);
     processor->start();
 

@@ -3,18 +3,18 @@
 
 Peer::Peer(Socket &&peerSkt, Logger& logger) :
     peer(std::move(peerSkt)),
+    logger(logger),
     incoming(),
-    outgoing(),
+    outgoing(logger),
     sender(new Sender(outgoing, peerSkt, logger)),
-    receiver(new Receiver(incoming, peer, logger)),
-    logger(logger)
+    receiver(new Receiver(incoming, peer, logger))
 {
     sender->start();
     receiver->start();
 }
 
 void Peer::finish(){
-    peer.shutdown();
+    peer.shutdown(logger);
     sender->join();
     receiver->join();
 }
@@ -43,9 +43,9 @@ bool Peer::hasIncoming() {
 }
 
 void Peer::receive(char* msg, int length){
-    peer.receive(msg,length);
+    peer.receive(msg,length,logger);
 }
 
 void Peer::send(char* msg, int length){
-    peer.send(msg,length);
+    peer.send(msg,length,logger);
 }
