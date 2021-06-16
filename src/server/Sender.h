@@ -11,6 +11,7 @@ private:
     BlockingQueue& outgoing;
     Socket& peer;
     Logger& logger;
+    bool keepRunning;
 
 public:
     Sender(BlockingQueue& queue, Socket& peerSkt, Logger& logger);

@@ -12,11 +12,12 @@
 class Peer {
 private:
     Socket peer;
+    Logger& logger;
     std::queue<char> incoming;
     BlockingQueue outgoing;
     Sender* sender;
     Receiver* receiver;
-    Logger& logger;
+
 public:
     Peer(Socket&& peerSkt, Logger& logger);
 
