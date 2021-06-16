@@ -9,9 +9,10 @@ class Processor : public Thread {
 private:
     Monitor& monitor;
     Socket& socket;
+    Logger& logger;
     bool keepRunning;
 public:
-    Processor(Monitor& monitor, Socket& socket);
+    Processor(Monitor& monitor, Socket& socket, Logger& logger);
     void readEntities();
     void run() override;
     void stop();
