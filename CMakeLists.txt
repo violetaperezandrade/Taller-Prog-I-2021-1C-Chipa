@@ -29,6 +29,7 @@ add_executable(Client
 target_link_libraries(Client jsoncpp SDL2 SDL2_image SDL2_ttf nlohmann_json::nlohmann_json)
 
 add_executable(Server
+        src/client/Monitor.cpp
         src/common/protocols/EntityProtocol.cpp
         src/common/protocols/InputProtocol.cpp
         src/common/Config.cpp

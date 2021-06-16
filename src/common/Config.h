@@ -40,13 +40,11 @@ public:
     int getClimbingSpeed();
     int getJumpingSpeed();
     int getMovingSpeed();
-    int getEnemiesQuantity;
     int getFlamesLevel1();
     int getEmbersLevel1();
     int getBarrelsLevel2();
     int getResolutionWidth();
     int getResolutionHeight();
-    int getClimbSpeed();
     std::map<std::string, std::string> getUserPass();
     bool getDefault();
 

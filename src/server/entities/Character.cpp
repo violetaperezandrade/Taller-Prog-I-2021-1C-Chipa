@@ -126,10 +126,10 @@ void Character::updateStatus(Config& config){
     } else if (movement.shouldClimb()) {
         state = MOVING_UP;
         if (movement.shouldMoveUp()){
-            speedY = -config.getClimbSpeed();
+            speedY = -config.getClimbingSpeed();
         } else if (movement.shouldMoveDown()){
             state = MOVING_DOWN;
-            speedY = config.getClimbSpeed();
+            speedY = config.getClimbingSpeed();
         } //SIN PROBAR, necesita fijarse si colisiona con escalera
     } else {
         if (movement.shouldMoveRight()){
