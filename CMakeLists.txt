@@ -23,7 +23,6 @@ add_executable(Client
         src/common/Config.cpp
         src/common/Entity.cpp
         src/common/Logger.cpp
-        src/common/Message.cpp
         src/common/Socket.cpp
         src/common/Thread.cpp)
 target_link_libraries(Client jsoncpp SDL2 SDL2_image SDL2_ttf nlohmann_json::nlohmann_json)
@@ -35,7 +34,6 @@ add_executable(Server
         src/common/Config.cpp
         src/common/Entity.cpp
         src/common/Logger.cpp
-        src/common/Message.cpp
         src/common/Socket.cpp
         src/common/Thread.cpp
         src/server/entities/Barrel.cpp
