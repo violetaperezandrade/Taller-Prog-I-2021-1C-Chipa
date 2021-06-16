@@ -220,7 +220,7 @@ int Config::getResolutionHeight(){
 }
 
 int Config::getPlayersAmount(){
-    return playersAmount();
+    return playersAmount;
 }
 
 std::map<std::string, std::string> Config::getUserPass(){
