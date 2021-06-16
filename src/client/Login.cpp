@@ -188,7 +188,10 @@ int Login::runLoginWindow(char* ip, char* port) {
     while(!quit){
         bool renderText = false;
         while(SDL_PollEvent(&e) != 0){
-            if(e.type == SDL_QUIT) quit = true;
+            if(e.type == SDL_QUIT){
+                quit = true;
+                return -1;
+            }
             //if mouse was clicked username prompt
             if(mouseWasClickedOnPosition(300,600,80,130,&e) == true){
                 renderPass = false;
