@@ -1,12 +1,13 @@
 #include "Peer.h"
 #include "../common/protocols/EntityProtocol.h"
 
-Peer::Peer(Socket &&peerSkt) :
+Peer::Peer(Socket &&peerSkt, Logger& logger) :
     peer(std::move(peerSkt)),
     incoming(),
     outgoing(),
-    sender(new Sender(outgoing, peerSkt)),
-    receiver(new Receiver(incoming, peer))
+    sender(new Sender(outgoing, peerSkt, logger)),
+    receiver(new Receiver(incoming, peer, logger)),
+    logger(logger)
 {
     sender->start();
     receiver->start();

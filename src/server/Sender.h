@@ -4,13 +4,16 @@
 #include "../common/Thread.h"
 #include "../common/BlockingQueue.h"
 #include "../common/Socket.h"
+#include "../common/Logger.h"
 
 class Sender : public Thread {
 private:
     BlockingQueue& outgoing;
     Socket& peer;
+    Logger& logger;
+
 public:
-    Sender(BlockingQueue& queue, Socket& peerSkt);
+    Sender(BlockingQueue& queue, Socket& peerSkt, Logger& logger);
 
     ~Sender();
 

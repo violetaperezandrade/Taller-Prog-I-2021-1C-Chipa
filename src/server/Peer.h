@@ -7,6 +7,7 @@
 #include "../common/Entity.h"
 #include "Sender.h"
 #include "Receiver.h"
+#include "../common/Logger.h"
 
 class Peer {
 private:
@@ -15,8 +16,9 @@ private:
     BlockingQueue outgoing;
     Sender* sender;
     Receiver* receiver;
+    Logger& logger;
 public:
-    Peer(Socket&& peerSkt);
+    Peer(Socket&& peerSkt, Logger& logger);
 
     ~Peer();
 

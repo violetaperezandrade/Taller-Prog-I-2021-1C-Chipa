@@ -13,8 +13,9 @@ private:
     std::map<std::string,std::string> usersKeys;
     Config& config;
     Socket& skt;
+    Logger& logger;
 public:
-    LoginManager(Peer* client, Config& config, Socket& skt);
+    LoginManager(Peer* client, Config& config, Socket& skt, Logger& logger);
 
     ~LoginManager();
 

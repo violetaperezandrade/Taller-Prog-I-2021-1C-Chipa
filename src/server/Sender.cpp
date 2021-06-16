@@ -1,8 +1,9 @@
 #include "Sender.h"
 
-Sender::Sender(BlockingQueue& queue, Socket& peerSkt) :
+Sender::Sender(BlockingQueue& queue, Socket& peerSkt, Logger& logger) :
     outgoing(queue),
-    peer(peerSkt)
+    peer(peerSkt),
+    logger(logger)
 {}
 
 Sender::~Sender(){}

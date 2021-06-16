@@ -1,15 +1,17 @@
 #ifndef INPUT_H
 #define INPUT_H
+#include <SDL2/SDL.h>
 #include "../common/Socket.h"
 #include "../common/Thread.h"
-#include <SDL2/SDL.h>
+#include "../common/Logger.h"
 
 class Input : public Thread {
 private:
     Socket& socket;
     bool quit;
+    Logger& logger;
 public:
-    Input(Socket& socket);
+    Input(Socket& socket, Logger& logger);
 
     ~Input();
 
