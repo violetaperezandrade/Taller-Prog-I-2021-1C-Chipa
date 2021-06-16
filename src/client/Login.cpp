@@ -137,16 +137,6 @@ bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event*
     return ok;
 }
 
-void completeVector(char* msg, const char* string, int length){
-    for(int i=0; i < 30 ;i++){
-        if (i < length) {
-            msg[i] = string[i];
-        } else {
-            msg[i] = '\0';
-        }
-    }
-}
-
 int Login::runLoginWindow(char* ip, char* port) {
 
     int success = sktLogin.connect(ip,port,logger);
@@ -241,6 +231,7 @@ int Login::runLoginWindow(char* ip, char* port) {
                     }
                 }
             }
+
             if(e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN){
                 int x,y;
                 SDL_GetMouseState(&x,&y);
@@ -256,13 +247,10 @@ int Login::runLoginWindow(char* ip, char* port) {
                             break;
                         case SDL_MOUSEBUTTONDOWN:
                             playButton = loadImageTexture("../src/client/img/Login/playClick.png",windowRendererLogin);
-
                             sktLogin.send(inputTextUser.append(30-inputTextUser.length(),'\0').c_str(), 30,logger);
                             logger.infoMsg("Se envia usuario",__FILE__,__LINE__);
-
-                            sktLogin.send(inputTextPsw.append(30-inputTextPsw.length(),'\0').c_str(),30,logger);
+                            sktLogin.send(inputTextPsw.append(30-inputTextPsw.length(),'\0').c_str(), 30,logger);
                             logger.infoMsg("Se envia contraseña",__FILE__,__LINE__);
-
                             char succesLogin[1];
                             logger.infoMsg("Se espera verificacion",__FILE__,__LINE__);
                             sktLogin.receive(succesLogin,1,logger);
