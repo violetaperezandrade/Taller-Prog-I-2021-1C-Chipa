@@ -32,11 +32,11 @@ void LoginManager::validate(){
             response = 'F';
             client->send(&response, 1);
 
-            logger.infoMsg("Received incorrect credentials. User: " + usr + pw, __FILE__, __LINE__);
+            logger.infoMsg("Received incorrect credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
             continue;
         }
         correctCredentials = true;
-        logger.infoMsg("Received correct credentials. User: " + usr + pw, __FILE__, __LINE__);
+        logger.infoMsg("Received correct credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
     }
     response = 'G';
     client->send(&response,1);
