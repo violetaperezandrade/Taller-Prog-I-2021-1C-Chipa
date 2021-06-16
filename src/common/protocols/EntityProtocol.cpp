@@ -44,12 +44,6 @@ int EntityProtocol::getInt(char* ptr){
     return num;
 }
 
-/* Lo saco para no hacer copia al pedo
-Entity EntityProtocol::entityFromBuff(char* buff){
-    Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5), getInt(buff+7), buff[9]);
-    return entity;
-}*/
-
 void EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& logger) {
     char buff[MSG_LEN];
     bool keepGoing = true;
