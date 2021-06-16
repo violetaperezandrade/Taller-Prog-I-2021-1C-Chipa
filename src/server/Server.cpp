@@ -29,10 +29,12 @@ void Server::disconnectClients(){
     for(int i = 0; i < playersAmount; i++){
         clients[i]->finish();
         delete clients[i];
+        logger.infoMsg("Deleted player " + std::to_string(i+1), __FILE__, __LINE__);
     }
 }
 
 void Server::sendAll(){
+    logger.debugMsg("Sending all entities to clients", __FILE__, __LINE__);
     std::vector<Entity>& entities = game.getEntities();
     std::vector<Character>& characters = game.getCharacters();
 
@@ -48,6 +50,7 @@ void Server::sendAll(){
 }
 
 void Server::sendNew(){
+    logger.debugMsg("Sending temporary entities to clients", __FILE__, __LINE__);
     std::vector<Entity>& entities = game.getEntities();
     std::vector<Character>& characters = game.getCharacters();
 
@@ -66,18 +69,21 @@ void Server::sendNew(){
 }
 
 void Server::startClients(){
+    logger.infoMsg("Starting the senders and receivers", __FILE__, __LINE__);
     for(int i = 0; i < playersAmount; i++){
         clients[i]->start();
     }
 }
 
 void Server::startGame(){
+    logger.infoMsg("Game starts", __FILE__, __LINE__);
     startClients();
     sendAll();
     std::chrono::milliseconds frameTime(30);
 
     bool finish = false;
     while(!finish) {
+        logger.debugMsg("New game iteration", __FILE__, __LINE__);
         std::chrono::steady_clock::time_point initialTime = std::chrono::steady_clock::now();
         std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
         for (int i = 0; i < playersAmount; i++) {
@@ -91,6 +97,7 @@ void Server::startGame(){
         finish = game.isFinished();
         std::this_thread::sleep_until(timeSpan);
     }
+    logger.infoMsg("Game finished", __FILE__, __LINE__);
 }
 
 void Server::acceptClients(){
@@ -99,9 +106,11 @@ void Server::acceptClients(){
         Socket clientSkt = std::move(sktListener.accept(logger));
         Peer* client = new Peer(std::move(clientSkt), logger);
         clients.push_back(client);
+        logger.infoMsg("Added peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
         LoginManager* login = new LoginManager(client, config, clientSkt, logger);
         login->start();
         logins.push_back(login);
+        logger.infoMsg("Login thread for peer launched", __FILE__, __LINE__);
     }
 
     std::vector<LoginManager*>::iterator it = logins.begin();
@@ -109,6 +118,7 @@ void Server::acceptClients(){
         (*it)->join();
         delete *it;
         it = logins.erase(it);
+        logger.infoMsg("Login thread finished and erased", __FILE__, __LINE__);
     }
 }
 

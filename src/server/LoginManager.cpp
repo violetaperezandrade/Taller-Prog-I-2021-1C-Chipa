@@ -32,9 +32,12 @@ void LoginManager::validate(){
         if (usersKeys[usr] != pw) {
             response[0] = 'F';
             skt.send(response, 1, logger);
+
+            logger.infoMsg("Received incorrect credentials. User: " + usr + pw, __FILE__, __LINE__);
             continue;
         }
         correctCredentials = true;
+        logger.infoMsg("Received correct credentials. User: " + usr + pw, __FILE__, __LINE__);
     }
     response[0] = 'G';
     skt.send(response,1, logger);
