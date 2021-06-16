@@ -137,7 +137,7 @@ bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event*
 
 int Login::runLoginWindow(char* ip, char* port) {
 
-    int success = sktLogin.connect(ip,port);
+    int success = sktLogin.connect(ip,port,logger);
     if(success < 0){
         TextRendered connError = loadFromRenderedText("Server unreachable or full.",{255,0,0},windowRendererLogin,globalFont);
         SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
@@ -241,10 +241,10 @@ int Login::runLoginWindow(char* ip, char* port) {
                             break;
                         case SDL_MOUSEBUTTONDOWN:
                             playButton = loadImageTexture("../src/client/img/Login/playClick.png",windowRendererLogin);
-                            sktLogin.send(inputTextUser.c_str(), inputTextUser.length());
-                            sktLogin.send(inputTextPsw.c_str(), inputTextPsw.length());
+                            sktLogin.send(inputTextUser.c_str(), inputTextUser.length(),logger);
+                            sktLogin.send(inputTextPsw.c_str(), inputTextPsw.length(),logger);
                             char succesLogin[1];
-                            sktLogin.receive(succesLogin,1);
+                            sktLogin.receive(succesLogin,1,logger);
                             if(succesLogin[0] == 'F'){
                                 loginError = loadFromRenderedText("User or pass invalid, try again.",{255,0,0},windowRendererLogin,globalFont);
                                 logger.errorMsg("Se ingresaron mal las credenciales",__FILE__,__LINE__);
