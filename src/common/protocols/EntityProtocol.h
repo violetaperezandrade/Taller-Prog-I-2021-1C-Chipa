@@ -14,7 +14,7 @@ private:
 public:
     static void sendEntity(BlockingQueue& queue, Entity entity);
     static void sendBreak(BlockingQueue& queue);
-    static void readEntities(Socket& socket, Monitor& container);
+    static void readEntities(Socket& socket, Monitor& container, Logger& logger);
 };
 
 #endif //ENTITYPROTOCOL_H

@@ -1,7 +1,7 @@
 #include "Input.h"
 #include "../common/protocols/InputProtocol.h"
 
-Input::Input(Socket& socket) : socket(socket),quit(false){}
+Input::Input(Socket& socket, Logger& logger) : socket(socket), quit(false), logger(logger){}
 
 void Input::run() {
     SDL_Event e;
@@ -11,19 +11,19 @@ void Input::run() {
             if(e.type == SDL_KEYDOWN && e.key.repeat == 0){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
-                        InputProtocol::sendPressUpEvent(socket);
+                        InputProtocol::sendPressUpEvent(this->socket, this->logger);
                         break;
                     case SDLK_DOWN:
-                        InputProtocol::sendPressDownEvent(this->socket);
+                        InputProtocol::sendPressDownEvent(this->socket, this->logger);
                         break;
                     case SDLK_LEFT:
-                        InputProtocol::sendPressLeftEvent(this->socket);
+                        InputProtocol::sendPressLeftEvent(this->socket, this->logger);
                         break;
                     case SDLK_RIGHT:
-                        InputProtocol::sendPressRightEvent(this->socket);
+                        InputProtocol::sendPressRightEvent(this->socket, this->logger);
                         break;
                     case SDLK_SPACE:
-                        InputProtocol::sendPressJumpEvent(this->socket);
+                        InputProtocol::sendPressJumpEvent(this->socket, this->logger);
                         break;
                     default:
                         break;
@@ -32,19 +32,19 @@ void Input::run() {
             else if(e.type == SDL_KEYUP && e.key.repeat == 0){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
-                        InputProtocol::sendReleaseUpEvent(this->socket);
+                        InputProtocol::sendReleaseUpEvent(this->socket, this->logger);
                         break;
                     case SDLK_DOWN:
-                        InputProtocol::sendReleaseDownEvent(this->socket);
+                        InputProtocol::sendReleaseDownEvent(this->socket, this->logger);
                         break;
                     case SDLK_LEFT:
-                        InputProtocol::sendReleaseLeftEvent(this->socket);
+                        InputProtocol::sendReleaseLeftEvent(this->socket, this->logger);
                         break;
                     case SDLK_RIGHT:
-                        InputProtocol::sendReleaseRightEvent(this->socket);
+                        InputProtocol::sendReleaseRightEvent(this->socket, this->logger);
                         break;
                     case SDLK_SPACE:
-                        InputProtocol::sendReleaseJumpEvent(this->socket);
+                        InputProtocol::sendReleaseJumpEvent(this->socket, this->logger);
                         break;
                     default:
                         break;
@@ -56,7 +56,7 @@ void Input::run() {
 
 void Input::stop(){
     quit = true;
-    this->socket.shutdownWrite();
+    this->socket.shutdownWrite(logger);
 }
 
 Input::~Input(){
