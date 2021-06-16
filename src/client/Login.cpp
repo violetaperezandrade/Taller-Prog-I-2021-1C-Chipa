@@ -249,8 +249,8 @@ int Login::runLoginWindow(char* ip, char* port) {
 
                             std::string user = inputTextUser;
                             std::string pass = inputTextPsw;
-                            user.append(30-user.length(),'\0');
-                            pass.append(30-user.length(),'\0');
+                            user.append(30-inputTextUser.length(),'\0');
+                            pass.append(30-inputTextPsw.length(),'\0');
 
                             sktLogin.send(user.c_str(), 30,logger);
                             logger.infoMsg("Se envia usuario",__FILE__,__LINE__);
