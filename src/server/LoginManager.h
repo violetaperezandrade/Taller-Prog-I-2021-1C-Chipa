@@ -12,10 +12,9 @@ private:
     Peer* client;
     std::map<std::string,std::string> usersKeys;
     Config& config;
-    Socket& skt;
     Logger& logger;
 public:
-    LoginManager(Peer* client, Config& config, Socket& skt, Logger& logger);
+    LoginManager(Peer* client, Config& config, Logger& logger);
 
     ~LoginManager();
 

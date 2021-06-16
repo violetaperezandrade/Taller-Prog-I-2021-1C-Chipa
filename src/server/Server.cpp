@@ -107,7 +107,7 @@ void Server::acceptClients(){
         Peer* client = new Peer(std::move(clientSkt), logger);
         clients.push_back(client);
         logger.infoMsg("Added peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
-        LoginManager* login = new LoginManager(client, config, clientSkt, logger);
+        LoginManager* login = new LoginManager(client, config, logger);
         login->start();
         logins.push_back(login);
         logger.infoMsg("Login thread for peer launched", __FILE__, __LINE__);

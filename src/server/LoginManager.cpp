@@ -1,9 +1,8 @@
 #include "LoginManager.h"
 
-LoginManager::LoginManager(Peer* client, Config& config, Socket& skt, Logger& logger) :
+LoginManager::LoginManager(Peer* client, Config& config, Logger& logger) :
     client(client),
     config(config),
-    skt(skt),
     logger(logger)
 {
     usersKeys = config.getUserPass();
@@ -18,7 +17,7 @@ void LoginManager::run() {
 void LoginManager::validate(){
     char user[30];
     char password[30];
-    char response[1]; //F for fail - G for good
+    char response; //F for fail - G for good
 
     bool correctCredentials = false;
     while(!correctCredentials) {
@@ -30,8 +29,8 @@ void LoginManager::validate(){
         std::string pw(password);
 
         if (usersKeys[usr] != pw) {
-            response[0] = 'F';
-            skt.send(response, 1, logger);
+            response = 'F';
+            client->send(&response, 1);
 
             logger.infoMsg("Received incorrect credentials. User: " + usr + pw, __FILE__, __LINE__);
             continue;
@@ -39,6 +38,6 @@ void LoginManager::validate(){
         correctCredentials = true;
         logger.infoMsg("Received correct credentials. User: " + usr + pw, __FILE__, __LINE__);
     }
-    response[0] = 'G';
-    skt.send(response,1, logger);
+    response = 'G';
+    client->send(&response,1);
 }

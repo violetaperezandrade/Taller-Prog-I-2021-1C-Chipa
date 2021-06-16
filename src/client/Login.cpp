@@ -257,14 +257,10 @@ int Login::runLoginWindow(char* ip, char* port) {
                         case SDL_MOUSEBUTTONDOWN:
                             playButton = loadImageTexture("../src/client/img/Login/playClick.png",windowRendererLogin);
 
-                            char user[30], pass[30];
-                            completeVector(user, inputTextUser.c_str(), inputTextPsw.length());
-                            completeVector(pass, inputTextPsw.c_str(), inputTextPsw.length());
-
-                            sktLogin.send(user, 30,logger);
+                            sktLogin.send(inputTextUser.append(30-inputTextUser.length(),'\0').c_str(), 30,logger);
                             logger.infoMsg("Se envia usuario",__FILE__,__LINE__);
 
-                            sktLogin.send(pass, 30,logger);
+                            sktLogin.send(inputTextPsw.append(30-inputTextPsw.length(),'\0').c_str(),30,logger);
                             logger.infoMsg("Se envia contraseña",__FILE__,__LINE__);
 
                             char succesLogin[1];
