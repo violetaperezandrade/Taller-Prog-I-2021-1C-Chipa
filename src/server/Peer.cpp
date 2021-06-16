@@ -8,7 +8,9 @@ Peer::Peer(Socket &&peerSkt, Logger& logger) :
     outgoing(logger),
     sender(new Sender(outgoing, peerSkt, logger)),
     receiver(new Receiver(incoming, peer, logger))
-{
+{}
+
+void Peer::start(){
     sender->start();
     receiver->start();
 }

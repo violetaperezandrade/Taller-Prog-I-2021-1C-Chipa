@@ -28,6 +28,7 @@ void Server::run(){
 void Server::disconnectClients(){
     for(int i = 0; i < playersAmount; i++){
         clients[i]->finish();
+        delete clients[i];
     }
 }
 
@@ -64,7 +65,14 @@ void Server::sendNew(){
     }
 }
 
+void Server::startClients(){
+    for(int i = 0; i < playersAmount; i++){
+        clients[i]->start();
+    }
+}
+
 void Server::startGame(){
+    startClients();
     sendAll();
     std::chrono::milliseconds frameTime(30);
 

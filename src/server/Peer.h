@@ -27,6 +27,8 @@ public:
 
     void sendBreak();
 
+    void start();
+
     char receive();
 
     bool hasIncoming();

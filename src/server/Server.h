@@ -31,6 +31,8 @@ public:
 
     void sendNew();
 
+    void startClients();
+
     void sendAll();
 
     void disconnectClients();
