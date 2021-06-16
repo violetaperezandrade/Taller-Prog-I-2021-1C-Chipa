@@ -21,6 +21,7 @@ void Logger::superDebugMsg(std::string str, std::string filename, int line){//lo
     if(logLvl < 4) {
         return;
     }
+    std::unique_lock<std::mutex> lock(m);
     file << currentDateTime() << " [S.DEBUG]: ";
     int pos = filename.find_last_of("/");
     file << filename.substr(pos+1) << ':' << std::to_string(line) << ". ";
@@ -31,6 +32,7 @@ void Logger::debugMsg(std::string str, std::string filename, int line){//logLvl 
     if(logLvl < 3) {
         return;
     }
+    std::unique_lock<std::mutex> lock(m);
     file << currentDateTime() << " [DEBUG]: ";
     int pos = filename.find_last_of("/");
     file << filename.substr(pos+1) << ':' << std::to_string(line) << ". ";
@@ -41,6 +43,7 @@ void Logger::infoMsg(std::string str, std::string filename, int line){//logLvl I
     if (logLvl < 2) {
         return;
     }
+    std::unique_lock<std::mutex> lock(m);
     file << currentDateTime() << " [INFO]: ";
     int pos = filename.find_last_of("/");
     file << filename.substr(pos+1) << ':' << std::to_string(line) << ". ";
@@ -48,6 +51,7 @@ void Logger::infoMsg(std::string str, std::string filename, int line){//logLvl I
 }
 
 void Logger::errorMsg(std::string str, std::string filename, int line){//logLvl ERROR 1
+    std::unique_lock<std::mutex> lock(m);
     file << currentDateTime() << " [ERROR]: ";
     int pos = filename.find_last_of("/");
     file << filename.substr(pos+1) << ':' << std::to_string(line) << ". ";
