@@ -13,14 +13,16 @@ TTF_Font* Login::createFont(std::string path){
 
     TTF_Font* font = TTF_OpenFont(path.c_str(),FONTSIZE);
     if(font == NULL) logger.errorMsg("Error al cargar fuente",__FILE__,__LINE__);
+    logger.debugMsg("Fuente creada correctamente",__FILE__,__LINE__);
     return font;
 }
 
 SDL_Window* Login::createWindow(const char* title){
     SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH_LOGIN, SCREEN_HEIGHT_LOGIN, SDL_WINDOW_SHOWN);
     if(!window) {
-        logger.errorMsg("Error al crear ventana SDL",__FILE__,__LINE__);
+        logger.errorMsg("Error al crear ventana de login con SDL",__FILE__,__LINE__);
     }
+    logger.debugMsg("Ventana de login creada correctamente",__FILE__,__LINE__);
     return window;
 }
 
@@ -34,6 +36,7 @@ SDL_Renderer* Login::createRenderer(SDL_Window* window) {
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
     }
+    logger.debugMsg("Renderer de login creado correctamente",__FILE__,__LINE__);
     return renderer;
 }
 
@@ -52,6 +55,7 @@ SDL_Texture* Login::loadImageTexture(std::string path, SDL_Renderer* renderer){
         }
         SDL_FreeSurface(imageSurface);
     }
+    logger.debugMsg("Tetura creada correctamente",__FILE__,__LINE__);
     return finalTexture;
 }
 
@@ -77,6 +81,7 @@ TextRendered Login::loadFromRenderedText(std::string textureText,
     text.texture = finalTexture;
     text.width = w;
     text.height = h;
+    logger.debugMsg("Textura desde texto creada correctamente",__FILE__,__LINE__);
     return text;
 }
 
@@ -94,6 +99,7 @@ bool Login::initSDL() {
         logger.errorMsg("Error al inicializar TTF",__FILE__,__LINE__);
         error = true;
     }
+    logger.debugMsg("SDL Iniciado correctamente para login",__FILE__,__LINE__);
     return error;
 }
 
@@ -104,7 +110,7 @@ void Login::closeSDL() {
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
-    logger.infoMsg("Cerrar SDL", __FILE__, __LINE__);
+    logger.debugMsg("Cerrar SDL", __FILE__, __LINE__);
 }
 
 void Login::renderLogin(int x, int y, int width, int height, SDL_Texture *texture, SDL_Renderer *windowRenderer) {
@@ -125,6 +131,7 @@ bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event*
         SDL_GetMouseState(&x,&y);
         if((x > x1 && x < x2) && (y > y1 && y < y2)) ok = true;
     }
+    logger.debugMsg("El mouse se posicion sobre un textbox",__FILE__,__LINE__);
     return ok;
 }
 
@@ -140,8 +147,11 @@ int Login::runLoginWindow(char* ip, char* port) {
         renderLogin(260,300,100,100,warning,windowRendererLogin);
         SDL_RenderPresent(windowRendererLogin);
         SDL_Delay(3000);
+        logger.errorMsg("No se pudo conectar al servidor",__FILE__,__LINE__);
         return -1;
     }
+    logger.debugMsg("Conexion al servidor satisfactoria",__FILE__,__LINE__);
+    logger.infoMsg("Se inicia la ventana de login",__FILE__,__LINE__);
     std::string inputTextUser = "";
     std::string inputTextPsw = "";
     std::string playText = "PLAY!";
@@ -237,10 +247,12 @@ int Login::runLoginWindow(char* ip, char* port) {
                             sktLogin.receive(succesLogin,1);
                             if(succesLogin[0] == 'F'){
                                 loginError = loadFromRenderedText("User or pass invalid, try again.",{255,0,0},windowRendererLogin,globalFont);
+                                logger.errorMsg("Se ingresaron mal las credenciales",__FILE__,__LINE__);
                             }
                             else{
                                 loginError.texture = NULL;
                                 quit = true;
+                                logger.debugMsg("Se ingresaron correctamente las credenciales",__FILE__,__LINE__);
                             }
                             break;
                     }

@@ -1,12 +1,13 @@
 #include "Monitor.h"
 
-Monitor::Monitor() : entities(), mtx(), cond_var() {}
+Monitor::Monitor(Logger& logger) : entities(), mtx(), cond_var(),logger(logger) {}
 
 Monitor::~Monitor() {}
 
 void Monitor::addEntity(Entity& e){
     std::unique_lock<std::mutex> lock(mtx);
     entities.push_back(e);
+    logger.debugMsg("Se agrega entidad al container",__FILE__,__LINE__);
 }
 
 std::vector<Entity> Monitor::getEntities(){
@@ -26,6 +27,7 @@ void Monitor::cleanPermanent(){
             i--;
         }
     }
+    logger.debugMsg("Se borran entidades permanentes",__FILE__,__LINE__);
 }
 
 void Monitor::cleanTemporary(){
@@ -36,9 +38,11 @@ void Monitor::cleanTemporary(){
             i--;
         }
     }
+    logger.debugMsg("Se borran entidades temporales",__FILE__,__LINE__);
 }
 
 void Monitor::notify(){
     notified = true;
     cond_var.notify_all();
+    logger.debugMsg("Se notifica a las condition variables",__FILE__,__LINE__);
 }
