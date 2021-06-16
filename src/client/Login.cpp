@@ -303,9 +303,9 @@ int Login::runLoginWindow(char* ip, char* port) {
         SDL_RenderPresent(windowRendererLogin);
     }
     SDL_StopTextInput();
+    closeSDL();
     return 0;
 }
 
 Login::~Login(){
-    closeSDL();
 }
