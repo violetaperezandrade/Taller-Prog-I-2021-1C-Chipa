@@ -1,9 +1,10 @@
 #include "LoginManager.h"
 
-LoginManager::LoginManager(Peer* client, Config& config, Socket& skt) :
+LoginManager::LoginManager(Peer* client, Config& config, Socket& skt, Logger& logger) :
     client(client),
     config(config),
-    skt(skt)
+    skt(skt),
+    logger(logger)
 {
     usersKeys = config.getUserPass();
 }

@@ -4,14 +4,15 @@
 #include <queue>
 #include "../common/Thread.h"
 #include "../common/Socket.h"
-
+#include "../common/Logger.h"
 
 class Receiver : public Thread{
 private:
     std::queue<char>& incoming;
     Socket& peer;
+    Logger& logger;
 public:
-    Receiver(std::queue<char>& queue, Socket& peerSkt);
+    Receiver(std::queue<char>& queue, Socket& peerSkt, Logger& logger);
 
     ~Receiver();
 

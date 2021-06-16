@@ -1,8 +1,9 @@
 #include "Receiver.h"
 
-Receiver::Receiver(std::queue<char>& queue, Socket& peerSkt) :
+Receiver::Receiver(std::queue<char>& queue, Socket& peerSkt, Logger& logger) :
     incoming(queue),
-    peer(peerSkt)
+    peer(peerSkt),
+    logger(logger)
 {}
 
 Receiver::~Receiver(){}
