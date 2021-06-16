@@ -6,7 +6,6 @@
 #include "CollisionManager.h"
 #include "../common/Config.h"
 #include "entities/Character.h"
-#include "../common/Message.h"
 #include "../common/Logger.h"
 
 
