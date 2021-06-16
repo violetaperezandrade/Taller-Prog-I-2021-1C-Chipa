@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "../common/Entity.h"
+#include "../common/Logger.h"
 
 class Monitor{
 private:
@@ -12,9 +13,9 @@ private:
     std::mutex mtx;
     std::condition_variable cond_var;
     bool notified = false;
-
+    Logger& logger;
 public:
-    Monitor();
+    Monitor(Logger& logger);
 
     ~Monitor();
 
