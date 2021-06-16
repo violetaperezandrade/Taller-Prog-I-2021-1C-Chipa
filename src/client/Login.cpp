@@ -129,9 +129,11 @@ bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event*
     if(e->type == SDL_MOUSEBUTTONDOWN){
         int x,y;
         SDL_GetMouseState(&x,&y);
-        if((x > x1 && x < x2) && (y > y1 && y < y2)) ok = true;
+        if((x > x1 && x < x2) && (y > y1 && y < y2)){
+            ok = true;
+            logger.debugMsg("El mouse se posiciono sobre un textbox",__FILE__,__LINE__);
+        }
     }
-    logger.debugMsg("El mouse se posiciono sobre un textbox",__FILE__,__LINE__);
     return ok;
 }
 
