@@ -16,11 +16,11 @@ Server::Server(char* ip, char* port, int playersAmount, Config& config, Logger& 
 {}
 
 void Server::run(){
-    sktListener.bind(ip, port);
-    sktListener.listen(playersAmount);
+    sktListener.bind(ip, port, logger);
+    sktListener.listen(playersAmount, logger);
 
     acceptClients();
-    sktListener.shutdown();
+    sktListener.shutdown(logger);
     startGame();
     disconnectClients();
 }
@@ -88,7 +88,7 @@ void Server::startGame(){
 void Server::acceptClients(){
     std::vector<LoginManager*> logins;
     for(int i = 0; i != playersAmount; i++){
-        Socket clientSkt = std::move(sktListener.accept());
+        Socket clientSkt = std::move(sktListener.accept(logger));
         Peer* client = new Peer(std::move(clientSkt), logger);
         clients.push_back(client);
         LoginManager* login = new LoginManager(client, config, clientSkt, logger); //Necesita toodo esto?

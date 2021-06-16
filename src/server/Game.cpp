@@ -121,6 +121,7 @@ void Game::update() {
     }
 }
 
+/*
 Message Game::getStatus() {
     Message message;
     for (int i = 0; i < entities.size(); i++){
@@ -130,7 +131,7 @@ Message Game::getStatus() {
         message.add(characters[i]);
     }
     return std::move(message);
-}
+}*/
 
 void Game::lvl1SpawnEmber(){
     int spawns[4] = {168,312,456,600};

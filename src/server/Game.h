@@ -55,8 +55,6 @@ public:
 
     void lvl2SpawnBarrel();
 
-    Message getStatus();
-
     void changeLevel();
 
     void spawnFlames();

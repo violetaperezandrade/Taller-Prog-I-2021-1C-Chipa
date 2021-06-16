@@ -5,6 +5,8 @@
 #include <mutex>
 #include <queue>
 
+#include "Logger.h"
+
 //podría ser un template
 class BlockingQueue {
 private:

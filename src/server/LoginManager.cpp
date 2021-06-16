@@ -31,11 +31,11 @@ void LoginManager::validate(){
 
         if (usersKeys[usr] != pw) {
             response[0] = 'F';
-            skt.send(response, 1);
+            skt.send(response, 1, logger);
             continue;
         }
         correctCredentials = true;
     }
     response[0] = 'G';
-    skt.send(response,1);
+    skt.send(response,1, logger);
 }
