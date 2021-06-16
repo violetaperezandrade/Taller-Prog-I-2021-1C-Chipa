@@ -137,6 +137,15 @@ bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event*
     return ok;
 }
 
+std::string completeVector(std::string string){
+    int length = string.length();
+    char c = '\0';
+    for(int i=0; i < (30 - length);i++){
+        string.push_back(c);
+    }
+    return string;
+}
+
 int Login::runLoginWindow(char* ip, char* port) {
 
     int success = sktLogin.connect(ip,port,logger);
@@ -246,10 +255,13 @@ int Login::runLoginWindow(char* ip, char* port) {
                             break;
                         case SDL_MOUSEBUTTONDOWN:
                             playButton = loadImageTexture("../src/client/img/Login/playClick.png",windowRendererLogin);
-                            sktLogin.send(inputTextUser.c_str(), inputTextUser.length(),logger);
+
+                            sktLogin.send(completeVector(inputTextUser).c_str(), inputTextUser.length(),logger);
                             logger.infoMsg("Se envia usuario",__FILE__,__LINE__);
-                            sktLogin.send(inputTextPsw.c_str(), inputTextPsw.length(),logger);
+
+                            sktLogin.send(completeVector(inputTextPsw).c_str(), inputTextPsw.length(),logger);
                             logger.infoMsg("Se envia contraseña",__FILE__,__LINE__);
+
                             char succesLogin[1];
                             logger.infoMsg("Se espera verificacion",__FILE__,__LINE__);
                             sktLogin.receive(succesLogin,1,logger);
