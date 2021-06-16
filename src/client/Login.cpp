@@ -55,7 +55,7 @@ SDL_Texture* Login::loadImageTexture(std::string path, SDL_Renderer* renderer){
         }
         SDL_FreeSurface(imageSurface);
     }
-    logger.debugMsg("Tetura creada correctamente",__FILE__,__LINE__);
+    logger.debugMsg("Textura creada correctamente",__FILE__,__LINE__);
     return finalTexture;
 }
 
@@ -131,7 +131,7 @@ bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event*
         SDL_GetMouseState(&x,&y);
         if((x > x1 && x < x2) && (y > y1 && y < y2)) ok = true;
     }
-    logger.debugMsg("El mouse se posicion sobre un textbox",__FILE__,__LINE__);
+    logger.debugMsg("El mouse se posiciono sobre un textbox",__FILE__,__LINE__);
     return ok;
 }
 
@@ -247,12 +247,12 @@ int Login::runLoginWindow(char* ip, char* port) {
                             sktLogin.receive(succesLogin,1,logger);
                             if(succesLogin[0] == 'F'){
                                 loginError = loadFromRenderedText("User or pass invalid, try again.",{255,0,0},windowRendererLogin,globalFont);
-                                logger.errorMsg("Se ingresaron mal las credenciales",__FILE__,__LINE__);
+                                logger.infoMsg("Se ingresaron mal las credenciales",__FILE__,__LINE__);
                             }
                             else{
                                 loginError.texture = NULL;
                                 quit = true;
-                                logger.debugMsg("Se ingresaron correctamente las credenciales",__FILE__,__LINE__);
+                                logger.infoMsg("Se ingresaron correctamente las credenciales",__FILE__,__LINE__);
                             }
                             break;
                     }
