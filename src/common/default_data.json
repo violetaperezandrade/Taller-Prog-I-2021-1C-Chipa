@@ -10,6 +10,7 @@
     "jumping speed" : 15,
     "moving speed" : 8
   },
+  "players amount" : 3,
   "level 1" : {
     "flames" : 4,
     "embers" : 80

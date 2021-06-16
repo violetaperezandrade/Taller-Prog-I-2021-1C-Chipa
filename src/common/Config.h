@@ -25,7 +25,7 @@ private:
     int barrelsLevel2;
     int resolutionWidth;
     int resolutionHeight;
-    int enemiesQuantity;
+    int playersAmount;
     std::map<std::string, std::string> userPass;
     bool defaultLog;
 
@@ -45,6 +45,7 @@ public:
     int getBarrelsLevel2();
     int getResolutionWidth();
     int getResolutionHeight();
+    int getPlayersAmount();
     std::map<std::string, std::string> getUserPass();
     bool getDefault();
 

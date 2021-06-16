@@ -49,6 +49,7 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
         barrelsLevel2 = actualJson["level 2"]["barrels"].asInt();
         resolutionWidth = actualJson["resolution"]["width"].asInt();
         resolutionHeight = actualJson["resolution"]["height"].asInt();
+        playersAmount = actualJson["players amount"].asInt();
         userPass = j.at("user password").get<std::map<std::string, std::string>>();
     }
     else{
@@ -145,6 +146,13 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
         else{
             resolutionHeight = actualJson["resolution"]["height"].asInt();
         }
+        if(!actualJson["players amount"].isNumeric() || actualJson["players amount"].isNull()){
+            playersAmount = defaultJson["players amount"].asInt();
+            logger.debugMsg("Players amount value not found, reading from default", __FILE__, __LINE__);
+        }
+        else{
+            playersAmount = actualJson["players amount"].asInt();
+        }
         if(!j.contains("user password")){
             userPass = jDefault.at("user password").get<std::map<std::string, std::string>>();
             logger.debugMsg("Usernames and passwords values not found, reading from default", __FILE__, __LINE__);
@@ -209,6 +217,10 @@ int Config::getResolutionWidth(){
 
 int Config::getResolutionHeight(){
     return resolutionHeight;
+}
+
+int Config::getPlayersAmount(){
+    return playersAmount();
 }
 
 std::map<std::string, std::string> Config::getUserPass(){

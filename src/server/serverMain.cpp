@@ -8,7 +8,7 @@ int main(int argc, char** argv){
     Logger logger(argv[4]);
     Config config(argv[3], logger);
     logger.setLevel(config.getDebug());
-    Server sv(ip, argv[1],atoi(config.getPlayerAmount()), config, logger);
+    Server sv(ip, argv[1],atoi(config.getPlayersAmount()), config, logger);
     sv.run();
     return 0;
 }
