@@ -55,9 +55,9 @@ Config::Config(char* str, Logger& logger) : logger(logger) {
     else{
         Json::Reader reader;
         reader.parse(readFile, actualJson);
-        std::ifstream nhFile("../src/common/data.json");
+        std::ifstream nhFile(str);
         json j = json::parse(nhFile);
-        std::ifstream nhFileDefault("../src/common/data.json");
+        std::ifstream nhFileDefault("../src/common/default_data.json");
         json jDefault = json::parse(nhFileDefault);
         Json::Value defaultJson;
         std::ifstream defaultFile("../src/common/default_data.json");
