@@ -16,25 +16,25 @@
 
 class InputProtocol {
 public:
-    static void sendPressUpEvent(Socket& socket);
+    static void sendPressUpEvent(Socket& socket, Logger& logger);
 
-    static void sendReleaseUpEvent(Socket& socket);
+    static void sendReleaseUpEvent(Socket& socket, Logger& logger);
 
-    static void sendPressDownEvent(Socket& socket);
+    static void sendPressDownEvent(Socket& socket, Logger& logger);
 
-    static void sendReleaseDownEvent(Socket& socket);
+    static void sendReleaseDownEvent(Socket& socket, Logger& logger);
 
-    static void sendPressLeftEvent(Socket& socket);
+    static void sendPressLeftEvent(Socket& socket, Logger& logger);
 
-    static void sendReleaseLeftEvent(Socket& socket);
+    static void sendReleaseLeftEvent(Socket& socket, Logger& logger);
 
-    static void sendPressRightEvent(Socket& socket);
+    static void sendPressRightEvent(Socket& socket, Logger& logger);
 
-    static void sendReleaseRightEvent(Socket& socket);
+    static void sendReleaseRightEvent(Socket& socket, Logger& logger);
 
-    static void sendPressJumpEvent(Socket& socket);
+    static void sendPressJumpEvent(Socket& socket, Logger& logger);
 
-    static void sendReleaseJumpEvent(Socket& socket);
+    static void sendReleaseJumpEvent(Socket& socket, Logger& logger);
 };
 
 #endif //INPUTPROTOCOL_H
