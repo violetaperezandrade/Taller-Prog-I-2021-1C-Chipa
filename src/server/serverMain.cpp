@@ -4,11 +4,14 @@
 #include "../common/Config.h"
 
 int main(int argc, char** argv){
-    char ip[10] = "127.0.0.1";
-    Logger logger(argv[4]);
-    Config config(argv[3], logger);
+    char host[10] = "localhost";
+    char port[5] = "8080";
+    char loggerPath[17] = "../logServer.txt";
+    char configPath[13] = "../data.json";
+    Logger logger(loggerPath);
+    Config config(configPath, logger);
     logger.setLevel(config.getDebug());
-    Server sv(ip, argv[1],atoi(config.getPlayersAmount()), config, logger);
+    Server sv(host, port,config.getPlayersAmount(), config, logger);
     sv.run();
     return 0;
 }

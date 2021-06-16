@@ -10,7 +10,7 @@ using json = nlohmann::json;
 
 Config::Config(char* str, Logger& logger) : logger(logger) {
     Json::Value actualJson;
-    std::ifstream readFile("../src/common/data.json");
+    std::ifstream readFile(str);
     bool valid = true;
     if (readFile) {
         try {
