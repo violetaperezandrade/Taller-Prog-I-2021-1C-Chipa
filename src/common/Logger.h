@@ -3,12 +3,14 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <mutex>
 
 class Logger {
 private:
     std::string path;
     std::ofstream file;
     int logLvl;
+    std::mutex m;
 public:
     Logger(std::string path);
 
