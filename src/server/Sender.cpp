@@ -18,7 +18,11 @@ void Sender::stop(){
 void Sender::run() {
     while(keepRunning) {
         std::pair<char *, int> msg = outgoing.pop();
-        peer.send(std::get<0>(msg), std::get<1>(msg), logger);
+        if(peer.send(std::get<0>(msg), std::get<1>(msg), logger) <= 0){
+            logger.errorMsg("Sending error", __FILE__, __LINE__);
+            stop();
+            break;
+        }
         logger.debugMsg("Sender send", __FILE__, __LINE__);
     }
 }

@@ -18,7 +18,11 @@ void Receiver::stop(){
 void Receiver::run(){
     while(keepRunning) {
         char c[1] = "";
-        peer.receive(c, 1, logger);
+        if(peer.receive(c, 1, logger) <= 0){
+            logger.errorMsg("End of receiving", __FILE__, __LINE__);
+            stop();
+            break;
+        }
         incoming.push(c[0]);
         logger.debugMsg("Incoming push", __FILE__, __LINE__);
     }

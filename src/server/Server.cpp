@@ -91,7 +91,7 @@ void Server::acceptClients(){
         Socket clientSkt = std::move(sktListener.accept(logger));
         Peer* client = new Peer(std::move(clientSkt), logger);
         clients.push_back(client);
-        LoginManager* login = new LoginManager(client, config, clientSkt, logger); //Necesita toodo esto?
+        LoginManager* login = new LoginManager(client, config, clientSkt, logger);
         login->start();
         logins.push_back(login);
     }
