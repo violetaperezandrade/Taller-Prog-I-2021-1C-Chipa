@@ -55,7 +55,7 @@ SDL_Texture* Login::loadImageTexture(std::string path, SDL_Renderer* renderer){
         }
         SDL_FreeSurface(imageSurface);
     }
-    logger.debugMsg("Textura creada correctamente",__FILE__,__LINE__);
+    //logger.debugMsg("Textura creada correctamente",__FILE__,__LINE__);
     return finalTexture;
 }
 
