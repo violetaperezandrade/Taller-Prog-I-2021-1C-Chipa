@@ -29,7 +29,7 @@ void Socket::getaddrinfo(struct addrinfo **addr_list,
     if (status != 0) {
         freeaddrinfo(*addr_list);
         std::string str(strerror(errno));
-        //logger.debugMsg("Getaddrinfo error: " + str, __FILE__, __LINE__);
+        logger.debugMsg("Getaddrinfo error: " + str, __FILE__, __LINE__);
     }
 }
 
