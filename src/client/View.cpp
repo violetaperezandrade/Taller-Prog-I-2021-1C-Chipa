@@ -41,7 +41,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), co
                 }},
             {4, {//green
                         {'1', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_right.png", windowRenderer)},
-                        {'2', loadImageTexture("../src/clientimg/Sprites-Mario/green/mario_jump_left.png", windowRenderer)},
+                        {'2', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_left.png", windowRenderer)},
                         {'6', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_right.png", windowRenderer)},
                         {'7', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_left.png", windowRenderer)},
                         {'8', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_climbing.png", windowRenderer)},
