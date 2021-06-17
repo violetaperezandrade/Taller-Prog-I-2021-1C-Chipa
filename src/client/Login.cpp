@@ -207,9 +207,17 @@ int Login::runLoginWindow(char* ip, char* port) {
 
             if(canWrite){
                 if(e.type == SDL_KEYDOWN){
-                    if(e.key.keysym.sym == SDLK_BACKSPACE && (inputTextUser.length() > 0 && inputTextPsw.length() > 0)){
-                        if(renderPass) inputTextPsw.pop_back();
-                        else inputTextUser.pop_back();
+                    if(e.key.keysym.sym == SDLK_BACKSPACE){
+                        if(renderPass){
+                            if(!inputTextPsw.empty()){
+                                inputTextPsw.pop_back();
+                            }
+                        }
+                        else{
+                            if(!inputTextUser.empty()){
+                                inputTextUser.pop_back();
+                            }
+                        }
                         renderText = true;
                     }
                     //copy paste
