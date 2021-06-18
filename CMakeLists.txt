@@ -18,6 +18,7 @@ add_executable(Client
         src/client/Monitor.cpp
         src/client/Processor.cpp
         src/client/View.cpp
+        src/common/protocols/EntityInfo.cpp
         src/common/protocols/EntityProtocol.cpp
         src/common/protocols/InputProtocol.cpp
         src/common/Config.cpp
@@ -29,6 +30,7 @@ target_link_libraries(Client jsoncpp SDL2 SDL2_image SDL2_ttf nlohmann_json::nlo
 
 add_executable(Server
         src/client/Monitor.cpp
+        src/common/protocols/EntityInfo.cpp
         src/common/protocols/EntityProtocol.cpp
         src/common/protocols/InputProtocol.cpp
         src/common/Config.cpp
