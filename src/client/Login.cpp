@@ -207,9 +207,17 @@ int Login::runLoginWindow(char* ip, char* port) {
 
             if(canWrite){
                 if(e.type == SDL_KEYDOWN){
-                    if(e.key.keysym.sym == SDLK_BACKSPACE && (inputTextUser.length() > 0 || inputTextPsw.length() > 0)){
-                        if(renderPass) inputTextPsw.pop_back();
-                        else inputTextUser.pop_back();
+                    if(e.key.keysym.sym == SDLK_BACKSPACE){
+                        if(renderPass){
+                            if(!inputTextPsw.empty()){
+                                inputTextPsw.pop_back();
+                            }
+                        }
+                        else{
+                            if(!inputTextUser.empty()){
+                                inputTextUser.pop_back();
+                            }
+                        }
                         renderText = true;
                     }
                     //copy paste
@@ -247,9 +255,9 @@ int Login::runLoginWindow(char* ip, char* port) {
                             break;
                         case SDL_MOUSEBUTTONDOWN:
                             playButton = loadImageTexture("../src/client/img/Login/playClick.png",windowRendererLogin);
-                            sktLogin.send(inputTextUser.append(30-inputTextUser.length(),'\0').c_str(), 30,logger);
+                            sktLogin.send(inputTextUser.c_str(), 30,logger);
                             logger.infoMsg("Se envia usuario",__FILE__,__LINE__);
-                            sktLogin.send(inputTextPsw.append(30-inputTextPsw.length(),'\0').c_str(), 30,logger);
+                            sktLogin.send(inputTextPsw.c_str(), 30,logger);
                             logger.infoMsg("Se envia contraseña",__FILE__,__LINE__);
                             char succesLogin[1];
                             logger.infoMsg("Se espera verificacion",__FILE__,__LINE__);

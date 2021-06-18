@@ -15,7 +15,7 @@ private:
     bool notified = false;
     Logger& logger;
 public:
-    Monitor(Logger& logger);
+    explicit Monitor(Logger& logger);
 
     ~Monitor();
 
