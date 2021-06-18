@@ -107,6 +107,10 @@ void Login::closeSDL() {
 
     TTF_CloseFont(globalFont);
     globalFont = NULL;
+    SDL_DestroyRenderer(windowRendererLogin );
+    windowRendererLogin = NULL;
+    SDL_DestroyWindow( windowLogin );
+    windowLogin = NULL;
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
