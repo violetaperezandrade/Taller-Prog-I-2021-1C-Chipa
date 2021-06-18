@@ -40,6 +40,7 @@ void Client::run(){
     processor->start();
 
     View view(monitor, logger, config);
+    view.run();
 
     input->stop();
     processor->stop();
