@@ -38,13 +38,17 @@ void Server::sendAll(){
     std::vector<Entity>& entities = game.getEntities();
     std::vector<Character>& characters = game.getCharacters();
 
-    for(int i = 0; i < playersAmount; i++){
-        for(int j = 0; j < entities.size(); j++){
+    for(int j = 0; j < entities.size(); j++){
+        for(int i = 0; i < playersAmount; i++) {
             clients[i]->send(entities[j]);
         }
-        for(int j = 0; j < characters.size(); j++){
+    }
+    for(int j = 0; j < characters.size(); j++){
+        for(int i = 0; i < playersAmount; i++) {
             clients[i]->send(characters[j]);
         }
+    }
+    for(int i = 0; i < playersAmount; i++){
         clients[i]->sendBreak();
     }
 }
@@ -54,16 +58,20 @@ void Server::sendNew(){
     std::vector<Entity>& entities = game.getEntities();
     std::vector<Character>& characters = game.getCharacters();
 
-    for(int i = 0; i < playersAmount; i++){
-        for(int j = 0; j < entities.size(); j++){
+    for(int j = 0; j < entities.size(); j++){
+        for(int i = 0; i < playersAmount; i++) {
             char c = entities[j].getPermanency();
             if(c == '0'){
                 clients[i]->send(entities[j]);
             }
         }
-        for(int j = 0; j < characters.size(); i++){
-            clients[i]->send(characters[i]);
+    }
+    for(int j = 0; j < characters.size(); j++){
+        for(int i = 0; i < playersAmount; i++) {
+            clients[i]->send(characters[j]);
         }
+    }
+    for(int i = 0; i < playersAmount; i++){
         clients[i]->sendBreak();
     }
 }
