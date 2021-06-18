@@ -5,7 +5,7 @@ Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger) : monitor
 
 void Processor::readEntities() {
     while(keepRunning) {
-        EntityProtocol::readEntities(socket, monitor, logger);
+        EntityProtocol::readEntities(socket, monitor, logger); //llena el monitor con mensaje en bloque
         monitor.notify();
     }
 }

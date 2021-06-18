@@ -99,6 +99,7 @@ int Socket::listen(int maxQueueLen, Logger& logger){
 
 Socket Socket::accept(Logger& logger){
     int newFileDescriptor = ::accept(fileDescriptor,NULL,NULL);
+    std::cerr << "llamando accept: " << newFileDescriptor << std::endl;
     if(newFileDescriptor < 0) {
         std::string str(strerror(errno));
         logger.errorMsg("Accept error: " + str, __FILE__, __LINE__);
@@ -111,6 +112,9 @@ int Socket::send(const char* buf, size_t len, Logger& logger){
     int bytesSent = 0;
     for(; bytesSent < len;){
         bytesSent = ::send(fileDescriptor,&(buf[totalBytesSent]),len - totalBytesSent,MSG_NOSIGNAL);
+        std::string buff(buf);
+        std::string br = std::to_string(bytesSent);
+        logger.superDebugMsg("Send: " + buff + ";bytes sent: " + br , __FILE__, __LINE__);
         if(bytesSent < 0) {
             std::string str(strerror(errno));
             logger.errorMsg("Send error: " + str, __FILE__, __LINE__);
@@ -127,6 +131,9 @@ int Socket::receive(char* buf, size_t len, Logger& logger){
     int bytesRcvd = 0;
     while(bytesRcvd < len){
         bytesRcvd = recv(fileDescriptor,&(buf[totalBytesRcvd]),len - totalBytesRcvd,0);
+        std::string buff(buf);
+        std::string br = std::to_string(bytesRcvd);
+        logger.superDebugMsg("Receive: " + buff + ";bytes recv: " + br , __FILE__, __LINE__);
         if(bytesRcvd < 0){
             std::string str(strerror(errno));
             logger.errorMsg("Receive error: " + str, __FILE__, __LINE__);
@@ -169,6 +176,7 @@ void Socket::close(){
 }
 
 Socket::~Socket(){
+    std::cerr << "calling socket destructor with socket" << fileDescriptor << std::endl;
     if (fileDescriptor == -1){
         return;
     }
