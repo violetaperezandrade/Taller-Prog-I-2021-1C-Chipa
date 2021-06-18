@@ -1,7 +1,7 @@
 #include "View.h"
 #include <iostream>
 
-View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), config(config), monitor(monitor),keepRuning(true),playerID(0){
+View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), config(config), monitor(monitor),playerID(0),keepRuning(true){
     if (initSDL() < 0){
         logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
     }
