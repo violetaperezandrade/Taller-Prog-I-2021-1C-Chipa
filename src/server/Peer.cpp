@@ -6,7 +6,7 @@ Peer::Peer(Socket &&peerSkt, Logger& logger) :
     logger(logger),
     incoming(),
     outgoing(logger),
-    sender(new Sender(outgoing, peerSkt, logger)),
+    sender(new Sender(outgoing, peer, logger)),
     receiver(new Receiver(incoming, peer, logger))
 {
     std::cerr << "construyendo el peer"<< std::endl;
