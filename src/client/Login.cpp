@@ -110,6 +110,7 @@ void Login::closeSDL() {
     SDL_DestroyRenderer(windowRendererLogin );
     windowRendererLogin = NULL;
     SDL_DestroyWindow( windowLogin );
+    SDL_ClearError();
     windowLogin = NULL;
     TTF_Quit();
     IMG_Quit();
