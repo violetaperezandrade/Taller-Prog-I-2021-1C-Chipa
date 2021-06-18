@@ -42,7 +42,7 @@ void Server::sendAll(){
         for(int j = 0; j < entities.size(); j++){
             clients[i]->send(entities[j]);
         }
-        for(int j = 0; j < characters.size(); i++){
+        for(int j = 0; j < characters.size(); j++){
             clients[i]->send(characters[j]);
         }
         clients[i]->sendBreak();

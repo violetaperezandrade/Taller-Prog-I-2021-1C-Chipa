@@ -35,7 +35,6 @@ public:
             logger.debugMsg("Queue empty waiting for pushing" , __FILE__, __LINE__);
             condition_variable.wait(lock);
         }
-        logger.debugMsg("Blocking queue pop" , __FILE__, __LINE__);
         EntityInfo info = std::move(queue.front());
         queue.pop();
         return info;

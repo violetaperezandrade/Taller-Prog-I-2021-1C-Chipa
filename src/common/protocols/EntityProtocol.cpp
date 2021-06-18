@@ -5,7 +5,7 @@
 #define MSG_LEN 11
 
 void EntityProtocol::sendEntity(BlockingQueue& queue,
-                                Entity entity) {
+                                Entity& entity) {
     EntityInfo info(entity.getType(), entity.getPosX(), entity.getPosY(),
                entity.getWidth(), entity.getHeight(), entity.getState(),
                entity.getPermanency());
