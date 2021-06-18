@@ -7,7 +7,11 @@ Monitor::~Monitor() {}
 void Monitor::addEntity(Entity& e){
     std::unique_lock<std::mutex> lock(mtx);
     entities.push_back(e);
-    logger.debugMsg("Se agrega entidad al container",__FILE__,__LINE__);
+    char c = e.getType();
+    std::string s("Se agrega al container una entidad de tipo: ");
+    s += c;
+    logger.debugMsg(s, __FILE__, __LINE__);
+    //logger.debugMsg("Se agrega entidad al container",__FILE__,__LINE__);
 }
 
 std::vector<Entity> Monitor::getEntities(){
