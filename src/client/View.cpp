@@ -238,7 +238,7 @@ int View::run() {
         std::vector<Entity>::iterator it = entityVector.begin();
         while (it != entityVector.end()) {
             char type = it->getType();
-            if (type == 'c') {
+            if (type == 'C') {
                 playerID++;
             }
             int posX = it->getPosX();
