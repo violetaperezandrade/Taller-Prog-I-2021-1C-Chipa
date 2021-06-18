@@ -5,7 +5,10 @@ Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger) : monitor
 
 void Processor::readEntities() {
     while(keepRunning) {
-        EntityProtocol::readEntities(socket, monitor, logger); //llena el monitor con mensaje en bloque
+        if(EntityProtocol::readEntities(socket, monitor, logger) == 1){//llena el monitor con mensaje en bloque
+            stop();
+            return;
+        }
         monitor.notify();
     }
 }

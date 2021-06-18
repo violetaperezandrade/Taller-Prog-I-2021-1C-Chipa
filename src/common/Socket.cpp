@@ -112,7 +112,7 @@ int Socket::send(const char* buf, size_t len, Logger& logger){
     int bytesSent = 0;
     for(; bytesSent < len;){
         bytesSent = ::send(fileDescriptor,&(buf[totalBytesSent]),len - totalBytesSent,MSG_NOSIGNAL);
-        std::string buff(buf);
+        std::string buff(buf,len);
         std::string br = std::to_string(bytesSent);
         logger.superDebugMsg("Send: " + buff + ";bytes sent: " + br , __FILE__, __LINE__);
         if(bytesSent < 0) {
@@ -131,7 +131,7 @@ int Socket::receive(char* buf, size_t len, Logger& logger){
     int bytesRcvd = 0;
     while(bytesRcvd < len){
         bytesRcvd = recv(fileDescriptor,&(buf[totalBytesRcvd]),len - totalBytesRcvd,0);
-        std::string buff(buf);
+        std::string buff(buf,len);
         std::string br = std::to_string(bytesRcvd);
         logger.superDebugMsg("Receive: " + buff + ";bytes recv: " + br , __FILE__, __LINE__);
         if(bytesRcvd < 0){
