@@ -108,6 +108,7 @@ void View::closeSDL() {
     SDL_DestroyRenderer(windowRenderer );
     windowRenderer = NULL;
     SDL_DestroyWindow(window);
+    SDL_ClearError();
     window = NULL;
     TTF_Quit();
     IMG_Quit();
