@@ -105,7 +105,10 @@ bool View::initSDL() {
 }
 
 void View::closeSDL() {
-
+    SDL_DestroyRenderer(windowRenderer );
+    windowRenderer = NULL;
+    SDL_DestroyWindow(window);
+    window = NULL;
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
