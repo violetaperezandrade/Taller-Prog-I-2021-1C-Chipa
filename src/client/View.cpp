@@ -245,6 +245,7 @@ int View::run() {
             char state = it->getState();
             logger.debugMsg("Renderizo una entidad",__FILE__,__LINE__);
             render(posX, posY, width, height, state, type);
+            ++it;
         }
         logger.debugMsg("Fin de iteracion sobre vector de entidades",__FILE__,__LINE__);
         SDL_RenderPresent(windowRenderer);
