@@ -8,8 +8,6 @@
 
 class EntityProtocol {
 private:
-    static void writeChar(char* ptr, char num);
-    static void writeInt(char* ptr, int num);
     static int getInt(char* ptr);
 public:
     static void sendEntity(BlockingQueue& queue, Entity entity);

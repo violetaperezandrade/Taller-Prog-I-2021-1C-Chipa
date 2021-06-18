@@ -1,5 +1,7 @@
 #include "Sender.h"
 
+#include "../common/protocols/EntityInfo.h"
+
 Sender::Sender(BlockingQueue& queue, Socket& peerSkt, Logger& logger) :
     outgoing(queue),
     peer(peerSkt),
@@ -17,8 +19,8 @@ void Sender::stop(){
 
 void Sender::run() {
     while(keepRunning) {
-        std::pair<char *, int> msg = outgoing.pop();
-        if(peer.send(std::get<0>(msg), std::get<1>(msg), logger) <= 0){
+        EntityInfo info = outgoing.pop();
+        if(peer.send(info.getPtr(), info.getLen(), logger) <= 0){
             logger.errorMsg("Sending error", __FILE__, __LINE__);
             stop();
             break;

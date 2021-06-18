@@ -6,11 +6,12 @@
 #include <queue>
 
 #include "Logger.h"
+#include "protocols/EntityInfo.h"
 
 //podría ser un template
 class BlockingQueue {
 private:
-    std::queue<std::pair<char*,int>> queue;
+    std::queue<EntityInfo> queue;
     std::mutex m;
     std::condition_variable condition_variable;
     Logger& logger;
@@ -20,14 +21,14 @@ public:
 
     ~BlockingQueue() {}
 
-    void push(std::pair<char*,int> t) {
+    void push(EntityInfo info) {
         std::unique_lock<std::mutex> lock(m);
-        queue.push(std::move(t));
+        queue.push(std::move(info));
         condition_variable.notify_all();
         logger.debugMsg("Blocking queue push and notify all" , __FILE__, __LINE__);
     }
 
-    std::pair<char*,int> pop() {
+    EntityInfo pop() {
         std::unique_lock<std::mutex> lock(m);
         logger.debugMsg("Blocking queue pop" , __FILE__, __LINE__);
         while(queue.empty()){
@@ -35,9 +36,9 @@ public:
             condition_variable.wait(lock);
         }
         logger.debugMsg("Blocking queue pop" , __FILE__, __LINE__);
-        std::pair<char*,int> t = std::move(queue.front());
+        EntityInfo info = std::move(queue.front());
         queue.pop();
-        return t;
+        return info;
     }
 
     bool empty(){

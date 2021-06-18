@@ -4,38 +4,17 @@
 
 #define MSG_LEN 11
 
-void EntityProtocol::writeChar(char* ptr, char num){
-    ptr[0] = num;
-}
-
-void EntityProtocol::writeInt(char* ptr, int num){
-    ptr[0] = (num >> 8) & 0xFF; // second to last byte
-    ptr[1] = num & 0xFF; // last byte
-}
-
 void EntityProtocol::sendEntity(BlockingQueue& queue,
                                 Entity entity) {
-    char ptr[MSG_LEN];
-    writeChar(ptr, entity.getType());
-    writeInt(ptr+1, entity.getPosX());
-    writeInt(ptr+3, entity.getPosY());
-    writeInt(ptr+5, entity.getWidth());
-    writeInt(ptr+7, entity.getHeight());
-    writeChar(ptr+9, entity.getState());
-    writeChar(ptr+10, entity.getPermanency());
-
-    std::pair<char*, int> pair(ptr, MSG_LEN);
-    queue.push(pair);
+    EntityInfo info(entity.getType(), entity.getPosX(), entity.getPosY(),
+               entity.getWidth(), entity.getHeight(), entity.getState(),
+               entity.getPermanency());
+    queue.push(info);
 }
 
 void EntityProtocol::sendBreak(BlockingQueue& queue) {
-    char ptr[MSG_LEN];
-    for(int i = 0; i < MSG_LEN; i++){
-        ptr[i] = -1;
-    }
-
-    std::pair<char*, int> pair(ptr, MSG_LEN);
-    queue.push(pair);
+    EntityInfo info;
+    queue.push(info);
 }
 
 int EntityProtocol::getInt(char* ptr){
