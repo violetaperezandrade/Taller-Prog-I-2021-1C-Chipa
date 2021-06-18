@@ -122,7 +122,7 @@ void Login::closeSDL() {
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
-    logger.debugMsg("Cerrar SDL", __FILE__, __LINE__);
+    logger.debugMsg("Cerrar SDL y destruccion objetos", __FILE__, __LINE__);
 }
 
 void Login::renderLogin(int x, int y, int width, int height, SDL_Texture *texture, SDL_Renderer *windowRenderer) {
@@ -338,6 +338,7 @@ int Login::runLoginWindow(char* ip, char* port) {
     free(inputTextTexturePsw.texture);
     free(playButtonText.texture);
     free(loginError.texture);
+    logger.debugMsg("Se destruyen texturas",__FILE__,__LINE__);
     closeSDL();
     return 0;
 }

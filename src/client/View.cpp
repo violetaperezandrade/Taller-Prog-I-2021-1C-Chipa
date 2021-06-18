@@ -66,31 +66,6 @@ View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), co
     defaultConfig = loadImageTexture("../src/client/img/default.png", windowRenderer);
 }
 
-SDL_Renderer* View::createRenderer(SDL_Window* window) {
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
-    if(!renderer) {
-        logger.errorMsg("Error al inicializar SDL_Renderer", __FILE__, __LINE__);
-    }
-    else{
-        SDL_SetRenderDrawColor(renderer,0,0,0,255);
-        SDL_RenderClear(renderer);
-        SDL_RenderPresent(renderer);
-        logger.infoMsg("SDL_Renderer Inicializado", __FILE__, __LINE__);
-    }
-    return renderer;
-}
-
-SDL_Window* View::createWindow(const char* title,int width, int height){
-    SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
-    if(!window) {
-        logger.errorMsg("Error al inicializar SDL_Window", __FILE__, __LINE__);
-    }
-    else{
-        logger.infoMsg("SDL_Window Inicializado", __FILE__, __LINE__);
-    }
-    return window;
-}
-
 bool View::initSDL() {
 
     bool error = false;
@@ -104,16 +79,30 @@ bool View::initSDL() {
     return error;
 }
 
-void View::closeSDL() {
-    SDL_DestroyRenderer(windowRenderer );
-    windowRenderer = NULL;
-    SDL_DestroyWindow(window);
-    SDL_ClearError();
-    window = NULL;
-    TTF_Quit();
-    IMG_Quit();
-    SDL_Quit();
-    logger.infoMsg("Cerrar SDL", __FILE__, __LINE__);
+SDL_Window* View::createWindow(const char* title,int width, int height){
+    SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+    if(!window) {
+        logger.errorMsg("Error al inicializar SDL_Window", __FILE__, __LINE__);
+    }
+    else{
+        logger.infoMsg("SDL_Window Inicializado", __FILE__, __LINE__);
+    }
+    logger.debugMsg("Ventana creada",__FILE__,__LINE__);
+    return window;
+}
+
+SDL_Renderer* View::createRenderer(SDL_Window* window) {
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
+    if(!renderer) {
+        logger.errorMsg("Error al inicializar SDL_Renderer", __FILE__, __LINE__);
+    }
+    else{
+        SDL_SetRenderDrawColor(renderer,0,0,0,255);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
+    }
+    logger.debugMsg("SDL_Renderer Inicializado", __FILE__, __LINE__);
+    return renderer;
 }
 
 void View::changeLevel(){
@@ -158,6 +147,8 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Point *center = NULL;
     SDL_RendererFlip flip = SDL_FLIP_NONE;
     SDL_Texture *textureEntity;
+    std::string c = std::to_string(entityType);
+    logger.debugMsg("Renderizar entidad de tipo: "+c,__FILE__,__LINE__);
     switch (entityType) {
         case 'C': //mario
             textureEntity = texturesMario[playerID][stateEntity];
@@ -239,6 +230,8 @@ int View::run() {
     renderFilledQuad();
     while(keepRuning) {
         std::vector<Entity> entityVector = monitor.getEntities();
+        std::string len = std::to_string(entityVector.size());
+        logger.debugMsg("Obtengo el vector de entities con longitud: "+len,__FILE__,__LINE__);
         std::vector<Entity>::iterator it = entityVector.begin();
         while (it != entityVector.end()) {
             char type = it->getType();
@@ -250,12 +243,26 @@ int View::run() {
             int width = it->getWidth();
             int height = it->getHeight();
             char state = it->getState();
+            logger.debugMsg("Renderizo una entidad",__FILE__,__LINE__);
             render(posX, posY, width, height, state, type);
         }
+        logger.debugMsg("Fin de iteracion sobre vector de entidades",__FILE__,__LINE__);
         SDL_RenderPresent(windowRenderer);
         SDL_RenderClear(windowRenderer);
     }
     return 0;
+}
+
+void View::closeSDL() {
+    SDL_DestroyRenderer(windowRenderer );
+    windowRenderer = NULL;
+    SDL_DestroyWindow(window);
+    SDL_ClearError();
+    window = NULL;
+    TTF_Quit();
+    IMG_Quit();
+    SDL_Quit();
+    logger.infoMsg("Cerrar SDL", __FILE__, __LINE__);
 }
 
 View::~View(){
