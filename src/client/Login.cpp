@@ -103,13 +103,20 @@ bool Login::initSDL() {
     return error;
 }
 
+void Login::free(SDL_Texture* texture){
+    if(texture){
+        SDL_DestroyTexture(texture);
+        texture = NULL;
+    }
+}
+
 void Login::closeSDL() {
 
     TTF_CloseFont(globalFont);
     globalFont = NULL;
-    SDL_DestroyRenderer(windowRendererLogin );
+    SDL_DestroyRenderer(windowRendererLogin);
     windowRendererLogin = NULL;
-    SDL_DestroyWindow( windowLogin );
+    SDL_DestroyWindow(windowLogin);
     SDL_ClearError();
     windowLogin = NULL;
     TTF_Quit();
@@ -155,6 +162,8 @@ int Login::runLoginWindow(char* ip, char* port) {
         SDL_RenderPresent(windowRendererLogin);
         SDL_Delay(3000);
         logger.errorMsg("No se pudo conectar al servidor",__FILE__,__LINE__);
+        free(connError.texture);
+        free(warning);
         return -1;
     }
     logger.debugMsg("Conexion al servidor satisfactoria",__FILE__,__LINE__);
@@ -320,6 +329,15 @@ int Login::runLoginWindow(char* ip, char* port) {
         SDL_RenderPresent(windowRendererLogin);
     }
     SDL_StopTextInput();
+    free(textbox);
+    free(playButton);
+    free(monkey);
+    free(prompTexturePsw.texture);
+    free(prompTextureUsr.texture);
+    free(inputTextTextureUser.texture);
+    free(inputTextTexturePsw.texture);
+    free(playButtonText.texture);
+    free(loginError.texture);
     closeSDL();
     return 0;
 }

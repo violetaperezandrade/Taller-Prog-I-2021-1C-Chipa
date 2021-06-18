@@ -36,6 +36,7 @@ public:
                                       SDL_Renderer* renderer, TTF_Font* font);
     bool mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event* e);
     int runLoginWindow(char* ip, char* port);
+    void free(SDL_Texture* texture);
     Login(Logger& logger,Socket& skt);
     ~Login();
 };
