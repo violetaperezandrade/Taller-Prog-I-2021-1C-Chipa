@@ -19,7 +19,7 @@ Entity::Entity(char type, int posX, int posY,
     height(height),
     speedX(speedX),
     speedY(speedY),
-    permanency()
+    permanency(permanency)
 {}
 
 void Entity::setPosY(int i){

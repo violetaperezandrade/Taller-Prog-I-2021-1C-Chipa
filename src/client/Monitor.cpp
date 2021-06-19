@@ -7,11 +7,10 @@ Monitor::~Monitor() {}
 void Monitor::addEntity(Entity& e){
     std::unique_lock<std::mutex> lock(mtx);
     entities.push_back(e);
-    char c = e.getType();
+    /*char c = e.getType();
     std::string s("Se agrega al container una entidad de tipo: ");
     s += c;
-    logger.debugMsg(s, __FILE__, __LINE__);
-    //logger.debugMsg("Se agrega entidad al container",__FILE__,__LINE__);
+    logger.debugMsg(s, __FILE__, __LINE__);*/
 }
 
 std::vector<Entity> Monitor::getEntities(){
@@ -27,7 +26,7 @@ std::vector<Entity> Monitor::getEntities(){
 void Monitor::cleanPermanent(){
     const std::lock_guard<std::mutex> lock(mtx);
     for (int i = 0; i < entities.size(); i++){
-        if (entities[i].getPermanency() == 1){ //es permanente
+        if (entities[i].getPermanency() == 'P'){ //es permanente
             entities.erase(entities.begin() + i);
             i--;
         }
@@ -38,7 +37,7 @@ void Monitor::cleanPermanent(){
 void Monitor::cleanTemporary(){
     const std::lock_guard<std::mutex> lock(mtx);
     for (int i = 0; i < entities.size(); i++){
-        if (entities[i].getPermanency() == 0){ //es temporal
+        if (entities[i].getPermanency() == 'T'){ //es temporal
             entities.erase(entities.begin() + i);
             i--;
         }

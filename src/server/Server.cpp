@@ -61,7 +61,8 @@ void Server::sendNew(){
     for(int j = 0; j < entities.size(); j++){
         for(int i = 0; i < playersAmount; i++) {
             char c = entities[j].getPermanency();
-            if(c == '0'){
+            std::cout << "The permanency is: " << (int)c << std::endl;
+            if(c == 'T'){
                 clients[i]->send(entities[j]);
             }
         }
@@ -87,7 +88,7 @@ void Server::startGame(){
     logger.infoMsg("Game starts", __FILE__, __LINE__);
     startClients();
     sendAll();
-    std::chrono::milliseconds frameTime(60);
+    std::chrono::milliseconds frameTime(30);
 
     bool finish = false;
     while(!finish) {

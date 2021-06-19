@@ -37,18 +37,19 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& log
             return 1;
         }
         if(buff[MSG_LEN - 1] == -1){
+            logger.debugMsg("Processor read break", __FILE__, __LINE__);
             keepGoing = false;
             continue;
-        } else if(!gotPermanent && buff[MSG_LEN - 1] == 1) {
-            container.cleanPermanent();
+        } else if(!gotPermanent && buff[MSG_LEN - 1] == 80) { //80 == P = Permanent
+            container.cleanPermanent();                    // only when changing level or initial game
             gotPermanent = true;
         }
         Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5),
-                      getInt(buff+7), 0, 0, buff[9]);
+                      getInt(buff+7), 0, 0, buff[10]);
 
         container.addEntity(entity);
     }
 
-    logger.debugMsg("Processor read break", __FILE__, __LINE__);
+    logger.debugMsg("End of reading", __FILE__, __LINE__);
     return 0;
 }
