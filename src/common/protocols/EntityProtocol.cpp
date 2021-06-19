@@ -37,6 +37,7 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& log
             return 1;
         }
         if(buff[MSG_LEN - 1] == -1){
+            logger.debugMsg("Processor read break", __FILE__, __LINE__);
             keepGoing = false;
             continue;
         } else if(!gotPermanent && buff[MSG_LEN - 1] == 1) {
@@ -49,6 +50,6 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& log
         container.addEntity(entity);
     }
 
-    logger.debugMsg("Processor read break", __FILE__, __LINE__);
+    logger.debugMsg("End of reading", __FILE__, __LINE__);
     return 0;
 }

@@ -147,8 +147,9 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Point *center = NULL;
     SDL_RendererFlip flip = SDL_FLIP_NONE;
     SDL_Texture *textureEntity;
-    std::string c = std::to_string(entityType);
-    logger.debugMsg("Renderizar entidad de tipo: "+c,__FILE__,__LINE__);
+    std::string c("Renderizar entidad de tipo: ");
+    c.append(&entityType);
+    logger.debugMsg(c,__FILE__,__LINE__);
     switch (entityType) {
         case 'C': //mario
             textureEntity = texturesMario[playerID][stateEntity];
@@ -231,7 +232,7 @@ int View::run() {
     while(keepRuning) {
         std::vector<Entity> entityVector = monitor.getEntities();
         std::string len = std::to_string(entityVector.size());
-        logger.debugMsg("Obtengo el vector de entities con longitud: "+len,__FILE__,__LINE__);
+        logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
         std::vector<Entity>::iterator it = entityVector.begin();
         while (it != entityVector.end()) {
             char type = it->getType();
