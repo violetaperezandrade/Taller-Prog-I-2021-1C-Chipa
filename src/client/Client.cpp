@@ -29,9 +29,10 @@ void Client::run(){
         return;
     }
 
-    Input* input = new Input(skt,logger);
 
     Monitor monitor(logger);
+    View view(monitor, logger, config);
+    Input* input = new Input(skt,logger, view.getWindow());
     Processor* processor = new Processor(monitor, skt,logger);
 
     logger.debugMsg("Se lanza thread INPUT",__FILE__,__LINE__);
@@ -39,7 +40,6 @@ void Client::run(){
     input->start();
     processor->start();
 
-    View view(monitor, logger, config);
     view.run();
 
     input->stop();

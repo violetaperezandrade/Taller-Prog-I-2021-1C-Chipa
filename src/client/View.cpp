@@ -254,8 +254,12 @@ int View::run() {
     return 0;
 }
 
+SDL_Window* View::getWindow() {
+    return this->window;
+}
+
 void View::closeSDL() {
-    SDL_DestroyRenderer(windowRenderer );
+    SDL_DestroyRenderer(windowRenderer);
     windowRenderer = NULL;
     SDL_DestroyWindow(window);
     SDL_ClearError();

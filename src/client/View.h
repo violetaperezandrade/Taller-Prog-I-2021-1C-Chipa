@@ -51,6 +51,8 @@ public:
 
     int run();
 
+    SDL_Window* getWindow();
+
 };
 
 #endif //VIEW_H

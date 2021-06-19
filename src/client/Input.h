@@ -4,14 +4,17 @@
 #include "../common/Socket.h"
 #include "../common/Thread.h"
 #include "../common/Logger.h"
+#include "View.h"
+
 
 class Input : public Thread {
 private:
     Socket& socket;
     bool quit;
     Logger& logger;
+    SDL_Window* window;
 public:
-    Input(Socket& socket, Logger& logger);
+    Input(Socket& socket, Logger& logger, SDL_Window* window);
 
     ~Input();
 

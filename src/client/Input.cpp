@@ -1,13 +1,17 @@
 #include "Input.h"
 #include "../common/protocols/InputProtocol.h"
 
-Input::Input(Socket& socket, Logger& logger) : socket(socket), quit(false), logger(logger){}
+Input::Input(Socket& socket, Logger& logger, SDL_Window* window) : socket(socket), quit(false), logger(logger), window(window){}
 
 void Input::run() {
     SDL_Event e;
     while(!quit){
         while(SDL_WaitEvent(&e) != 0){
-            if(e.type == SDL_QUIT) quit = true;
+            if(e.type == SDL_QUIT) {
+                logger.debugMsg("Se cierra la ventana desde el input", __FILE__, __LINE__);
+                SDL_DestroyWindow(window);
+                quit = true;
+            }
             if(e.type == SDL_KEYDOWN && e.key.repeat == 0){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
@@ -52,12 +56,12 @@ void Input::run() {
             }
         }
     }
-    //stop();
 }
 
 void Input::stop(){
     quit = true;
-    this->socket.shutdownWrite(logger);
+    this->socket.shutdown(logger);
+    //this->socket.shutdownWrite(logger);
 }
 
 Input::~Input(){}
