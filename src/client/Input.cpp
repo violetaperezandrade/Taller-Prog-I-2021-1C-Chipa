@@ -52,7 +52,7 @@ void Input::run() {
             }
         }
     }
-    this->socket.shutdown(logger);
+    stop();
 
 }
 
@@ -61,4 +61,4 @@ void Input::stop(){
     this->socket.shutdownWrite(logger);
 }
 
-Input::~Input()= default;
+Input::~Input(){}

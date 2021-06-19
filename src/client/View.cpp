@@ -232,6 +232,7 @@ int View::run() {
         std::vector<Entity> entityVector = monitor.getEntities();
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: "+len,__FILE__,__LINE__);
+        SDL_RenderClear(windowRenderer);
         std::vector<Entity>::iterator it = entityVector.begin();
         while (it != entityVector.end()) {
             char type = it->getType();
@@ -249,7 +250,6 @@ int View::run() {
         }
         logger.debugMsg("Fin de iteracion sobre vector de entidades",__FILE__,__LINE__);
         SDL_RenderPresent(windowRenderer);
-        SDL_RenderClear(windowRenderer);
     }
     return 0;
 }
