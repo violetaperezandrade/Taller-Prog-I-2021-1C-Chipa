@@ -26,7 +26,7 @@ int EntityProtocol::getInt(char* ptr){
 int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& logger) {
     char buff[MSG_LEN];
     bool keepGoing = true;
-    bool firstIteration = true;
+    bool gotPermanent = false;
     logger.debugMsg("Processor reading entities", __FILE__, __LINE__);
 
     container.cleanTemporary();
@@ -39,15 +39,14 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& log
         if(buff[MSG_LEN - 1] == -1){
             keepGoing = false;
             continue;
-        } else if(firstIteration && buff[MSG_LEN - 1] == 1) {
+        } else if(!gotPermanent && buff[MSG_LEN - 1] == 1) {
             container.cleanPermanent();
-
+            gotPermanent = true;
         }
         Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5),
                       getInt(buff+7), 0, 0, buff[9]);
 
         container.addEntity(entity);
-        firstIteration = false;
     }
 
     logger.debugMsg("Processor read break", __FILE__, __LINE__);
