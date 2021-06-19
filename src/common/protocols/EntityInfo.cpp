@@ -20,7 +20,7 @@ EntityInfo::EntityInfo(char t, int x, int y, int w, int h, char s, char p) {
     info[10] = p;
 }
 
-char * EntityInfo::getPtr() {
+unsigned char * EntityInfo::getPtr() {
     return info;
 }
 

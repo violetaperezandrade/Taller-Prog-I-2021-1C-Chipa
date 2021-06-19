@@ -5,11 +5,11 @@
 
 class EntityInfo {
 private:
-    char info[LEN];
+    unsigned char info[LEN];
 public:
     EntityInfo();
     EntityInfo(char t, int x, int y, int w, int h, char s, char p);
-    char* getPtr();
+    unsigned char* getPtr();
     int getLen();
 };
 

@@ -232,7 +232,6 @@ int View::run() {
         std::vector<Entity> entityVector = monitor.getEntities();
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: "+len,__FILE__,__LINE__);
-
         std::vector<Entity>::iterator it = entityVector.begin();
         while (it != entityVector.end()) {
             char type = it->getType();
