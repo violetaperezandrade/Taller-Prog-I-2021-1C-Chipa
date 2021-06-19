@@ -52,8 +52,7 @@ void Input::run() {
             }
         }
     }
-    stop();
-
+    //stop();
 }
 
 void Input::stop(){

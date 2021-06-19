@@ -10,6 +10,7 @@ void Processor::readEntities() {
             return;
         }
         monitor.notify();
+        monitor.disnotify();
     }
 }
 

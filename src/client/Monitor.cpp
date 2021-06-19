@@ -45,6 +45,10 @@ void Monitor::cleanTemporary(){
     logger.debugMsg("Se borran entidades temporales",__FILE__,__LINE__);
 }
 
+void Monitor::disnotify(){
+    notified = false;
+}
+
 void Monitor::notify(){
     notified = true;
     cond_var.notify_all();
