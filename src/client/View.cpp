@@ -7,14 +7,53 @@ View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), co
     }
     window = createWindow("Donkey Kong ii", config.getResolutionWidth(), config.getResolutionHeight());
     windowRenderer = createRenderer(window);
-    texturesMario[1]['1'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_right.png", windowRenderer);
-    texturesMario[1]['2'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_left.png", windowRenderer);
-    texturesMario[1]['6'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_right.png", windowRenderer);
-    texturesMario[1]['7'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_left.png", windowRenderer);
-    texturesMario[1]['8'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer);
-    texturesMario[1]['9'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer);
-    texturesMario[1]['r'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer);
-    texturesMario[1]['l'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer);
+
+    texturesMario = {
+            {1, { //red
+                        {'0',loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_back.png", windowRenderer)},
+                        {'1', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_right.png", windowRenderer)},
+                        {'2', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_left.png", windowRenderer)},
+                        {'6', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_right.png", windowRenderer)},
+                        {'7', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_left.png", windowRenderer)},
+                        {'8', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer)},
+                        {'9',loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer)},
+                        {'r',loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer)},
+                        {'l',loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer)}
+                }},
+            {2, { //yellow
+                    {'0',loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_back.png", windowRenderer)},
+                    {'1', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_right.png", windowRenderer)},
+                    {'2', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_left.png", windowRenderer)},
+                    {'6', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_walk_right.png", windowRenderer)},
+                    {'7', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_walk_left.png", windowRenderer)},
+                    {'8', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_climbing_right.png", windowRenderer)},
+                    {'9',loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_climbing_right.png", windowRenderer)},
+                    {'r',loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_right.png", windowRenderer)},
+                    {'l',loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_left.png", windowRenderer)}
+            }},
+            {3, { //lilac
+                        {'0',loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_back.png", windowRenderer)},
+                        {'1', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_right.png", windowRenderer)},
+                        {'2', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_left.png", windowRenderer)},
+                        {'6', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_walk_right.png", windowRenderer)},
+                        {'7', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_walk_left.png", windowRenderer)},
+                        {'8', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_climbing_right.png", windowRenderer)},
+                        {'9',loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_climbing_right.png", windowRenderer)},
+                        {'r',loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_right.png", windowRenderer)},
+                        {'l',loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_left.png", windowRenderer)}
+                }},
+            {4, {//green
+                        {'0',loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_back.png", windowRenderer)},
+                        {'1', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_right.png", windowRenderer)},
+                        {'2', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_left.png", windowRenderer)},
+                        {'6', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_right.png", windowRenderer)},
+                        {'7', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_left.png", windowRenderer)},
+                        {'8', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_climbing_right.png", windowRenderer)},
+                        {'9',loadImageTexture("../src/client/img/Sprites-Mario/green/mario_climbing_right.png", windowRenderer)},
+                        {'r',loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_right.png", windowRenderer)},
+                        {'l',loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer)}
+                }}
+    };
 
     texturesEntities = {{'P', loadImageTexture("../src/client/img/Sprites-Entities/blue_platform.png", windowRenderer)},
                         {'B',loadImageTexture("../src/client/img/Sprites-Entities/front_barrel.png", windowRenderer)},
