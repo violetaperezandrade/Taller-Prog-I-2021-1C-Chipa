@@ -18,8 +18,8 @@ void EntityProtocol::sendBreak(BlockingQueue& queue) {
 }
 
 int EntityProtocol::getInt(char* ptr){
-    int num = ptr[0] << 8;
-    num += ptr[1];
+    int num = (unsigned char)ptr[0] << 8;
+    num += (unsigned char)ptr[1];
     return num;
 }
 
@@ -38,12 +38,14 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& log
         }
         if(buff[MSG_LEN - 1] == -1){
             keepGoing = false;
+            continue;
         } else if(firstIteration && buff[MSG_LEN - 1] == 1) {
             container.cleanPermanent();
 
         }
         Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5),
                       getInt(buff+7), 0, 0, buff[9]);
+
         container.addEntity(entity);
         firstIteration = false;
     }

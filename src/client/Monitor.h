@@ -27,6 +27,8 @@ public:
 
     void cleanTemporary();
 
+    void disnotify();
+
     void notify();
 };
 #endif //MONITOR_H

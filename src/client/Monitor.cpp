@@ -19,6 +19,7 @@ std::vector<Entity> Monitor::getEntities(){
     while(!notified){
         cond_var.wait(lock);
     }
+    logger.debugMsg("Get entities",__FILE__,__LINE__);
     notified = false;
     return entities;
 }
@@ -43,6 +44,10 @@ void Monitor::cleanTemporary(){
         }
     }
     logger.debugMsg("Se borran entidades temporales",__FILE__,__LINE__);
+}
+
+void Monitor::disnotify(){
+    notified = false;
 }
 
 void Monitor::notify(){

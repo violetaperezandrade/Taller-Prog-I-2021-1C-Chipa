@@ -87,7 +87,7 @@ void Server::startGame(){
     logger.infoMsg("Game starts", __FILE__, __LINE__);
     startClients();
     sendAll();
-    std::chrono::milliseconds frameTime(30);
+    std::chrono::milliseconds frameTime(60);
 
     bool finish = false;
     while(!finish) {

@@ -13,7 +13,7 @@ private:
 public:
     Input(Socket& socket, Logger& logger);
 
-    ~Input() override;
+    ~Input();
 
     void run() override;
 

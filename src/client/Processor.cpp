@@ -5,6 +5,7 @@ Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger) : monitor
 
 void Processor::readEntities() {
     while(keepRunning) {
+        monitor.disnotify();
         if(EntityProtocol::readEntities(socket, monitor, logger) == 1){//llena el monitor con mensaje en bloque
             stop();
             return;
