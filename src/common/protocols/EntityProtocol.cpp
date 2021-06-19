@@ -38,6 +38,7 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& log
         }
         if(buff[MSG_LEN - 1] == -1){
             keepGoing = false;
+            continue;
         } else if(firstIteration && buff[MSG_LEN - 1] == 1) {
             container.cleanPermanent();
 
