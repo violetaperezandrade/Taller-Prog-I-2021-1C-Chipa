@@ -154,7 +154,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     logger.debugMsg(c,__FILE__,__LINE__);
     switch (entityType) {
         case 'C': //mario
-            textureEntity = texturesMario[1][stateEntity];
+            textureEntity = texturesMario[playerID][stateEntity];
             break;
         case 'B': //barrel
             textureEntity = texturesEntities['B'];
@@ -211,7 +211,10 @@ int View::run() {
         while (it != entityVector.end()) {
             char type = it->getType();
             if (type == 'C') {
+                std::cout << "se incrementa el playerID  ";
+                std::cout << playerID << std::endl;
                 playerID++;
+                std::cout << playerID << std::endl;
             }
             int posX = it->getPosX();
             int posY = it->getPosY();
@@ -222,6 +225,7 @@ int View::run() {
             render(posX, posY, width, height, state, type);
             ++it;
         }
+        playerID = 0;
         logger.debugMsg("Fin de iteracion sobre vector de entidades",__FILE__,__LINE__);
         SDL_RenderPresent(windowRenderer);
         SDL_RenderClear(windowRenderer);
