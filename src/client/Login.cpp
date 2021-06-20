@@ -328,7 +328,7 @@ int Login::runLoginWindow(char* ip, char* port) {
         renderLogin(220,300,200,70,playButton,windowRendererLogin);
         renderLogin(250,308,playButtonText.width+30,playButtonText.height+30,playButtonText.texture,windowRendererLogin);
 
-        renderLogin(50,380,loginError.width-50,loginError.height,loginError.texture,windowRendererLogin);
+        renderLogin(30,380,loginError.width,loginError.height,loginError.texture,windowRendererLogin);
 
         renderLogin(60,70,200,200,monkey,windowRendererLogin);
         SDL_RenderPresent(windowRendererLogin);
