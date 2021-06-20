@@ -23,9 +23,12 @@ public:
     void setJumping(bool value);
     void setMidair(bool value);
     void setClimbing(bool value);
+    void setOnStairs(bool value);
 
     bool isMidair();
     bool isClimbing();
+    bool isOnStairs();
+    bool isTryingToClimb();
 
     bool shouldMoveLeft();
     bool shouldMoveRight();

@@ -68,6 +68,7 @@ void Character::jump(){
 void Character::land(){
     movement.setMidair(false);
     movement.setClimbing(false);
+    movement.setOnStairs(false);
     speedY = 0;
 }
 
@@ -75,6 +76,18 @@ void Character::climb(){
     if (movement.shouldClimb()){
         movement.setClimbing(true);
     }
+}
+
+bool Character::isOnStairs(){
+    return movement.isOnStairs();
+}
+
+bool Character::isTryingToClimb() {
+    return movement.isTryingToClimb();
+}
+
+void Character::setOnStairs(bool value){
+    movement.setOnStairs(value);
 }
 
 bool Character::isGrounded(){
@@ -123,14 +136,14 @@ void Character::updateStatus(){
 void Character::updateStatus(Config& config){
     if (movement.shouldFall()){
         speedY += config.getGravity();
+    } else if (movement.shouldMoveUp()){
+        state = MOVING_UP;
+        speedY = -config.getClimbingSpeed();
+    } else if (movement.shouldMoveDown()){
+        state = MOVING_DOWN;
+        speedY = config.getClimbingSpeed();
     } else if (movement.shouldClimb()) {
         state = MOVING_UP;
-        if (movement.shouldMoveUp()){
-            speedY = -config.getClimbingSpeed();
-        } else if (movement.shouldMoveDown()){
-            state = MOVING_DOWN;
-            speedY = config.getClimbingSpeed();
-        } //SIN PROBAR, necesita fijarse si colisiona con escalera
     } else {
         if (movement.shouldMoveRight()){
             state = MOVING_RIGHT;

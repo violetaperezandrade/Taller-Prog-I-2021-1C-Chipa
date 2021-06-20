@@ -24,10 +24,11 @@
 #define CHARACTER_SIDE_PADDING 16;
 #define CHARACTER_TOP_PADDING 9;
 
-CollisionManager::CollisionManager(std::vector<Character>& character, std::vector<Entity> &vector, Logger& logger) :
+CollisionManager::CollisionManager(std::vector<Character>& character, std::vector<Entity> &vector, Logger& logger, Config& config) :
     characters(character),
     vector(vector),
-    logger(logger)
+    logger(logger),
+    config(config)
 {}
 
 CollisionManager::~CollisionManager() {}
@@ -215,9 +216,6 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
 }
 
 void CollisionManager::climb(int i) {
-    int edgeInfo[4];
-    getEdgeInfo(edgeInfo, characters[i]);
-    fixCharacterHitbox(edgeInfo);
     bool stairCollision = false;
 
     for (int j = 0; j < vector.size(); j++){
@@ -234,21 +232,23 @@ void CollisionManager::climb(int i) {
     }
 
     if (stairCollision){
+        characters[i].setOnStairs(true);
+        characters[i].updateStatus(config);
+        int edgeInfo[4];
+        getEdgeInfo(edgeInfo, characters[i]);
+        fixCharacterHitbox(edgeInfo);
         characters[i].setPosX(edgeInfo[LEFT]);
         characters[i].setPosY(edgeInfo[RIGHT]);
     }
 }
 
 bool CollisionManager::moveCharacter(int i) {
-    if (characters[i].isClimbing()){
+    if (characters[i].isTryingToClimb()){
         climb(i);
         return false;
     }
     if (characters[i].getSpeedX() == 0 && characters[i].getSpeedY() == 0){
         return false;
-    }
-    if (characters[i].getSpeedY() == 15){
-        std::cout << "Aca se pudre\n";
     }
     bool switchLevel = false;
     int mapWidth = 800;//config.get_map_width();
