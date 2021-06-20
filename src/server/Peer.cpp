@@ -10,7 +10,6 @@ Peer::Peer(Socket &&peerSkt, Logger& logger) :
     receiver(new Receiver(incoming, peer, logger)),
     name()
 {
-    std::cerr << "construyendo el peer"<< std::endl;
 }
 
 void Peer::start(){
