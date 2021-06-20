@@ -17,6 +17,7 @@ private:
     BlockingQueue outgoing;
     Sender* sender;
     Receiver* receiver;
+    std::string name;
 
 public:
     Peer(Socket&& peerSkt, Logger& logger);
@@ -38,6 +39,10 @@ public:
     void send(char* msg, int length);
 
     void finish();
+
+    std::string getName();
+
+    void setName(std::string str);
 
 };
 

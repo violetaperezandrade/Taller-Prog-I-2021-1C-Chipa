@@ -211,10 +211,7 @@ int View::run() {
         while (it != entityVector.end()) {
             char type = it->getType();
             if (type == 'C') {
-                std::cout << "se incrementa el playerID  ";
-                std::cout << playerID << std::endl;
                 playerID++;
-                std::cout << playerID << std::endl;
             }
             int posX = it->getPosX();
             int posY = it->getPosY();

@@ -176,7 +176,6 @@ void Socket::close(){
 }
 
 Socket::~Socket(){
-    std::cerr << "calling socket destructor with socket" << fileDescriptor << std::endl;
     if (fileDescriptor == -1){
         return;
     }

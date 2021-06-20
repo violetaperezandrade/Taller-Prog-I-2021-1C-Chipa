@@ -4,6 +4,7 @@
 #include <string>
 #include "../common/protocols/InputProtocol.h"
 #include "LoginManager.h"
+#include "Reconnector.h"
 
 Server::Server(char* ip, char* port, int playersAmount, Config& config, Logger& logger) :
     ip(ip),
@@ -12,7 +13,9 @@ Server::Server(char* ip, char* port, int playersAmount, Config& config, Logger& 
     game(config, logger, playersAmount),
     sktListener(),
     config(config),
-    logger(logger)
+    logger(logger),
+    userNames(),
+    keepRunning(true)
 {}
 
 void Server::run(){
@@ -20,10 +23,40 @@ void Server::run(){
     sktListener.listen(playersAmount, logger);
 
     acceptClients();
-    sktListener.shutdown(logger);
+    Reconnector* reconnector = new Reconnector(clients, config, logger, sktListener,
+                                               userNames, keepRunning);
+    reconnector->start();
     startGame();
+    reconnector->join();
     disconnectClients();
 }
+
+void Server::acceptClients(){
+    std::vector<LoginManager*> logins;
+    for(int i = 0; i != playersAmount; i++){
+        Socket clientSkt = std::move(sktListener.accept(logger));
+        Peer* client = new Peer(std::move(clientSkt), logger);
+        clients.push_back(client);
+        logger.infoMsg("Added peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
+        LoginManager* login = new LoginManager(client, config, logger);
+        login->start();
+        logins.push_back(login);
+        logger.infoMsg("Login thread for peer launched", __FILE__, __LINE__);
+    }
+
+    std::vector<LoginManager*>::iterator it = logins.begin();
+    while (it != logins.end()){
+        (*it)->join();
+        delete *it;
+        it = logins.erase(it);
+        logger.infoMsg("Login thread finished and erased", __FILE__, __LINE__);
+    }
+
+    for(int i = 0; i != playersAmount; i++){
+        userNames.push_back(clients[i]->getName());
+    }
+}
+
 
 void Server::disconnectClients(){
     for(int i = 0; i < playersAmount; i++){
@@ -61,7 +94,6 @@ void Server::sendNew(){
     for(int j = 0; j < entities.size(); j++){
         for(int i = 0; i < playersAmount; i++) {
             char c = entities[j].getPermanency();
-            std::cout << "The permanency is: " << (int)c << std::endl;
             if(c == 'T'){
                 clients[i]->send(entities[j]);
             }
@@ -90,8 +122,7 @@ void Server::startGame(){
     sendAll();
     std::chrono::milliseconds frameTime(30);
 
-    bool finish = false;
-    while(!finish) {
+    while(keepRunning) {
         logger.debugMsg("New game iteration", __FILE__, __LINE__);
         std::chrono::steady_clock::time_point initialTime = std::chrono::steady_clock::now();
         std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
@@ -103,33 +134,12 @@ void Server::startGame(){
         }
         game.update();
         sendNew();
-        finish = game.isFinished();
+        keepRunning = !game.isFinished();
         std::this_thread::sleep_until(timeSpan);
     }
     logger.infoMsg("Game finished", __FILE__, __LINE__);
 }
 
-void Server::acceptClients(){
-    std::vector<LoginManager*> logins;
-    for(int i = 0; i != playersAmount; i++){
-        Socket clientSkt = std::move(sktListener.accept(logger));
-        Peer* client = new Peer(std::move(clientSkt), logger);
-        clients.push_back(client);
-        logger.infoMsg("Added peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
-        LoginManager* login = new LoginManager(client, config, logger);
-        login->start();
-        logins.push_back(login);
-        logger.infoMsg("Login thread for peer launched", __FILE__, __LINE__);
-    }
-
-    std::vector<LoginManager*>::iterator it = logins.begin();
-    while (it != logins.end()){
-        (*it)->join();
-        delete *it;
-        it = logins.erase(it);
-        logger.infoMsg("Login thread finished and erased", __FILE__, __LINE__);
-    }
-}
 
 void Server::makeCommand(char command,int i){
     switch(command) {

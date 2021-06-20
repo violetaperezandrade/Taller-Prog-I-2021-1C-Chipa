@@ -11,10 +11,11 @@ LoginManager::LoginManager(Peer* client, Config& config, Logger& logger) :
 LoginManager::~LoginManager() {}
 
 void LoginManager::run() {
-    validate();
+    validateLogin();
+
 }
 
-void LoginManager::validate(){
+void LoginManager::validateLogin(){
     char user[30];
     char password[30];
     char response; //F for fail - G for good
@@ -37,7 +38,9 @@ void LoginManager::validate(){
         }
         correctCredentials = true;
         logger.infoMsg("Received correct credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
+        client->setName(usr);
     }
     response = 'G';
     client->send(&response,1);
 }
+

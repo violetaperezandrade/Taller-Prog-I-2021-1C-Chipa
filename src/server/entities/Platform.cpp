@@ -1,5 +1,4 @@
 #include "Platform.h"
-#include <iostream>
 
 #define PLATFORM_CODE 'P'
 #define PLATFORM_STATE '0'
