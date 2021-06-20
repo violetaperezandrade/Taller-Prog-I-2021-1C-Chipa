@@ -9,6 +9,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), co
     windowRenderer = createRenderer(window);
 
     //red
+    texturesMario[1]['0'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_back.png", windowRenderer);
     texturesMario[1]['1'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_right.png", windowRenderer);
     texturesMario[1]['2'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_left.png", windowRenderer);
     texturesMario[1]['6'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_right.png", windowRenderer);
@@ -19,6 +20,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), co
     texturesMario[1]['l'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer);
 
     //yellow
+    texturesMario[2]['0'] = loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_back.png", windowRenderer);
     texturesMario[2]['1'] = loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_right.png", windowRenderer);
     texturesMario[2]['2'] = loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_left.png", windowRenderer);
     texturesMario[2]['6'] = loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_walk_right.png", windowRenderer);
@@ -29,6 +31,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), co
     texturesMario[2]['l'] = loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_left.png", windowRenderer);
 
     //lilac
+    texturesMario[3]['0'] = loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_back.png", windowRenderer);
     texturesMario[3]['1'] = loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_right.png", windowRenderer);
     texturesMario[3]['2'] = loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_left.png", windowRenderer);
     texturesMario[3]['6'] = loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_walk_right.png", windowRenderer);
@@ -39,6 +42,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), co
     texturesMario[3]['l'] = loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_left.png", windowRenderer);
 
     //green
+    texturesMario[4]['0'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_back.png", windowRenderer);
     texturesMario[4]['1'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_right.png", windowRenderer);
     texturesMario[4]['2'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_left.png", windowRenderer);
     texturesMario[4]['6'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_right.png", windowRenderer);
