@@ -28,14 +28,16 @@ void LoginManager::validateLogin(){
 
         std::string usr(user);
         std::string pw(password);
+        std::string empty;
 
-        if (usersKeys[usr] == pw) {
+        if (usersKeys[usr] != pw || pw == empty) {
             response = 'F';
             client->send(&response, 1);
 
             logger.infoMsg("Received incorrect credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
             continue;
         }
+
         correctCredentials = true;
         logger.infoMsg("Received correct credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
         client->setName(usr);
