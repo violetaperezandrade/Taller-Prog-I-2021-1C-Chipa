@@ -206,9 +206,11 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
     if (abs(deltaX) > abs(deltaY)){
         edgeInfoA[LEFT] -= deltaX;
         edgeInfoA[RIGHT] -= deltaX;
+        std::cout << "Halt Movement with deltaX: " << deltaX <<'\n';
     } else {
         edgeInfoA[TOP] -= deltaY;
         edgeInfoA[BOTTOM] -= deltaY;
+        std::cout << "Halt Movement with deltaY: " << deltaX <<'\n';
     }
 }
 
@@ -245,6 +247,9 @@ bool CollisionManager::moveCharacter(int i) {
     if (characters[i].getSpeedX() == 0 && characters[i].getSpeedY() == 0){
         return false;
     }
+    if (characters[i].getSpeedY() == 15){
+        std::cout << "Aca se pudre\n";
+    }
     bool switchLevel = false;
     int mapWidth = 800;//config.get_map_width();
     int mapHeight = 600;//config.get_map_heigth();
@@ -265,8 +270,8 @@ bool CollisionManager::moveCharacter(int i) {
     }
 
     if (edgeInfo[BOTTOM] >= mapHeight-(PLATFORM_HEIGHT)){
-        edgeInfo[BOTTOM] = mapHeight-(PLATFORM_HEIGHT);
-        edgeInfo[TOP] = mapHeight-(height+PLATFORM_HEIGHT);
+        edgeInfo[BOTTOM] = mapHeight-(PLATFORM_HEIGHT)-1;
+        edgeInfo[TOP] = mapHeight-(height+PLATFORM_HEIGHT)-1;
         characters[i].land();
         logger.debugMsg("Character has landed", __FILE__, __LINE__);
     } else if (edgeInfo[TOP] <= 0){

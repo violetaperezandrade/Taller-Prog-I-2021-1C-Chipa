@@ -1,5 +1,4 @@
 #include "Socket.h"
-#include <iostream>
 
 Socket::Socket() : fileDescriptor(-1) {}
 
@@ -92,14 +91,13 @@ int Socket::listen(int maxQueueLen, Logger& logger){
     status = ::listen(fileDescriptor, maxQueueLen);
     if(status < 0 ) {
         std::string str(strerror(errno));
-        logger.errorMsg("Listen error: " + str, __FILE__, __LINE__);;
+        logger.errorMsg("Listen error: " + str, __FILE__, __LINE__);
     }
     return status;
 }
 
 Socket Socket::accept(Logger& logger){
     int newFileDescriptor = ::accept(fileDescriptor,NULL,NULL);
-    std::cerr << "llamando accept: " << newFileDescriptor << std::endl;
     if(newFileDescriptor < 0) {
         std::string str(strerror(errno));
         logger.errorMsg("Accept error: " + str, __FILE__, __LINE__);
