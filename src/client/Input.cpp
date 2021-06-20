@@ -10,6 +10,7 @@ void Input::run() {
             if(e.type == SDL_QUIT) {
                 logger.debugMsg("Se cierra la ventana desde el input", __FILE__, __LINE__);
                 SDL_DestroyWindow(window);
+                window = NULL;
                 quit = true;
             }
             if(e.type == SDL_KEYDOWN && e.key.repeat == 0){

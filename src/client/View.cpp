@@ -52,53 +52,6 @@ View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), co
     texturesMario[4]['r'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_right.png", windowRenderer);
     texturesMario[4]['l'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer);
 
-    /*texturesMario = {
-            {1, { //red
-                        {'0',loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_back.png", windowRenderer)},
-                        {'1', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_right.png", windowRenderer)},
-                        {'2', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_left.png", windowRenderer)},
-                        {'6', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_right.png", windowRenderer)},
-                        {'7', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_left.png", windowRenderer)},
-                        {'8', loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer)},
-                        {'9',loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer)},
-                        {'r',loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer)},
-                        {'l',loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer)}
-                }},
-            {2, { //yellow
-                    {'0',loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_back.png", windowRenderer)},
-                    {'1', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_right.png", windowRenderer)},
-                    {'2', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_left.png", windowRenderer)},
-                    {'6', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_walk_right.png", windowRenderer)},
-                    {'7', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_walk_left.png", windowRenderer)},
-                    {'8', loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_climbing_right.png", windowRenderer)},
-                    {'9',loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_climbing_right.png", windowRenderer)},
-                    {'r',loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_right.png", windowRenderer)},
-                    {'l',loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_left.png", windowRenderer)}
-            }},
-            {3, { //lilac
-                        {'0',loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_back.png", windowRenderer)},
-                        {'1', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_right.png", windowRenderer)},
-                        {'2', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_left.png", windowRenderer)},
-                        {'6', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_walk_right.png", windowRenderer)},
-                        {'7', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_walk_left.png", windowRenderer)},
-                        {'8', loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_climbing_right.png", windowRenderer)},
-                        {'9',loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_climbing_right.png", windowRenderer)},
-                        {'r',loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_right.png", windowRenderer)},
-                        {'l',loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_left.png", windowRenderer)}
-                }},
-            {4, {//green
-                        {'0',loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_back.png", windowRenderer)},
-                        {'1', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_right.png", windowRenderer)},
-                        {'2', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_left.png", windowRenderer)},
-                        {'6', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_right.png", windowRenderer)},
-                        {'7', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_left.png", windowRenderer)},
-                        {'8', loadImageTexture("../src/client/img/Sprites-Mario/green/mario_climbing_right.png", windowRenderer)},
-                        {'9',loadImageTexture("../src/client/img/Sprites-Mario/green/mario_climbing_right.png", windowRenderer)},
-                        {'r',loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_right.png", windowRenderer)},
-                        {'l',loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer)}
-                }}
-    };*/
-
     texturesEntities = {{'P', loadImageTexture("../src/client/img/Sprites-Entities/blue_platform.png", windowRenderer)},
                         {'B',loadImageTexture("../src/client/img/Sprites-Entities/front_barrel.png", windowRenderer)},
                         {'b',loadImageTexture("../src/client/img/Sprites-Entities/oil_barrel.png", windowRenderer)},
@@ -277,7 +230,7 @@ void View::renderFilledQuad(){
 
 int View::run() {
     renderFilledQuad();
-    while(keepRuning) {
+    while(keepRuning && window != NULL) {
         std::vector<Entity> entityVector = monitor.getEntities();
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
@@ -308,11 +261,13 @@ SDL_Window* View::getWindow() {
 }
 
 void View::closeSDL() {
+    if(window != NULL){
+        SDL_DestroyWindow(window);
+        window = NULL;
+    }
     SDL_DestroyRenderer(windowRenderer);
     windowRenderer = NULL;
-    SDL_DestroyWindow(window);
     SDL_ClearError();
-    window = NULL;
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
@@ -322,6 +277,3 @@ void View::closeSDL() {
 View::~View(){
     closeSDL();
 }
-
-
-
