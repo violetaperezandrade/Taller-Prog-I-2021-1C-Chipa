@@ -13,6 +13,7 @@ private:
     Logger& logger;
     void getEdgeInfo(int* cornerInfo, Entity& entity);
     void fixCharacterHitbox(int* edgeInfo);
+    void undoCharacterHitbox(int* edgeInfo);
     bool checkHorizontalMatch(int* edgeInfoA, int* edgeInfoB);
     bool checkVerticalMatch(int* edgeInfoA, int* edgeInfoB);
     bool checkCollision(Entity& a, Entity& b);

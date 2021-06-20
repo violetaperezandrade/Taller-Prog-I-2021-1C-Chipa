@@ -116,6 +116,12 @@ void CollisionManager::fixCharacterHitbox(int* edgeInfo){
     edgeInfo[TOP] += CHARACTER_TOP_PADDING;
 }
 
+void CollisionManager::undoCharacterHitbox(int* edgeInfo){
+    edgeInfo[LEFT] -= CHARACTER_SIDE_PADDING;
+    edgeInfo[RIGHT] += CHARACTER_SIDE_PADDING;
+    edgeInfo[TOP] -= CHARACTER_TOP_PADDING;
+}
+
 bool CollisionManager::checkHorizontalMatch(int* edgeInfoA, int* edgeInfoB){
     if((edgeInfoA[LEFT] >= edgeInfoB[LEFT]) && (edgeInfoA[LEFT] <= edgeInfoB[RIGHT])){
         return true;
@@ -161,6 +167,10 @@ bool CollisionManager::checkCollision(Entity &a, Entity &b) {
 
     bool verticalMatch = checkHorizontalMatch(edgeInfoA, edgeInfoB);
     bool horizontalMatch = checkVerticalMatch(edgeInfoA, edgeInfoB);
+    if (verticalMatch && horizontalMatch){
+        std::cout << "First entity edges: Left: " << edgeInfoA[0] << ", Right: " << edgeInfoA[1] << ", Top: " << edgeInfoA[2] << ", Bottom: " << edgeInfoA[3] << '\n';
+        std::cout << "Second entity edges: Left: " << edgeInfoB[0] << ", Right: " << edgeInfoB[1] << ", Top: " << edgeInfoB[2] << ", Bottom: " << edgeInfoB[3] << '\n';
+    }
     return (verticalMatch && horizontalMatch);
 }
 
@@ -180,12 +190,6 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
 
     int edgeInfoB[4];
     getEdgeInfo(edgeInfoB, obstacle);
-    if (moving.getType() == CHARACTER_CODE){
-        fixCharacterHitbox(edgeInfoA);
-    }
-    if (obstacle.getType() == CHARACTER_CODE){
-        fixCharacterHitbox(edgeInfoB);
-    }
 
     if (speedX > 0){
         deltaX = 1 + edgeInfoA[RIGHT] - edgeInfoB[LEFT];
@@ -249,7 +253,7 @@ bool CollisionManager::moveCharacter(int i) {
 
     int edgeInfo[4];
     getEdgeInfo(edgeInfo, characters[i]);
-    std::cout << "PosX: " << characters[i].getPosX() << ",  PosY: " << characters[i].getPosY() << ",  SpeedX: " << characters[i].getSpeedX() << ",  SpeedY: " << characters[i].getSpeedY() << ",  Width: " << characters[i].getWidth() << ",  Height: " << characters[i].getHeight() << '\n';
+    std::cout << "\nStarting info: PosX: " << characters[i].getPosX() << ",  PosY: " << characters[i].getPosY() << ",  SpeedX: " << characters[i].getSpeedX() << ",  SpeedY: " << characters[i].getSpeedY() << ",  Width: " << characters[i].getWidth() << ",  Height: " << characters[i].getHeight() << '\n';
     std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
 
     if (edgeInfo[LEFT] < 0){
@@ -270,9 +274,11 @@ bool CollisionManager::moveCharacter(int i) {
         edgeInfo[BOTTOM] = height;
     }
 
-    std::cout << "After colliding with edge\n";
-    std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
+    //std::cout << "After colliding with edge\n";
+    //std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
     int previousY = edgeInfo[TOP];
+
+    fixCharacterHitbox(edgeInfo);
 
     for (int j = 0; j < vector.size(); j++){
         if (isPlayerMovementEntity(vector[j]) && checkCollision(characters[i], vector[j])){
@@ -285,6 +291,7 @@ bool CollisionManager::moveCharacter(int i) {
                 haltMovement(characters[i], vector[j], edgeInfo);
                 if (previousY > edgeInfo[TOP]){
                     characters[i].land();
+                    std::cout << "----Landing\n";
                 }
                 std::cout << "After colliding with platform\n";
                 std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
@@ -293,7 +300,7 @@ bool CollisionManager::moveCharacter(int i) {
             }
         }
     }
-
+    undoCharacterHitbox(edgeInfo);
     characters[i].setPosX(edgeInfo[LEFT]);
     characters[i].setPosY(edgeInfo[TOP]);
     return switchLevel;
