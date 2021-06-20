@@ -1,7 +1,13 @@
 #include "View.h"
 #include <iostream>
 
-View::View(Monitor& monitor,Logger& logger, Config& config) : logger(logger), config(config), monitor(monitor),playerID(0),keepRuning(true){
+View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
+    logger(logger),
+    config(config),
+    monitor(monitor),
+    playerID(0),
+    keepRuning(keepRunning)
+{
     if (initSDL() < 0){
         logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
     }
@@ -193,35 +199,7 @@ void View::free(SDL_Texture* texture){
         texture = NULL;
     }
 }
-/*void View::refresh(){
-    if(config.getDefault()){
-        render(0,200,800,200,'\0','d');
-    }
-    Message entityInfo = game.getStatus();
-    while(!entityInfo.isEmpty()){
-        char entityType;
-        int posX;
-        int posY;
-        int width;
-        int height;
-        char state;
-        entityInfo.getEntityInfo(entityType,posX,posY,width,height,state);
-        render(posX,posY,width,height,state,entityType);
-    }
-    std::vector<Entity> entityVector = monitor.getEntityVector();
-    std::vector<Entity>::iterator it = entityVector.begin();
-    while(it != entityVector.end()) {
-        char type = it->getType();
-        int posX = it->getPosX();
-        int posY = it->getPosY();
-        int width = it->getWidth();
-        int height = it->getHeight();
-        char state = it->getState();
-        render(posX, posY, width, height, state, type);
-    }
-    SDL_RenderPresent(windowRenderer);
-    SDL_RenderClear(windowRenderer);
-}*/
+
 void View::renderFilledQuad(){
     SDL_Rect fillRect = { 0, 0, config.getResolutionWidth(), config.getResolutionHeight()};
     SDL_SetRenderDrawColor( windowRenderer, 0x00, 0x00, 0x00, 0xFF );
@@ -230,7 +208,7 @@ void View::renderFilledQuad(){
 
 int View::run() {
     renderFilledQuad();
-    while(keepRuning && window != NULL) {
+    while(keepRuning) {
         std::vector<Entity> entityVector = monitor.getEntities();
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
@@ -253,20 +231,15 @@ int View::run() {
         SDL_RenderPresent(windowRenderer);
         SDL_RenderClear(windowRenderer);
     }
+    std::cout << "salgo del view  \n";
     return 0;
 }
 
-SDL_Window* View::getWindow() {
-    return this->window;
-}
-
 void View::closeSDL() {
-    if(window != NULL){
-        SDL_DestroyWindow(window);
-        window = NULL;
-    }
     SDL_DestroyRenderer(windowRenderer);
     windowRenderer = NULL;
+    SDL_DestroyWindow(window);
+    window = NULL;
     SDL_ClearError();
     TTF_Quit();
     IMG_Quit();

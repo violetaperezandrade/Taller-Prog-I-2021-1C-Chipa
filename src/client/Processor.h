@@ -10,9 +10,9 @@ private:
     Monitor& monitor;
     Socket& socket;
     Logger& logger;
-    bool keepRunning;
+    bool& keepRunning;
 public:
-    Processor(Monitor& monitor, Socket& socket, Logger& logger);
+    Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning);
     void readEntities();
     void run() override;
     void stop();

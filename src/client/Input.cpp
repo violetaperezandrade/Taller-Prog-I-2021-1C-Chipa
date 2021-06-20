@@ -1,19 +1,26 @@
 #include "Input.h"
 #include "../common/protocols/InputProtocol.h"
+#include <iostream>
 
-Input::Input(Socket& socket, Logger& logger, SDL_Window* window) : socket(socket), quit(false), logger(logger), window(window){}
+Input::Input(Socket& socket, Logger& logger, bool& keepRunning) :
+    socket(socket),
+    keepRunning(keepRunning),
+    logger(logger),
+    window(window),
+    renderer(renderer)
+{}
 
 void Input::run() {
     SDL_Event e;
-    while(!quit){
+    while(keepRunning){
         while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_QUIT) {
+                std::cout << "presiono quit  \n";
                 logger.debugMsg("Se cierra la ventana desde el input", __FILE__, __LINE__);
-                SDL_DestroyWindow(window);
-                window = NULL;
-                quit = true;
+                keepRunning = false;
+                break;
             }
-            if(e.type == SDL_KEYDOWN && e.key.repeat == 0){
+            else if(e.type == SDL_KEYDOWN && e.key.repeat == 0){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
                         InputProtocol::sendPressUpEvent(this->socket, this->logger);
@@ -57,12 +64,12 @@ void Input::run() {
             }
         }
     }
+    std::cout << "salgo del input  \n";
 }
 
 void Input::stop(){
-    quit = true;
-    this->socket.shutdown(logger);
-    //this->socket.shutdownWrite(logger);
+    keepRunning = true;
+    this->socket.shutdownWrite(logger);
 }
 
 Input::~Input(){}
