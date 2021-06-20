@@ -153,15 +153,20 @@ int Login::runLoginWindow(char* ip, char* port) {
 
     int success = sktLogin.connect(ip,port,logger);
     if(success < 0){
-        TextRendered connError = loadFromRenderedText("Server unreachable or full.",{255,0,0},windowRendererLogin,globalFont);
+        SDL_SetWindowSize(windowLogin,410,110);
+        TTF_Font* fontWarning = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf",15);
+        TextRendered connError = loadFromRenderedText("Server unreachable or full",{255,0,0},windowRendererLogin,fontWarning);
         SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
         SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
         SDL_RenderClear(windowRendererLogin);
-        renderLogin(5,210,connError.width-50,connError.height,connError.texture,windowRendererLogin);
-        renderLogin(260,300,100,100,warning,windowRendererLogin);
+        renderLogin(8,10,connError.width,connError.height,connError.texture,windowRendererLogin);
+        renderLogin(165,30,80,80,warning,windowRendererLogin);
         SDL_RenderPresent(windowRendererLogin);
         SDL_Delay(3000);
         logger.errorMsg("No se pudo conectar al servidor",__FILE__,__LINE__);
+        TTF_CloseFont(fontWarning);
+        fontWarning = NULL;
+        TTF_Quit();
         free(connError.texture);
         free(warning);
         return -1;
@@ -209,12 +214,12 @@ int Login::runLoginWindow(char* ip, char* port) {
                 return -1;
             }
             //if mouse was clicked username prompt
-            if(mouseWasClickedOnPosition(300,600,80,130,&e) == true){
+            if(mouseWasClickedOnPosition(310,600,80,130,&e) == true){
                 renderPass = false;
                 canWrite = true;
             }
             //if mouse was clicked password prompt
-            else if(mouseWasClickedOnPosition(300,600,180,230,&e) == true){
+            else if(mouseWasClickedOnPosition(310,600,180,230,&e) == true){
                 renderPass = true;
                 canWrite = true;
             }
@@ -321,7 +326,7 @@ int Login::runLoginWindow(char* ip, char* port) {
         renderLogin(310,195,inputTextTexturePsw.width,inputTextTexturePsw.height,inputTextTexturePsw.texture,windowRendererLogin);
 
         renderLogin(220,300,200,70,playButton,windowRendererLogin);
-        renderLogin(253,310,playButtonText.width+50,playButtonText.height+30,playButtonText.texture,windowRendererLogin);
+        renderLogin(250,308,playButtonText.width+30,playButtonText.height+30,playButtonText.texture,windowRendererLogin);
 
         renderLogin(50,380,loginError.width-50,loginError.height,loginError.texture,windowRendererLogin);
 
