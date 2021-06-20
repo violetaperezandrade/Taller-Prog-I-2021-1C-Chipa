@@ -4,7 +4,7 @@
 Input::Input(Socket& socket, Logger& logger, bool& keepRunning) :
     socket(socket),
     keepRunning(keepRunning),
-    logger(logger),
+    logger(logger)
 {}
 
 void Input::run() {
