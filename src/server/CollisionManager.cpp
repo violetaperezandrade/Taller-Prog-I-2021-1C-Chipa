@@ -238,6 +238,9 @@ bool CollisionManager::moveCharacter(int i) {
         climb(i);
         return false;
     }
+    if (characters[i].getSpeedX() == 0 && characters[i].getSpeedY() == 0){
+        return false;
+    }
     bool switchLevel = false;
     int mapWidth = 800;//config.get_map_width();
     int mapHeight = 600;//config.get_map_heigth();
@@ -246,6 +249,8 @@ bool CollisionManager::moveCharacter(int i) {
 
     int edgeInfo[4];
     getEdgeInfo(edgeInfo, characters[i]);
+    std::cout << "PosX: " << characters[i].getPosX() << ",  PosY: " << characters[i].getPosY() << ",  SpeedX: " << characters[i].getSpeedX() << ",  SpeedY: " << characters[i].getSpeedY() << ",  Width: " << characters[i].getWidth() << ",  Height: " << characters[i].getHeight() << '\n';
+    std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
 
     if (edgeInfo[LEFT] < 0){
         edgeInfo[LEFT] = 0;
@@ -265,6 +270,8 @@ bool CollisionManager::moveCharacter(int i) {
         edgeInfo[BOTTOM] = height;
     }
 
+    std::cout << "After colliding with edge\n";
+    std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
     int previousY = edgeInfo[TOP];
 
     for (int j = 0; j < vector.size(); j++){
@@ -279,6 +286,8 @@ bool CollisionManager::moveCharacter(int i) {
                 if (previousY > edgeInfo[TOP]){
                     characters[i].land();
                 }
+                std::cout << "After colliding with platform\n";
+                std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
             } else if(type == PRINCESS_CODE){
                 switchLevel = true;
             }
@@ -286,6 +295,6 @@ bool CollisionManager::moveCharacter(int i) {
     }
 
     characters[i].setPosX(edgeInfo[LEFT]);
-    characters[i].setPosY(edgeInfo[RIGHT]);
+    characters[i].setPosY(edgeInfo[TOP]);
     return switchLevel;
 }
