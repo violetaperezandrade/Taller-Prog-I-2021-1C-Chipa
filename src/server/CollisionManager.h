@@ -11,6 +11,7 @@ private:
     std::vector<Character>& characters;
     std::vector<Entity>& vector;
     Logger& logger;
+    Config& config;
     void getEdgeInfo(int* cornerInfo, Entity& entity);
     void fixCharacterHitbox(int* edgeInfo);
     void undoCharacterHitbox(int* edgeInfo);
@@ -24,7 +25,7 @@ private:
     void climb(int i);
 
 public:
-    CollisionManager(std::vector<Character>& character, std::vector<Entity>& vector, Logger& logger);
+    CollisionManager(std::vector<Character>& character, std::vector<Entity>& vector, Logger& logger, Config& config);
 
     void movePlatform(Entity &entity);
 

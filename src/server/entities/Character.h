@@ -39,9 +39,15 @@ public:
 
     void climb();
 
+    bool isOnStairs();
+
+    void setOnStairs(bool value);
+
     bool isGrounded();
 
     bool isClimbing();
+
+    bool isTryingToClimb();
 
     bool isMidair();
 

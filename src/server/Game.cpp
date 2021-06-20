@@ -19,7 +19,7 @@ Game::Game(Config& config, Logger& logger, int amountCharacters) :
         config(config),
         logger(logger),
         entities(),
-        collisionManager(characters, entities, logger),
+        collisionManager(characters, entities, logger, config),
         tickCounter(0),
         actLevel(1),
         amountCharacters(amountCharacters),
