@@ -28,12 +28,12 @@ void Client::run(){
         logger.errorMsg("Algo salio mal en ventana de login",__FILE__,__LINE__);
         return;
     }
-
+    bool keepRunning = true;
 
     Monitor monitor(logger);
-    View view(monitor, logger, config);
-    Input* input = new Input(skt,logger, view.getWindow());
-    Processor* processor = new Processor(monitor, skt,logger);
+    View view(monitor, logger, config, keepRunning);
+    Input* input = new Input(skt,logger, keepRunning);
+    Processor* processor = new Processor(monitor, skt,logger, keepRunning);
 
     logger.debugMsg("Se lanza thread INPUT", __FILE__, __LINE__);
     logger.debugMsg("Se lanza thread PROCESSOR", __FILE__, __LINE__);

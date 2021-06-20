@@ -17,16 +17,16 @@ private:
     std::map<char, SDL_Texture*> texturesMonkey; //only monkey
     SDL_Renderer* windowRenderer;
     SDL_Window* window;
-    //Game& game;
     Logger& logger;
     Config& config;
     SDL_Texture* defaultConfig;
     Monitor& monitor;
     std::condition_variable condVar;
     int playerID;
+    bool& keepRuning;
     bool initSDL();
     void closeSDL();
-    bool keepRuning;
+
 public:
 
     void render(int x, int y, int width, int height, char stateEntity,char entityType);
@@ -39,7 +39,7 @@ public:
 
     void free(SDL_Texture* texture);
 
-    View(Monitor& monitor, Logger& logger, Config& config);
+    View(Monitor& monitor, Logger& logger, Config& config, bool& keepRunning);
 
     void changeLevel();
 
@@ -50,8 +50,6 @@ public:
     void renderFilledQuad();
 
     int run();
-
-    SDL_Window* getWindow();
 
 };
 

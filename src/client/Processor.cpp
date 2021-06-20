@@ -1,7 +1,12 @@
 #include "Processor.h"
 #include "../common/protocols/EntityProtocol.h"
 
-Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger) : monitor(monitor), socket(socket), logger(logger), keepRunning(true){}
+Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning) :
+    monitor(monitor),
+    socket(socket),
+    logger(logger),
+    keepRunning(keepRunning)
+{}
 
 void Processor::readEntities() {
     while(keepRunning) {

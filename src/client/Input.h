@@ -10,11 +10,12 @@
 class Input : public Thread {
 private:
     Socket& socket;
-    bool quit;
+    bool& keepRunning;
     Logger& logger;
     SDL_Window* window;
+    SDL_Renderer * renderer;
 public:
-    Input(Socket& socket, Logger& logger, SDL_Window* window);
+    Input(Socket& socket, Logger& logger, bool& keepRunning);
 
     ~Input();
 
