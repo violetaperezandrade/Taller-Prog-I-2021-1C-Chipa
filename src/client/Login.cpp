@@ -286,7 +286,7 @@ int Login::runLoginWindow(char* ip, char* port) {
                             sktLogin.receive(succesLogin,1,logger);
 
                             if(succesLogin[0] == 'F'){
-                                loginError = loadFromRenderedText("User or pass invalid, try again.",{255,0,0},windowRendererLogin,globalFont);
+                                loginError = loadFromRenderedText("User or pass invalid",{255,0,0},windowRendererLogin,globalFont);
                                 logger.infoMsg("Se ingresaron mal las credenciales",__FILE__,__LINE__);
                             }
                             else{
@@ -328,7 +328,7 @@ int Login::runLoginWindow(char* ip, char* port) {
         renderLogin(220,300,200,70,playButton,windowRendererLogin);
         renderLogin(250,308,playButtonText.width+30,playButtonText.height+30,playButtonText.texture,windowRendererLogin);
 
-        renderLogin(30,380,loginError.width,loginError.height,loginError.texture,windowRendererLogin);
+        renderLogin(80,380,loginError.width,loginError.height,loginError.texture,windowRendererLogin);
 
         renderLogin(60,70,200,200,monkey,windowRendererLogin);
         SDL_RenderPresent(windowRendererLogin);
