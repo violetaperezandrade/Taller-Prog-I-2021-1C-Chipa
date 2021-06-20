@@ -8,8 +8,6 @@ public:
     Princess(int posX, int posY, int width, int height, int speedX, int speedY);
 
     ~Princess();
-
-    char getState() override;
 };
 
 #endif //PRINCESS_H

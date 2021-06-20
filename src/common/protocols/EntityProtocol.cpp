@@ -45,7 +45,7 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& log
             gotPermanent = true;
         }
         Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5),
-                      getInt(buff+7), 0, 0, buff[10]);
+                      getInt(buff+7), 0, 0, buff[9], buff[10]);
 
         container.addEntity(entity);
     }

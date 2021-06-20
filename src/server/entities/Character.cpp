@@ -15,8 +15,8 @@
 #define IDLE_LEFT 'l'
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
-    Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY,'T'),
-    state(GROUNDED), movement(), lastDirection('r')
+    Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY, MOVING_RIGHT, 'T'),
+    movement(), lastDirection('r')
 {}
 
 void Character::startMovingLeft(){
@@ -171,10 +171,6 @@ void Character::updateStatus(Config& config){
 
         }
     }
-}
-
-char Character::getState() {
-    return state;
 }
 
 Character::~Character(){}
