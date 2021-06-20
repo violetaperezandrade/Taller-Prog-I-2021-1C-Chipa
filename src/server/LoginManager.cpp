@@ -29,7 +29,7 @@ void LoginManager::validateLogin(){
         std::string usr(user);
         std::string pw(password);
 
-        if (usersKeys[usr] != pw) {
+        if (usersKeys[usr] == pw) {
             response = 'F';
             client->send(&response, 1);
 
