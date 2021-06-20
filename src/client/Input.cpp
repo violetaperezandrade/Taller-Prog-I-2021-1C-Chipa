@@ -1,6 +1,5 @@
 #include "Input.h"
 #include "../common/protocols/InputProtocol.h"
-#include <iostream>
 
 Input::Input(Socket& socket, Logger& logger, bool& keepRunning) :
     socket(socket),
@@ -15,7 +14,6 @@ void Input::run() {
     while(keepRunning){
         while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_QUIT) {
-                std::cout << "presiono quit  \n";
                 logger.debugMsg("Se cierra la ventana desde el input", __FILE__, __LINE__);
                 keepRunning = false;
                 break;
@@ -64,7 +62,6 @@ void Input::run() {
             }
         }
     }
-    std::cout << "salgo del input  \n";
 }
 
 void Input::stop(){

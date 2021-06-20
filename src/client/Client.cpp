@@ -1,5 +1,4 @@
 #include "Client.h"
-#include <iostream>
 
 Client::Client(char *ip, char *port, Logger& logger, Config& config) : skt(), logger(logger), entities(), ip(ip), port(port), config(config){}
 
@@ -44,7 +43,6 @@ void Client::run(){
     view.run();
 
     input->stop();
-    std::cout << "processor stop  \n";
     processor->stop();
 
     processor->join();

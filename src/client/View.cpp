@@ -1,5 +1,4 @@
 #include "View.h"
-#include <iostream>
 
 View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
     logger(logger),
@@ -231,7 +230,6 @@ int View::run() {
         SDL_RenderPresent(windowRenderer);
         SDL_RenderClear(windowRenderer);
     }
-    std::cout << "salgo del view  \n";
     return 0;
 }
 
