@@ -12,6 +12,7 @@ protected:
     int height;
     int speedX;
     int speedY;
+    char state;
     char permanency;
 
     //static const int ENTITYSPEED = 5;
@@ -19,8 +20,8 @@ protected:
 public:
     Entity(char type, int x, int y, int width, int height);
 
-    Entity(char type, int posX, int posY,
-           int width, int height, int speedX, int speedY, char permanency);
+    Entity(char type, int posX, int posY, int width, int height,
+           int speedX, int speedY, char state, char permanency);
 
     void setPosY(int i);
 
@@ -48,7 +49,7 @@ public:
 
     void setPermanency(char c);
 
-    virtual char getState(); // REVISAR le pongo a todos un state?
+    char getState(); // REVISAR le pongo a todos un state?
 
     //virtual ~Entity();
     ~Entity();

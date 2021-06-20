@@ -4,11 +4,7 @@
 #define FLAME_STATE '0'
 
 Flame::Flame(int posX, int posY, int width, int height, int speedX, int speedY) :
-        Entity(FLAME_CODE, posX, posY, width, height, speedX, speedY,'T')
+        Entity(FLAME_CODE, posX, posY, width, height, speedX, speedY, FLAME_STATE, 'T')
 {}
 
 Flame::~Flame(){}
-
-char Flame::getState() {
-    return FLAME_STATE;
-}

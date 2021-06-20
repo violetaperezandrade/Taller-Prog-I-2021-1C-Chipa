@@ -8,7 +8,5 @@ public:
     Monkey(int posX, int posY, int width, int height, int speedX, int speedY);
 
     ~Monkey();
-
-    char getState() override;
 };
 #endif //MONKEY_H

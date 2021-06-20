@@ -4,11 +4,7 @@
 #define STAIR_STATE '0'
 
 Stair::Stair(int posX, int posY, int width, int height, int speedX, int speedY) :
-        Entity(STAIR_CODE, posX, posY, width, height, speedX, speedY,'P')
+        Entity(STAIR_CODE, posX, posY, width, height, speedX, speedY, STAIR_STATE, 'P')
 {}
 
 Stair::~Stair(){}
-
-char Stair::getState() {
-    return STAIR_STATE;
-}

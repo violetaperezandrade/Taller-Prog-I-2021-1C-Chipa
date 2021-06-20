@@ -7,7 +7,6 @@
 
 class Character : public Entity{
 private:
-    char state;
     Movement movement;
     char lastDirection;
 
@@ -47,8 +46,6 @@ public:
     bool isMidair();
 
     void updateStatus(Config& config);
-
-    char getState() override;
 
     ~Character();
 };

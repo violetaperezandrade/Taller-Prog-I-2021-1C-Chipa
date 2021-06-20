@@ -2,10 +2,10 @@
 #include <iostream>
 
 #define PLATFORM_CODE 'P'
-#define PLATFORM_STATE 'P'
+#define PLATFORM_STATE '0'
 
 Platform::Platform(int posX, int posY, int width, int height, int speedX, int speedY) :
-        Entity(PLATFORM_CODE, posX, posY, width, height, speedX, speedY,'P')
+        Entity(PLATFORM_CODE, posX, posY, width, height, speedX, speedY, PLATFORM_STATE,'P')
 {
     std::cout<< speedX;
     if(speedX != 0){
@@ -14,7 +14,3 @@ Platform::Platform(int posX, int posY, int width, int height, int speedX, int sp
 }
 
 Platform::~Platform(){}
-
-char Platform::getState() {
-    return PLATFORM_STATE;
-}
