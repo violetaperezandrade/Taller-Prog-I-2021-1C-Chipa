@@ -38,6 +38,7 @@ add_executable(Server
         src/common/Logger.cpp
         src/common/Socket.cpp
         src/common/Thread.cpp
+        src/server/Reconnector.cpp
         src/server/entities/Barrel.cpp
         src/server/entities/Character.cpp
         src/server/entities/Ember.cpp

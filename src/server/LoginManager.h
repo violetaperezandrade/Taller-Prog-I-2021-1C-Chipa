@@ -20,7 +20,7 @@ public:
 
     void run() override;
 
-    void validate();
+    void validateLogin();
 };
 
 

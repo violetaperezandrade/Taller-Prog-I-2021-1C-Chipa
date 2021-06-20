@@ -7,7 +7,8 @@ Peer::Peer(Socket &&peerSkt, Logger& logger) :
     incoming(),
     outgoing(logger),
     sender(new Sender(outgoing, peer, logger)),
-    receiver(new Receiver(incoming, peer, logger))
+    receiver(new Receiver(incoming, peer, logger)),
+    name()
 {
     std::cerr << "construyendo el peer"<< std::endl;
 }
@@ -34,6 +35,14 @@ void Peer::send(Entity& entity) {
 
 void Peer::sendBreak(){
     EntityProtocol::sendBreak(outgoing);
+}
+
+std::string Peer::getName(){
+    return name;
+}
+
+void Peer::setName(std::string str){
+    name = str;
 }
 
 char Peer::receive(){

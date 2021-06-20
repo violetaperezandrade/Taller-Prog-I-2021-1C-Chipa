@@ -19,6 +19,8 @@ private:
     std::map<std::string, std::string> usersKeys;
     Config& config;
     Logger& logger;
+    std::vector<std::string> userNames;
+    bool keepRunning;
 
 public:
     Server(char* ip, char* port, int playersAmount, Config& config, Logger& logger);
