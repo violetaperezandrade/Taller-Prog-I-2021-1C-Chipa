@@ -1,6 +1,13 @@
 #include "Client.h"
 
-Client::Client(char *ip, char *port, Logger& logger, Config& config) : skt(), logger(logger), entities(), ip(ip), port(port), config(config){}
+Client::Client(char *ip, char *port, Logger& logger, Config& config) :
+    skt(),
+    logger(logger),
+    entities(),
+    ip(ip),
+    port(port),
+    config(config)
+{}
 
 Client::~Client(){
     skt.shutdown(logger);

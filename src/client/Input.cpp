@@ -5,8 +5,6 @@ Input::Input(Socket& socket, Logger& logger, bool& keepRunning) :
     socket(socket),
     keepRunning(keepRunning),
     logger(logger),
-    window(window),
-    renderer(renderer)
 {}
 
 void Input::run() {
