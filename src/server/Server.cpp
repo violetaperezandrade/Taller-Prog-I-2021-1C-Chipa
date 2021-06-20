@@ -131,11 +131,16 @@ void Server::startGame(){
                 char command = clients[i]->receive();
                 makeCommand(command,i);
             }
+            if(clients[i]->isDisconnected()){
+                clients[i]->finish();
+                delete clients[i];
+            }
         }
         game.update();
         sendNew();
         keepRunning = !game.isFinished();
         std::this_thread::sleep_until(timeSpan);
+        if(clients.size() == 0) keepRunning = false;
     }
     logger.infoMsg("Game finished", __FILE__, __LINE__);
 }

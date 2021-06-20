@@ -18,6 +18,7 @@ private:
     Sender* sender;
     Receiver* receiver;
     std::string name;
+    bool disconnected;
 
 public:
     Peer(Socket&& peerSkt, Logger& logger);
@@ -43,6 +44,8 @@ public:
     std::string getName();
 
     void setName(std::string str);
+
+    bool isDisconnected();
 
 };
 

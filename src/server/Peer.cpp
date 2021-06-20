@@ -8,7 +8,8 @@ Peer::Peer(Socket &&peerSkt, Logger& logger) :
     outgoing(logger),
     sender(new Sender(outgoing, peer, logger)),
     receiver(new Receiver(incoming, peer, logger)),
-    name()
+    name(),
+    disconnected(false)
 {
 }
 
@@ -55,9 +56,17 @@ bool Peer::hasIncoming() {
 }
 
 void Peer::receive(char* msg, int length){
-    peer.receive(msg,length,logger);
+    if(peer.receive(msg,length,logger) <= 0){
+        disconnected = true;
+    }
 }
 
 void Peer::send(char* msg, int length){
-    peer.send(msg,length,logger);
+    if(peer.send(msg,length,logger) <= 0){
+        disconnected = true;
+    }
+}
+
+bool Peer::isDisconnected(){
+    return disconnected;
 }
