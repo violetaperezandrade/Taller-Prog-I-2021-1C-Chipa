@@ -18,6 +18,7 @@ private:
     std::map<int, std::map<char, SDL_Texture*>> texturesMario; //only mario
     std::map<char, SDL_Texture*> texturesEntities; //entities - mario - monkey
     std::map<char, SDL_Texture*> texturesMonkey; //only monkey
+    std::map<int, TextRendered> usersNames;
     SDL_Renderer* windowRenderer;
     SDL_Window* window;
     Logger& logger;
@@ -25,14 +26,13 @@ private:
     SDL_Texture* defaultConfig;
     Monitor& monitor;
     std::condition_variable condVar;
+    TTF_Font* font;
     int playerID;
     bool& keepRuning;
-    std::map<int, TextRendered> usersNames;
     bool initSDL();
     void closeSDL();
 
 public:
-
     void render(int x, int y, int width, int height, char stateEntity,char entityType);
 
     SDL_Renderer* createRenderer(SDL_Window* window);
@@ -40,6 +40,10 @@ public:
     SDL_Window* createWindow(const char* title,int width, int height);
 
     SDL_Texture* loadImageTexture(std::string path, SDL_Renderer* renderer);
+
+    TextRendered loadFromRenderedText(std::string textureText,SDL_Color textColor,SDL_Renderer* renderer, TTF_Font* font);
+
+    void renderText(int x, int y, int width, int height, SDL_Texture* texture);
 
     void free(SDL_Texture* texture);
 
@@ -51,15 +55,7 @@ public:
 
     void renderFilledQuad();
 
-
-    TextRendered loadFromRenderedText(std::string textureText,
-                                      SDL_Color textColor,
-                                      SDL_Renderer* renderer, TTF_Font* font);
-
     int run();
-
-    void renderText(int x, int y, int width, int height, SDL_Texture* texture);
-
 };
 
 #endif //VIEW_H

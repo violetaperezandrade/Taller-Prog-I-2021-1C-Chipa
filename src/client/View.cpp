@@ -1,5 +1,4 @@
 #include "View.h"
-#include "../client/Text.h"
 
 View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
     logger(logger),
@@ -54,17 +53,18 @@ View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
     texturesMario[4]['r'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_right.png", windowRenderer);
     texturesMario[4]['l'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer);
 
-    TTF_Font* font = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf", 20);
+    std::string fontPath = "../src/client/fonts/Kongtext Regular.ttf";
+    font = TTF_OpenFont(fontPath.c_str(),10);
 
     SDL_Color colorP1 = {255, 0, 0};
     SDL_Color colorP2 = {255, 233, 0};
     SDL_Color colorP3 = {182, 149, 192};
     SDL_Color colorP4 = {0, 255, 0};
 
-    usersNames[1] = loadFromRenderedText("player 1", colorP1, windowRenderer, font);
-    usersNames[2] = loadFromRenderedText("player 2", colorP2, windowRenderer, font);
-    usersNames[3] = loadFromRenderedText("player 3", colorP3, windowRenderer, font);
-    usersNames[4] = loadFromRenderedText("player 4", colorP4, windowRenderer, font);
+    usersNames[1] = loadFromRenderedText("P1", colorP1, windowRenderer, font);
+    usersNames[2] = loadFromRenderedText("P2", colorP2, windowRenderer, font);
+    usersNames[3] = loadFromRenderedText("P3", colorP3, windowRenderer, font);
+    usersNames[4] = loadFromRenderedText("P4", colorP4, windowRenderer, font);
 
     texturesEntities = {{'P', loadImageTexture("../src/client/img/Sprites-Entities/blue_platform.png", windowRenderer)},
                         {'B',loadImageTexture("../src/client/img/Sprites-Entities/front_barrel.png", windowRenderer)},
@@ -91,6 +91,10 @@ bool View::initSDL() {
     }
     if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
         logger.errorMsg("Error al filtrar textura lineal", __FILE__, __LINE__);
+    }
+    if(TTF_Init() == -1){
+        logger.errorMsg("Error al inicializar TTF",__FILE__,__LINE__);
+        error = true;
     }
     return error;
 }
@@ -240,6 +244,15 @@ void View::renderFilledQuad(){
     SDL_RenderFillRect( windowRenderer, &fillRect );
 }
 
+void View::renderText(int x, int y, int width, int height, SDL_Texture* texture){
+    SDL_Rect renderQuad = {x,y,width,height};
+    SDL_Rect* clip = NULL;
+    double angle = 0.0;
+    SDL_Point* center = NULL;
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
+    SDL_RenderCopyEx(windowRenderer, texture, clip, &renderQuad, angle, center, flip);
+
+}
 
 int View::run() {
     renderFilledQuad();
@@ -256,9 +269,8 @@ int View::run() {
             char type = it->getType();
             if (type == 'C') {
                 playerID++;
-               renderText(0, 0, usersNames[playerID].width,
-                           usersNames[playerID].height, usersNames[playerID].texture);
-                SDL_RenderPresent(windowRenderer);
+                renderText(posX+(width/3), posY-15, usersNames[playerID].width,usersNames[playerID].height, usersNames[playerID].texture);
+                logger.debugMsg("Renderizando player ID",__FILE__,__LINE__);
             }
             char state = it->getState();
             logger.debugMsg("Renderizo una entidad",__FILE__,__LINE__);
@@ -266,8 +278,6 @@ int View::run() {
             ++it;
         }
         playerID = 0;
-        /*displayText("fonts/Kongtext Regular.ttf", "PLAYER X",
-                    {255, 0, 0, 255}, 0, 0, windowRenderer);*/
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
         SDL_RenderPresent(windowRenderer);
         SDL_RenderClear(windowRenderer);
@@ -275,17 +285,9 @@ int View::run() {
     return 0;
 }
 
-void View::renderText(int x, int y, int width, int height, SDL_Texture* texture){
-    SDL_Rect renderQuad = {x,y,width,height};
-    SDL_Rect* clip = NULL;
-    double angle = 0.0;
-    SDL_Point* center = NULL;
-    SDL_RendererFlip flip = SDL_FLIP_NONE;
-    SDL_RenderCopyEx(windowRenderer, texture, clip, &renderQuad, angle, center, flip);
-
-}
-
 void View::closeSDL() {
+    TTF_CloseFont(font);
+    font = NULL;
     SDL_DestroyRenderer(windowRenderer);
     windowRenderer = NULL;
     SDL_DestroyWindow(window);
