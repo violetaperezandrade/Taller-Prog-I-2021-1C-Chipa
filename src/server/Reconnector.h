@@ -25,6 +25,8 @@ public:
 
     void run() override;
 
+    void stop();
+
     void validateReconnection(Peer* client);
 };
 

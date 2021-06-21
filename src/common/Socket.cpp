@@ -55,6 +55,7 @@ int Socket::connect(char* ip, char* port, Logger& logger){
         }
     }
     freeaddrinfo(addressList);
+    logger.infoMsg("Connected with fd: " + std::to_string(fileDescriptor) , __FILE__, __LINE__);
     return status;
 }
 
@@ -83,6 +84,7 @@ int Socket::bind(char* ip, char* port, Logger& logger){
         }
     }
     freeaddrinfo(addressList);
+    logger.infoMsg("Binded with fd: " + std::to_string(fileDescriptor) , __FILE__, __LINE__);
     return status;
 }
 
@@ -93,6 +95,7 @@ int Socket::listen(int maxQueueLen, Logger& logger){
         std::string str(strerror(errno));
         logger.errorMsg("Listen error: " + str, __FILE__, __LINE__);
     }
+    logger.infoMsg("Listening with fd: " + std::to_string(fileDescriptor) , __FILE__, __LINE__);
     return status;
 }
 
@@ -102,6 +105,7 @@ Socket Socket::accept(Logger& logger){
         std::string str(strerror(errno));
         logger.errorMsg("Accept error: " + str, __FILE__, __LINE__);
     }
+    logger.infoMsg("Accepting new fd: " + std::to_string(newFileDescriptor) , __FILE__, __LINE__);
     return Socket(newFileDescriptor);
 }
 
@@ -145,10 +149,13 @@ int Socket::receive(char* buf, size_t len, Logger& logger){
 }
 
 void Socket::shutdown(Logger& logger){
+    if(fileDescriptor == -1) return;
     if (::shutdown(fileDescriptor, SHUT_RDWR) != 0){
         std::string str(strerror(errno));
         logger.errorMsg("ShutdownRDWR error: " + str, __FILE__, __LINE__);
     }
+    close();
+    logger.infoMsg("Shutdown and close now fd is: " + std::to_string(fileDescriptor) , __FILE__, __LINE__);
 }
 
 void Socket::shutdownRead(Logger& logger){
@@ -156,6 +163,7 @@ void Socket::shutdownRead(Logger& logger){
         std::string str(strerror(errno));
         logger.errorMsg("ShutdownRD error: " + str, __FILE__, __LINE__);
     }
+    logger.infoMsg("ShutdownRead now fd is: " + std::to_string(fileDescriptor) , __FILE__, __LINE__);
 }
 
 void Socket::shutdownWrite(Logger& logger){
@@ -163,13 +171,16 @@ void Socket::shutdownWrite(Logger& logger){
         std::string str(strerror(errno));
         logger.errorMsg("ShutdownWR error: " + str, __FILE__, __LINE__);
     }
+    logger.infoMsg("ShutdownWrite now fd is: " + std::to_string(fileDescriptor) , __FILE__, __LINE__);
 }
 
 
 void Socket::close(){
-    if (::close(fileDescriptor) != 0){
-        std::string str(strerror(errno));
-        //logger.errorMsg("Closing error: " + str, __FILE__, __LINE__);
+    if(fileDescriptor != -1){
+        if (::close(fileDescriptor) != 0){
+            return;
+        }
+        fileDescriptor = -1;
     }
 }
 

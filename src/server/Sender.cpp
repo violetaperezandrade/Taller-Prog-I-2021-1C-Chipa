@@ -12,7 +12,7 @@ Sender::Sender(BlockingQueue& queue, Socket& peerSkt, Logger& logger) :
 Sender::~Sender(){}
 
 void Sender::stop(){
-    peer.shutdownWrite(logger);
+    peer.shutdown(logger);
     keepRunning = false;
     logger.debugMsg("Sender stop" , __FILE__, __LINE__);
 }
@@ -23,7 +23,7 @@ void Sender::run() {
         if(peer.send((char*)info.getPtr(), info.getLen(), logger) <= 0){
             logger.errorMsg("Sending error", __FILE__, __LINE__);
             stop();
-            break;
+            continue;
         }
         logger.debugMsg("Sender send", __FILE__, __LINE__);
     }

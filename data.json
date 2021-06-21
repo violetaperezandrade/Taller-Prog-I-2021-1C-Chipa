@@ -1,12 +1,12 @@
 {
     "configuration": {
         "frame time": 33,
-        "debug": 1,
+        "debug": 4,
         "path" : "../log.txt",
         "gravity" : 2
     },
     "character" : {
-        "climbing speed" : 10,
+        "climbing speed" : 6,
         "jumping speed" : 15,
         "moving speed" : 8
     },

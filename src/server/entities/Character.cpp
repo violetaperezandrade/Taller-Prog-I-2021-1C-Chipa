@@ -62,15 +62,17 @@ void Character::stopJumping(){
 
 void Character::attemptJump(Config& config){
     if (movement.attemptJump()){
-        speedY = config.getJumpingSpeed();
+        speedY = -config.getJumpingSpeed();
         if (movement.isMovingLeft()){
             speedX = -config.getMovingSpeed();
             state = FALLING_LEFT;
+            lastDirection = IDLE_LEFT;
         } else if (movement.isMovingRight()){
             speedX = config.getMovingSpeed();
             state = FALLING_RIGHT;
+            lastDirection = IDLE_RIGHT;
         } else {
-            if (lastDirection == 'r'){
+            if (lastDirection == IDLE_RIGHT){
                 state = FALLING_RIGHT;
             } else {
                 state = FALLING_LEFT;
@@ -94,19 +96,27 @@ void Character::attemptClimb(Config& config){
             speedX = 0;
             speedY = config.getClimbingSpeed();
             state = MOVING_DOWN;
+        } else {
+            speedY = 0;
         }
     }
 }
 
 void Character::attemptGroundMovement(Config& config){
+    if (!movement.isGrounded()){
+        return;
+    }
     if (movement.shouldMoveLeft()){
         speedX = -config.getMovingSpeed();
         state = MOVING_LEFT;
+        lastDirection = IDLE_LEFT;
     } else if (movement.shouldMoveRight()){
-        speedX = -config.getMovingSpeed();
+        speedX = config.getMovingSpeed();
         state = MOVING_RIGHT;
+        lastDirection = IDLE_RIGHT;
     } else {
-        if (lastDirection == 'r'){
+        speedX = 0;
+        if (lastDirection == IDLE_RIGHT){
             state = IDLE_RIGHT;
         } else {
             state = IDLE_LEFT;

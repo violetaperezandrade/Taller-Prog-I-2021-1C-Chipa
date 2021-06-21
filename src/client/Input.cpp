@@ -63,6 +63,7 @@ void Input::run() {
 }
 
 void Input::stop(){
+    logger.debugMsg("Stop input sender", __FILE__, __LINE__);
     keepRunning = true;
     this->socket.shutdownWrite(logger);
 }

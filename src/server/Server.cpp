@@ -27,6 +27,7 @@ void Server::run(){
                                                userNames, keepRunning);
     reconnector->start();
     startGame();
+    reconnector->stop();
     reconnector->join();
     disconnectClients();
 }
@@ -133,7 +134,8 @@ void Server::startGame(){
             }
             if(clients[i]->isDisconnected()){
                 clients[i]->finish();
-                delete clients[i];
+                delete *(clients.begin() + i);
+                clients.erase(clients.begin() + i);
             }
         }
         game.update();

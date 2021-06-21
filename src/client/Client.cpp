@@ -10,7 +10,6 @@ Client::Client(char *ip, char *port, Logger& logger, Config& config) :
 {}
 
 Client::~Client(){
-    skt.shutdown(logger);
 }
 
 int Client::connect(char* ip, char* port){
@@ -57,4 +56,5 @@ void Client::run(){
 
     delete input;
     delete processor;
+
 }

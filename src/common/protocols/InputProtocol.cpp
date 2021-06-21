@@ -8,6 +8,7 @@ void InputProtocol::sendPressUpEvent(Socket& socket, Logger& logger){
 void InputProtocol::sendReleaseUpEvent(Socket& socket, Logger& logger){
     char input = 2;
     socket.send(&input, 1, logger);
+    logger.superDebugMsg("Se suelta arriba", __FILE__, __LINE__);
 }
 void InputProtocol::sendPressDownEvent(Socket& socket, Logger& logger){
     char input = 3;
@@ -17,6 +18,7 @@ void InputProtocol::sendPressDownEvent(Socket& socket, Logger& logger){
 void InputProtocol::sendReleaseDownEvent(Socket& socket, Logger& logger){
     char input = 4;
     socket.send(&input, 1, logger);
+    logger.superDebugMsg("Se suelta abajo", __FILE__, __LINE__);
 }
 void InputProtocol::sendPressLeftEvent(Socket& socket, Logger& logger){
     char input = 5;
@@ -26,6 +28,7 @@ void InputProtocol::sendPressLeftEvent(Socket& socket, Logger& logger){
 void InputProtocol::sendReleaseLeftEvent(Socket& socket, Logger& logger){
     char input = 6;
     socket.send(&input, 1, logger);
+    logger.superDebugMsg("Se suelta izquierda", __FILE__, __LINE__);
 }
 void InputProtocol::sendPressRightEvent(Socket& socket, Logger& logger){
     char input = 7;
@@ -35,6 +38,7 @@ void InputProtocol::sendPressRightEvent(Socket& socket, Logger& logger){
 void InputProtocol::sendReleaseRightEvent(Socket& socket, Logger& logger){
     char input = 8;
     socket.send(&input, 1, logger);
+    logger.superDebugMsg("Se suelta derecha", __FILE__, __LINE__);
 }
 void InputProtocol::sendPressJumpEvent(Socket& socket, Logger& logger){
     char input = 9;
@@ -44,4 +48,5 @@ void InputProtocol::sendPressJumpEvent(Socket& socket, Logger& logger){
 void InputProtocol::sendReleaseJumpEvent(Socket& socket, Logger& logger){
     char input = 10;
     socket.send(&input, 1, logger);
+    logger.superDebugMsg("Se suelta espacio", __FILE__, __LINE__);
 }

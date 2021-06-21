@@ -12,7 +12,7 @@ Receiver::~Receiver(){}
 void Receiver::stop(){
     logger.debugMsg("Receiver Stop" , __FILE__, __LINE__);
     keepRunning = false;
-    peer.shutdownRead(logger);
+    peer.shutdown(logger);
 }
 
 void Receiver::run(){
@@ -21,7 +21,8 @@ void Receiver::run(){
         if(peer.receive(c, 1, logger) <= 0){
             logger.errorMsg("End of receiving", __FILE__, __LINE__);
             stop();
-            break;
+            keepRunning = false;
+            c[0] = 'd';
         }
         incoming.push(c[0]);
         logger.debugMsg("Incoming push", __FILE__, __LINE__);

@@ -24,6 +24,8 @@
 #define CHARACTER_SIDE_PADDING 16;
 #define CHARACTER_TOP_PADDING 9;
 
+#define CHARACTER_FOOTING_PADDING 16;
+
 CollisionManager::CollisionManager(std::vector<Character>& character, std::vector<Entity> &vector, Logger& logger, Config& config) :
     characters(character),
     vector(vector),
@@ -119,8 +121,8 @@ void CollisionManager::getStillEdgeInfo(int* edgeInfo, Entity& entity){
 }
 
 void CollisionManager::getFloorEdgeInfo(int* edgeInfo, Entity& entity){
-    edgeInfo[LEFT] = entity.getPosX();
-    edgeInfo[RIGHT] = edgeInfo[LEFT]+entity.getWidth();
+    edgeInfo[LEFT] = entity.getPosX() + CHARACTER_FOOTING_PADDING;
+    edgeInfo[RIGHT] = edgeInfo[LEFT]+entity.getWidth() - CHARACTER_FOOTING_PADDING;
     edgeInfo[TOP] = entity.getPosY()+entity.getHeight()+1;
     edgeInfo[BOTTOM] = edgeInfo[TOP];
 }
@@ -262,7 +264,7 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
         std::cout << "Halt Movement with deltaY: " << deltaX <<'\n';
     }
 }
-
+/*
 void CollisionManager::climb(int i) {
     bool stairCollision = false;
 
@@ -288,13 +290,12 @@ void CollisionManager::climb(int i) {
         characters[i].setPosY(edgeInfo[TOP]);
     }
 }
-
+*/
 bool CollisionManager::moveCharacter(int i) {
-    characters[i].setOnStairs(false);
-    if (characters[i].isTryingToClimb()){
+    /*if (characters[i].isTryingToClimb()){
         climb(i);
         return false;
-    }
+    }*/
     if (characters[i].getSpeedX() == 0 && characters[i].getSpeedY() == 0){
         return false;
     }
@@ -340,7 +341,7 @@ bool CollisionManager::moveCharacter(int i) {
                type == FLAME_CODE){
                 //maybe halt movement
                 //hit
-            } else if(type == PLATFORM_CODE){
+            } else if(type == PLATFORM_CODE && !characters[i].isClimbing()){
                 haltMovement(characters[i], vector[j], edgeInfo);
                 if (previousY > edgeInfo[TOP]){
                     characters[i].land();
@@ -363,11 +364,15 @@ void CollisionManager::updateCollisionStatus() {
     for (int i = 0; i < characters.size(); i++){
         bool grounded = false;
         bool onStair = false;
+        bool aboveStair = false;
         for (int j = 0; j < vector.size(); j++){
             char type = vector[j].getType();
             if(type == STAIR_CODE){
                 if (checkStillCollision(characters[i], vector[j])){
                     onStair = true;
+                }
+                if (checkGroundedCollision(characters[i], vector[j])){
+                    aboveStair = true;
                 }
             } else if(type == PLATFORM_CODE){
                 if (checkGroundedCollision(characters[i], vector[j])){
@@ -375,8 +380,8 @@ void CollisionManager::updateCollisionStatus() {
                 }
             }
         }
-        characters[i].setOnStairs(onStair);
-        if (!grounded){
+        characters[i].setOnStairs(onStair || aboveStair);
+        if (!grounded && !onStair){
             characters[i].setFalling();
         }
     }
