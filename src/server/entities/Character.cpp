@@ -13,7 +13,7 @@
 #define MOVING_DOWN '9'
 #define IDLE_RIGHT 'r'
 #define IDLE_LEFT 'l'
-#define IDLE_BACK 'd'
+#define IDLE_OFF 'd'
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY, MOVING_RIGHT, 'T'),
@@ -60,28 +60,74 @@ void Character::stopJumping(){
     movement.setJumping(false);
 }
 
-void Character::jump(){
-    if (movement.shouldJump()){
-        movement.setMidair(true);
+void Character::attemptJump(Config& config){
+    if (movement.attemptJump()){
+        speedY = config.getJumpingSpeed();
+        if (movement.isMovingLeft()){
+            speedX = -config.getMovingSpeed();
+            state = FALLING_LEFT;
+            lastDirection = IDLE_LEFT;
+        } else if (movement.isMovingRight()){
+            speedX = config.getMovingSpeed();
+            state = FALLING_RIGHT;
+            lastDirection = IDLE_RIGHT;
+        } else {
+            if (lastDirection == IDLE_RIGHT){
+                state = FALLING_RIGHT;
+            } else {
+                state = FALLING_LEFT;
+            }
+        }
     }
 }
 
 void Character::land(){
-    movement.setMidair(false);
-    movement.setClimbing(false);
-    movement.setOnStairs(false);
+    movement.land();
     speedY = 0;
 }
 
-void Character::climb(){
-    if (movement.shouldClimb()){
-        movement.setClimbing(true);
+void Character::attemptClimb(Config& config){
+    if (movement.attemptClimb() || movement.isClimbing()){
+        if (movement.shouldMoveUp()){
+            speedX = 0;
+            speedY = -config.getClimbingSpeed();
+            state = MOVING_UP;
+        } else if (movement.shouldMoveDown()){
+            speedX = 0;
+            speedY = config.getClimbingSpeed();
+            state = MOVING_DOWN;
+        } else {
+            speedY = 0;
+        }
     }
 }
 
+void Character::attemptGroundMovement(Config& config){
+    if (!movement.isGrounded()){
+        return;
+    }
+    if (movement.shouldMoveLeft()){
+        speedX = -config.getMovingSpeed();
+        state = MOVING_LEFT;
+        lastDirection = IDLE_LEFT;
+    } else if (movement.shouldMoveRight()){
+        speedX = config.getMovingSpeed();
+        state = MOVING_RIGHT;
+        lastDirection = IDLE_RIGHT;
+    } else {
+        speedX = 0;
+        if (lastDirection == IDLE_RIGHT){
+            state = IDLE_RIGHT;
+        } else {
+            state = IDLE_LEFT;
+        }
+    }
+}
+
+/*
 bool Character::isOnStairs(){
     return movement.isOnStairs();
-}
+}*/
 
 bool Character::isTryingToClimb() {
     return movement.isTryingToClimb();
@@ -89,6 +135,10 @@ bool Character::isTryingToClimb() {
 
 void Character::setOnStairs(bool value){
     movement.setOnStairs(value);
+}
+
+void Character::setFalling(){
+    movement.setFalling();
 }
 
 bool Character::isGrounded(){
@@ -134,8 +184,8 @@ void Character::updateStatus(){
     }
 }*/
 
-void Character::updateStatus(Config& config){
-    if (movement.shouldFall()){
+/*void Character::updateStatus(Config& config){
+    if (movement.isMidair()){
         speedY += config.getGravity();
     } else if (movement.shouldMoveUp()){
         state = MOVING_UP;
@@ -184,6 +234,18 @@ void Character::updateStatus(Config& config){
             //use lastMovementDirection to chose what idle sprite to use
 
         }
+    }
+}*/
+
+void Character::updateStatus(Config& config){
+    if (movement.isMidair()){
+        speedY += config.getGravity();
+    } else if (movement.isClimbing()){
+        attemptClimb(config);
+    } else {
+        attemptJump(config);
+        attemptClimb(config);
+        attemptGroundMovement(config);
     }
 }
 

@@ -3,10 +3,14 @@
 #include "../common/Config.h"
 
 int main(int argc, char** argv){
-    char host[10] = "localhost";
-    char port[5] = "8080";
-    char loggerPath[17] = "../logClient.txt";
-    char configPath[13] = "../data.json";
+   if (argc != 5){
+        std::cerr << "Invalid number of parameters" << std::endl;
+        return -1;
+    }
+    char* host = argv[1];
+    char* port = argv[2];
+    char* loggerPath = argv[3];
+    char* configPath = argv[4];
     Logger logger(loggerPath);
     Config config(configPath, logger);
     logger.setLevel(config.getDebug());

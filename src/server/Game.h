@@ -20,6 +20,12 @@ private:
     int amountCharacters;
     bool finished;
 
+    void updateCharacterStatus();
+    bool moveCharacters();
+    void attemptEmberSpawn();
+    void attemptBarrelSpawn();
+    void moveEntities();
+
 public:
     Game(Config& config,Logger& logger, int amountCharacters);
 

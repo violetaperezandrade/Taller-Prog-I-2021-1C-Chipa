@@ -13,6 +13,8 @@ View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
     window = createWindow("Donkey Kong ii", config.getResolutionWidth(), config.getResolutionHeight());
     windowRenderer = createRenderer(window);
 
+    //grey
+    texturesMario[0]['d'] = loadImageTexture("../src/client/img/Sprites-Mario/mario_idle_back_off.png", windowRenderer);
     //red
     texturesMario[1]['1'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_right.png", windowRenderer);
     texturesMario[1]['2'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_left.png", windowRenderer);
@@ -22,6 +24,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
     texturesMario[1]['9'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer);
     texturesMario[1]['r'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer);
     texturesMario[1]['l'] = loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer);
+
 
     //yellow
     texturesMario[2]['1'] = loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_right.png", windowRenderer);
@@ -60,6 +63,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
     SDL_Color colorP2 = {255, 233, 0};
     SDL_Color colorP3 = {182, 149, 192};
     SDL_Color colorP4 = {0, 255, 0};
+    //SDL_Color colorOff = {134,134,134};
 
     usersNames[1] = loadFromRenderedText("P1", colorP1, windowRenderer, font);
     usersNames[2] = loadFromRenderedText("P2", colorP2, windowRenderer, font);
@@ -197,7 +201,12 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     logger.debugMsg(c, __FILE__, __LINE__);
     switch (entityType) {
         case 'C': //mario
-            textureEntity = texturesMario[playerID][stateEntity];
+            if(stateEntity == 'd'){
+                textureEntity = texturesMario[0][stateEntity];
+            }
+            else {
+                textureEntity = texturesMario[playerID][stateEntity];
+            }
             break;
         case 'B': //barrel
             textureEntity = texturesEntities['B'];
@@ -267,12 +276,12 @@ int View::run() {
             int width = it->getWidth();
             int height = it->getHeight();
             char type = it->getType();
+            char state = it->getState();
             if (type == 'C') {
                 playerID++;
                 renderText(posX+(width/3), posY-15, usersNames[playerID].width,usersNames[playerID].height, usersNames[playerID].texture);
                 logger.debugMsg("Renderizando player ID",__FILE__,__LINE__);
             }
-            char state = it->getState();
             logger.debugMsg("Renderizo una entidad",__FILE__,__LINE__);
             render(posX, posY, width, height, state, type);
             ++it;

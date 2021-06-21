@@ -1,8 +1,11 @@
 #include "Movement.h"
 
-Movement::Movement() : movingLeft(false), movingRight(false), movingUp(false),
-                       movingDown(false),  jumping(false), midair(false),
-                       climbing(false),onStairs(false) {}
+#define MIDAIR 'M'
+#define CLIMBING 'C'
+#define GROUNDED 'G'
+
+Movement::Movement() : state(GROUNDED), movingLeft(false), movingRight(false), movingUp(false),
+                       movingDown(false), jumping(false), onStairs(false) {}
 Movement::~Movement() {}
 
 void Movement::setMovingLeft(bool value){
@@ -17,54 +20,87 @@ void Movement::setMovingUp(bool value){
 void Movement::setMovingDown(bool value){
     movingDown = value;
 }
-void Movement::setJumping(bool value){
+
+void Movement::setJumping(bool value) {
     jumping = value;
 }
-void Movement::setMidair(bool value){
-    midair = value;
+bool Movement::attemptJump() {
+    if (state == GROUNDED && jumping){
+        state = MIDAIR;
+        return true;
+    }
+    return false;
 }
-void Movement::setClimbing(bool value){
-    climbing = value;
+
+bool Movement::attemptClimb() {
+    if (state == GROUNDED && (movingUp != movingDown) && onStairs){ // != is xor for bool
+        state = CLIMBING;
+        return true;
+    }
+    return false;
+}
+
+void Movement::land() {
+    state = GROUNDED;
 }
 
 void Movement::setOnStairs(bool value){
     onStairs = value;
+    if (!onStairs){
+        state = GROUNDED;
+    }
+}
+
+void Movement::setFalling() {
+    state = MIDAIR;
 }
 
 bool Movement::isMidair() {
-    return midair;
+    return state == MIDAIR;
 }
 
 bool Movement::isClimbing() {
-    return climbing;
+    return state == CLIMBING;
 }
 
+bool Movement::isGrounded() {
+    return state == GROUNDED;
+}
+/*
 bool Movement::isOnStairs() {
     return onStairs;
-}
+}*/
 
 bool Movement::isTryingToClimb() {
-    return movingUp || movingDown;
+    return movingUp != movingDown;
+}
+
+bool Movement::isMovingLeft(){
+    return !movingRight && movingLeft;
+}
+bool Movement::isMovingRight(){
+    return !movingLeft && movingRight;
 }
 
 bool Movement::shouldMoveLeft(){
-    return !midair && !climbing && !movingRight && movingLeft;
+    return (state == GROUNDED) && !movingRight && movingLeft;
 }
 bool Movement::shouldMoveRight(){
-    return !midair && !climbing && !movingLeft && movingRight;
+    return (state == GROUNDED) && !movingLeft && movingRight;
 }
 bool Movement::shouldMoveUp(){
-    return !midair && climbing && !movingDown && movingUp;
+    return (state == CLIMBING) && onStairs && !movingDown && movingUp;
 }
 bool Movement::shouldMoveDown(){
-    return !midair && climbing && !movingUp && movingDown;
+    return (state == CLIMBING) && onStairs && !movingUp && movingDown;
 }
+/*
 bool Movement::shouldJump(){
-    return !midair && !climbing && jumping;
+    return state == GROUNDED;
 }
 bool Movement::shouldFall(){
-    return midair;
+    return state == MIDAIR;
 }
 bool Movement::shouldClimb(){
-    return !midair && onStairs && (movingUp || movingDown);
-}
+    return state == CLIMBING;
+}*/

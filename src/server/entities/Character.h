@@ -33,15 +33,19 @@ public:
 
     void stopJumping();
 
-    void jump();
-
     void land();
 
-    void climb();
+    void attemptJump(Config& config);
+
+    void attemptClimb(Config& config);
+
+    void attemptGroundMovement(Config& config);
 
     bool isOnStairs();
 
     void setOnStairs(bool value);
+
+    void setFalling();
 
     bool isGrounded();
 
