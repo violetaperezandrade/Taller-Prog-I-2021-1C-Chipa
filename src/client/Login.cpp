@@ -194,7 +194,10 @@ int Login::runLoginWindow(char* ip, char* port) {
     prompTexturePsw = loadFromRenderedText("Password: ",textColorPrompt,windowRendererLogin,globalFont);
     playButtonText = loadFromRenderedText(playText.c_str(),textColorPlay,windowRendererLogin,globalFont);
 
-    SDL_Texture* textbox = loadImageTexture("../src/client/img/Login/textbox-blue.png",windowRendererLogin);
+    SDL_Texture* textboxIdle = loadImageTexture("../src/client/img/Login/textbox-blue.png",windowRendererLogin);
+    SDL_Texture* textboxClicked = loadImageTexture("../src/client/img/Login/textbox-clicked.png",windowRendererLogin);
+    SDL_Texture* textboxUser = textboxIdle;
+    SDL_Texture* textboxPass = textboxIdle;
     SDL_Texture* playButton = loadImageTexture("../src/client/img/Login/play.png",windowRendererLogin);
     SDL_Texture* monkey = loadImageTexture("../src/client/img/Login/dk2.png",windowRendererLogin);
 
@@ -217,11 +220,15 @@ int Login::runLoginWindow(char* ip, char* port) {
             if(mouseWasClickedOnPosition(310,600,80,130,&e) == true){
                 renderPass = false;
                 canWrite = true;
+                textboxUser = textboxClicked;
+                textboxPass = textboxIdle;
             }
             //if mouse was clicked password prompt
             else if(mouseWasClickedOnPosition(310,600,180,230,&e) == true){
                 renderPass = true;
                 canWrite = true;
+                textboxPass = textboxClicked;
+                textboxUser = textboxIdle;
             }
 
             if(canWrite){
@@ -317,8 +324,8 @@ int Login::runLoginWindow(char* ip, char* port) {
         SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
         SDL_RenderClear(windowRendererLogin);
 
-        renderLogin(300,80,300,50,textbox,windowRendererLogin);
-        renderLogin(300,180,300,50,textbox,windowRendererLogin);
+        renderLogin(300,80,300,50,textboxUser,windowRendererLogin);
+        renderLogin(300,180,300,50,textboxPass,windowRendererLogin);
 
         renderLogin(300,50, prompTextureUsr.width,prompTextureUsr.height,prompTextureUsr.texture,windowRendererLogin);
         renderLogin(310,95,inputTextTextureUser.width,inputTextTextureUser.height,inputTextTextureUser.texture,windowRendererLogin);
@@ -334,7 +341,10 @@ int Login::runLoginWindow(char* ip, char* port) {
         SDL_RenderPresent(windowRendererLogin);
     }
     SDL_StopTextInput();
-    free(textbox);
+    free(textboxUser);
+    free(textboxPass);
+    free(textboxIdle);
+    free(textboxClicked);
     free(playButton);
     free(monkey);
     free(prompTexturePsw.texture);
