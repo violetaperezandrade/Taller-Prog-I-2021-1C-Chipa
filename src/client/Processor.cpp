@@ -31,7 +31,7 @@ void Processor::run() {
 void Processor::stop(){
     logger.debugMsg("Stop processor", __FILE__, __LINE__);
     keepRunning = false;
-    socket.shutdownRead(this->logger);
+    socket.shutdown(this->logger);
 }
 
 Processor::~Processor(){}
