@@ -13,6 +13,7 @@
 #define MOVING_DOWN '9'
 #define IDLE_RIGHT 'r'
 #define IDLE_LEFT 'l'
+#define IDLE_OFF 'd'
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY, MOVING_RIGHT, 'T'),
