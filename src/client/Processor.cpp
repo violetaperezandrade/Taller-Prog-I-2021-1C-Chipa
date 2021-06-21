@@ -1,5 +1,6 @@
 #include "Processor.h"
 #include "../common/protocols/EntityProtocol.h"
+#include <chrono>
 
 Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning) :
     monitor(monitor),
@@ -10,12 +11,16 @@ Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& kee
 
 void Processor::readEntities() {
     while(keepRunning) {
-        monitor.disnotify();
         if(EntityProtocol::readEntities(socket, monitor, logger) == 1){//llena el monitor con mensaje en bloque
             stop();
             return;
         }
         monitor.notify();
+        std::chrono::milliseconds frameTime(1);
+        std::chrono::steady_clock::time_point initialTime = std::chrono::steady_clock::now();
+        std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
+        std::this_thread::sleep_until(timeSpan);
+        monitor.disnotify();
     }
 }
 

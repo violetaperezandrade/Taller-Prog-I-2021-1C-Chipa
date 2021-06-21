@@ -1,7 +1,7 @@
 {
     "configuration": {
         "frame time": 33,
-        "debug": 3,
+        "debug": 1,
         "path" : "../log.txt",
         "gravity" : 2
     },
