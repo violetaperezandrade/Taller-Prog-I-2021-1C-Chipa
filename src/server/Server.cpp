@@ -60,6 +60,7 @@ void Server::acceptClients(){
 
 
 void Server::disconnectClients(){
+    if(clients.size() == 0) return;
     std::vector<Peer*>::iterator it = clients.begin();
     while(it != clients.end()){
         (*it)->finish();

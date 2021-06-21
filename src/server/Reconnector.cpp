@@ -16,10 +16,12 @@ void Reconnector::run() {
 
     while (keepRunning) {
         Socket clientSkt = std::move(sktListener.accept(logger));
-        Peer *client = new Peer(std::move(clientSkt), logger);
-        logger.infoMsg("Added reconnected peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
-        validateReconnection(client);
-        clients.push_back(client);
+        if(keepRunning){
+            Peer *client = new Peer(std::move(clientSkt), logger);
+            logger.infoMsg("Added reconnected peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
+            validateReconnection(client);
+            clients.push_back(client);
+        }
     }
 
 }
