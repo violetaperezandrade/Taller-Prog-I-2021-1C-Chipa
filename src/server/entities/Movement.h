@@ -31,6 +31,7 @@ public:
 
     bool isMidair();
     bool isClimbing();
+    bool isGrounded();
     //bool isOnStairs();
     bool isTryingToClimb();
 

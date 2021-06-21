@@ -1,8 +1,8 @@
 #include "Movement.h"
 
-#define MIDAIR 1
-#define CLIMBING 2
-#define GROUNDED 3
+#define MIDAIR 'M'
+#define CLIMBING 'C'
+#define GROUNDED 'G'
 
 Movement::Movement() : state(GROUNDED), movingLeft(false), movingRight(false), movingUp(false),
                        movingDown(false), jumping(false), onStairs(false) {}
@@ -33,7 +33,7 @@ bool Movement::attemptJump() {
 }
 
 bool Movement::attemptClimb() {
-    if (state == GROUNDED && (movingUp != movingDown)){ // != is xor for bool
+    if (state == GROUNDED && (movingUp != movingDown) && onStairs){ // != is xor for bool
         state = CLIMBING;
         return true;
     }
@@ -46,6 +46,9 @@ void Movement::land() {
 
 void Movement::setOnStairs(bool value){
     onStairs = value;
+    if (!onStairs){
+        state = GROUNDED;
+    }
 }
 
 void Movement::setFalling() {
@@ -58,6 +61,10 @@ bool Movement::isMidair() {
 
 bool Movement::isClimbing() {
     return state == CLIMBING;
+}
+
+bool Movement::isGrounded() {
+    return state == GROUNDED;
 }
 /*
 bool Movement::isOnStairs() {
