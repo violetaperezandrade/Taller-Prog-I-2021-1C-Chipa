@@ -18,7 +18,7 @@ void LoginManager::run() {
 void LoginManager::validateLogin(){
     char user[30];
     char password[30];
-    char response; //F for fail - G for good
+    char response; //B for fail - G for good
 
     bool correctCredentials = false;
     while(!correctCredentials) {
@@ -31,7 +31,7 @@ void LoginManager::validateLogin(){
         std::string empty;
 
         if (usersKeys[usr] != pw || pw == empty) {
-            response = 'F';
+            response = 'B';
             client->send(&response, 1);
 
             logger.infoMsg("Received incorrect credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
