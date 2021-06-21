@@ -279,8 +279,10 @@ int View::run() {
             char state = it->getState();
             if (type == 'C') {
                 playerID++;
-                renderText(posX+(width/3), posY-15, usersNames[playerID].width,usersNames[playerID].height, usersNames[playerID].texture);
-                logger.debugMsg("Renderizando player ID",__FILE__,__LINE__);
+                if (config.getPlayersAmount() > 1){
+                    renderText(posX+(width/3), posY-15, usersNames[playerID].width,usersNames[playerID].height, usersNames[playerID].texture);
+                    logger.debugMsg("Renderizando player ID", __FILE__, __LINE__);
+                }
             }
             logger.debugMsg("Renderizo una entidad",__FILE__,__LINE__);
             render(posX, posY, width, height, state, type);

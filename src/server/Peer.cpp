@@ -19,9 +19,8 @@ void Peer::start(){
 }
 
 void Peer::finish(){
-    peer.shutdown(logger);
-    sender->join();
     receiver->join();
+    sender->join();
 }
 
 Peer::~Peer(){
@@ -52,19 +51,22 @@ char Peer::receive(){
 }
 
 bool Peer::hasIncoming() {
+    if(incoming.front() == 'd'){
+        disconnected = true;
+        incoming.pop();
+        return false;
+    }
     return !incoming.empty();
 }
 
 void Peer::receive(char* msg, int length){
-    if(peer.receive(msg,length,logger) <= 0){
-        disconnected = true;
-    }
+    peer.receive(msg,length,logger);
 }
 
 void Peer::send(char* msg, int length){
-    if(peer.send(msg,length,logger) <= 0){
-        disconnected = true;
-    }
+    peer.send(msg,length,logger);
+
+
 }
 
 bool Peer::isDisconnected(){

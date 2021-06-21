@@ -30,7 +30,7 @@ void Reconnector::validateReconnection(Peer* client){
     char response; //F for fail - G for good
     bool correctCredentials = false;
 
-    while(!correctCredentials) {
+    while(!correctCredentials && keepRunning) {
 
         client->receive(user, 30);
         client->receive(password, 30);
@@ -59,6 +59,10 @@ void Reconnector::validateReconnection(Peer* client){
     }
     response = 'G';
     client->send(&response,1);
+}
+
+void Reconnector::stop(){
+    sktListener.shutdown(logger);
 }
 
 Reconnector::~Reconnector() {}
