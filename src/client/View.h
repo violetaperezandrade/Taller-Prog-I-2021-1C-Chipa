@@ -33,6 +33,8 @@ private:
     void closeSDL();
 
 public:
+    View(Monitor& monitor, Logger& logger, Config& config, bool& keepRunning);
+
     void render(int x, int y, int width, int height, char stateEntity,char entityType);
 
     SDL_Renderer* createRenderer(SDL_Window* window);
@@ -46,8 +48,6 @@ public:
     void renderText(int x, int y, int width, int height, SDL_Texture* texture);
 
     void free(SDL_Texture* texture);
-
-    View(Monitor& monitor, Logger& logger, Config& config, bool& keepRunning);
 
     void changeLevel();
 

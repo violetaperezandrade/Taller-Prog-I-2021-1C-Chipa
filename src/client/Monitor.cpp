@@ -1,6 +1,12 @@
 #include "Monitor.h"
 
-Monitor::Monitor(Logger& logger) : entities(), mtx(), cond_var(),logger(logger) {}
+Monitor::Monitor(Logger& logger) :
+    entities(),
+    mtx(),
+    cond_var(),
+    logger(logger),
+    level(0)
+    {}
 
 Monitor::~Monitor() {}
 
@@ -31,6 +37,7 @@ void Monitor::cleanPermanent(){
             i--;
         }
     }
+    level ++;
     logger.debugMsg("Se borran entidades permanentes",__FILE__,__LINE__);
 }
 
@@ -53,4 +60,8 @@ void Monitor::notify(){
     notified = true;
     cond_var.notify_all();
     logger.debugMsg("Se notifica a las condition variables",__FILE__,__LINE__);
+}
+
+int Monitor::getLevel(){
+    return this->level;
 }

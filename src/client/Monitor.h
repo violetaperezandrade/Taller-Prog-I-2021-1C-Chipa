@@ -14,6 +14,7 @@ private:
     std::condition_variable cond_var;
     bool notified = false;
     Logger& logger;
+    int level;
 public:
     explicit Monitor(Logger& logger);
 
@@ -30,5 +31,7 @@ public:
     void disnotify();
 
     void notify();
+
+    int getLevel();
 };
 #endif //MONITOR_H
