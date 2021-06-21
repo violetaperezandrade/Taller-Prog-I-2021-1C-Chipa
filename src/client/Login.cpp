@@ -151,7 +151,7 @@ bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event*
 
 int Login::runLoginWindow(char* ip, char* port) {
 
-    int success = sktLogin.connect(ip,port,logger);
+    int success = sktLogin.connect(ip, port, logger);
     if(success < 0){
         SDL_SetWindowSize(windowLogin,410,110);
         TTF_Font* fontWarning = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf",15);
@@ -275,24 +275,56 @@ int Login::runLoginWindow(char* ip, char* port) {
                 if((x > 220 && x < 420) && (y > 300 && y < 370)) onButton = true;
 
                 if(onButton == true){
-                    switch(e.type){
+                    switch(e.type) {
                         case SDL_MOUSEMOTION:
-                            playButton = loadImageTexture("../src/client/img/Login/playHover.png",windowRendererLogin);
+                            playButton = loadImageTexture("../src/client/img/Login/playHover.png", windowRendererLogin);
                             break;
                         case SDL_MOUSEBUTTONDOWN:
-                            playButton = loadImageTexture("../src/client/img/Login/playClick.png",windowRendererLogin);
+                            playButton = loadImageTexture("../src/client/img/Login/playClick.png", windowRendererLogin);
 
-                            sktLogin.send(inputTextUser.c_str(), 30,logger);
-                            logger.infoMsg("Se envia usuario",__FILE__,__LINE__);
+                            sktLogin.send(inputTextUser.c_str(), 30, logger);
+                            logger.infoMsg("Se envia usuario", __FILE__, __LINE__);
 
-                            sktLogin.send(inputTextPsw.c_str(), 30,logger);
-                            logger.infoMsg("Se envia contraseña",__FILE__,__LINE__);
+                            sktLogin.send(inputTextPsw.c_str(), 30, logger);
+                            logger.infoMsg("Se envia contraseña", __FILE__, __LINE__);
 
                             char succesLogin[1];
-                            logger.infoMsg("Se espera verificacion",__FILE__,__LINE__);
-                            sktLogin.receive(succesLogin,1,logger);
+                            logger.infoMsg("Se espera verificacion", __FILE__, __LINE__);
+                            sktLogin.receive(succesLogin, 1, logger);
 
-                            if(succesLogin[0] == 'F'){
+                            if (succesLogin[0] == 'F') {
+                                SDL_SetWindowSize(windowLogin,410,110);
+                                TTF_Font* fontWarning = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf",15);
+                                TextRendered connError = loadFromRenderedText("Server full",{255,0,0},windowRendererLogin,fontWarning);
+                                SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
+                                SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
+                                SDL_RenderClear(windowRendererLogin);
+                                renderLogin(8,10,connError.width,connError.height,connError.texture,windowRendererLogin);
+                                renderLogin(165,30,80,80,warning,windowRendererLogin);
+                                SDL_RenderPresent(windowRendererLogin);
+                                SDL_Delay(3000);
+                                logger.errorMsg("Servidor lleno", __FILE__, __LINE__);
+                                TTF_CloseFont(fontWarning);
+                                fontWarning = NULL;
+                                free(connError.texture);
+                                free(warning);
+                                free(textboxUser);
+                                free(textboxPass);
+                                free(textboxIdle);
+                                free(textboxClicked);
+                                free(playButton);
+                                free(monkey);
+                                free(prompTexturePsw.texture);
+                                free(prompTextureUsr.texture);
+                                free(inputTextTextureUser.texture);
+                                free(inputTextTexturePsw.texture);
+                                free(playButtonText.texture);
+                                free(loginError.texture);
+                                logger.debugMsg("Se destruyen texturas",__FILE__,__LINE__);
+                                closeSDL();
+                                return -1;
+                            }
+                            if (succesLogin[0] == 'B') {
                                 loginError = loadFromRenderedText("User or pass invalid",{255,0,0},windowRendererLogin,globalFont);
                                 logger.infoMsg("Se ingresaron mal las credenciales",__FILE__,__LINE__);
                             }
@@ -305,7 +337,7 @@ int Login::runLoginWindow(char* ip, char* port) {
                     }
                 }
                 else{
-                    playButton = loadImageTexture("../src/client/img/Login/play.png",windowRendererLogin);
+                    playButton = loadImageTexture("../src/client/img/Login/play.png", windowRendererLogin);
                 }
             }
         }

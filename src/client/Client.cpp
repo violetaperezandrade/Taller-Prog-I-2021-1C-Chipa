@@ -13,7 +13,7 @@ Client::~Client(){
 }
 
 int Client::connect(char* ip, char* port){
-    return skt.connect(ip,port,logger);
+    return skt.connect(ip, port,logger);
 }
 
 int Client::send(const char* msg, size_t len){
@@ -26,12 +26,12 @@ int Client::recv(char* msg, size_t len){
 
 void Client::run(){
 
-    logger.infoMsg("Se inicia un cliente",__FILE__,__LINE__);
+    logger.infoMsg("Se inicia un cliente", __FILE__, __LINE__);
 
     Login login(logger, skt);
     int status = login.runLoginWindow(ip,port);
     if(status < 0){
-        logger.errorMsg("Algo salio mal en ventana de login",__FILE__,__LINE__);
+        logger.errorMsg("Algo salio mal en ventana de login", __FILE__, __LINE__);
         return;
     }
     bool keepRunning = true;
