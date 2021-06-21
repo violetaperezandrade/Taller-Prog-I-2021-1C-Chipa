@@ -69,6 +69,10 @@ void Game::stopJumping(int i){
     characters[i].stopJumping();
 }
 
+void Game::disconnect(int i) {
+    characters[i].disconnect();
+}
+
 void Game::updateCharacterStatus(){
     for(int i = 0; i < amountCharacters; i++){
         characters[i].updateStatus(config);

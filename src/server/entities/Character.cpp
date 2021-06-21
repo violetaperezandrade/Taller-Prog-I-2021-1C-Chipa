@@ -249,5 +249,14 @@ void Character::updateStatus(Config& config){
     }
 }
 
+void Character::disconnect() {
+    movement.setJumping(false);
+    movement.setMovingDown(false);
+    movement.setMovingUp(false);
+    movement.setMovingLeft(false);
+    movement.setMovingRight(false);
+    state = IDLE_OFF;
+}
+
 Character::~Character(){}
 

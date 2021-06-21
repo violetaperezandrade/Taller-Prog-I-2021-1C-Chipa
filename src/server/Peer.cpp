@@ -20,7 +20,11 @@ void Peer::start(){
 
 void Peer::finish(){
     receiver->join();
+    logger.infoMsg("Receiver join", __FILE__, __LINE__);
+    sender->stop();
+    sendBreak();
     sender->join();
+    logger.debugMsg("Sender join", __FILE__, __LINE__);
 }
 
 Peer::~Peer(){
@@ -29,6 +33,7 @@ Peer::~Peer(){
 }
 
 void Peer::send(Entity& entity) {
+    if(disconnected) return;
     EntityProtocol::sendEntity(outgoing, entity);
 }
 
@@ -65,8 +70,6 @@ void Peer::receive(char* msg, int length){
 
 void Peer::send(char* msg, int length){
     peer.send(msg,length,logger);
-
-
 }
 
 bool Peer::isDisconnected(){

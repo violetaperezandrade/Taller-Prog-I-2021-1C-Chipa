@@ -16,19 +16,21 @@ void Reconnector::run() {
 
     while (keepRunning) {
         Socket clientSkt = std::move(sktListener.accept(logger));
-        Peer *client = new Peer(std::move(clientSkt), logger);
-        logger.infoMsg("Added peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
-        validateReconnection(client);
-        clients.push_back(client);
+        if(keepRunning){
+            Peer *client = new Peer(std::move(clientSkt), logger);
+            logger.infoMsg("Added reconnected peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
+            validateReconnection(client);
+            clients.push_back(client);
+        }
     }
-
 }
 
 void Reconnector::validateReconnection(Peer* client){
     char user[30];
     char password[30];
-    char response; //F for fail - G for good
+    char response; //F for full - G for good - B for bad
     bool correctCredentials = false;
+    bool alreadyPlayer = false;
 
     while(!correctCredentials && keepRunning) {
 
@@ -37,32 +39,42 @@ void Reconnector::validateReconnection(Peer* client){
 
         std::string usr(user);
         std::string pw(password);
-
-        if (usersKeys[usr] != pw) {
-            response = 'F';
-            client->send(&response, 1);
-
-            logger.infoMsg("Received incorrect credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
-            continue;
-        }
+        std::string empty;
 
         std::vector<std::string>::iterator it = userNames.begin();
         while (it != userNames.end()) {
             if(*it == usr){
-                correctCredentials = true;
+                alreadyPlayer = true;
                 logger.infoMsg("Reconnection correct credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
                 client->setName(usr);
                 break;
             }
             ++it;
         }
+        if(alreadyPlayer) {
+            if (usersKeys[usr] != pw || pw == empty) {
+                response = 'B';
+                client->send(&response, 1);
+
+                logger.infoMsg("Received incorrect credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
+                continue;
+            }
+            correctCredentials = true;
+            continue;
+        }
+        response = 'F';
+        client->send(&response, 1);
+        logger.infoMsg("Full game, no space for more players: " + usr + " " + pw, __FILE__, __LINE__);
+        return;
     }
+    if(!keepRunning) return;
     response = 'G';
     client->send(&response,1);
 }
 
 void Reconnector::stop(){
     sktListener.shutdown(logger);
+    logger.debugMsg("Reconnector shutdown", __FILE__, __LINE__);
 }
 
 Reconnector::~Reconnector() {}

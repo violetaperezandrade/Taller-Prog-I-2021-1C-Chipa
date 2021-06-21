@@ -184,10 +184,6 @@ bool CollisionManager::checkCollision(Entity &a, Entity &b) {
 
     bool horizontalMatch = checkHorizontalMatch(edgeInfoA, edgeInfoB);
     bool verticalMatch = checkVerticalMatch(edgeInfoA, edgeInfoB);
-    if (verticalMatch && horizontalMatch){
-        std::cout << "First entity edges: Left: " << edgeInfoA[0] << ", Right: " << edgeInfoA[1] << ", Top: " << edgeInfoA[2] << ", Bottom: " << edgeInfoA[3] << '\n';
-        std::cout << "Second entity edges: Left: " << edgeInfoB[0] << ", Right: " << edgeInfoB[1] << ", Top: " << edgeInfoB[2] << ", Bottom: " << edgeInfoB[3] << '\n';
-    }
     return (verticalMatch && horizontalMatch);
 }
 
@@ -204,10 +200,6 @@ bool CollisionManager::checkStillCollision(Entity &a, Entity &b) {
 
     bool horizontalMatch = checkHorizontalMatch(edgeInfoA, edgeInfoB);
     bool verticalMatch = checkVerticalMatch(edgeInfoA, edgeInfoB);
-    if (verticalMatch && horizontalMatch){
-        std::cout << "First entity edges: Left: " << edgeInfoA[0] << ", Right: " << edgeInfoA[1] << ", Top: " << edgeInfoA[2] << ", Bottom: " << edgeInfoA[3] << '\n';
-        std::cout << "Second entity edges: Left: " << edgeInfoB[0] << ", Right: " << edgeInfoB[1] << ", Top: " << edgeInfoB[2] << ", Bottom: " << edgeInfoB[3] << '\n';
-    }
     return (verticalMatch && horizontalMatch);
 }
 
@@ -218,10 +210,6 @@ bool CollisionManager::checkGroundedCollision(Entity &a, Entity &b) {
 
     bool horizontalMatch = checkHorizontalMatch(edgeInfoA, edgeInfoB);
     bool verticalMatch = checkVerticalMatch(edgeInfoA, edgeInfoB);
-    if (verticalMatch && horizontalMatch){
-        std::cout << "First entity edges: Left: " << edgeInfoA[0] << ", Right: " << edgeInfoA[1] << ", Top: " << edgeInfoA[2] << ", Bottom: " << edgeInfoA[3] << '\n';
-        std::cout << "Second entity edges: Left: " << edgeInfoB[0] << ", Right: " << edgeInfoB[1] << ", Top: " << edgeInfoB[2] << ", Bottom: " << edgeInfoB[3] << '\n';
-    }
     return (verticalMatch && horizontalMatch);
 }
 
@@ -257,11 +245,9 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
     if (abs(deltaX) > abs(deltaY)){
         edgeInfoA[LEFT] -= deltaX;
         edgeInfoA[RIGHT] -= deltaX;
-        std::cout << "Halt Movement with deltaX: " << deltaX <<'\n';
     } else {
         edgeInfoA[TOP] -= deltaY;
         edgeInfoA[BOTTOM] -= deltaY;
-        std::cout << "Halt Movement with deltaY: " << deltaX <<'\n';
     }
 }
 /*
@@ -307,8 +293,6 @@ bool CollisionManager::moveCharacter(int i) {
 
     int edgeInfo[4];
     getEdgeInfo(edgeInfo, characters[i]);
-    std::cout << "\nStarting info: PosX: " << characters[i].getPosX() << ",  PosY: " << characters[i].getPosY() << ",  SpeedX: " << characters[i].getSpeedX() << ",  SpeedY: " << characters[i].getSpeedY() << ",  Width: " << characters[i].getWidth() << ",  Height: " << characters[i].getHeight() << '\n';
-    std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
 
     if (edgeInfo[LEFT] < 0){
         edgeInfo[LEFT] = 0;
@@ -328,8 +312,6 @@ bool CollisionManager::moveCharacter(int i) {
         edgeInfo[BOTTOM] = height;
     }
 
-    //std::cout << "After colliding with edge\n";
-    //std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
     int previousY = edgeInfo[TOP];
 
     fixCharacterHitbox(edgeInfo);
@@ -345,10 +327,7 @@ bool CollisionManager::moveCharacter(int i) {
                 haltMovement(characters[i], vector[j], edgeInfo);
                 if (previousY > edgeInfo[TOP]){
                     characters[i].land();
-                    std::cout << "----Landing\n";
                 }
-                std::cout << "After colliding with platform\n";
-                std::cout << "Left: " << edgeInfo[0] << ", Right: " << edgeInfo[1] << ", Top: " << edgeInfo[2] << ", Bottom: " << edgeInfo[3] << '\n';
             } else if(type == PRINCESS_CODE){
                 switchLevel = true;
             }
