@@ -21,10 +21,13 @@
 #define PRINCESS_CODE 'p'
 #define STAIR_CODE 'S'
 
-#define CHARACTER_SIDE_PADDING 16;
-#define CHARACTER_TOP_PADDING 9;
+#define CHARACTER_SIDE_PADDING 16
+#define CHARACTER_TOP_PADDING 9
 
-#define CHARACTER_FOOTING_PADDING 16;
+#define CHARACTER_FOOTING_PADDING 16
+
+#define MAP_WIDTH 800
+#define MAP_HEIGHT 600
 
 CollisionManager::CollisionManager(std::vector<Character>& character, std::vector<Entity> &vector, Logger& logger, Config& config) :
     characters(character),
@@ -226,6 +229,7 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
     int speedX = moving.getSpeedX();
     int speedY = moving.getSpeedY();
     int deltaX = 0, deltaY = 0;
+    bool moveX;
 
     int edgeInfoB[4];
     getEdgeInfo(edgeInfoB, obstacle);
@@ -242,7 +246,9 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
         deltaY = -1 + edgeInfoA[TOP] - edgeInfoB[BOTTOM];
     }
 
-    if (abs(deltaX) > abs(deltaY)){
+    //moveX = abs(deltaX) > abs(deltaY);
+    moveX = (deltaY == 0) || (deltaX != 0 && abs(deltaX) < abs(deltaY));
+    if (moveX){
         edgeInfoA[LEFT] -= deltaX;
         edgeInfoA[RIGHT] -= deltaX;
     } else {
@@ -341,7 +347,9 @@ bool CollisionManager::moveCharacter(int i) {
 
 void CollisionManager::updateCollisionStatus() {
     for (int i = 0; i < characters.size(); i++){
-        bool grounded = false;
+        int edgeInfo[4];
+        getEdgeInfo(edgeInfo, characters[i]);
+        bool grounded = (edgeInfo[BOTTOM] >= MAP_HEIGHT-(PLATFORM_HEIGHT)-1);
         bool onStair = false;
         bool aboveStair = false;
         for (int j = 0; j < vector.size(); j++){
