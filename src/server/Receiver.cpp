@@ -21,7 +21,6 @@ void Receiver::run(){
         if(peer.receive(c, 1, logger) <= 0){
             logger.errorMsg("End of receiving", __FILE__, __LINE__);
             stop();
-            keepRunning = false;
             c[0] = 'd';
         }
         incoming.push(c[0]);

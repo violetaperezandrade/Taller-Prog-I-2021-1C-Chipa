@@ -17,7 +17,7 @@ void Reconnector::run() {
     while (keepRunning) {
         Socket clientSkt = std::move(sktListener.accept(logger));
         Peer *client = new Peer(std::move(clientSkt), logger);
-        logger.infoMsg("Added peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
+        logger.infoMsg("Added reconnected peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
         validateReconnection(client);
         clients.push_back(client);
     }
@@ -57,12 +57,14 @@ void Reconnector::validateReconnection(Peer* client){
             ++it;
         }
     }
+    if(!keepRunning) return;
     response = 'G';
     client->send(&response,1);
 }
 
 void Reconnector::stop(){
     sktListener.shutdown(logger);
+    logger.debugMsg("Reconnector shutdown", __FILE__, __LINE__);
 }
 
 Reconnector::~Reconnector() {}

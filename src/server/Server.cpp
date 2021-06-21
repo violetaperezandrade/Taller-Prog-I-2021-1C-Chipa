@@ -60,10 +60,12 @@ void Server::acceptClients(){
 
 
 void Server::disconnectClients(){
-    for(int i = 0; i < playersAmount; i++){
-        clients[i]->finish();
-        delete clients[i];
-        logger.infoMsg("Deleted player " + std::to_string(i+1), __FILE__, __LINE__);
+    std::vector<Peer*>::iterator it = clients.begin();
+    while(it != clients.end()){
+        (*it)->finish();
+        delete *it;
+        clients.erase(it);
+        logger.infoMsg("Deleted player", __FILE__, __LINE__);
     }
 }
 
@@ -133,6 +135,7 @@ void Server::startGame(){
                 makeCommand(command,i);
             }
             if(clients[i]->isDisconnected()){
+                logger.infoMsg("Client " + std::to_string(i+1) + " disconnected", __FILE__, __LINE__);
                 clients[i]->finish();
                 delete *(clients.begin() + i);
                 clients.erase(clients.begin() + i);
@@ -142,7 +145,10 @@ void Server::startGame(){
         sendNew();
         keepRunning = !game.isFinished();
         std::this_thread::sleep_until(timeSpan);
-        if(clients.size() == 0) keepRunning = false;
+        if(clients.size() == 0) {
+            logger.infoMsg("All players disconnected no more game", __FILE__, __LINE__);
+            keepRunning = false;
+        }
     }
     logger.infoMsg("Game finished", __FILE__, __LINE__);
 }
