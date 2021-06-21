@@ -141,6 +141,7 @@ void Server::startGame(){
                 clients[i]->finish();
                 delete *(clients.begin() + i);
                 clients.erase(clients.begin() + i);
+                game.disconnect(i);
             }
         }
         newLevel = game.update();
