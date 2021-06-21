@@ -236,13 +236,13 @@ void CollisionManager::climb(int i) {
         characters[i].updateStatus(config);
         int edgeInfo[4];
         getEdgeInfo(edgeInfo, characters[i]);
-        fixCharacterHitbox(edgeInfo);
         characters[i].setPosX(edgeInfo[LEFT]);
-        characters[i].setPosY(edgeInfo[RIGHT]);
+        characters[i].setPosY(edgeInfo[TOP]);
     }
 }
 
 bool CollisionManager::moveCharacter(int i) {
+    characters[i].setOnStairs(false);
     if (characters[i].isTryingToClimb()){
         climb(i);
         return false;
