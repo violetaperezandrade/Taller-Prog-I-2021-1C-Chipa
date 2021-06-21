@@ -69,9 +69,7 @@ void Game::stopJumping(int i){
     characters[i].stopJumping();
 }
 
-void Game::update() {
-    bool switchLevel = false;
-    tickCounter++;
+void Game::updateCharacterStatus(){
     for(int i = 0; i < amountCharacters; i++){
         characters[i].updateStatus(config);
         std::string str("Updated character " + std::to_string(i) + "status:");
@@ -79,20 +77,32 @@ void Game::update() {
         logger.debugMsg(str, __FILE__, __LINE__);
         str.clear();
     }
+}
+
+bool Game::moveCharacters(){
+    bool switchLevel;
     for (int i = 0; i < amountCharacters; i++) {
         switchLevel = collisionManager.moveCharacter(i);
         if (switchLevel){
             changeLevel();
         }
     }
+    return switchLevel;
+}
 
-    if(tickCounter % config.getEmbersLevel1() == 0 && actLevel == 1){
+void Game::attemptEmberSpawn(){
+    if(actLevel == 1 && tickCounter % config.getEmbersLevel1() == 0){
         lvl1SpawnEmber();
     }
-    else if(tickCounter % config.getBarrelsLevel2() == 0 && actLevel == 2){
+}
+
+void Game::attemptBarrelSpawn(){
+    if (actLevel == 2 && tickCounter % config.getBarrelsLevel2() == 0){
         lvl2SpawnBarrel();
     }
+}
 
+void Game::moveEntities() {
     bool removed = false;
     std::vector<Entity>::iterator it = entities.begin();
     while(it != entities.end()){
@@ -119,6 +129,21 @@ void Game::update() {
         }
         removed = false;
     }
+}
+
+void Game::update() {
+    tickCounter++;
+    updateCharacterStatus();
+    bool switchLevel = moveCharacters();
+    if (switchLevel){
+        return;
+    }
+
+    attemptEmberSpawn();
+    attemptBarrelSpawn();
+
+    moveEntities();
+    collisionManager.updateCollisionStatus();
 }
 
 /*

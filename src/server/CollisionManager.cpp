@@ -111,6 +111,20 @@ void CollisionManager::getEdgeInfo(int* edgeInfo, Entity& entity){
     edgeInfo[BOTTOM] = y+height;
 }
 
+void CollisionManager::getStillEdgeInfo(int* edgeInfo, Entity& entity){
+    edgeInfo[LEFT] = entity.getPosX();
+    edgeInfo[RIGHT] = edgeInfo[LEFT]+entity.getWidth();
+    edgeInfo[TOP] = entity.getPosY();
+    edgeInfo[BOTTOM] = edgeInfo[TOP]+entity.getHeight();
+}
+
+void CollisionManager::getFloorEdgeInfo(int* edgeInfo, Entity& entity){
+    edgeInfo[LEFT] = entity.getPosX();
+    edgeInfo[RIGHT] = edgeInfo[LEFT]+entity.getWidth();
+    edgeInfo[TOP] = entity.getPosY()+entity.getHeight()+1;
+    edgeInfo[BOTTOM] = edgeInfo[TOP];
+}
+
 void CollisionManager::fixCharacterHitbox(int* edgeInfo){
     edgeInfo[LEFT] += CHARACTER_SIDE_PADDING;
     edgeInfo[RIGHT] -= CHARACTER_SIDE_PADDING;
@@ -166,8 +180,42 @@ bool CollisionManager::checkCollision(Entity &a, Entity &b) {
         fixCharacterHitbox(edgeInfoB);
     }
 
-    bool verticalMatch = checkHorizontalMatch(edgeInfoA, edgeInfoB);
-    bool horizontalMatch = checkVerticalMatch(edgeInfoA, edgeInfoB);
+    bool horizontalMatch = checkHorizontalMatch(edgeInfoA, edgeInfoB);
+    bool verticalMatch = checkVerticalMatch(edgeInfoA, edgeInfoB);
+    if (verticalMatch && horizontalMatch){
+        std::cout << "First entity edges: Left: " << edgeInfoA[0] << ", Right: " << edgeInfoA[1] << ", Top: " << edgeInfoA[2] << ", Bottom: " << edgeInfoA[3] << '\n';
+        std::cout << "Second entity edges: Left: " << edgeInfoB[0] << ", Right: " << edgeInfoB[1] << ", Top: " << edgeInfoB[2] << ", Bottom: " << edgeInfoB[3] << '\n';
+    }
+    return (verticalMatch && horizontalMatch);
+}
+
+bool CollisionManager::checkStillCollision(Entity &a, Entity &b) {
+    int edgeInfoA[4], edgeInfoB[4];
+    getStillEdgeInfo(edgeInfoA, a);
+    getStillEdgeInfo(edgeInfoB, b);
+    if (a.getType() == CHARACTER_CODE){
+        fixCharacterHitbox(edgeInfoA);
+    }
+    if (b.getType() == CHARACTER_CODE){
+        fixCharacterHitbox(edgeInfoB);
+    }
+
+    bool horizontalMatch = checkHorizontalMatch(edgeInfoA, edgeInfoB);
+    bool verticalMatch = checkVerticalMatch(edgeInfoA, edgeInfoB);
+    if (verticalMatch && horizontalMatch){
+        std::cout << "First entity edges: Left: " << edgeInfoA[0] << ", Right: " << edgeInfoA[1] << ", Top: " << edgeInfoA[2] << ", Bottom: " << edgeInfoA[3] << '\n';
+        std::cout << "Second entity edges: Left: " << edgeInfoB[0] << ", Right: " << edgeInfoB[1] << ", Top: " << edgeInfoB[2] << ", Bottom: " << edgeInfoB[3] << '\n';
+    }
+    return (verticalMatch && horizontalMatch);
+}
+
+bool CollisionManager::checkGroundedCollision(Entity &a, Entity &b) {
+    int edgeInfoA[4], edgeInfoB[4];
+    getFloorEdgeInfo(edgeInfoA, a);
+    getStillEdgeInfo(edgeInfoB, b);
+
+    bool horizontalMatch = checkHorizontalMatch(edgeInfoA, edgeInfoB);
+    bool verticalMatch = checkVerticalMatch(edgeInfoA, edgeInfoB);
     if (verticalMatch && horizontalMatch){
         std::cout << "First entity edges: Left: " << edgeInfoA[0] << ", Right: " << edgeInfoA[1] << ", Top: " << edgeInfoA[2] << ", Bottom: " << edgeInfoA[3] << '\n';
         std::cout << "Second entity edges: Left: " << edgeInfoB[0] << ", Right: " << edgeInfoB[1] << ", Top: " << edgeInfoB[2] << ", Bottom: " << edgeInfoB[3] << '\n';
@@ -309,4 +357,27 @@ bool CollisionManager::moveCharacter(int i) {
     characters[i].setPosX(edgeInfo[LEFT]);
     characters[i].setPosY(edgeInfo[TOP]);
     return switchLevel;
+}
+
+void CollisionManager::updateCollisionStatus() {
+    for (int i = 0; i < characters.size(); i++){
+        bool grounded = false;
+        bool onStair = false;
+        for (int j = 0; j < vector.size(); j++){
+            char type = vector[j].getType();
+            if(type == STAIR_CODE){
+                if (checkStillCollision(characters[i], vector[j])){
+                    onStair = true;
+                }
+            } else if(type == PLATFORM_CODE){
+                if (checkGroundedCollision(characters[i], vector[j])){
+                    grounded = true;
+                }
+            }
+        }
+        characters[i].setOnStairs(onStair);
+        if (!grounded){
+            characters[i].setFalling();
+        }
+    }
 }
