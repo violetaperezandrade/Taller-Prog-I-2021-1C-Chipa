@@ -71,6 +71,9 @@ void Game::stopJumping(int i){
 
 void Game::disconnect(int i) {
     characters[i].disconnect();
+    Character character = characters[i];
+    characters.erase(characters.begin()+i);
+    characters.push_back(character);
 }
 
 void Game::updateCharacterStatus(){
