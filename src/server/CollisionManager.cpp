@@ -364,11 +364,15 @@ void CollisionManager::updateCollisionStatus() {
     for (int i = 0; i < characters.size(); i++){
         bool grounded = false;
         bool onStair = false;
+        bool aboveStair = false;
         for (int j = 0; j < vector.size(); j++){
             char type = vector[j].getType();
             if(type == STAIR_CODE){
                 if (checkStillCollision(characters[i], vector[j])){
                     onStair = true;
+                }
+                if (checkGroundedCollision(characters[i], vector[j])){
+                    aboveStair = true;
                 }
             } else if(type == PLATFORM_CODE){
                 if (checkGroundedCollision(characters[i], vector[j])){
@@ -376,7 +380,7 @@ void CollisionManager::updateCollisionStatus() {
                 }
             }
         }
-        characters[i].setOnStairs(onStair);
+        characters[i].setOnStairs(onStair || aboveStair);
         if (!grounded && !onStair){
             characters[i].setFalling();
         }
