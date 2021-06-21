@@ -1,4 +1,5 @@
 #include "View.h"
+#include "../client/Text.h"
 
 View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
     logger(logger),
@@ -53,6 +54,18 @@ View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
     texturesMario[4]['r'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_right.png", windowRenderer);
     texturesMario[4]['l'] = loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer);
 
+    TTF_Font* font = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf", 20);
+
+    SDL_Color colorP1 = {255, 0, 0};
+    SDL_Color colorP2 = {255, 233, 0};
+    SDL_Color colorP3 = {182, 149, 192};
+    SDL_Color colorP4 = {0, 255, 0};
+
+    usersNames[1] = loadFromRenderedText("player 1", colorP1, windowRenderer, font);
+    usersNames[2] = loadFromRenderedText("player 2", colorP2, windowRenderer, font);
+    usersNames[3] = loadFromRenderedText("player 3", colorP3, windowRenderer, font);
+    usersNames[4] = loadFromRenderedText("player 4", colorP4, windowRenderer, font);
+
     texturesEntities = {{'P', loadImageTexture("../src/client/img/Sprites-Entities/blue_platform.png", windowRenderer)},
                         {'B',loadImageTexture("../src/client/img/Sprites-Entities/front_barrel.png", windowRenderer)},
                         {'b',loadImageTexture("../src/client/img/Sprites-Entities/oil_barrel.png", windowRenderer)},
@@ -67,6 +80,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
 
     defaultConfig = loadImageTexture("../src/client/img/default.png", windowRenderer);
 }
+
 
 bool View::initSDL() {
 
@@ -142,6 +156,31 @@ SDL_Texture* View::loadImageTexture(std::string path, SDL_Renderer* renderer){
     return finalTexture;
 }
 
+TextRendered View::loadFromRenderedText(std::string textureText,
+                                        SDL_Color textColor,
+                                        SDL_Renderer* renderer, TTF_Font* font){
+    TextRendered text;
+    SDL_Texture* finalTexture = NULL;
+    int w,h;
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font,textureText.c_str(),textColor);
+    if(textSurface != NULL){
+
+        //crear textura desde superficie
+        finalTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+        if(finalTexture == NULL) logger.errorMsg("Error al cargar textura des texto desde la vista",__FILE__,__LINE__);
+        else{
+            w = textSurface->w;
+            h = textSurface->h;
+        }
+        SDL_FreeSurface(textSurface);
+    }
+    text.texture = finalTexture;
+    text.width = w;
+    text.height = h;
+    logger.debugMsg("Textura desde texto creada correctamente", __FILE__, __LINE__);
+    return text;
+}
+
 void View::render(int x, int y, int width, int height, char stateEntity,char entityType) {
     SDL_Rect renderQuad = {x, y, width, height};
     SDL_Rect *clip = NULL;
@@ -151,7 +190,7 @@ void View::render(int x, int y, int width, int height, char stateEntity,char ent
     SDL_Texture *textureEntity;
     std::string c("Renderizar entidad de tipo: ");
     c.append(&entityType);
-    logger.debugMsg(c,__FILE__,__LINE__);
+    logger.debugMsg(c, __FILE__, __LINE__);
     switch (entityType) {
         case 'C': //mario
             textureEntity = texturesMario[playerID][stateEntity];
@@ -201,6 +240,7 @@ void View::renderFilledQuad(){
     SDL_RenderFillRect( windowRenderer, &fillRect );
 }
 
+
 int View::run() {
     renderFilledQuad();
     while(keepRuning) {
@@ -209,25 +249,40 @@ int View::run() {
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
         std::vector<Entity>::iterator it = entityVector.begin();
         while (it != entityVector.end()) {
-            char type = it->getType();
-            if (type == 'C') {
-                playerID++;
-            }
             int posX = it->getPosX();
             int posY = it->getPosY();
             int width = it->getWidth();
             int height = it->getHeight();
+            char type = it->getType();
+            if (type == 'C') {
+                playerID++;
+               renderText(0, 0, usersNames[playerID].width,
+                           usersNames[playerID].height, usersNames[playerID].texture);
+                SDL_RenderPresent(windowRenderer);
+            }
             char state = it->getState();
             logger.debugMsg("Renderizo una entidad",__FILE__,__LINE__);
             render(posX, posY, width, height, state, type);
             ++it;
         }
         playerID = 0;
-        logger.debugMsg("Fin de iteracion sobre vector de entidades",__FILE__,__LINE__);
+        /*displayText("fonts/Kongtext Regular.ttf", "PLAYER X",
+                    {255, 0, 0, 255}, 0, 0, windowRenderer);*/
+        logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
         SDL_RenderPresent(windowRenderer);
         SDL_RenderClear(windowRenderer);
     }
     return 0;
+}
+
+void View::renderText(int x, int y, int width, int height, SDL_Texture* texture){
+    SDL_Rect renderQuad = {x,y,width,height};
+    SDL_Rect* clip = NULL;
+    double angle = 0.0;
+    SDL_Point* center = NULL;
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
+    SDL_RenderCopyEx(windowRenderer, texture, clip, &renderQuad, angle, center, flip);
+
 }
 
 void View::closeSDL() {

@@ -1,14 +1,17 @@
 #ifndef VIEW_H
 #define VIEW_H
-#include <SDL2/SDL.h>
+#define FONTSIZE 24
+/*#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>*/
 #include <map>
 #include "../server/Game.h"
 #include "../common/Logger.h"
 #include "../common/Config.h"
 #include "../client/Monitor.h"
+#include "../client/Login.h"
 #include <condition_variable>
+
 
 class View {
 private:
@@ -24,6 +27,7 @@ private:
     std::condition_variable condVar;
     int playerID;
     bool& keepRuning;
+    std::map<int, TextRendered> usersNames;
     bool initSDL();
     void closeSDL();
 
@@ -45,11 +49,16 @@ public:
 
     ~View();
 
-    void refresh();
-
     void renderFilledQuad();
 
+
+    TextRendered loadFromRenderedText(std::string textureText,
+                                      SDL_Color textColor,
+                                      SDL_Renderer* renderer, TTF_Font* font);
+
     int run();
+
+    void renderText(int x, int y, int width, int height, SDL_Texture* texture);
 
 };
 
