@@ -62,7 +62,7 @@ void Character::stopJumping(){
 
 void Character::attemptJump(Config& config){
     if (movement.attemptJump()){
-        speedY = config.getJumpingSpeed();
+        speedY = -config.getJumpingSpeed();
         if (movement.isMovingLeft()){
             speedX = -config.getMovingSpeed();
             state = FALLING_LEFT;
