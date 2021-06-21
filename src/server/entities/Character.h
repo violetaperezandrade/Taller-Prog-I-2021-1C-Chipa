@@ -57,6 +57,10 @@ public:
 
     void updateStatus(Config& config);
 
+    void disconnect();
+
+    void reconnect();
+
     ~Character();
 };
 

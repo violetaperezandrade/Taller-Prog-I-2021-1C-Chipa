@@ -51,6 +51,8 @@ public:
 
     void stopJumping(int i);
 
+    void disconnect(int i);
+
     bool update();
 
     void setLevel1();
