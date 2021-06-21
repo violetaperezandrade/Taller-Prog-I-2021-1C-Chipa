@@ -62,7 +62,7 @@ void Character::stopJumping(){
 
 void Character::attemptJump(Config& config){
     if (movement.attemptJump()){
-        speedY = config.getJumpingSpeed();
+        speedY = -config.getJumpingSpeed();
         if (movement.isMovingLeft()){
             speedX = -config.getMovingSpeed();
             state = FALLING_LEFT;
@@ -247,6 +247,15 @@ void Character::updateStatus(Config& config){
         attemptClimb(config);
         attemptGroundMovement(config);
     }
+}
+
+void Character::disconnect() {
+    movement.setJumping(false);
+    movement.setMovingDown(false);
+    movement.setMovingUp(false);
+    movement.setMovingLeft(false);
+    movement.setMovingRight(false);
+    state = IDLE_OFF;
 }
 
 Character::~Character(){}

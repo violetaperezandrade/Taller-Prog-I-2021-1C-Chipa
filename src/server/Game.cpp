@@ -69,6 +69,10 @@ void Game::stopJumping(int i){
     characters[i].stopJumping();
 }
 
+void Game::disconnect(int i) {
+    characters[i].disconnect();
+}
+
 void Game::updateCharacterStatus(){
     for(int i = 0; i < amountCharacters; i++){
         characters[i].updateStatus(config);
@@ -131,12 +135,12 @@ void Game::moveEntities() {
     }
 }
 
-void Game::update() {
+bool Game::update() {
     tickCounter++;
     updateCharacterStatus();
     bool switchLevel = moveCharacters();
     if (switchLevel){
-        return;
+        return true;
     }
 
     attemptEmberSpawn();
@@ -144,6 +148,7 @@ void Game::update() {
 
     moveEntities();
     collisionManager.updateCollisionStatus();
+    return false;
 }
 
 /*
