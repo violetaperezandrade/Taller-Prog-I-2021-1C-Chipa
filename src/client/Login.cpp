@@ -148,27 +148,54 @@ bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event*
     }
     return ok;
 }
+void Login::renderWarnings(char code){
+    SDL_SetWindowSize(windowLogin,410,110);
+    std::string error;
+    switch(code){
+        case 'U':
+            error = "Server unreachable";
+            logger.errorMsg("No se pudo conectar al servidor",__FILE__,__LINE__);
+            break;
+        case 'F':
+            error = "Server full";
+            logger.errorMsg("El servidor esta lleno",__FILE__,__LINE__);
+            break;
+        default:
+            break;
+    }
+    TTF_Font* fontWarning = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf",15);
+    TextRendered textureError = loadFromRenderedText(error.c_str(),{255,0,0},windowRendererLogin,fontWarning);
+    SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
+    SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
+    SDL_RenderClear(windowRendererLogin);
+    renderLogin(8,10,textureError.width,textureError.height,textureError.texture,windowRendererLogin);
+    renderLogin(165,30,80,80,warning,windowRendererLogin);
+    SDL_RenderPresent(windowRendererLogin);
+    SDL_Delay(3000);
+    TTF_CloseFont(fontWarning);
+    fontWarning = NULL;
+    free(textureError.texture);
+    free(warning);
+}
+
+void Login::freeAllTextures(std::vector<SDL_Texture *>& vector){
+
+    std::vector<SDL_Texture*>::iterator it = vector.begin();
+    while (it != vector.end()) {
+        free(*it);
+        ++it;
+    }
+    logger.debugMsg("Se liberan todas las texturas del login",__FILE__,__LINE__);
+    vector.clear();
+
+}
 
 int Login::runLoginWindow(char* ip, char* port) {
 
+    std::vector<SDL_Texture*> v;
     int success = sktLogin.connect(ip, port, logger);
     if(success < 0){
-        SDL_SetWindowSize(windowLogin,410,110);
-        TTF_Font* fontWarning = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf",15);
-        TextRendered connError = loadFromRenderedText("Server unreachable or full",{255,0,0},windowRendererLogin,fontWarning);
-        SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
-        SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
-        SDL_RenderClear(windowRendererLogin);
-        renderLogin(8,10,connError.width,connError.height,connError.texture,windowRendererLogin);
-        renderLogin(165,30,80,80,warning,windowRendererLogin);
-        SDL_RenderPresent(windowRendererLogin);
-        SDL_Delay(3000);
-        logger.errorMsg("No se pudo conectar al servidor",__FILE__,__LINE__);
-        TTF_CloseFont(fontWarning);
-        fontWarning = NULL;
-        TTF_Quit();
-        free(connError.texture);
-        free(warning);
+        renderWarnings('U');
         return -1;
     }
     logger.debugMsg("Conexion al servidor satisfactoria",__FILE__,__LINE__);
@@ -200,6 +227,18 @@ int Login::runLoginWindow(char* ip, char* port) {
     SDL_Texture* textboxPass = textboxIdle;
     SDL_Texture* playButton = loadImageTexture("../src/client/img/Login/play.png",windowRendererLogin);
     SDL_Texture* monkey = loadImageTexture("../src/client/img/Login/dk2.png",windowRendererLogin);
+
+    v.push_back(inputTextTextureUser.texture);
+    v.push_back(inputTextTexturePsw.texture);
+    v.push_back(prompTexturePsw.texture);
+    v.push_back(prompTextureUsr.texture);
+    v.push_back(playButtonText.texture);
+    v.push_back(textboxIdle);
+    v.push_back(textboxClicked);
+    v.push_back(textboxUser);
+    v.push_back(textboxPass);
+    v.push_back(playButton);
+    v.push_back(monkey);
 
     SDL_StartTextInput();
 
@@ -278,9 +317,11 @@ int Login::runLoginWindow(char* ip, char* port) {
                     switch(e.type) {
                         case SDL_MOUSEMOTION:
                             playButton = loadImageTexture("../src/client/img/Login/playHover.png", windowRendererLogin);
+                            v.push_back(playButton);
                             break;
                         case SDL_MOUSEBUTTONDOWN:
                             playButton = loadImageTexture("../src/client/img/Login/playClick.png", windowRendererLogin);
+                            v.push_back(playButton);
 
                             sktLogin.send(inputTextUser.c_str(), 30, logger);
                             logger.infoMsg("Se envia usuario", __FILE__, __LINE__);
@@ -292,40 +333,15 @@ int Login::runLoginWindow(char* ip, char* port) {
                             logger.infoMsg("Se espera verificacion", __FILE__, __LINE__);
                             sktLogin.receive(succesLogin, 1, logger);
 
-                            if (succesLogin[0] == 'F') {
-                                SDL_SetWindowSize(windowLogin,410,110);
-                                TTF_Font* fontWarning = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf",15);
-                                TextRendered connError = loadFromRenderedText("Server full",{255,0,0},windowRendererLogin,fontWarning);
-                                SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
-                                SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
-                                SDL_RenderClear(windowRendererLogin);
-                                renderLogin(8,10,connError.width,connError.height,connError.texture,windowRendererLogin);
-                                renderLogin(165,30,80,80,warning,windowRendererLogin);
-                                SDL_RenderPresent(windowRendererLogin);
-                                SDL_Delay(3000);
-                                logger.errorMsg("Servidor lleno", __FILE__, __LINE__);
-                                TTF_CloseFont(fontWarning);
-                                fontWarning = NULL;
-                                free(connError.texture);
-                                free(warning);
-                                free(textboxUser);
-                                free(textboxPass);
-                                free(textboxIdle);
-                                free(textboxClicked);
-                                free(playButton);
-                                free(monkey);
-                                free(prompTexturePsw.texture);
-                                free(prompTextureUsr.texture);
-                                free(inputTextTextureUser.texture);
-                                free(inputTextTexturePsw.texture);
-                                free(playButtonText.texture);
-                                free(loginError.texture);
-                                logger.debugMsg("Se destruyen texturas",__FILE__,__LINE__);
-                                closeSDL();
+                            if(succesLogin[0] == 'F') {
+                                renderWarnings(succesLogin[0]);
+                                freeAllTextures(v);
+                                quit = true;
                                 return -1;
                             }
                             if (succesLogin[0] == 'B') {
                                 loginError = loadFromRenderedText("User or pass invalid",{255,0,0},windowRendererLogin,globalFont);
+                                v.push_back(loginError.texture);
                                 logger.infoMsg("Se ingresaron mal las credenciales",__FILE__,__LINE__);
                             }
                             else{
@@ -338,6 +354,7 @@ int Login::runLoginWindow(char* ip, char* port) {
                 }
                 else{
                     playButton = loadImageTexture("../src/client/img/Login/play.png", windowRendererLogin);
+                    v.push_back(playButton);
                 }
             }
         }
@@ -373,22 +390,9 @@ int Login::runLoginWindow(char* ip, char* port) {
         SDL_RenderPresent(windowRendererLogin);
     }
     SDL_StopTextInput();
-    free(textboxUser);
-    free(textboxPass);
-    free(textboxIdle);
-    free(textboxClicked);
-    free(playButton);
-    free(monkey);
-    free(prompTexturePsw.texture);
-    free(prompTextureUsr.texture);
-    free(inputTextTextureUser.texture);
-    free(inputTextTexturePsw.texture);
-    free(playButtonText.texture);
-    free(loginError.texture);
-    logger.debugMsg("Se destruyen texturas",__FILE__,__LINE__);
+    freeAllTextures(v);
     closeSDL();
     return 0;
 }
 
-Login::~Login(){
-}
+Login::~Login(){}
