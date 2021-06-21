@@ -122,6 +122,7 @@ void Server::startGame(){
     startClients();
     sendAll();
     std::chrono::milliseconds frameTime(30);
+    bool newLevel = false;
 
     while(keepRunning) {
         logger.debugMsg("New game iteration", __FILE__, __LINE__);
@@ -138,8 +139,12 @@ void Server::startGame(){
                 clients.erase(clients.begin() + i);
             }
         }
-        game.update();
-        sendNew();
+        newLevel = game.update();
+        if (newLevel){
+            sendAll();
+        } else {
+            sendNew();
+        }
         keepRunning = !game.isFinished();
         std::this_thread::sleep_until(timeSpan);
         if(clients.size() == 0) keepRunning = false;

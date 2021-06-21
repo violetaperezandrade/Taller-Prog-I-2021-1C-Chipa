@@ -131,12 +131,12 @@ void Game::moveEntities() {
     }
 }
 
-void Game::update() {
+bool Game::update() {
     tickCounter++;
     updateCharacterStatus();
     bool switchLevel = moveCharacters();
     if (switchLevel){
-        return;
+        return true;
     }
 
     attemptEmberSpawn();
@@ -144,6 +144,7 @@ void Game::update() {
 
     moveEntities();
     collisionManager.updateCollisionStatus();
+    return false;
 }
 
 /*
