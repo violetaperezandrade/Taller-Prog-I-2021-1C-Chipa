@@ -51,7 +51,7 @@ public:
 
     void stopJumping(int i);
 
-    void update();
+    bool update();
 
     void setLevel1();
 
