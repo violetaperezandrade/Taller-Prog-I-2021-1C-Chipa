@@ -6,15 +6,17 @@
 #include "../common/Config.h"
 #include <map>
 #include "Peer.h"
+#include "PeerManager.h"
 
 class LoginManager : public Thread {
 private:
-    Peer* client;
+    PeerManager& peerManager;
     std::map<std::string,std::string> usersKeys;
     Config& config;
     Logger& logger;
+    int clientNumber;
 public:
-    LoginManager(Peer* client, Config& config, Logger& logger);
+    LoginManager(PeerManager& peerManager, Config& config, Logger& logger);
 
     ~LoginManager();
 

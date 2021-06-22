@@ -7,10 +7,11 @@
 #include <map>
 #include "Peer.h"
 #include <utility>
+#include "PeerManager.h"
 
 class Reconnector : public Thread {
 private:
-    std::vector<Peer*>& peers;
+    PeerManager& peerManager;
     std::map<std::string,std::string> usersKeys;
     Config& config;
     Logger& logger;
@@ -18,7 +19,7 @@ private:
     bool& keepRunning;
     Socket& sktListener;
 public:
-    Reconnector(std::vector<Peer*>& peers, Config& config, Logger& logger,
+    Reconnector(PeerManager& peerManager, Config& config, Logger& logger,
                 Socket& sktListener, std::vector<std::string>& userNames, bool& keepRunning);
 
     ~Reconnector();

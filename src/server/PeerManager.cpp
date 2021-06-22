@@ -1,7 +1,8 @@
 #include "PeerManager.h"
 
-PeerManager::PeerManager() :
-    mtx()
+PeerManager::PeerManager(Logger& logger) :
+    mtx(),
+    logger()
 {}
 
 void PeerManager::push(Peer* peer){
@@ -11,72 +12,82 @@ void PeerManager::push(Peer* peer){
 
 void PeerManager::erase(int i){
     std::lock_guard<std::mutex> m(mtx);
-
+    std::vector<Peer*>::iterator it = peers.begin() + i;
+    (*it)->finish();
+    delete *it;
+    peers.erase(it);
+    logger.infoMsg("Deleted player: " + std::to_string(i+1), __FILE__, __LINE__);
 }
 
-void Peer::start(){
-    sender->start();
-    receiver->start();
+void PeerManager::start(int i){
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->start();
 }
 
-void Peer::finish(){
-    receiver->join();
-    logger.infoMsg("Receiver join", __FILE__, __LINE__);
-    sender->stop();
-    sendBreak();
-    sender->join();
-    logger.debugMsg("Sender join", __FILE__, __LINE__);
+void PeerManager::finish(int i) {
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->finish();
 }
 
-Peer::~Peer(){
-    delete sender;
-    delete receiver;
+void PeerManager::send(Entity& entity, int i) {
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->send(entity);
 }
 
-void Peer::send(Entity& entity) {
-    if(disconnected) return;
-    EntityProtocol::sendEntity(outgoing, entity);
+void PeerManager::sendBreak(int i){
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->sendBreak();
 }
 
-void Peer::sendBreak(){
-    EntityProtocol::sendBreak(outgoing);
+std::string PeerManager::getName(int i){
+    std::lock_guard<std::mutex> m(mtx);
+    return peers[i]->getName();
 }
 
-std::string Peer::getName(){
-    return name;
+void PeerManager::setName(std::string str, int i){
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->setName(str);
 }
 
-void Peer::setName(std::string str){
-    name = str;
+char PeerManager::receive(int i){
+    std::lock_guard<std::mutex> m(mtx);
+    return peers[i]->receive();
 }
 
-char Peer::receive(){
-    char c = incoming.front();
-    std::cerr << "Unqueued a: " << std::hex << (int)c << "(" << c << ")\n";
-    incoming.pop();
-    return c;
+bool PeerManager::hasIncoming(int i) {
+    std::lock_guard<std::mutex> m(mtx);
+    return peers[i]->hasIncoming();
 }
 
-bool Peer::hasIncoming() {
-    if(incoming.front() == 'd'){
-        std::cerr << "Got a: " << std::hex << (int)incoming.front() << "(" << incoming.front() << ") and is a d" << '\n';
-        disconnected = true;
-        incoming.pop();
-        return false;
+void PeerManager::receive(char* msg, int length, int i){
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->receive(msg,length, logger);
+}
+
+void PeerManager::send(char* msg, int length, int i){
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->send(msg,length, logger);
+}
+
+bool PeerManager::isDisconnected(int i){
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->isDisconnected();
+}
+
+int PeerManager::getSize(){
+    std::lock_guard<std::mutex> m(mtx);
+    return peers.size();
+}
+
+void PeerManager::disconnectAll(){
+    std::vector<Peer*>::iterator it = peers.begin();
+    while(it != peers.end()){
+        (*it)->finish();
+        delete *it;
+        peers.erase(it);
+        logger.infoMsg("Deleted player", __FILE__, __LINE__);
     }
-    return !incoming.empty();
 }
 
-void Peer::receive(char* msg, int length){
-    peer.receive(msg,length,logger);
+PeerManager::~PeerManager(){
 }
-
-void Peer::send(char* msg, int length){
-    peer.send(msg,length,logger);
-}
-
-bool Peer::isDisconnected(){
-    return disconnected;
-}
-
-PeerManager~PeerManager(){}

@@ -1,9 +1,10 @@
 #include "LoginManager.h"
 
-LoginManager::LoginManager(Peer* client, Config& config, Logger& logger) :
-    client(client),
+LoginManager::LoginManager(PeerManager& peerManager, Config& config, Logger& logger) :
+    peerManager(peerManager),
     config(config),
-    logger(logger)
+    logger(logger),
+    clientNumber(peerManager.getSize())
 {
     usersKeys = config.getUserPass();
 }
@@ -12,7 +13,6 @@ LoginManager::~LoginManager() {}
 
 void LoginManager::run() {
     validateLogin();
-
 }
 
 void LoginManager::validateLogin(){
@@ -23,8 +23,8 @@ void LoginManager::validateLogin(){
     bool correctCredentials = false;
     while(!correctCredentials) {
 
-        client->receive(user, 30);
-        client->receive(password, 30);
+        peerManager.receive(user, 30, clientNumber);
+        peerManager.receive(password, 30, clientNumber);
 
         std::string usr(user);
         std::string pw(password);
@@ -32,7 +32,7 @@ void LoginManager::validateLogin(){
 
         if (usersKeys[usr] != pw || pw == empty) {
             response = 'B';
-            client->send(&response, 1);
+            peerManager.send(&response, 1, clientNumber);
 
             logger.infoMsg("Received incorrect credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
             continue;
@@ -40,9 +40,9 @@ void LoginManager::validateLogin(){
 
         correctCredentials = true;
         logger.infoMsg("Received correct credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
-        client->setName(usr);
+        peerManager.setName(usr, clientNumber);
     }
     response = 'G';
-    client->send(&response,1);
+    peerManager.send(&response,1, clientNumber);
 }
 

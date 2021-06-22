@@ -33,7 +33,6 @@ Peer::~Peer(){
 }
 
 void Peer::send(Entity& entity) {
-    if(disconnected) return;
     EntityProtocol::sendEntity(outgoing, entity);
 }
 
@@ -56,13 +55,6 @@ char Peer::receive(){
 }
 
 bool Peer::hasIncoming() {
-    /*
-    if(incoming.front() == 'd'){
-        std::cerr << "Got a: " << std::hex << (int)incoming.front() << "(" << incoming.front() << ") and is a d" << '\n';
-         disconnected = true;
-        incoming.pop();
-        return false;
-    }*/
     return !incoming.empty();
 }
 
