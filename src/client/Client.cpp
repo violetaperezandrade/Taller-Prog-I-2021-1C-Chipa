@@ -35,11 +35,12 @@ void Client::run(){
         return;
     }
     bool keepRunning = true;
+    bool serverActive = true;
 
     Monitor monitor(logger);
-    View view(monitor, logger, config, keepRunning);
-    Input* input = new Input(skt,logger, keepRunning);
-    Processor* processor = new Processor(monitor, skt,logger, keepRunning);
+    View view(monitor, logger, config, keepRunning, serverActive);
+    Input* input = new Input(skt, logger, keepRunning);
+    Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive);
 
     logger.debugMsg("Se lanza thread INPUT", __FILE__, __LINE__);
     logger.debugMsg("Se lanza thread PROCESSOR", __FILE__, __LINE__);

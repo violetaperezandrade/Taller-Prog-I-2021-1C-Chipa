@@ -11,8 +11,9 @@ private:
     Socket& socket;
     Logger& logger;
     bool& keepRunning;
+    bool& serverActive;
 public:
-    Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning);
+    Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive);
     void readEntities();
     void run() override;
     void stop();
