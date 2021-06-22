@@ -1,15 +1,17 @@
 #include "Input.h"
 #include "../common/protocols/InputProtocol.h"
 
-Input::Input(Socket& socket, Logger& logger, bool& keepRunning) :
-    socket(socket),
-    keepRunning(keepRunning),
-    logger(logger)
+Input::Input(Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive) :
+        socket(socket),
+        keepRunning(keepRunning),
+        logger(logger),
+        serverActive(serverActive)
 {}
 
 void Input::run() {
+    int success;
     SDL_Event e;
-    while(keepRunning){
+    while(keepRunning && serverActive){
         while(SDL_WaitEvent(&e) != 0){
             if(e.type == SDL_QUIT) {
                 logger.debugMsg("Se cierra la ventana desde el input", __FILE__, __LINE__);
@@ -19,19 +21,39 @@ void Input::run() {
             else if(e.type == SDL_KEYDOWN && e.key.repeat == 0){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
-                        InputProtocol::sendPressUpEvent(this->socket, this->logger);
+                        success = InputProtocol::sendPressUpEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     case SDLK_DOWN:
-                        InputProtocol::sendPressDownEvent(this->socket, this->logger);
+                        success = InputProtocol::sendPressDownEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     case SDLK_LEFT:
-                        InputProtocol::sendPressLeftEvent(this->socket, this->logger);
+                        success = InputProtocol::sendPressLeftEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     case SDLK_RIGHT:
-                        InputProtocol::sendPressRightEvent(this->socket, this->logger);
+                        success = InputProtocol::sendPressRightEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     case SDLK_SPACE:
-                        InputProtocol::sendPressJumpEvent(this->socket, this->logger);
+                        success = InputProtocol::sendPressJumpEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     default:
                         break;
@@ -40,19 +62,39 @@ void Input::run() {
             else if(e.type == SDL_KEYUP && e.key.repeat == 0){
                 switch(e.key.keysym.sym){
                     case SDLK_UP:
-                        InputProtocol::sendReleaseUpEvent(this->socket, this->logger);
+                        success = InputProtocol::sendReleaseUpEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     case SDLK_DOWN:
-                        InputProtocol::sendReleaseDownEvent(this->socket, this->logger);
+                        success = InputProtocol::sendReleaseDownEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     case SDLK_LEFT:
-                        InputProtocol::sendReleaseLeftEvent(this->socket, this->logger);
+                        success = InputProtocol::sendReleaseLeftEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     case SDLK_RIGHT:
-                        InputProtocol::sendReleaseRightEvent(this->socket, this->logger);
+                        success = InputProtocol::sendReleaseRightEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     case SDLK_SPACE:
-                        InputProtocol::sendReleaseJumpEvent(this->socket, this->logger);
+                        success = InputProtocol::sendReleaseJumpEvent(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                         break;
                     default:
                         break;

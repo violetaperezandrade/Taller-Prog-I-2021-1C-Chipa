@@ -1,52 +1,72 @@
 #include "InputProtocol.h"
 
-void InputProtocol::sendPressUpEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendPressUpEvent(Socket& socket, Logger& logger){
     char input = PRESS_UP;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se presiona arriba", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se presiona arriba", __FILE__, __LINE__);
+    return success;
 }
-void InputProtocol::sendReleaseUpEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendReleaseUpEvent(Socket& socket, Logger& logger){
     char input = RELEASE_UP;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se suelta arriba", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se suelta arriba", __FILE__, __LINE__);
+    return success;
 }
-void InputProtocol::sendPressDownEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendPressDownEvent(Socket& socket, Logger& logger){
     char input = PRESS_DOWN;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se presiona abajo", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se presiona abajo", __FILE__, __LINE__);
+    return success;
 }
-void InputProtocol::sendReleaseDownEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendReleaseDownEvent(Socket& socket, Logger& logger) {
     char input = RELEASE_DOWN;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se suelta abajo", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se suelta abajo", __FILE__, __LINE__);
+    return success;
 }
-void InputProtocol::sendPressLeftEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendPressLeftEvent(Socket& socket, Logger& logger) {
     char input = PRESS_LEFT;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se presiona izquierda", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se presiona izquierda", __FILE__, __LINE__);
+    return success;
 }
-void InputProtocol::sendReleaseLeftEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendReleaseLeftEvent(Socket& socket, Logger& logger){
     char input = RELEASE_LEFT;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se suelta izquierda", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se suelta izquierda", __FILE__, __LINE__);
+    return success;
 }
-void InputProtocol::sendPressRightEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendPressRightEvent(Socket& socket, Logger& logger){
     char input = PRESS_RIGHT;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se presiona derecha", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se presiona derecha", __FILE__, __LINE__);
+    return success;
 }
-void InputProtocol::sendReleaseRightEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendReleaseRightEvent(Socket& socket, Logger& logger){
     char input = RELEASE_RIGHT;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se suelta derecha", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se suelta derecha", __FILE__, __LINE__);
+    return success;
 }
-void InputProtocol::sendPressJumpEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendPressJumpEvent(Socket& socket, Logger& logger){
     char input = PRESS_JUMP;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se presiona espacio", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se presiona espacio", __FILE__, __LINE__);
+    return success;
 }
-void InputProtocol::sendReleaseJumpEvent(Socket& socket, Logger& logger){
+int InputProtocol::sendReleaseJumpEvent(Socket& socket, Logger& logger){
     char input = RELEASE_JUMP;
-    socket.send(&input, 1, logger);
-    logger.superDebugMsg("Se suelta espacio", __FILE__, __LINE__);
+    int success = socket.send(&input, 1, logger);
+    if (success <= 0) logger.debugMsg("Sending event failed", __FILE__, __LINE__);
+    else logger.superDebugMsg("Se suelta espacio", __FILE__, __LINE__);
+    return success;
 }

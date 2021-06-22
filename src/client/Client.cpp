@@ -39,7 +39,7 @@ void Client::run(){
 
     Monitor monitor(logger);
     View view(monitor, logger, config, keepRunning, serverActive);
-    Input* input = new Input(skt, logger, keepRunning);
+    Input* input = new Input(skt, logger, keepRunning, serverActive);
     Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive);
 
     logger.debugMsg("Se lanza thread INPUT", __FILE__, __LINE__);

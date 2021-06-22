@@ -32,7 +32,7 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& log
     container.cleanTemporary();
     while (keepGoing){
         int bytesRecv = socket.receive(buff, MSG_LEN, logger);
-        if(bytesRecv == 0){
+        if(bytesRecv <= 0){
             logger.errorMsg("Bytesrecv 0, socket closed", __FILE__, __LINE__);
             return 1;
         }
