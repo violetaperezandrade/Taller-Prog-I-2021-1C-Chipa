@@ -18,9 +18,10 @@ private:
     std::vector<std::string>& userNames;
     bool& keepRunning;
     Socket& sktListener;
+    int& playerAmount;
 public:
     Reconnector(PeerManager& peerManager, Config& config, Logger& logger,
-                Socket& sktListener, std::vector<std::string>& userNames, bool& keepRunning);
+                Socket& sktListener, std::vector<std::string>& userNames, bool& keepRunning, int playerAmount);
 
     ~Reconnector();
 

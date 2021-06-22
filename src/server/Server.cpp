@@ -25,7 +25,7 @@ void Server::run(){
 
     acceptClients();
     Reconnector* reconnector = new Reconnector(peerManager, config, logger, sktListener,
-                                               userNames, keepRunning);
+                                               userNames, keepRunning, playersAmount);
     reconnector->start();
     startGame();
     reconnector->stop();
@@ -134,6 +134,7 @@ void Server::startGame(){
             if(peerManager.isDisconnected(i)){
                 logger.infoMsg("Client " + std::to_string(i+1) + " disconnected", __FILE__, __LINE__);
                 peerManager.erase(i);
+                playersAmount--;
                 game.disconnect(i);
             }
         }
