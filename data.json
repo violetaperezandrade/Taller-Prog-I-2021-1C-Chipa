@@ -10,7 +10,7 @@
         "jumping speed" : 15,
         "moving speed" : 8
     },
-    "players amount" : 1,
+    "players amount" : 2,
     "level 1" : {
         "flames" : 8,
         "embers" : 80
@@ -24,9 +24,9 @@
         "height" : 600
     },
     "user password" : {
-        "gonza" : "qwe",
-        "lauti" : "contrasenia",
+        "22" : "22",
+        "33" : "33",
         "44" : "44",
-        "violeta" : "contrasenia"
+        "55" : "55"
     }
 }

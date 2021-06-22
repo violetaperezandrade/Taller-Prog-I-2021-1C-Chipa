@@ -134,6 +134,7 @@ void Server::startGame(){
         for (int i = 0; i < playersAmount; i++) {
             while (clients[i]->hasIncoming()) {
                 char command = clients[i]->receive();
+                std::cerr << "Command is a: " << std::hex << (int)command << "(" << command << ")\n";
                 makeCommand(command,i);
             }
             if(clients[i]->isDisconnected()){
