@@ -19,15 +19,18 @@ private:
     Receiver* receiver;
     std::string name;
     bool disconnected;
+    bool reconnected;
 
 public:
-    Peer(Socket&& peerSkt, Logger& logger);
+    Peer(Socket&& peerSkt, Logger& logger, bool reconnected);
 
     ~Peer();
 
     void send(Entity& entity);
 
     void sendBreak();
+
+    bool isReconnected();
 
     void start();
 

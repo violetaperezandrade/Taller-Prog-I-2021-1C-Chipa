@@ -28,6 +28,8 @@ public:
 
     void run();
 
+    void reconnect(int i)
+
     void acceptClients();
 
     void startGame();

@@ -1,7 +1,7 @@
 #include "Peer.h"
 #include "../common/protocols/EntityProtocol.h"
 
-Peer::Peer(Socket &&peerSkt, Logger& logger) :
+Peer::Peer(Socket &&peerSkt, Logger& logger, bool reconnected) :
     peer(std::move(peerSkt)),
     logger(logger),
     incoming(),
@@ -9,7 +9,8 @@ Peer::Peer(Socket &&peerSkt, Logger& logger) :
     sender(new Sender(outgoing, peer, logger)),
     receiver(new Receiver(incoming, peer, logger)),
     name(),
-    disconnected(false)
+    disconnected(false),
+    reconnected(reconnected)
 {
 }
 
@@ -74,4 +75,11 @@ void Peer::send(char* msg, int length){
 
 bool Peer::isDisconnected(){
     return disconnected;
+}
+
+bool Peer::isReconnected(){
+    if(reconnected){
+        reconnected = false;
+    }
+    return true;
 }

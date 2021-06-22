@@ -24,7 +24,6 @@ void Receiver::run(){
             c[0] = 'd';
         }
         incoming.push(c[0]);
-        std::cerr << "Queued a: " << std::hex << (int)c[0] << "(" << c[0] << ")\n";
         logger.debugMsg("Incoming push", __FILE__, __LINE__);
     }
 }

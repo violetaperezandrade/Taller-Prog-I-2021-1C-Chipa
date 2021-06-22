@@ -37,7 +37,7 @@ void Server::acceptClients(){
     std::vector<LoginManager*> logins;
     for(int i = 0; i != playersAmount; i++){
         Socket peerSkt = std::move(sktListener.accept(logger));
-        Peer* client = new Peer(std::move(peerSkt), logger);
+        Peer* client = new Peer(std::move(peerSkt), logger, false);
         peerManager.push(client);
         logger.infoMsg("Added peer number: " + std::to_string(peerManager.getSize() + 1), __FILE__, __LINE__);
         LoginManager* login = new LoginManager(peerManager, config, logger);
@@ -114,6 +114,25 @@ void Server::startClients(){
     }
 }
 
+void Server::reconnect(int i){
+    logger.infoMsg("Starting the senders and receivers for reconnected client", __FILE__, __LINE__);
+    peerManager.start(i);
+
+    logger.debugMsg("Sending all entities to reconnected client", __FILE__, __LINE__);
+    std::vector<Entity>& entities = game.getEntities();
+    std::vector<Character>& characters = game.getCharacters();
+
+    for(int j = 0; j < entities.size(); j++){
+        peerManager.send(entities[j], i);
+
+    }
+    for(int j = 0; j < characters.size(); j++){
+        peerManager.send(characters[j], i);
+
+    }
+    peerManager.sendBreak(i);
+}
+
 void Server::startGame(){
     logger.infoMsg("Game starts", __FILE__, __LINE__);
     startClients();
@@ -126,6 +145,9 @@ void Server::startGame(){
         std::chrono::steady_clock::time_point initialTime = std::chrono::steady_clock::now();
         std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
         for (int i = 0; i < playersAmount; i++) {
+            if(peerManager.isReconnected(i)){
+                reconnect(i);
+            }
             while (peerManager.hasIncoming(i)) {
                 char command = peerManager.receive(i);
                 std::cerr << "Command is a: " << std::hex << (int)command << "(" << command << ")\n";

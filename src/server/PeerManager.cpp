@@ -89,5 +89,10 @@ void PeerManager::disconnectAll(){
     }
 }
 
+bool PeerManager::isReconnected(int i) {
+    std::lock_guard<std::mutex> m(mtx);
+    return peers[i]->isReconnected();
+}
+
 PeerManager::~PeerManager(){
 }
