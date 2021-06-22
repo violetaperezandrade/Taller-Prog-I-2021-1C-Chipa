@@ -264,7 +264,7 @@ void View::renderText(int x, int y, int width, int height, SDL_Texture* texture)
 }
 
 int View::run() {
-    int i = 1;
+    int playersAmount = config.getPlayersAmount();
     renderFilledQuad();
     while(keepRuning) {
         std::vector<Entity> entityVector = monitor.getEntities();
@@ -272,9 +272,9 @@ int View::run() {
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
         std::vector<Entity>::iterator it = entityVector.begin();
         while (it != entityVector.end()) {
-            if(monitor.getLevel() == 2 && i < 2){
+            if(monitor.getLevel() == 2){
+                logger.debugMsg("View setting level 2: " + len,__FILE__,__LINE__);
                 changeLevel();
-                i++;
             }
             int posX = it->getPosX();
             int posY = it->getPosY();
@@ -285,7 +285,7 @@ int View::run() {
 
             if (type == 'C') {
                 playerID++;
-                if (config.getPlayersAmount() > 1){
+                if (playersAmount > 1){
                     renderText(posX+(width/3), posY-15, usersNames[playerID].width,usersNames[playerID].height, usersNames[playerID].texture);
                     logger.debugMsg("Renderizando player ID", __FILE__, __LINE__);
                 }
