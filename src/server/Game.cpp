@@ -21,7 +21,7 @@ Game::Game(Config& config, Logger& logger, int amountCharacters) :
         entities(),
         collisionManager(characters, entities, logger, config),
         tickCounter(0),
-        actLevel(1),
+        currLevel(1),
         amountCharacters(amountCharacters),
         finished(false)
     {
@@ -92,19 +92,20 @@ bool Game::moveCharacters(){
         switchLevel = collisionManager.moveCharacter(i);
         if (switchLevel){
             changeLevel();
+            return switchLevel;
         }
     }
     return switchLevel;
 }
 
 void Game::attemptEmberSpawn(){
-    if(actLevel == 1 && tickCounter % config.getEmbersLevel1() == 0){
+    if(currLevel == 1 && tickCounter % config.getEmbersLevel1() == 0){
         lvl1SpawnEmber();
     }
 }
 
 void Game::attemptBarrelSpawn(){
-    if (actLevel == 2 && tickCounter % config.getBarrelsLevel2() == 0){
+    if (currLevel == 2 && tickCounter % config.getBarrelsLevel2() == 0){
         lvl2SpawnBarrel();
     }
 }
@@ -153,18 +154,6 @@ bool Game::update() {
     collisionManager.updateCollisionStatus();
     return false;
 }
-
-/*
-Message Game::getStatus() {
-    Message message;
-    for (int i = 0; i < entities.size(); i++){
-        message.add(entities[i]);
-    }
-    for(int i = 0; i < amountCharacters; i++){
-        message.add(characters[i]);
-    }
-    return std::move(message);
-}*/
 
 void Game::lvl1SpawnEmber(){
     int spawns[4] = {168,312,456,600};
@@ -587,5 +576,5 @@ bool Game::isFinished() {
 void Game::changeLevel(){
     this->entities.clear();
     setLevel2();
-    actLevel = 2;
+    currLevel = 2;
 }
