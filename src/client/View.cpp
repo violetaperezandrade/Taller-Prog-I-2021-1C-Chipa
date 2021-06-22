@@ -62,7 +62,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning, b
 
     SDL_Color colorP1 = {255, 0, 0};
     SDL_Color colorP2 = {255, 233, 0};
-    SDL_Color colorP3 = {182, 149, 192};
+    SDL_Color colorP3 = {178, 0, 255};
     SDL_Color colorP4 = {0, 255, 0};
     //SDL_Color colorOff = {134,134,134};
 
