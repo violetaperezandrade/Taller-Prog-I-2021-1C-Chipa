@@ -29,11 +29,12 @@ private:
     TTF_Font* font;
     int playerID;
     bool& keepRuning;
+    bool& serverActive;
     bool initSDL();
     void closeSDL();
 
 public:
-    View(Monitor& monitor, Logger& logger, Config& config, bool& keepRunning);
+    View(Monitor& monitor, Logger& logger, Config& config, bool& keepRunning, bool& serverActive);
 
     void render(int x, int y, int width, int height, char stateEntity,char entityType);
 
@@ -46,6 +47,8 @@ public:
     TextRendered loadFromRenderedText(std::string textureText,SDL_Color textColor,SDL_Renderer* renderer, TTF_Font* font);
 
     void renderText(int x, int y, int width, int height, SDL_Texture* texture);
+
+    void renderWarning(std::string error);
 
     void free(SDL_Texture* texture);
 

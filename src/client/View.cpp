@@ -1,11 +1,12 @@
 #include "View.h"
 
-View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning) :
+View::View(Monitor& monitor,Logger& logger, Config& config, bool& keepRunning, bool& serverActive) :
     logger(logger),
     config(config),
     monitor(monitor),
     playerID(0),
-    keepRuning(keepRunning)
+    keepRuning(keepRunning),
+    serverActive(serverActive)
 {
     if (initSDL() < 0){
         logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
@@ -263,10 +264,28 @@ void View::renderText(int x, int y, int width, int height, SDL_Texture* texture)
 
 }
 
+void View::renderWarning(std::string error){
+    SDL_SetWindowSize(window, 410, 110);
+    logger.errorMsg("Se cayo el servidor", __FILE__, __LINE__);
+    TTF_Font* fontWarning = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf", 15);
+    TextRendered textureError = loadFromRenderedText(error.c_str(), {255, 0, 0}, windowRenderer, fontWarning);
+    SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png", windowRenderer);
+    SDL_SetRenderDrawColor(windowRenderer, 0, 0, 0, 0xFF);
+    SDL_RenderClear(windowRenderer);
+    renderText(8, 10, textureError.width, textureError.height, textureError.texture);
+    renderText(165, 30, 80, 80, warning);
+    SDL_RenderPresent(windowRenderer);
+    SDL_Delay(3000);
+    TTF_CloseFont(fontWarning);
+    fontWarning = NULL;
+    free(textureError.texture);
+    free(warning);
+}
+
 int View::run() {
     int playersAmount = config.getPlayersAmount();
     renderFilledQuad();
-    while(keepRuning) {
+    while(keepRuning && serverActive) {
         std::vector<Entity> entityVector = monitor.getEntities();
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
@@ -298,6 +317,10 @@ int View::run() {
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
         SDL_RenderPresent(windowRenderer);
         SDL_RenderClear(windowRenderer);
+    }
+    if (!serverActive){
+        logger.debugMsg("Inactive server", __FILE__, __LINE__);
+        renderWarning("Server crashed unexpectedly");
     }
     return 0;
 }

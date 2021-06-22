@@ -157,7 +157,7 @@ void Login::renderWarnings(char code){
             logger.errorMsg("No se pudo conectar al servidor",__FILE__,__LINE__);
             break;
         case 'F':
-            error = "Server full";
+            error = "Server full, wait";
             logger.errorMsg("El servidor esta lleno",__FILE__,__LINE__);
             break;
         default:
@@ -168,7 +168,7 @@ void Login::renderWarnings(char code){
     SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
     SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
     SDL_RenderClear(windowRendererLogin);
-    renderLogin(8,10,textureError.width,textureError.height,textureError.texture,windowRendererLogin);
+    renderLogin((SCREEN_WIDTH_LOGIN-textureError.width)/6,10,textureError.width,textureError.height,textureError.texture,windowRendererLogin);
     renderLogin(165,30,80,80,warning,windowRendererLogin);
     SDL_RenderPresent(windowRendererLogin);
     SDL_Delay(3000);
