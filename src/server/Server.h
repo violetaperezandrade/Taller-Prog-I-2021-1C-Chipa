@@ -7,6 +7,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include "PeerManager.h"
 
 class Server {
 private:
@@ -15,7 +16,7 @@ private:
     int playersAmount;
     Game game;
     Socket sktListener;
-    std::vector<Peer*> clients;
+    PeerManager peerManager;
     std::map<std::string, std::string> usersKeys;
     Config& config;
     Logger& logger;

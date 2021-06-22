@@ -10,7 +10,7 @@
 
 class Reconnector : public Thread {
 private:
-    std::vector<Peer*>& clients;
+    std::vector<Peer*>& peers;
     std::map<std::string,std::string> usersKeys;
     Config& config;
     Logger& logger;
@@ -18,7 +18,7 @@ private:
     bool& keepRunning;
     Socket& sktListener;
 public:
-    Reconnector(std::vector<Peer*>& clients, Config& config, Logger& logger,
+    Reconnector(std::vector<Peer*>& peers, Config& config, Logger& logger,
                 Socket& sktListener, std::vector<std::string>& userNames, bool& keepRunning);
 
     ~Reconnector();

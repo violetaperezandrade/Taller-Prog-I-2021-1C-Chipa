@@ -12,6 +12,7 @@ Server::Server(char* ip, char* port, int playersAmount, Config& config, Logger& 
     playersAmount(playersAmount),
     game(config, logger, playersAmount),
     sktListener(),
+    peerManager(),
     config(config),
     logger(logger),
     userNames(),
@@ -23,7 +24,7 @@ void Server::run(){
     sktListener.listen(playersAmount, logger);
 
     acceptClients();
-    Reconnector* reconnector = new Reconnector(clients, config, logger, sktListener,
+    Reconnector* reconnector = new Reconnector(peers, config, logger, sktListener,
                                                userNames, keepRunning);
     reconnector->start();
     startGame();
@@ -35,10 +36,10 @@ void Server::run(){
 void Server::acceptClients(){
     std::vector<LoginManager*> logins;
     for(int i = 0; i != playersAmount; i++){
-        Socket clientSkt = std::move(sktListener.accept(logger));
-        Peer* client = new Peer(std::move(clientSkt), logger);
-        clients.push_back(client);
-        logger.infoMsg("Added peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
+        Socket peerSkt = std::move(sktListener.accept(logger));
+        Peer* client = new Peer(std::move(peerSkt), logger);
+        peers.push_back(client);
+        logger.infoMsg("Added peer number " + std::to_string(peers.size()), __FILE__, __LINE__);
         LoginManager* login = new LoginManager(client, config, logger);
         login->start();
         logins.push_back(login);
@@ -54,18 +55,18 @@ void Server::acceptClients(){
     }
 
     for(int i = 0; i != playersAmount; i++){
-        userNames.push_back(clients[i]->getName());
+        userNames.push_back(peers[i]->getName());
     }
 }
 
 
 void Server::disconnectClients(){
-    if(clients.size() == 0) return;
-    std::vector<Peer*>::iterator it = clients.begin();
-    while(it != clients.end()){
+    if(peers.size() == 0) return;
+    std::vector<Peer*>::iterator it = peers.begin();
+    while(it != peers.end()){
         (*it)->finish();
         delete *it;
-        clients.erase(it);
+        peers.erase(it);
         logger.infoMsg("Deleted player", __FILE__, __LINE__);
     }
 }
@@ -77,16 +78,16 @@ void Server::sendAll(){
 
     for(int j = 0; j < entities.size(); j++){
         for(int i = 0; i < playersAmount; i++) {
-            clients[i]->send(entities[j]);
+            peers[i]->send(entities[j]);
         }
     }
     for(int j = 0; j < characters.size(); j++){
         for(int i = 0; i < playersAmount; i++) {
-            clients[i]->send(characters[j]);
+            peers[i]->send(characters[j]);
         }
     }
     for(int i = 0; i < playersAmount; i++){
-        clients[i]->sendBreak();
+        peers[i]->sendBreak();
     }
 }
 
@@ -99,24 +100,24 @@ void Server::sendNew(){
         for(int i = 0; i < playersAmount; i++) {
             char c = entities[j].getPermanency();
             if(c == 'T'){
-                clients[i]->send(entities[j]);
+                peers[i]->send(entities[j]);
             }
         }
     }
     for(int j = 0; j < characters.size(); j++){
         for(int i = 0; i < playersAmount; i++) {
-            clients[i]->send(characters[j]);
+            peers[i]->send(characters[j]);
         }
     }
     for(int i = 0; i < playersAmount; i++){
-        clients[i]->sendBreak();
+        peers[i]->sendBreak();
     }
 }
 
 void Server::startClients(){
     logger.infoMsg("Starting the senders and receivers", __FILE__, __LINE__);
     for(int i = 0; i < playersAmount; i++){
-        clients[i]->start();
+        peers[i]->start();
     }
 }
 
@@ -132,16 +133,16 @@ void Server::startGame(){
         std::chrono::steady_clock::time_point initialTime = std::chrono::steady_clock::now();
         std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
         for (int i = 0; i < playersAmount; i++) {
-            while (clients[i]->hasIncoming()) {
-                char command = clients[i]->receive();
+            while (peers[i]->hasIncoming()) {
+                char command = peers[i]->receive();
                 std::cerr << "Command is a: " << std::hex << (int)command << "(" << command << ")\n";
                 makeCommand(command,i);
             }
-            if(clients[i]->isDisconnected()){
+            if(peers[i]->isDisconnected()){
                 logger.infoMsg("Client " + std::to_string(i+1) + " disconnected", __FILE__, __LINE__);
-                clients[i]->finish();
-                delete *(clients.begin() + i);
-                clients.erase(clients.begin() + i);
+                peers[i]->finish();
+                delete *(peers.begin() + i);
+                peers.erase(peers.begin() + i);
                 game.disconnect(i);
             }
         }
@@ -153,7 +154,7 @@ void Server::startGame(){
         }
         keepRunning = !game.isFinished();
         std::this_thread::sleep_until(timeSpan);
-        if(clients.size() == 0) {
+        if(peers.size() == 0) {
             logger.infoMsg("All players disconnected no more game", __FILE__, __LINE__);
             keepRunning = false;
         }

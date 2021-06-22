@@ -1,0 +1,82 @@
+#include "PeerManager.h"
+
+PeerManager::PeerManager() :
+    mtx()
+{}
+
+void PeerManager::push(Peer* peer){
+    std::lock_guard<std::mutex> m(mtx);
+    peers.push_back(peer);
+}
+
+void PeerManager::erase(int i){
+    std::lock_guard<std::mutex> m(mtx);
+
+}
+
+void Peer::start(){
+    sender->start();
+    receiver->start();
+}
+
+void Peer::finish(){
+    receiver->join();
+    logger.infoMsg("Receiver join", __FILE__, __LINE__);
+    sender->stop();
+    sendBreak();
+    sender->join();
+    logger.debugMsg("Sender join", __FILE__, __LINE__);
+}
+
+Peer::~Peer(){
+    delete sender;
+    delete receiver;
+}
+
+void Peer::send(Entity& entity) {
+    if(disconnected) return;
+    EntityProtocol::sendEntity(outgoing, entity);
+}
+
+void Peer::sendBreak(){
+    EntityProtocol::sendBreak(outgoing);
+}
+
+std::string Peer::getName(){
+    return name;
+}
+
+void Peer::setName(std::string str){
+    name = str;
+}
+
+char Peer::receive(){
+    char c = incoming.front();
+    std::cerr << "Unqueued a: " << std::hex << (int)c << "(" << c << ")\n";
+    incoming.pop();
+    return c;
+}
+
+bool Peer::hasIncoming() {
+    if(incoming.front() == 'd'){
+        std::cerr << "Got a: " << std::hex << (int)incoming.front() << "(" << incoming.front() << ") and is a d" << '\n';
+        disconnected = true;
+        incoming.pop();
+        return false;
+    }
+    return !incoming.empty();
+}
+
+void Peer::receive(char* msg, int length){
+    peer.receive(msg,length,logger);
+}
+
+void Peer::send(char* msg, int length){
+    peer.send(msg,length,logger);
+}
+
+bool Peer::isDisconnected(){
+    return disconnected;
+}
+
+PeerManager~PeerManager(){}

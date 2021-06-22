@@ -1,8 +1,8 @@
 #include "Reconnector.h"
 
-Reconnector::Reconnector(std::vector<Peer*>& clients, Config& config, Logger& logger,Socket& sktListener,
+Reconnector::Reconnector(std::vector<Peer*>& peers, Config& config, Logger& logger,Socket& sktListener,
                            std::vector<std::string>& userNames, bool& keepRunning) :
-        clients(clients),
+        peers(peers),
         config(config),
         logger(logger),
         userNames(userNames),
@@ -15,12 +15,12 @@ Reconnector::Reconnector(std::vector<Peer*>& clients, Config& config, Logger& lo
 void Reconnector::run() {
 
     while (keepRunning) {
-        Socket clientSkt = std::move(sktListener.accept(logger));
+        Socket peerSkt = std::move(sktListener.accept(logger));
         if(keepRunning){
-            Peer *client = new Peer(std::move(clientSkt), logger);
-            logger.infoMsg("Added reconnected peer number " + std::to_string(clients.size()), __FILE__, __LINE__);
+            Peer *client = new Peer(std::move(peerSkt), logger);
+            logger.infoMsg("Added reconnected peer number " + std::to_string(peers.size()), __FILE__, __LINE__);
             validateReconnection(client);
-            clients.push_back(client);
+            peers.push_back(client);
         }
     }
 }
