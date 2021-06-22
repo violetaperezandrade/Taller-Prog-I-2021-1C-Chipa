@@ -116,10 +116,12 @@ void Character::attemptGroundMovement(Config& config){
         lastDirection = IDLE_RIGHT;
     } else {
         speedX = 0;
-        if (lastDirection == IDLE_RIGHT){
-            state = IDLE_RIGHT;
-        } else {
-            state = IDLE_LEFT;
+        if (state != IDLE_OFF){
+            if (lastDirection == IDLE_RIGHT){
+                state = IDLE_RIGHT;
+            } else {
+                state = IDLE_LEFT;
+            }
         }
     }
 }
