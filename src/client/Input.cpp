@@ -102,16 +102,6 @@ void Input::run() {
             }
         }
     }
-    if(keepRunning){
-        logger.debugMsg("Keep running es true", __FILE__, __LINE__);
-    } else {
-        logger.debugMsg("Keep running es false", __FILE__, __LINE__);
-    }
-    if(serverActive){
-        logger.debugMsg("Server active es true", __FILE__, __LINE__);
-    } else {
-        logger.debugMsg("Server active es false", __FILE__, __LINE__);
-    }
 }
 
 void Input::stop(){
