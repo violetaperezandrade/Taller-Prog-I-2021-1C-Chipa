@@ -49,8 +49,8 @@ void Client::run(){
 
     view.run();
 
-    input->stop();
     processor->stop();
+    input->stop();
 
     processor->join();
     input->join();

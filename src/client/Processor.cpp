@@ -15,7 +15,7 @@ void Processor::readEntities() {
         if(EntityProtocol::readEntities(socket, monitor, logger) == 1){//llena el monitor con mensaje en bloque
             serverActive = false;
             logger.debugMsg("Inactive server", __FILE__, __LINE__);
-            stop();
+            monitor.notify();
             return;
         }
         monitor.notify();
@@ -33,6 +33,7 @@ void Processor::run() {
 
 void Processor::stop(){
     logger.debugMsg("Stop processor", __FILE__, __LINE__);
+    keepRunning = false;
     socket.shutdown(this->logger);
 }
 
