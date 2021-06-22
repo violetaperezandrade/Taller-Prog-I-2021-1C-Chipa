@@ -16,7 +16,7 @@ private:
     std::vector<Entity> entities;
     CollisionManager collisionManager;
     int tickCounter;
-    int actLevel;
+    int currLevel;
     int amountCharacters;
     bool finished;
 

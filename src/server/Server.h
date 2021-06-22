@@ -28,7 +28,7 @@ public:
 
     void run();
 
-    void reconnect(int i);
+    void reconnect(int i, int actLevel);
 
     void acceptClients();
 

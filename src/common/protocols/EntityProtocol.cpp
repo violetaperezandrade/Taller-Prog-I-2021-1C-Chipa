@@ -23,13 +23,13 @@ int EntityProtocol::getInt(char* ptr){
     return num;
 }
 
-int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& logger) {
+int EntityProtocol::readEntities(Socket &socket, Monitor& monitor, Logger& logger) {
     char buff[MSG_LEN];
     bool keepGoing = true;
     bool gotPermanent = false;
     logger.debugMsg("Processor reading entities", __FILE__, __LINE__);
 
-    container.cleanTemporary();
+    monitor.cleanTemporary();
     while (keepGoing){
         int bytesRecv = socket.receive(buff, MSG_LEN, logger);
         if(bytesRecv == 0){
@@ -41,13 +41,13 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& container, Logger& log
             keepGoing = false;
             continue;
         } else if(!gotPermanent && buff[MSG_LEN - 1] == 80) { //80 == P = Permanent
-            container.cleanPermanent();                    // only when changing level or initial game
+            monitor.cleanPermanent();                    // only when changing level or initial game
             gotPermanent = true;
         }
         Entity entity(buff[0], getInt(buff+1), getInt(buff+3), getInt(buff+5),
                       getInt(buff+7), 0, 0, buff[9], buff[10]);
 
-        container.addEntity(entity);
+        monitor.addEntity(entity);
     }
 
     logger.debugMsg("End of reading", __FILE__, __LINE__);
