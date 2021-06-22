@@ -92,6 +92,7 @@ bool Game::moveCharacters(){
         switchLevel = collisionManager.moveCharacter(i);
         if (switchLevel){
             changeLevel();
+            return switchLevel;
         }
     }
     return switchLevel;
@@ -153,18 +154,6 @@ bool Game::update() {
     collisionManager.updateCollisionStatus();
     return false;
 }
-
-/*
-Message Game::getStatus() {
-    Message message;
-    for (int i = 0; i < entities.size(); i++){
-        message.add(entities[i]);
-    }
-    for(int i = 0; i < amountCharacters; i++){
-        message.add(characters[i]);
-    }
-    return std::move(message);
-}*/
 
 void Game::lvl1SpawnEmber(){
     int spawns[4] = {168,312,456,600};
