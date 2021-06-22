@@ -1,14 +1,13 @@
 #include "Reconnector.h"
 
 Reconnector::Reconnector(PeerManager& peerManager, Config& config, Logger& logger,Socket& sktListener,
-                           std::vector<std::string>& userNames, bool& keepRunning, int playerAmount) :
+                           std::vector<std::string>& userNames, bool& keepRunning) :
         peerManager(peerManager),
         config(config),
         logger(logger),
         userNames(userNames),
         keepRunning(keepRunning),
-        sktListener(sktListener),
-        playerAmount(playerAmount)
+        sktListener(sktListener)
 {
     usersKeys = config.getUserPass();
 }
@@ -71,7 +70,6 @@ void Reconnector::validateReconnection(Peer* client){
     if(!keepRunning) return;
     response = 'G';
     client->send(&response,1);
-    playerAmount++;
 }
 
 void Reconnector::stop(){

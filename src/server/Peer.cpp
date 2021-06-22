@@ -80,6 +80,7 @@ bool Peer::isDisconnected(){
 bool Peer::isReconnected(){
     if(reconnected){
         reconnected = false;
+        return true;
     }
-    return true;
+    return false;
 }
