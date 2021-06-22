@@ -8,12 +8,12 @@
 
 class Receiver : public Thread{
 private:
-    ProtectedQueue<char>& incoming;
+    ProtectedQueue& incoming;
     Socket& peer;
     Logger& logger;
     bool keepRunning;
 public:
-    Receiver(ProtectedQueue<char>& queue, Socket& peerSkt, Logger& logger);
+    Receiver(ProtectedQueue& queue, Socket& peerSkt, Logger& logger);
 
     ~Receiver();
 

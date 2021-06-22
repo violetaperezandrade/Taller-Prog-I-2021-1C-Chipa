@@ -71,7 +71,7 @@ void PeerManager::send(char* msg, int length, int i){
 
 bool PeerManager::isDisconnected(int i){
     std::lock_guard<std::mutex> m(mtx);
-    peers[i]->isDisconnected();
+    return peers[i]->isDisconnected();
 }
 
 int PeerManager::getSize(){

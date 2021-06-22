@@ -1,6 +1,6 @@
 #include "Receiver.h"
 
-Receiver::Receiver(ProtectedQueue<char>& queue, Socket& peerSkt, Logger& logger) :
+Receiver::Receiver(ProtectedQueue& queue, Socket& peerSkt, Logger& logger) :
     incoming(queue),
     peer(peerSkt),
     logger(logger),

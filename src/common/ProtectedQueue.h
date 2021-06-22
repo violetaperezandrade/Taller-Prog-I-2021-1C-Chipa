@@ -4,21 +4,21 @@
 #include <queue>
 #include <mutex>
 
-template<class T>
+//maybe a template
 class ProtectedQueue {
 private:
-    std::queue<T> queue;
+    std::queue<char> queue;
     std::mutex m;
 public:
     ProtectedQueue() : queue(), m() {}
     ~ProtectedQueue() {}
-    void push(T t){
+    void push(char t){
         std::lock_guard<std::mutex> lock(m);
         queue.push(t);
     }
-    T pop(){
+    char pop(){
         std::lock_guard<std::mutex> lock(m);
-        T t;
+        char t;
         if (!queue.empty()){
             t = queue.front();
             queue.pop();
@@ -28,6 +28,12 @@ public:
     bool empty(){
         std::lock_guard<std::mutex> lock(m);
         return queue.empty();
+    }
+
+    char front(){
+        std::lock_guard<std::mutex> lock(m);
+        if(queue.empty()) return 0;
+        return queue.front();
     }
 };
 

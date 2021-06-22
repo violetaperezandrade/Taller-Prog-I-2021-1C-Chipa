@@ -55,7 +55,13 @@ char Peer::receive(){
 }
 
 bool Peer::hasIncoming() {
-    return !incoming.empty();
+    char front = incoming.front();
+    if(front == 'd'){
+        disconnected = true;
+        incoming.pop();
+        return false;
+    }
+    return front != '\0';
 }
 
 void Peer::receive(char* msg, int length){

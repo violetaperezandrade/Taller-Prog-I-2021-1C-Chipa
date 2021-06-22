@@ -13,7 +13,7 @@ class Peer {
 private:
     Socket peer;
     Logger& logger;
-    ProtectedQueue<char> incoming;
+    ProtectedQueue incoming;
     BlockingQueue outgoing;
     Sender* sender;
     Receiver* receiver;

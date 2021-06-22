@@ -4,7 +4,7 @@ LoginManager::LoginManager(PeerManager& peerManager, Config& config, Logger& log
     peerManager(peerManager),
     config(config),
     logger(logger),
-    clientNumber(peerManager.getSize())
+    clientNumber(peerManager.getSize() - 1)
 {
     usersKeys = config.getUserPass();
 }
