@@ -15,12 +15,12 @@ private:
     std::map<std::string,std::string> usersKeys;
     Config& config;
     Logger& logger;
-    std::vector<std::string>& userNames;
+    std::map<std::string,int>& userNames;
     bool& keepRunning;
     Socket& sktListener;
 public:
     Reconnector(PeerManager& peerManager, Config& config, Logger& logger,
-                Socket& sktListener, std::vector<std::string>& userNames, bool& keepRunning);
+                Socket& sktListener, std::map<std::string,int>& userNames, bool& keepRunning);
 
     ~Reconnector();
 

@@ -55,7 +55,7 @@ void Server::acceptClients(){
     }
 
     for(int i = 0; i != playersAmount; i++){
-        userNames.push_back(peerManager.getName(i));
+        userNames[peerManager.getName(i)] = i;
     }
 }
 
@@ -151,13 +151,12 @@ void Server::startGame(){
             }
             while (peerManager.hasIncoming(i)) {
                 char command = peerManager.receive(i);
-                std::cerr << "Command is a: " << std::hex << (int)command << "(" << command << ")\n";
-                makeCommand(command,i);
+                makeCommand(command,userNames[peerManager.getName(i)]);
             }
             if(peerManager.isDisconnected(i)){
+                game.disconnect(userNames[peerManager.getName(i)]);
                 logger.infoMsg("Client " + std::to_string(i+1) + " disconnected", __FILE__, __LINE__);
                 peerManager.erase(i);
-                game.disconnect(i);
             }
         }        
         if (game.update()){

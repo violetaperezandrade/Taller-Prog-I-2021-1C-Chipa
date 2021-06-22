@@ -20,7 +20,7 @@ private:
     std::map<std::string, std::string> usersKeys;
     Config& config;
     Logger& logger;
-    std::vector<std::string> userNames;
+    std::map<std::string,int> userNames;
     bool keepRunning;
 
 public:
