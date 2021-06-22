@@ -1,7 +1,7 @@
 #include "Reconnector.h"
 
 Reconnector::Reconnector(PeerManager& peerManager, Config& config, Logger& logger,Socket& sktListener,
-                           std::vector<std::string>& userNames, bool& keepRunning) :
+                         std::map<std::string,int>& userNames, bool& keepRunning) :
         peerManager(peerManager),
         config(config),
         logger(logger),
@@ -41,9 +41,9 @@ void Reconnector::validateReconnection(Peer* client){
         std::string pw(password);
         std::string empty;
 
-        std::vector<std::string>::iterator it = userNames.begin();
+        std::map<std::string,int>::iterator it = userNames.begin();
         while (it != userNames.end()) {
-            if(*it == usr){
+            if(it->first == usr){
                 alreadyPlayer = true;
                 logger.infoMsg("Reconnection correct credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
                 client->setName(usr);

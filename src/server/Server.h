@@ -20,7 +20,7 @@ private:
     std::map<std::string, std::string> usersKeys;
     Config& config;
     Logger& logger;
-    std::vector<std::string> userNames;
+    std::map<std::string,int> userNames;
     bool keepRunning;
 
 public:
@@ -28,7 +28,7 @@ public:
 
     void run();
 
-    void reconnect(int i);
+    void reconnect(int i, int actLevel);
 
     void acceptClients();
 

@@ -55,7 +55,7 @@ void Server::acceptClients(){
     }
 
     for(int i = 0; i != playersAmount; i++){
-        userNames.push_back(peerManager.getName(i));
+        userNames[peerManager.getName(i)] = i;
     }
 }
 
@@ -114,7 +114,7 @@ void Server::startClients(){
     }
 }
 
-void Server::reconnect(int i){
+void Server::reconnect(int i, int currLevel){
     logger.infoMsg("Starting the senders and receivers for reconnected client", __FILE__, __LINE__);
     peerManager.start(i);
 
@@ -122,15 +122,16 @@ void Server::reconnect(int i){
     std::vector<Entity>& entities = game.getEntities();
     std::vector<Character>& characters = game.getCharacters();
 
-    for(int j = 0; j < entities.size(); j++){
-        peerManager.send(entities[j], i);
+    for(int h = 0; h < currLevel; h++){
+        for (int j = 0; j < entities.size(); j++) {
+            peerManager.send(entities[j], i);
+        }
+        for (int j = 0; j < characters.size(); j++) {
+            peerManager.send(characters[j], i);
 
+        }
+        peerManager.sendBreak(i);
     }
-    for(int j = 0; j < characters.size(); j++){
-        peerManager.send(characters[j], i);
-
-    }
-    peerManager.sendBreak(i);
 }
 
 void Server::startGame(){
@@ -138,7 +139,7 @@ void Server::startGame(){
     startClients();
     sendAll();
     std::chrono::milliseconds frameTime(30);
-    bool newLevel = false;
+    int currLevel = 1;
 
     while(keepRunning) {
         logger.debugMsg("New game iteration", __FILE__, __LINE__);
@@ -146,21 +147,20 @@ void Server::startGame(){
         std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
         for (int i = 0; i < peerManager.getSize(); i++) {
             if(peerManager.isReconnected(i)){
-                reconnect(i);
+                reconnect(i, currLevel);
             }
             while (peerManager.hasIncoming(i)) {
                 char command = peerManager.receive(i);
-                std::cerr << "Command is a: " << std::hex << (int)command << "(" << command << ")\n";
-                makeCommand(command,i);
+                makeCommand(command,userNames[peerManager.getName(i)]);
             }
             if(peerManager.isDisconnected(i)){
+                game.disconnect(userNames[peerManager.getName(i)]);
                 logger.infoMsg("Client " + std::to_string(i+1) + " disconnected", __FILE__, __LINE__);
                 peerManager.erase(i);
-                game.disconnect(i);
             }
-        }
-        newLevel = game.update();
-        if (newLevel){
+        }        
+        if (game.update()){
+            currLevel++;
             sendAll();
         } else {
             sendNew();

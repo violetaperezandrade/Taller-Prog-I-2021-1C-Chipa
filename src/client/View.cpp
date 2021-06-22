@@ -285,15 +285,17 @@ void View::renderWarning(std::string error){
 int View::run() {
     int playersAmount = config.getPlayersAmount();
     renderFilledQuad();
+    int previousLevel = 1;
     while(keepRuning && serverActive) {
         std::vector<Entity> entityVector = monitor.getEntities();
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
         std::vector<Entity>::iterator it = entityVector.begin();
         while (it != entityVector.end()) {
-            if(monitor.getLevel() == 2){
-                logger.debugMsg("View setting level 2: " + len,__FILE__,__LINE__);
+            if(monitor.getLevel() != previousLevel){
+                logger.infoMsg("View setting level 2: " + len,__FILE__,__LINE__);
                 changeLevel();
+                previousLevel++;
             }
             int posX = it->getPosX();
             int posY = it->getPosY();
