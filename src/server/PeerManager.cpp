@@ -2,7 +2,7 @@
 
 PeerManager::PeerManager(Logger& logger) :
     mtx(),
-    logger()
+    logger(logger)
 {}
 
 void PeerManager::push(Peer* peer){
@@ -61,12 +61,12 @@ bool PeerManager::hasIncoming(int i) {
 
 void PeerManager::receive(char* msg, int length, int i){
     std::lock_guard<std::mutex> m(mtx);
-    peers[i]->receive(msg,length, logger);
+    peers[i]->receive(msg,length);
 }
 
 void PeerManager::send(char* msg, int length, int i){
     std::lock_guard<std::mutex> m(mtx);
-    peers[i]->send(msg,length, logger);
+    peers[i]->send(msg,length);
 }
 
 bool PeerManager::isDisconnected(int i){
