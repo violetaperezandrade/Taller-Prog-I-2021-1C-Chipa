@@ -51,7 +51,6 @@ void Peer::setName(std::string str){
 
 char Peer::receive(){
     char c = incoming.pop();
-    std::cerr << "Unqueued a: " << std::hex << (int)c << "(" << c << ")\n";
     return c;
 }
 
