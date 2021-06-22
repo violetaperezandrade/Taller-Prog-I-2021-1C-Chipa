@@ -59,7 +59,7 @@ char Peer::receive(){
 bool Peer::hasIncoming() {
     if(incoming.front() == 'd'){
         std::cerr << "Got a: " << std::hex << (int)incoming.front() << "(" << incoming.front() << ") and is a d" << '\n';
-        disconnected = true;
+         disconnected = true;
         incoming.pop();
         return false;
     }
