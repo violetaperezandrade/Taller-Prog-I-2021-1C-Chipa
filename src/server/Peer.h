@@ -1,7 +1,7 @@
 #ifndef PEER_H
 #define PEER_H
 
-#include <queue>
+#include "../common/ProtectedQueue.h"
 #include "../common/Socket.h"
 #include "../common/BlockingQueue.h"
 #include "../common/Entity.h"
@@ -13,7 +13,7 @@ class Peer {
 private:
     Socket peer;
     Logger& logger;
-    std::queue<char> incoming;
+    ProtectedQueue<char> incoming;
     BlockingQueue outgoing;
     Sender* sender;
     Receiver* receiver;

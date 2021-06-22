@@ -1,19 +1,19 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
-#include <queue>
+#include "../common/ProtectedQueue.h"
 #include "../common/Thread.h"
 #include "../common/Socket.h"
 #include "../common/Logger.h"
 
 class Receiver : public Thread{
 private:
-    std::queue<char>& incoming;
+    ProtectedQueue<char>& incoming;
     Socket& peer;
     Logger& logger;
     bool keepRunning;
 public:
-    Receiver(std::queue<char>& queue, Socket& peerSkt, Logger& logger);
+    Receiver(ProtectedQueue<char>& queue, Socket& peerSkt, Logger& logger);
 
     ~Receiver();
 

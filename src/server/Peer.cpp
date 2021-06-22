@@ -50,19 +50,19 @@ void Peer::setName(std::string str){
 }
 
 char Peer::receive(){
-    char c = incoming.front();
+    char c = incoming.pop();
     std::cerr << "Unqueued a: " << std::hex << (int)c << "(" << c << ")\n";
-    incoming.pop();
     return c;
 }
 
 bool Peer::hasIncoming() {
+    /*
     if(incoming.front() == 'd'){
         std::cerr << "Got a: " << std::hex << (int)incoming.front() << "(" << incoming.front() << ") and is a d" << '\n';
          disconnected = true;
         incoming.pop();
         return false;
-    }
+    }*/
     return !incoming.empty();
 }
 
