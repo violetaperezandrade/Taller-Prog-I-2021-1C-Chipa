@@ -55,12 +55,10 @@ char PeerManager::receive(int i){
 }
 
 bool PeerManager::hasIncoming(int i) {
-    std::lock_guard<std::mutex> m(mtx);
     return peers[i]->hasIncoming();
 }
 
 void PeerManager::receive(char* msg, int length, int i){
-    std::lock_guard<std::mutex> m(mtx);
     peers[i]->receive(msg,length);
 }
 
