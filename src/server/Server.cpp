@@ -205,6 +205,7 @@ void Server::makeCommand(char command,int i){
             game.stopJumping(i);
             break;
         default:
+            logger.errorMsg("Llego un input invalido", __FILE__, __LINE__);
             break;
     }
 }
