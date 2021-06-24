@@ -272,7 +272,7 @@ void View::renderWarning(std::string error){
     SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png", windowRenderer);
     SDL_SetRenderDrawColor(windowRenderer, 0, 0, 0, 0xFF);
     SDL_RenderClear(windowRenderer);
-    renderText(8, 10, textureError.width, textureError.height, textureError.texture);
+    renderText((config.getResolutionWidth()-textureError.width)/6, 10, textureError.width, textureError.height, textureError.texture);
     renderText(165, 30, 80, 80, warning);
     SDL_RenderPresent(windowRenderer);
     SDL_Delay(3000);
@@ -286,7 +286,11 @@ int View::run() {
     int playersAmount = config.getPlayersAmount();
     renderFilledQuad();
     int previousLevel = 1;
+    TextRendered waitMessage = loadFromRenderedText("Waiting for the other players...",{255,0,0},windowRenderer,font);
+    renderText((config.getResolutionWidth()-waitMessage.width)/2,(config.getResolutionHeight()-waitMessage.height)/4,waitMessage.width+20,waitMessage.height+20,waitMessage.texture);
+    SDL_RenderPresent(windowRenderer);
     while(keepRuning && serverActive) {
+        SDL_RenderClear(windowRenderer);
         std::vector<Entity> entityVector = monitor.getEntities();
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
