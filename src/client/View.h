@@ -1,15 +1,14 @@
 #ifndef VIEW_H
 #define VIEW_H
 #define FONTSIZE 24
-/*#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>*/
+#define FONTSIZE_IDENTIFIERS 10
+
 #include <map>
 #include "../server/Game.h"
 #include "../common/Logger.h"
 #include "../common/Config.h"
 #include "../client/Monitor.h"
-#include "../client/Login.h"
+#include "SDLManager.h"
 #include <condition_variable>
 
 
@@ -23,6 +22,7 @@ private:
     SDL_Window* window;
     Logger& logger;
     Config& config;
+    SDLManager& sdlMngr;
     SDL_Texture* defaultConfig;
     Monitor& monitor;
     std::condition_variable condVar;
@@ -30,35 +30,17 @@ private:
     int playerID;
     bool& keepRuning;
     bool& serverActive;
-    bool initSDL();
-    void closeSDL();
 
 public:
-    View(Monitor& monitor, Logger& logger, Config& config, bool& keepRunning, bool& serverActive);
-
-    void render(int x, int y, int width, int height, char stateEntity,char entityType);
-
-    SDL_Renderer* createRenderer(SDL_Window* window);
-
-    SDL_Window* createWindow(const char* title,int width, int height);
-
-    SDL_Texture* loadImageTexture(std::string path, SDL_Renderer* renderer);
-
-    TextRendered loadFromRenderedText(std::string textureText,SDL_Color textColor,SDL_Renderer* renderer, TTF_Font* font);
-
-    void renderText(int x, int y, int width, int height, SDL_Texture* texture);
-
-    void renderWarning(std::string error);
-
-    void free(SDL_Texture* texture);
+    View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive);
 
     void changeLevel();
 
     ~View();
 
-    void renderFilledQuad();
-
     int run();
+
+    void getEntityInfoAndRender(int x, int y, int width, int height, char stateEntity,char entityType);
 };
 
 #endif //VIEW_H

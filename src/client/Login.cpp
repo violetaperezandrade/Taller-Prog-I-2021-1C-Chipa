@@ -1,193 +1,11 @@
 #include "Login.h"
 #include <iostream>
 
-Login::Login(Logger& logger,Socket& skt) : logger(logger),sktLogin(skt){
-    if (initSDL() < 0){
-        logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
-    }
-    windowLogin = createWindow("Login game");
-    windowRendererLogin = createRenderer(windowLogin);
-    globalFont = createFont("../src/client/fonts/Kongtext Regular.ttf");
-}
-TTF_Font* Login::createFont(std::string path){
+Login::Login(Logger& logger,Socket& skt,SDLManager& mngr) : logger(logger),sktLogin(skt),sdlMngr(mngr){
 
-    TTF_Font* font = TTF_OpenFont(path.c_str(),FONTSIZE);
-    if(font == NULL) logger.errorMsg("Error al cargar fuente",__FILE__,__LINE__);
-    logger.debugMsg("Fuente creada correctamente",__FILE__,__LINE__);
-    return font;
-}
-
-SDL_Window* Login::createWindow(const char* title){
-    SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH_LOGIN, SCREEN_HEIGHT_LOGIN, SDL_WINDOW_SHOWN);
-    if(!window) {
-        logger.errorMsg("Error al crear ventana de login con SDL",__FILE__,__LINE__);
-    }
-    logger.debugMsg("Ventana de login creada correctamente",__FILE__,__LINE__);
-    return window;
-}
-
-SDL_Renderer* Login::createRenderer(SDL_Window* window) {
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
-    if(!renderer) {
-        logger.errorMsg("Error al crear renderer",__FILE__,__LINE__);
-    }
-    else{
-        SDL_SetRenderDrawColor(renderer,0,0,0,255);
-        SDL_RenderClear(renderer);
-        SDL_RenderPresent(renderer);
-    }
-    logger.debugMsg("Renderer de login creado correctamente",__FILE__,__LINE__);
-    return renderer;
-}
-
-SDL_Texture* Login::loadImageTexture(std::string path, SDL_Renderer* renderer){
-
-    SDL_Texture* finalTexture = NULL;
-    SDL_Surface* imageSurface = IMG_Load(path.c_str());
-    if(!imageSurface) {
-        logger.errorMsg("Error al cargar superifice",__FILE__,__LINE__);
-    }
-    else{
-        SDL_SetColorKey(imageSurface,SDL_TRUE,SDL_MapRGB(imageSurface->format,0,0,0));
-        finalTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
-        if(!finalTexture) {
-            logger.errorMsg("Error al cargar textura",__FILE__,__LINE__);
-        }
-        SDL_FreeSurface(imageSurface);
-    }
-    //logger.debugMsg("Textura creada correctamente",__FILE__,__LINE__);
-    return finalTexture;
-}
-
-TextRendered Login::loadFromRenderedText(std::string textureText,
-                                        SDL_Color textColor,
-                                        SDL_Renderer* renderer, TTF_Font* font){
-
-    TextRendered text;
-    SDL_Texture* finalTexture = NULL;
-    int w,h;
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font,textureText.c_str(),textColor);
-    if(textSurface != NULL){
-
-        //crear textura desde superficie
-        finalTexture = SDL_CreateTextureFromSurface(renderer,textSurface);
-        if(finalTexture == NULL) logger.errorMsg("Error al cargar textura desde texto",__FILE__,__LINE__);
-        else{
-            w = textSurface->w;
-            h = textSurface->h;
-        }
-        SDL_FreeSurface(textSurface);
-    }
-    text.texture = finalTexture;
-    text.width = w;
-    text.height = h;
-    logger.debugMsg("Textura desde texto creada correctamente",__FILE__,__LINE__);
-    return text;
-}
-
-bool Login::initSDL() {
-
-    bool error = false;
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        logger.errorMsg("Fallo inicializar video SDL", __FILE__, __LINE__);
-        error = true;
-    }
-    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-        logger.errorMsg("Error al filtrar textura lineal", __FILE__, __LINE__);
-    }
-    if(TTF_Init() == -1){
-        logger.errorMsg("Error al inicializar TTF",__FILE__,__LINE__);
-        error = true;
-    }
-    logger.debugMsg("SDL Iniciado correctamente para login",__FILE__,__LINE__);
-    return error;
-}
-
-void Login::free(SDL_Texture* texture){
-    if(texture){
-        SDL_DestroyTexture(texture);
-        texture = NULL;
-    }
-}
-
-void Login::closeSDL() {
-
-    TTF_CloseFont(globalFont);
-    globalFont = NULL;
-    SDL_DestroyRenderer(windowRendererLogin);
-    windowRendererLogin = NULL;
-    SDL_DestroyWindow(windowLogin);
-    SDL_ClearError();
-    windowLogin = NULL;
-    TTF_Quit();
-    IMG_Quit();
-    SDL_Quit();
-    logger.debugMsg("Cerrar SDL y destruccion objetos", __FILE__, __LINE__);
-}
-
-void Login::renderLogin(int x, int y, int width, int height, SDL_Texture *texture, SDL_Renderer *windowRenderer) {
-
-    SDL_Rect renderQuad = {x,y,width,height};
-    SDL_Rect* clip = NULL;
-    double angle = 0.0;
-    SDL_Point* center = NULL;
-    SDL_RendererFlip flip = SDL_FLIP_NONE;
-    SDL_RenderCopyEx(windowRendererLogin,texture,clip,&renderQuad,angle,center,flip);
-}
-
-bool Login::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event* e){
-
-    bool ok = false;
-    if(e->type == SDL_MOUSEBUTTONDOWN){
-        int x,y;
-        SDL_GetMouseState(&x,&y);
-        if((x > x1 && x < x2) && (y > y1 && y < y2)){
-            ok = true;
-            logger.debugMsg("El mouse se posiciono sobre un textbox",__FILE__,__LINE__);
-        }
-    }
-    return ok;
-}
-void Login::renderWarnings(char code){
-    SDL_SetWindowSize(windowLogin,410,110);
-    std::string error;
-    switch(code){
-        case 'U':
-            error = "Server unreachable";
-            logger.errorMsg("No se pudo conectar al servidor",__FILE__,__LINE__);
-            break;
-        case 'F':
-            error = "Server full, wait";
-            logger.errorMsg("El servidor esta lleno",__FILE__,__LINE__);
-            break;
-        default:
-            break;
-    }
-    TTF_Font* fontWarning = TTF_OpenFont("../src/client/fonts/Kongtext Regular.ttf",15);
-    TextRendered textureError = loadFromRenderedText(error.c_str(),{255,0,0},windowRendererLogin,fontWarning);
-    SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png",windowRendererLogin);
-    SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
-    SDL_RenderClear(windowRendererLogin);
-    renderLogin((SCREEN_WIDTH_LOGIN-textureError.width)/6,10,textureError.width,textureError.height,textureError.texture,windowRendererLogin);
-    renderLogin(165,30,80,80,warning,windowRendererLogin);
-    SDL_RenderPresent(windowRendererLogin);
-    SDL_Delay(3000);
-    TTF_CloseFont(fontWarning);
-    fontWarning = NULL;
-    free(textureError.texture);
-    free(warning);
-}
-
-void Login::freeAllTextures(std::vector<SDL_Texture *>& vector){
-
-    std::vector<SDL_Texture*>::iterator it = vector.begin();
-    while (it != vector.end()) {
-        free(*it);
-        ++it;
-    }
-    logger.debugMsg("Se liberan todas las texturas del login",__FILE__,__LINE__);
-    vector.clear();
-
+    windowLogin = sdlMngr.createWindow("Login game",SCREEN_WIDTH_LOGIN,SCREEN_HEIGHT_LOGIN);
+    windowRendererLogin = sdlMngr.createRenderer(windowLogin);
+    globalFont = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf",FONTSIZE);
 }
 
 int Login::runLoginWindow(char* ip, char* port) {
@@ -195,7 +13,8 @@ int Login::runLoginWindow(char* ip, char* port) {
     std::vector<SDL_Texture*> v;
     int success = sktLogin.connect(ip, port, logger);
     if(success < 0){
-        renderWarnings('U');
+        sdlMngr.renderWarnings("Server Unreachable",windowRendererLogin,windowLogin);
+        logger.errorMsg("Error al conectar al servidor",__FILE__,__LINE__);
         return -1;
     }
     logger.debugMsg("Conexion al servidor satisfactoria",__FILE__,__LINE__);
@@ -215,18 +34,18 @@ int Login::runLoginWindow(char* ip, char* port) {
     TextRendered playButtonText;
     TextRendered loginError;
 
-    inputTextTextureUser = loadFromRenderedText(inputTextUser.c_str(),textColorInput,windowRendererLogin,globalFont);
-    inputTextTexturePsw = loadFromRenderedText(inputTextPsw.c_str(),textColorInput,windowRendererLogin,globalFont);
-    prompTextureUsr = loadFromRenderedText("Username: ",textColorPrompt,windowRendererLogin,globalFont);
-    prompTexturePsw = loadFromRenderedText("Password: ",textColorPrompt,windowRendererLogin,globalFont);
-    playButtonText = loadFromRenderedText(playText.c_str(),textColorPlay,windowRendererLogin,globalFont);
+    inputTextTextureUser = sdlMngr.loadFromRenderedText(inputTextUser.c_str(),textColorInput,windowRendererLogin,globalFont);
+    inputTextTexturePsw = sdlMngr.loadFromRenderedText(inputTextPsw.c_str(),textColorInput,windowRendererLogin,globalFont);
+    prompTextureUsr = sdlMngr.loadFromRenderedText("Username: ",textColorPrompt,windowRendererLogin,globalFont);
+    prompTexturePsw = sdlMngr.loadFromRenderedText("Password: ",textColorPrompt,windowRendererLogin,globalFont);
+    playButtonText = sdlMngr.loadFromRenderedText(playText.c_str(),textColorPlay,windowRendererLogin,globalFont);
 
-    SDL_Texture* textboxIdle = loadImageTexture("../src/client/img/Login/textbox-blue.png",windowRendererLogin);
-    SDL_Texture* textboxClicked = loadImageTexture("../src/client/img/Login/textbox-clicked.png",windowRendererLogin);
+    SDL_Texture* textboxIdle = sdlMngr.loadImageTexture("../src/client/img/Login/textbox-blue.png",windowRendererLogin);
+    SDL_Texture* textboxClicked = sdlMngr.loadImageTexture("../src/client/img/Login/textbox-clicked.png",windowRendererLogin);
     SDL_Texture* textboxUser = textboxIdle;
     SDL_Texture* textboxPass = textboxIdle;
-    SDL_Texture* playButton = loadImageTexture("../src/client/img/Login/play.png",windowRendererLogin);
-    SDL_Texture* monkey = loadImageTexture("../src/client/img/Login/dk2.png",windowRendererLogin);
+    SDL_Texture* playButton = sdlMngr.loadImageTexture("../src/client/img/Login/play.png",windowRendererLogin);
+    SDL_Texture* monkey = sdlMngr.loadImageTexture("../src/client/img/Login/dk2.png",windowRendererLogin);
 
     v.push_back(inputTextTextureUser.texture);
     v.push_back(inputTextTexturePsw.texture);
@@ -240,7 +59,7 @@ int Login::runLoginWindow(char* ip, char* port) {
     v.push_back(playButton);
     v.push_back(monkey);
 
-    SDL_StartTextInput();
+    sdlMngr.startInputText();
 
     bool renderPass = false;
     bool canWrite = false;
@@ -256,14 +75,14 @@ int Login::runLoginWindow(char* ip, char* port) {
                 return -1;
             }
             //if mouse was clicked username prompt
-            if(mouseWasClickedOnPosition(310,600,80,130,&e) == true){
+            if(sdlMngr.mouseWasClickedOnPosition(310,600,80,130,&e) == true){
                 renderPass = false;
                 canWrite = true;
                 textboxUser = textboxClicked;
                 textboxPass = textboxIdle;
             }
             //if mouse was clicked password prompt
-            else if(mouseWasClickedOnPosition(310,600,180,230,&e) == true){
+            else if(sdlMngr.mouseWasClickedOnPosition(310,600,180,230,&e) == true){
                 renderPass = true;
                 canWrite = true;
                 textboxPass = textboxClicked;
@@ -316,11 +135,11 @@ int Login::runLoginWindow(char* ip, char* port) {
                 if(onButton == true){
                     switch(e.type) {
                         case SDL_MOUSEMOTION:
-                            playButton = loadImageTexture("../src/client/img/Login/playHover.png", windowRendererLogin);
+                            playButton = sdlMngr.loadImageTexture("../src/client/img/Login/playHover.png", windowRendererLogin);
                             v.push_back(playButton);
                             break;
                         case SDL_MOUSEBUTTONDOWN:
-                            playButton = loadImageTexture("../src/client/img/Login/playClick.png", windowRendererLogin);
+                            playButton = sdlMngr.loadImageTexture("../src/client/img/Login/playClick.png", windowRendererLogin);
                             v.push_back(playButton);
 
                             sktLogin.send(inputTextUser.c_str(), 30, logger);
@@ -334,13 +153,13 @@ int Login::runLoginWindow(char* ip, char* port) {
                             sktLogin.receive(succesLogin, 1, logger);
 
                             if(succesLogin[0] == 'F') {
-                                renderWarnings(succesLogin[0]);
-                                freeAllTextures(v);
+                                sdlMngr.renderWarnings("Server full, wait",windowRendererLogin,windowLogin);
+                                sdlMngr.freeAllTextures(v);
                                 quit = true;
                                 return -1;
                             }
                             if (succesLogin[0] == 'B') {
-                                loginError = loadFromRenderedText("User or pass invalid",{255,0,0},windowRendererLogin,globalFont);
+                                loginError = sdlMngr.loadFromRenderedText("User or pass invalid",{255,0,0},windowRendererLogin,globalFont);
                                 v.push_back(loginError.texture);
                                 logger.infoMsg("Se ingresaron mal las credenciales",__FILE__,__LINE__);
                             }
@@ -353,7 +172,7 @@ int Login::runLoginWindow(char* ip, char* port) {
                     }
                 }
                 else{
-                    playButton = loadImageTexture("../src/client/img/Login/play.png", windowRendererLogin);
+                    playButton = sdlMngr.loadImageTexture("../src/client/img/Login/play.png", windowRendererLogin);
                     v.push_back(playButton);
                 }
             }
@@ -361,37 +180,39 @@ int Login::runLoginWindow(char* ip, char* port) {
         std::string invisiblePsw (inputTextPsw.length(),'*');
         if(renderText){
             if(renderPass){
-                if(inputTextPsw != "") inputTextTexturePsw = loadFromRenderedText(invisiblePsw.c_str(),textColorInput,windowRendererLogin,globalFont);
-                else inputTextTexturePsw = loadFromRenderedText("|",textColorInput,windowRendererLogin,globalFont);
+                if(inputTextPsw != "") inputTextTexturePsw = sdlMngr.loadFromRenderedText(invisiblePsw.c_str(),textColorInput,windowRendererLogin,globalFont);
+                else inputTextTexturePsw = sdlMngr.loadFromRenderedText("|",textColorInput,windowRendererLogin,globalFont);
             }
             else{
-                if(inputTextUser != "") inputTextTextureUser = loadFromRenderedText(inputTextUser.c_str(),textColorInput,windowRendererLogin,globalFont);
-                else inputTextTextureUser = loadFromRenderedText("|",textColorInput,windowRendererLogin,globalFont);
+                if(inputTextUser != "") inputTextTextureUser = sdlMngr.loadFromRenderedText(inputTextUser.c_str(),textColorInput,windowRendererLogin,globalFont);
+                else inputTextTextureUser = sdlMngr.loadFromRenderedText("|",textColorInput,windowRendererLogin,globalFont);
             }
         }
 
         SDL_SetRenderDrawColor(windowRendererLogin,0,0,0,0xFF);
         SDL_RenderClear(windowRendererLogin);
 
-        renderLogin(300,80,300,50,textboxUser,windowRendererLogin);
-        renderLogin(300,180,300,50,textboxPass,windowRendererLogin);
+        sdlMngr.render(300,80,300,50,textboxUser,windowRendererLogin);
+        sdlMngr.render(300,180,300,50,textboxPass,windowRendererLogin);
 
-        renderLogin(300,50, prompTextureUsr.width,prompTextureUsr.height,prompTextureUsr.texture,windowRendererLogin);
-        renderLogin(310,95,inputTextTextureUser.width,inputTextTextureUser.height,inputTextTextureUser.texture,windowRendererLogin);
-        renderLogin(300,150,prompTexturePsw.width,prompTexturePsw.height,prompTexturePsw.texture,windowRendererLogin);
-        renderLogin(310,195,inputTextTexturePsw.width,inputTextTexturePsw.height,inputTextTexturePsw.texture,windowRendererLogin);
+        sdlMngr.render(300,50, prompTextureUsr.width,prompTextureUsr.height,prompTextureUsr.texture,windowRendererLogin);
+        sdlMngr.render(310,95,inputTextTextureUser.width,inputTextTextureUser.height,inputTextTextureUser.texture,windowRendererLogin);
+        sdlMngr.render(300,150,prompTexturePsw.width,prompTexturePsw.height,prompTexturePsw.texture,windowRendererLogin);
+        sdlMngr.render(310,195,inputTextTexturePsw.width,inputTextTexturePsw.height,inputTextTexturePsw.texture,windowRendererLogin);
 
-        renderLogin(220,300,200,70,playButton,windowRendererLogin);
-        renderLogin(250,308,playButtonText.width+30,playButtonText.height+30,playButtonText.texture,windowRendererLogin);
+        sdlMngr.render(220,300,200,70,playButton,windowRendererLogin);
+        sdlMngr.render(250,308,playButtonText.width+30,playButtonText.height+30,playButtonText.texture,windowRendererLogin);
 
-        renderLogin(80,380,loginError.width,loginError.height,loginError.texture,windowRendererLogin);
+        sdlMngr.render(80,380,loginError.width,loginError.height,loginError.texture,windowRendererLogin);
 
-        renderLogin(60,70,200,200,monkey,windowRendererLogin);
-        SDL_RenderPresent(windowRendererLogin);
+        sdlMngr.render(60,70,200,200,monkey,windowRendererLogin);
+        sdlMngr.presentRender(windowRendererLogin);
     }
-    SDL_StopTextInput();
-    freeAllTextures(v);
-    closeSDL();
+    sdlMngr.finishInputText();
+    sdlMngr.freeAllTextures(v);
+    sdlMngr.destroyFont(globalFont);
+    sdlMngr.destroyRenderer(windowRendererLogin);
+    sdlMngr.destroyWindow(windowLogin);
     return 0;
 }
 
