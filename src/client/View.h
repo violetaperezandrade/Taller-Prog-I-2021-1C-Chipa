@@ -9,7 +9,6 @@
 #include "../common/Config.h"
 #include "../client/Monitor.h"
 #include "SDLManager.h"
-#include <condition_variable>
 
 
 class View {
@@ -25,7 +24,6 @@ private:
     SDLManager& sdlMngr;
     SDL_Texture* defaultConfig;
     Monitor& monitor;
-    std::condition_variable condVar;
     TTF_Font* font;
     int playerID;
     bool& keepRuning;
@@ -36,11 +34,17 @@ public:
 
     void changeLevel();
 
-    ~View();
-
     int run();
 
     void getEntityInfoAndRender(int x, int y, int width, int height, char stateEntity,char entityType);
+
+    void renderPlayerID(int posX, int width, int posY);
+
+    void renderEntity(std::vector<Entity>::iterator it);
+
+    void iterateEntityVector(int& previousLevel, std::vector<Entity>::iterator it);
+
+    ~View();
 };
 
 #endif //VIEW_H

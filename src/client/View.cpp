@@ -14,6 +14,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config, SDLManager& mngr, bo
 
     //grey
     texturesMario[0]['d'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/mario_idle_back_off.png", windowRenderer);
+
     //red
     texturesMario[1]['1'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_right.png", windowRenderer);
     texturesMario[1]['2'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_left.png", windowRenderer);
@@ -23,7 +24,6 @@ View::View(Monitor& monitor,Logger& logger, Config& config, SDLManager& mngr, bo
     texturesMario[1]['9'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer);
     texturesMario[1]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer);
     texturesMario[1]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer);
-
 
     //yellow
     texturesMario[2]['1'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_right.png", windowRenderer);
@@ -56,13 +56,12 @@ View::View(Monitor& monitor,Logger& logger, Config& config, SDLManager& mngr, bo
     texturesMario[4]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer);
 
     std::string fontPath = "../src/client/fonts/Kongtext Regular.ttf";
-    font = sdlMngr.createFont(fontPath.c_str(),FONTSIZE_IDENTIFIERS);
+    font = sdlMngr.createFont(fontPath.c_str(), FONTSIZE_IDENTIFIERS);
 
     SDL_Color colorP1 = {255, 0, 0};
     SDL_Color colorP2 = {255, 233, 0};
     SDL_Color colorP3 = {178, 0, 255};
     SDL_Color colorP4 = {0, 255, 0};
-    //SDL_Color colorOff = {134,134,134};
 
     usersNames[1] = sdlMngr.loadFromRenderedText("P1", colorP1, windowRenderer, font);
     usersNames[2] = sdlMngr.loadFromRenderedText("P2", colorP2, windowRenderer, font);
@@ -145,9 +144,38 @@ void View::getEntityInfoAndRender(int x, int y, int width, int height, char stat
     sdlMngr.render(x,y,width,height,textureEntity,windowRenderer);
 }
 
+void View::renderPlayerID(int posX, int width, int posY){
+    if (config.getPlayersAmount() > 1){
+        sdlMngr.render(posX+(width/3), posY-15, usersNames[playerID].width, usersNames[playerID].height, usersNames[playerID].texture, windowRenderer);
+        logger.debugMsg("Renderizando player ID", __FILE__, __LINE__);
+    }
+}
+
+void View::renderEntity(std::vector<Entity>::iterator it){
+    int posX = it->getPosX();
+    int posY = it->getPosY();
+    int width = it->getWidth();
+    int height = it->getHeight();
+    char type = it->getType();
+    char state = it->getState();
+
+    if (type == 'C') {
+        playerID++;
+        renderPlayerID(posX, width, posY);
+    }
+    logger.debugMsg("Renderizo una entidad", __FILE__, __LINE__);
+    getEntityInfoAndRender(posX, posY, width, height, state, type);
+}
+
+void View::iterateEntityVector(int& previousLevel, std::vector<Entity>::iterator it){
+    if(monitor.getLevel() != previousLevel){
+        changeLevel();
+        previousLevel++;
+    }
+    renderEntity(it);
+}
 
 int View::run() {
-    int playersAmount = config.getPlayersAmount();
     sdlMngr.renderFilledQuad(windowRenderer,config.getResolutionWidth(),config.getResolutionHeight());
     int previousLevel = 1;
     TextRendered waitMessage = sdlMngr.loadFromRenderedText("Waiting for the other players...",{255,0,0},windowRenderer,font);
@@ -160,27 +188,7 @@ int View::run() {
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
         auto it = entityVector.begin();
         while (it != entityVector.end()) {
-            if(monitor.getLevel() != previousLevel){
-                logger.infoMsg("View setting level 2: " + len,__FILE__,__LINE__);
-                changeLevel();
-                previousLevel++;
-            }
-            int posX = it->getPosX();
-            int posY = it->getPosY();
-            int width = it->getWidth();
-            int height = it->getHeight();
-            char type = it->getType();
-            char state = it->getState();
-
-            if (type == 'C') {
-                playerID++;
-                if (playersAmount > 1){
-                    sdlMngr.render(posX+(width/3), posY-15, usersNames[playerID].width,usersNames[playerID].height, usersNames[playerID].texture,windowRenderer);
-                    logger.debugMsg("Renderizando player ID", __FILE__, __LINE__);
-                }
-            }
-            logger.debugMsg("Renderizo una entidad",__FILE__,__LINE__);
-            getEntityInfoAndRender(posX, posY, width, height, state, type);
+            iterateEntityVector(previousLevel, it);
             ++it;
         }
         playerID = 0;
