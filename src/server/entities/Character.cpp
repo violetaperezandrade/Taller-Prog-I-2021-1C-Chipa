@@ -260,5 +260,19 @@ void Character::disconnect() {
     state = IDLE_OFF;
 }
 
+void Character::reconnect() {
+    movement.setJumping(false);
+    movement.setMovingDown(false);
+    movement.setMovingUp(false);
+    movement.setMovingLeft(false);
+    movement.setMovingRight(false);
+    if (lastDirection == IDLE_RIGHT){
+        state = IDLE_RIGHT;
+    } else {
+        state = IDLE_LEFT;
+    };
+
+}
+
 Character::~Character(){}
 

@@ -132,6 +132,7 @@ void Server::reconnect(int i, int currLevel){
         }
         peerManager.sendBreak(i);
     }
+    game.reconnect(userNames[peerManager.getName(i)]);
 }
 
 void Server::startGame(){
