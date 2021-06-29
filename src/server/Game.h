@@ -53,6 +53,8 @@ public:
 
     void disconnect(int i);
 
+    void reconnect(int i);
+
     bool update();
 
     void setLevel1();

@@ -73,6 +73,10 @@ void Game::disconnect(int i) {
     characters[i].disconnect();
 }
 
+void Game::reconnect(int i) {
+    characters[i].reconnect();
+}
+
 void Game::updateCharacterStatus(){
     for(int i = 0; i < amountCharacters; i++){
         characters[i].updateStatus(config);
