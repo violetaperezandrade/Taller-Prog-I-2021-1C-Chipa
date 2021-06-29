@@ -15,8 +15,9 @@ private:
     Config& config;
     Logger& logger;
     int clientNumber;
+    std::map<std::string,int>& userNames;
 public:
-    LoginManager(PeerManager& peerManager, Config& config, Logger& logger);
+    LoginManager(PeerManager& peerManager, Config& config, Logger& logger, std::map<std::string,int>& userNames);
 
     ~LoginManager();
 

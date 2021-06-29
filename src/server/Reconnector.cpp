@@ -68,7 +68,7 @@ void Reconnector::validateReconnection(Peer* client){
         return;
     }
     if(!keepRunning) return;
-    response = 'G';
+    response = 'G'; //userNames[peerManager.getName(i)]
     client->send(&response,1);
 }
 

@@ -1,10 +1,11 @@
 #include "LoginManager.h"
 
-LoginManager::LoginManager(PeerManager& peerManager, Config& config, Logger& logger) :
+LoginManager::LoginManager(PeerManager& peerManager, Config& config, Logger& logger, std::map<std::string,int>& userNames) :
     peerManager(peerManager),
     config(config),
     logger(logger),
-    clientNumber(peerManager.getSize() - 1)
+    clientNumber(peerManager.getSize() - 1),
+    userNames(userNames)
 {
     usersKeys = config.getUserPass();
 }
@@ -42,7 +43,7 @@ void LoginManager::validateLogin(){
         logger.infoMsg("Received correct credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
         peerManager.setName(usr, clientNumber);
     }
-    response = 'G';
+    response = 'G';//userNames[peerManager.getName(clientNumber)]
     peerManager.send(&response,1, clientNumber);
 }
 
