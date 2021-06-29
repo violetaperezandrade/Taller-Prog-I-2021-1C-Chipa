@@ -43,7 +43,7 @@ void LoginManager::validateLogin(){
         logger.infoMsg("Received correct credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
         peerManager.setName(usr, clientNumber);
     }
-    response = 'G';//userNames[peerManager.getName(clientNumber)]
+    response = userNames[peerManager.getName(clientNumber)];
     peerManager.send(&response,1, clientNumber);
 }
 

@@ -40,7 +40,7 @@ void Server::acceptClients(){
         Peer* client = new Peer(std::move(peerSkt), logger, false);
         peerManager.push(client);
         logger.infoMsg("Added peer number: " + std::to_string(peerManager.getSize() + 1), __FILE__, __LINE__);
-        LoginManager* login = new LoginManager(peerManager, config, logger);
+        LoginManager* login = new LoginManager(peerManager, config, logger, userNames);
         login->start();
         logins.push_back(login);
         logger.infoMsg("Login thread for peer launched", __FILE__, __LINE__);

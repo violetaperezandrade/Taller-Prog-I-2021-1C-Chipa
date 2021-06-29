@@ -28,9 +28,10 @@ private:
     int playerID;
     bool& keepRuning;
     bool& serverActive;
+    int& playerNumber;
 
 public:
-    View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive);
+    View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber);
 
     void changeLevel();
 

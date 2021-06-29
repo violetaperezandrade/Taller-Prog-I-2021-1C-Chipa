@@ -21,8 +21,9 @@ private:
     Socket& sktLogin;
     std::map<std::string, SDL_Texture*> textures;
     std::map<std::string, TextRendered> textTextures;
+    int& playerNumber;
 public:
-    Login(Logger& logger, SDLManager& mngr, Socket& skt);
+    Login(Logger& logger, SDLManager& mngr, Socket& skt, int& playerNumber);
     int runLoginWindow(char* ip, char* port);
     void loadTexturesVector(std::vector<SDL_Texture*>& v);
     int manageUnsuccessfulConnection();

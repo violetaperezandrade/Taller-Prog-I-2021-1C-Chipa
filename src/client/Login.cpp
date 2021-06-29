@@ -1,10 +1,12 @@
 #include "Login.h"
 #include <iostream>
 
-Login::Login(Logger& logger, SDLManager& mngr, Socket& skt) :
+Login::Login(Logger& logger, SDLManager& mngr, Socket& skt, int& playerNumber) :
 logger(logger),
 sdlMngr(mngr),
-sktLogin(skt){
+sktLogin(skt),
+playerNumber(playerNumber)
+{
 
     windowLogin = sdlMngr.createWindow("Login game",SCREEN_WIDTH_LOGIN,SCREEN_HEIGHT_LOGIN);
     windowRendererLogin = sdlMngr.createRenderer(windowLogin);
@@ -157,6 +159,7 @@ int Login::manageMouseOnButton(SDL_Event& e, std::vector<SDL_Texture*>& v, std::
             logger.infoMsg("Se espera verificacion", __FILE__, __LINE__);
             sktLogin.receive(successLogin, 1, logger);
             if (manageCharReceived(successLogin[0], quit, loginError, v) < 0) return -1;
+            playerNumber = successLogin[0];
             break;
     }
     return 0;

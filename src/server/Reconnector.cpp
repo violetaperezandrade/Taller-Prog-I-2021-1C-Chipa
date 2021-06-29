@@ -31,9 +31,9 @@ void Reconnector::validateReconnection(Peer* client){
     char response; //F for full - G for good - B for bad
     bool correctCredentials = false;
     bool alreadyPlayer = false;
+    std::string finalUser;
 
     while(!correctCredentials && keepRunning) {
-
         client->receive(user, 30);
         client->receive(password, 30);
 
@@ -60,6 +60,7 @@ void Reconnector::validateReconnection(Peer* client){
                 continue;
             }
             correctCredentials = true;
+            finalUser = usr;
             continue;
         }
         response = 'F';
@@ -68,7 +69,7 @@ void Reconnector::validateReconnection(Peer* client){
         return;
     }
     if(!keepRunning) return;
-    response = 'G'; //userNames[peerManager.getName(i)]
+    response = userNames[finalUser];
     client->send(&response,1);
 }
 

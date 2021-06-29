@@ -1,13 +1,14 @@
 #include "View.h"
 
-View::View(Monitor& monitor,Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive) :
+View::View(Monitor& monitor,Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber) :
     logger(logger),
     config(config),
     sdlMngr(mngr),
     monitor(monitor),
     playerID(0),
     keepRuning(keepRunning),
-    serverActive(serverActive)
+    serverActive(serverActive),
+    playerNumber(playerNumber)
 {
     window = sdlMngr.createWindow("Donkey Kong ii", config.getResolutionWidth(), config.getResolutionHeight());
     windowRenderer = sdlMngr.createRenderer(window);
@@ -167,14 +168,6 @@ void View::renderEntity(std::vector<Entity>::iterator it){
     getEntityInfoAndRender(posX, posY, width, height, state, type);
 }
 
-void View::iterateEntityVector(int& previousLevel, std::vector<Entity>::iterator it){
-    if(monitor.getLevel() != previousLevel){
-        changeLevel();
-        previousLevel++;
-    }
-    renderEntity(it);
-}
-
 int View::run() {
     sdlMngr.renderFilledQuad(windowRenderer,config.getResolutionWidth(),config.getResolutionHeight());
     int previousLevel = 1;
@@ -186,11 +179,27 @@ int View::run() {
         std::vector<Entity> entityVector = monitor.getEntities();
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
+
+        if(monitor.getLevel() != previousLevel){
+            changeLevel();
+            previousLevel++;
+        }
+
+        int pos = 0;
+        int size = entityVector.size();
+        int myCharacterPos = size - config.getPlayersAmount() + playerNumber -1;
         auto it = entityVector.begin();
         while (it != entityVector.end()) {
-            iterateEntityVector(previousLevel, it);
+            if (pos != myCharacterPos){
+                renderEntity(it);
+            } else {
+                playerID++;
+            }
             ++it;
+            pos++;
         }
+        playerID = playerNumber;
+        renderEntity(entityVector.begin()+myCharacterPos);
         playerID = 0;
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
         sdlMngr.presentRender(windowRenderer);

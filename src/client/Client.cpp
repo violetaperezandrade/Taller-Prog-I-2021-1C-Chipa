@@ -29,7 +29,8 @@ void Client::run(){
     logger.infoMsg("Se inicia un cliente", __FILE__, __LINE__);
 
     SDLManager sdlMngr(logger);
-    Login login(logger, sdlMngr, skt);
+    int playerNumber;
+    Login login(logger, sdlMngr, skt, playerNumber);
     int status = login.runLoginWindow(ip,port);
     if(status < 0){
         logger.errorMsg("Algo salio mal en ventana de login", __FILE__, __LINE__);
@@ -39,7 +40,7 @@ void Client::run(){
     bool serverActive = true;
 
     Monitor monitor(logger);
-    View view(monitor, logger, config, sdlMngr, keepRunning, serverActive);
+    View view(monitor, logger, config, sdlMngr, keepRunning, serverActive, playerNumber);
     Input* input = new Input(skt, logger, keepRunning, serverActive);
     Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive);
 
