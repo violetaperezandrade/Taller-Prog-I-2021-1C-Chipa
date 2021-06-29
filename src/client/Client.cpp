@@ -29,7 +29,7 @@ void Client::run(){
     logger.infoMsg("Se inicia un cliente", __FILE__, __LINE__);
 
     SDLManager sdlMngr(logger);
-    Login login(logger, skt,sdlMngr);
+    Login login(logger, sdlMngr, skt);
     int status = login.runLoginWindow(ip,port);
     if(status < 0){
         logger.errorMsg("Algo salio mal en ventana de login", __FILE__, __LINE__);

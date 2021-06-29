@@ -4,6 +4,8 @@
 #include "SDLManager.h"
 #include "../common/Logger.h"
 #include "../common/Socket.h"
+#include <iostream>
+#include <map>
 #include <vector>
 
 #define SCREEN_WIDTH_LOGIN 640
@@ -17,9 +19,22 @@ private:
     SDLManager& sdlMngr;
     Logger& logger;
     Socket& sktLogin;
+    std::map<std::string, SDL_Texture*> textures;
+    std::map<std::string, TextRendered> textTextures;
 public:
+    Login(Logger& logger, SDLManager& mngr, Socket& skt);
     int runLoginWindow(char* ip, char* port);
-    Login(Logger& logger,Socket& skt,SDLManager& mngr);
+    void loadTexturesVector(std::vector<SDL_Texture*>& v);
+    int manageUnsuccessfulConnection();
+    void renderer(TextRendered& loginError);
+    void manageTextInput(SDL_Event e, bool& renderPass, std::string& inputTextPsw, bool& renderText,
+                         std::string& inputTextUser);
+    int manageCharReceived(char c, bool& quit, TextRendered& loginError, std::vector<SDL_Texture*>& v);
+    void manageClickOnPrompt(bool& renderPass, bool& canWrite, bool user);
+    void renderUsrAndPswText(bool& renderPass, std::string& inputTextPsw, std::string& inputTextUser);
+    int manageMouseOnButton(SDL_Event& e, std::vector<SDL_Texture*>& v, std::string& inputTextUser,
+                            std::string& inputTextPsw, bool& quit, TextRendered &loginError);
+    void close(std::vector<SDL_Texture*>& v);
     ~Login();
 };
 
