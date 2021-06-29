@@ -69,7 +69,7 @@ void Reconnector::validateReconnection(Peer* client){
         return;
     }
     if(!keepRunning) return;
-    response = userNames[finalUser];
+    response = userNames[finalUser]+1;
     client->send(&response,1);
 }
 

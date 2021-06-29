@@ -20,6 +20,7 @@ void LoginManager::validateLogin(){
     char user[30];
     char password[30];
     char response; //B for fail - G for good
+    int playerID= peerManager.getSize()-1;
 
     bool correctCredentials = false;
     while(!correctCredentials) {
@@ -42,8 +43,9 @@ void LoginManager::validateLogin(){
         correctCredentials = true;
         logger.infoMsg("Received correct credentials. User: " + usr + " " + pw, __FILE__, __LINE__);
         peerManager.setName(usr, clientNumber);
+        userNames[usr] = playerID;
     }
-    response = userNames[peerManager.getName(clientNumber)];
+    response = playerID+1;
     peerManager.send(&response,1, clientNumber);
 }
 

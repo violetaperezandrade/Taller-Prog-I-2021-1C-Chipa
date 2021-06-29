@@ -198,7 +198,7 @@ int View::run() {
             ++it;
             pos++;
         }
-        playerID = playerNumber;
+        playerID = playerNumber-1;
         renderEntity(entityVector.begin()+myCharacterPos);
         playerID = 0;
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);

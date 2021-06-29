@@ -29,8 +29,9 @@ void Client::run(){
     logger.infoMsg("Se inicia un cliente", __FILE__, __LINE__);
 
     SDLManager sdlMngr(logger);
-    int playerNumber;
+    int playerNumber = 0;
     Login login(logger, sdlMngr, skt, playerNumber);
+    logger.infoMsg("Soy el jugador numero " + std::to_string(playerNumber), __FILE__, __LINE__);
     int status = login.runLoginWindow(ip,port);
     if(status < 0){
         logger.errorMsg("Algo salio mal en ventana de login", __FILE__, __LINE__);
