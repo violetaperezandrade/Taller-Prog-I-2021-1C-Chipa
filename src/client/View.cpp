@@ -63,11 +63,14 @@ View::View(Monitor& monitor,Logger& logger, Config& config, SDLManager& mngr, bo
     SDL_Color colorP2 = {255, 233, 0};
     SDL_Color colorP3 = {178, 0, 255};
     SDL_Color colorP4 = {0, 255, 0};
+    SDL_Color white = {255,255,255};
 
     usersNames[1] = sdlMngr.loadFromRenderedText("P1", colorP1, windowRenderer, font);
     usersNames[2] = sdlMngr.loadFromRenderedText("P2", colorP2, windowRenderer, font);
     usersNames[3] = sdlMngr.loadFromRenderedText("P3", colorP3, windowRenderer, font);
     usersNames[4] = sdlMngr.loadFromRenderedText("P4", colorP4, windowRenderer, font);
+    usersNames[5] = sdlMngr.loadFromRenderedText("Lives",white,windowRenderer,font);
+    usersNames[6] = sdlMngr.loadFromRenderedText("Points",white,windowRenderer,font);
 
     texturesEntities = {{'P', sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/blue_platform.png", windowRenderer)},
                         {'B',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/front_barrel.png", windowRenderer)},
@@ -82,6 +85,8 @@ View::View(Monitor& monitor,Logger& logger, Config& config, SDLManager& mngr, bo
     texturesMonkey = {{'0',sdlMngr.loadImageTexture("../src/client/img/Sprites-Monkey/monkey_left_hand_up.png", windowRenderer)}};
 
     defaultConfig = sdlMngr.loadImageTexture("../src/client/img/default.png", windowRenderer);
+
+    divisorPoints = sdlMngr.loadImageTexture("../src/client/img/divisor.png",windowRenderer);
 }
 
 void View::changeLevel(){
@@ -152,6 +157,17 @@ void View::renderPlayerID(int posX, int width, int posY){
     }
 }
 
+void View::renderLivesAndPoints(){
+
+    sdlMngr.render(0,40,800,10,divisorPoints,windowRenderer);
+    sdlMngr.render(1,1,usersNames[5].width,usersNames[5].height,usersNames[5].texture,windowRenderer);
+    sdlMngr.render(1,40-usersNames[6].height,usersNames[6].width,usersNames[6].height,usersNames[6].texture,windowRenderer);
+    for(int i = 1; i <= playerID ; i++) {
+        sdlMngr.render(((config.getResolutionWidth() / config.getPlayersAmount())/2) + (config.getResolutionWidth()*(i-1)/config.getPlayersAmount()),
+                       20-(usersNames[i].height/2), usersNames[i].width, usersNames[i].height, usersNames[i].texture, windowRenderer);
+    }
+}
+
 void View::renderEntity(std::vector<Entity>::iterator it){
     int posX = it->getPosX();
     int posY = it->getPosY();
@@ -195,6 +211,7 @@ int View::run() {
             } else {
                 playerID++;
             }
+            renderLivesAndPoints();
             ++it;
             pos++;
         }

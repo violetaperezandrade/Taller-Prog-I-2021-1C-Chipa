@@ -3,6 +3,7 @@
 #define FONTSIZE 24
 #define FONTSIZE_IDENTIFIERS 10
 
+
 #include <map>
 #include "../server/Game.h"
 #include "../common/Logger.h"
@@ -23,6 +24,7 @@ private:
     Config& config;
     SDLManager& sdlMngr;
     SDL_Texture* defaultConfig;
+    SDL_Texture* divisorPoints;
     Monitor& monitor;
     TTF_Font* font;
     int playerID;
@@ -43,7 +45,7 @@ public:
 
     void renderEntity(std::vector<Entity>::iterator it);
 
-    void iterateEntityVector(int& previousLevel, std::vector<Entity>::iterator it);
+    void renderLivesAndPoints();
 
     ~View();
 };
