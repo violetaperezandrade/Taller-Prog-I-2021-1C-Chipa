@@ -1,6 +1,7 @@
 #include "Monitor.h"
 
 Monitor::Monitor(Logger& logger) :
+    pos(0),
     entities(),
     mtx(),
     cond_var(),
@@ -60,8 +61,15 @@ void Monitor::notify(){
     notified = true;
     cond_var.notify_all();
     logger.debugMsg("Se notifica a las condition variables",__FILE__,__LINE__);
+    pos = 0;
 }
 
 int Monitor::getLevel(){
     return this->level;
+}
+
+void Monitor::addStats(int lives_aux, int points_aux){
+    lives[pos] = lives_aux;
+    points[pos] = points_aux;
+    pos++;
 }

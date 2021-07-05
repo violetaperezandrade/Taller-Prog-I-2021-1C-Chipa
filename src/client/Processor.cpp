@@ -2,17 +2,18 @@
 #include "../common/protocols/EntityProtocol.h"
 #include <chrono>
 
-Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive) :
+Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive, int& playerNumber) :
     monitor(monitor),
     socket(socket),
     logger(logger),
     keepRunning(keepRunning),
-    serverActive(serverActive)
+    serverActive(serverActive),
+    playerNumber(playerNumber)
 {}
 
 void Processor::readEntities() {
     while(keepRunning && serverActive) {
-        if(EntityProtocol::readEntities(socket, monitor, logger) == 1){//llena el monitor con mensaje en bloque
+        if(EntityProtocol::readInfo(socket, monitor, logger, playerNumber) == 1){//llena el monitor con mensaje en bloque
             serverActive = false;
             logger.debugMsg("Inactive server", __FILE__, __LINE__);
             monitor.notify();

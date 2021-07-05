@@ -8,6 +8,7 @@ private:
     unsigned char info[LEN];
 public:
     EntityInfo();
+    EntityInfo(int lifes, int points);
     EntityInfo(char t, int x, int y, int w, int h, char s, char p);
     unsigned char* getPtr();
     int getLen();

@@ -7,8 +7,13 @@
 #include "../common/Entity.h"
 #include "../common/Logger.h"
 
+#define MAX_PLAYERS 4
+
 class Monitor{
 private:
+    char lives[MAX_PLAYERS];
+    int points[MAX_PLAYERS];
+    int pos;
     std::vector<Entity> entities;
     std::mutex mtx;
     std::condition_variable cond_var;
@@ -33,5 +38,7 @@ public:
     void notify();
 
     int getLevel();
+
+    void addStats(int lives_aux, int points_aux);
 };
 #endif //MONITOR_H

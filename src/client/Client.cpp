@@ -43,7 +43,7 @@ void Client::run(){
     Monitor monitor(logger);
     View view(monitor, logger, config, sdlMngr, keepRunning, serverActive, playerNumber);
     Input* input = new Input(skt, logger, keepRunning, serverActive);
-    Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive);
+    Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive, playerNumber);
 
     logger.debugMsg("Se lanza thread INPUT", __FILE__, __LINE__);
     logger.debugMsg("Se lanza thread PROCESSOR", __FILE__, __LINE__);

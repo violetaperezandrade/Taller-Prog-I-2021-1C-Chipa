@@ -6,6 +6,19 @@ EntityInfo::EntityInfo() {
     }
 }
 
+EntityInfo::EntityInfo(int lifes, int points) {
+    info[0] = 0;
+    info[1] = lifes;
+    info[2] = (points >> 24) & 0xFF;
+    info[3] = (points >> 16) & 0xFF;
+    info[4] = (points >> 8) & 0xFF;
+    info[5] = points & 0xFF;
+
+    for(int i = 0; i<LEN; i++){
+        info[i] = -1;
+    }
+}
+
 EntityInfo::EntityInfo(char t, int x, int y, int w, int h, char s, char p) {
     info[0] = t;
     info[1] = (x >> 8) & 0xFF;
