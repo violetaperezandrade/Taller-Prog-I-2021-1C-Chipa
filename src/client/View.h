@@ -10,6 +10,7 @@
 #include "../common/Config.h"
 #include "../client/Monitor.h"
 #include "SDLManager.h"
+#include "SoundManager.h"
 
 
 class View {
@@ -31,6 +32,7 @@ private:
     bool& keepRuning;
     bool& serverActive;
     int& playerNumber;
+    SoundManager soundManager;
 
 public:
     View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber);

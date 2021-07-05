@@ -18,10 +18,14 @@ bool SDLManager::initSDL(){
         logger.errorMsg("Error al filtrar textura lineal", __FILE__, __LINE__);
     }
     if(TTF_Init() == -1){
-        logger.errorMsg("Error al inicializar TTF",__FILE__,__LINE__);
+        logger.errorMsg("Error al inicializar TTF", __FILE__, __LINE__);
         error = true;
     }
-    logger.debugMsg("SDL Iniciado correctamente para login",__FILE__,__LINE__);
+    if(Mix_OpenAudio( 22050, AUDIO_S16, 2, 4096 ) < 0){
+        logger.errorMsg("Error al inicializar SDL Mixer", __FILE__, __LINE__);
+        error = true;
+    }
+    logger.debugMsg("SDL Iniciado correctamente para login", __FILE__, __LINE__);
     return error;
 }
 

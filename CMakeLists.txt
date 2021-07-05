@@ -26,8 +26,9 @@ add_executable(Client
         src/common/Logger.cpp
         src/common/Socket.cpp
         src/common/Thread.cpp
-        src/client/SDLManager.cpp)
-target_link_libraries(Client jsoncpp SDL2 SDL2_image SDL2_ttf nlohmann_json::nlohmann_json)
+        src/client/SDLManager.cpp
+        src/client/SoundManager.cpp)
+target_link_libraries(Client jsoncpp SDL2 SDL2_image SDL2_ttf SDL2_mixer nlohmann_json::nlohmann_json)
 
 add_executable(Server
         src/client/Monitor.cpp
