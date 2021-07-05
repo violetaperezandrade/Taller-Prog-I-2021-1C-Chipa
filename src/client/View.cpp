@@ -181,12 +181,12 @@ void View::renderEntity(std::vector<Entity>::iterator it){
         renderPlayerID(posX, width, posY);
     }
     logger.debugMsg("Renderizo una entidad", __FILE__, __LINE__);
-    soundManager.playSoundFromState(state);
+    //soundManager.playSoundFromState(state);
     getEntityInfoAndRender(posX, posY, width, height, state, type);
 }
 
 int View::run() {
-    soundManager.runLevel1(keepRuning);
+    //soundManager.runLevel1(keepRuning);
     sdlMngr.renderFilledQuad(windowRenderer,config.getResolutionWidth(),config.getResolutionHeight());
     int previousLevel = 1;
     TextRendered waitMessage = sdlMngr.loadFromRenderedText("Waiting for the other players...",{255,0,0},windowRenderer,font);
@@ -201,7 +201,7 @@ int View::run() {
         if(monitor.getLevel() != previousLevel){
             changeLevel();
             previousLevel++;
-            soundManager.runLevel2(keepRuning);
+            //soundManager.runLevel2(keepRuning);
         }
 
         int pos = 0;
