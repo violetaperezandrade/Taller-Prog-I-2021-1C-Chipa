@@ -65,17 +65,17 @@ void Character::attemptJump(Config& config){
         speedY = -config.getJumpingSpeed();
         if (movement.isMovingLeft()){
             speedX = -config.getMovingSpeed();
-            state = FALLING_LEFT;
+            state = stateManager.getFallingLeft();
             lastDirection = IDLE_LEFT;
         } else if (movement.isMovingRight()){
             speedX = config.getMovingSpeed();
-            state = FALLING_RIGHT;
+            state = stateManager.getFallingRight();
             lastDirection = IDLE_RIGHT;
         } else {
             if (lastDirection == IDLE_RIGHT){
-                state = FALLING_RIGHT;
+                state = stateManager.getFallingRight();
             } else {
-                state = FALLING_LEFT;
+                state = stateManager.getFallingLeft();
             }
         }
     }
@@ -91,11 +91,11 @@ void Character::attemptClimb(Config& config){
         if (movement.shouldMoveUp()){
             speedX = 0;
             speedY = -config.getClimbingSpeed();
-            state = MOVING_UP;
+            state = stateManager.getMovingUp();
         } else if (movement.shouldMoveDown()){
             speedX = 0;
             speedY = config.getClimbingSpeed();
-            state = MOVING_DOWN;
+            state = stateManager.getMovingDown();
         } else {
             speedY = 0;
         }
@@ -108,19 +108,19 @@ void Character::attemptGroundMovement(Config& config){
     }
     if (movement.shouldMoveLeft()){
         speedX = -config.getMovingSpeed();
-        state = MOVING_LEFT;
+        state = stateManager.getMovingLeft();
         lastDirection = IDLE_LEFT;
     } else if (movement.shouldMoveRight()){
         speedX = config.getMovingSpeed();
-        state = MOVING_RIGHT;
+        state = stateManager.getMovingRight();
         lastDirection = IDLE_RIGHT;
     } else {
         speedX = 0;
         if (state != IDLE_OFF){
             if (lastDirection == IDLE_RIGHT){
-                state = IDLE_RIGHT;
+                state = stateManager.getMovingRight();
             } else {
-                state = IDLE_LEFT;
+                state = stateManager.getMovingLeft();
             }
         }
     }
@@ -168,7 +168,7 @@ void Character::disconnect() {
     movement.setMovingUp(false);
     movement.setMovingLeft(false);
     movement.setMovingRight(false);
-    state = IDLE_OFF;
+    state = stateManager.getIdleOff();
 }
 
 void Character::reconnect() {
@@ -178,9 +178,9 @@ void Character::reconnect() {
     movement.setMovingLeft(false);
     movement.setMovingRight(false);
     if (lastDirection == IDLE_RIGHT){
-        state = IDLE_RIGHT;
+        state = stateManager.getIdleRight();
     } else {
-        state = IDLE_LEFT;
+        state = stateManager.getIdleLeft();
     };
 
 }
@@ -203,12 +203,14 @@ int Character::getPoints(){
 
 void Character::pickUpHammer(){
     hammerUsages = 3;
-    // state agarrame el llomarti
+    stateManager.setHammerMode();
 }
 
 void Character::useHammer(){
     hammerUsages--;
-    // if hammerUsages == 0 entonces solté el llomarti y cambia el estado de bienestar
+    if (hammerUsages == 0){
+        stateManager.setStandardMode();
+    }
 }
 
 bool Character::hasHammer(){
