@@ -40,6 +40,8 @@ public:
 
     void stopJumping();
 
+    bool isDead();
+
     void land();
 
     void attemptJump(Config& config);

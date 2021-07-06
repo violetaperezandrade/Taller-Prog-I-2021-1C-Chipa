@@ -21,7 +21,7 @@ private:
     Config& config;
     Logger& logger;
     std::map<std::string,int> userNames;
-    bool keepRunning;
+    int keepRunning;
 
 public:
     Server(char* ip, char* port, int playersAmount, Config& config, Logger& logger);

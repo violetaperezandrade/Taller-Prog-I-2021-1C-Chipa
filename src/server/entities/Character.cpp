@@ -14,6 +14,7 @@
 #define IDLE_RIGHT 'r'
 #define IDLE_LEFT 'l'
 #define IDLE_OFF 'd'
+#define DEATH 'x'
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY, MOVING_RIGHT, 'T'),
@@ -192,6 +193,10 @@ void Character::reconnect() {
 void Character::loseLive(){
     if(invincible) return;
     lives--;
+    if(lives == 0){
+        this->silence();
+        state = DEATH;
+    }
 }
 
 void Character::addPoints(int i){
@@ -232,6 +237,10 @@ void Character::unsilence(){
 
 bool Character::isSilenced(){
     return silenced;
+}
+
+bool Character::isDead(){
+    return lives == 0;
 }
 
 Character::~Character(){}

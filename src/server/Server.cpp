@@ -16,7 +16,7 @@ Server::Server(char* ip, char* port, int playersAmount, Config& config, Logger& 
     config(config),
     logger(logger),
     userNames(),
-    keepRunning(true)
+    keepRunning(0)
 {}
 
 void Server::run(){
@@ -28,6 +28,7 @@ void Server::run(){
                                                userNames, keepRunning);
     reconnector->start();
     startGame();
+    // enviar si keep running es 1 2 o 3 a los clientes
     reconnector->stop();
     reconnector->join();
     disconnectClients();
@@ -138,7 +139,7 @@ void Server::startGame(){
     std::chrono::milliseconds frameTime(30);
     int currLevel = 1;
 
-    while(keepRunning) {
+    while(keepRunning == 0) {
         logger.debugMsg("New game iteration", __FILE__, __LINE__);
         std::chrono::steady_clock::time_point initialTime = std::chrono::steady_clock::now();
         std::chrono::steady_clock::time_point timeSpan = initialTime + frameTime;
@@ -156,17 +157,17 @@ void Server::startGame(){
                 peerManager.erase(i);
             }
         }        
-        if (game.update()){
+        if (game.update() && currLevel == 1){
             currLevel++;
             sendAll();
         } else {
             sendNew();
         }
-        keepRunning = !game.isFinished();
+        keepRunning = game.isFinished();
         std::this_thread::sleep_until(timeSpan);
         if(peerManager.getSize() == 0) {
             logger.infoMsg("All players disconnected no more game", __FILE__, __LINE__);
-            keepRunning = false;
+            keepRunning = 3;
         }
     }
     logger.infoMsg("Game finished", __FILE__, __LINE__);

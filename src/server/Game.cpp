@@ -13,8 +13,9 @@ Game::Game(Config& config, Logger& logger, int amountCharacters) :
         tickCounter(0),
         currLevel(1),
         amountCharacters(amountCharacters),
-        finished(false),
-        playersWhoFinished(0)
+        finished(0),
+        playersWhoFinished(0),
+        charactersLeft(amountCharacters)
     {
     setLevel1();
 }
@@ -81,14 +82,20 @@ void Game::updateCharacterStatus(){
 bool Game::moveCharacters(){
     bool switchLevel;
     for (int i = 0; i < amountCharacters; i++) {
-        if(characters[i].isSilenced()) continue;
+        if(characters[i].isSilenced()) continue; //si pasa este if no está muerto
         bool reachedPrincess = collisionManager.moveCharacter(i, playersWhoFinished);
-        switchLevel = (reachedPrincess && playersWhoFinished == amountCharacters);
+        switchLevel = (reachedPrincess && playersWhoFinished == charactersLeft);
         if (switchLevel){
             changeLevel();
             return switchLevel;
         } else if (reachedPrincess){
             characters[i].silence();
+        }
+        if(characters[i].isDead()){ //significa que me acabo de morir
+            charactersLeft--;
+        }
+        if(charactersLeft == 0){
+            finished = 1;
         }
     }
     return switchLevel;
@@ -616,7 +623,7 @@ std::vector<Character>& Game::getCharacters(){
     return characters;
 }
 
-bool Game::isFinished() {
+int Game::isFinished() {
     return finished;
 }
 
@@ -625,11 +632,15 @@ void Game::setInvincible(int i) {
 }
 
 void Game::changeLevel(){
-    for (int i = 0; i < amountCharacters; i++) {
-        characters[i].unsilence();
+    if(currLevel == 1){
+        for (int i = 0; i < amountCharacters; i++) {
+            characters[i].unsilence();
+        }
+        playersWhoFinished = 0;
+        this->entities.clear();
+        setLevel2();
+        currLevel = 2;
+    } else {
+        finished = 2;
     }
-    playersWhoFinished = 0;
-    this->entities.clear();
-    setLevel2();
-    currLevel = 2;
 }

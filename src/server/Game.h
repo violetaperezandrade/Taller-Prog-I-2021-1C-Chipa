@@ -28,8 +28,9 @@ private:
     int tickCounter;
     int currLevel;
     int amountCharacters;
-    bool finished;
+    int finished;
     int playersWhoFinished;
+    int charactersLeft;
 
     void updateCharacterStatus();
     bool moveCharacters();
@@ -88,7 +89,7 @@ public:
 
     std::vector<Character>& getCharacters();
 
-    bool isFinished();
+    int isFinished();
 };
 
 #endif //GAME_H
