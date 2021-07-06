@@ -215,6 +215,10 @@ void Server::makeCommand(char command,int i){
             logger.debugMsg("Se libera boton SPACE", __FILE__, __LINE__);
             game.stopJumping(i);
             break;
+        case 'i':
+            logger.debugMsg("Jugador invensible", __FILE__, __LINE__);
+            game.setInvincible(i);
+            break;
         default:
             logger.errorMsg("Llego un input invalido", __FILE__, __LINE__);
             break;

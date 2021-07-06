@@ -17,7 +17,7 @@
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY, MOVING_RIGHT, 'T'),
-    movement(), lastDirection('r'), lives(3), points(0), silenced(false)
+    movement(), lastDirection('r'), lives(3), points(0), silenced(false), invincible(false)
 {}
 
 void Character::startMovingLeft(){
@@ -46,6 +46,10 @@ void Character::stopMovingLeft(){
 
 void Character::stopMovingRight(){
     movement.setMovingRight(false);
+}
+
+void Character::setInvincible() {
+    invincible = true;
 }
 
 void Character::stopMovingUp(){
@@ -186,6 +190,7 @@ void Character::reconnect() {
 }
 
 void Character::loseLive(){
+    if(invincible) return;
     lives--;
 }
 

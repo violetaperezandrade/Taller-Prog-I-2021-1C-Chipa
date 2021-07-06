@@ -15,6 +15,7 @@ private:
     int hammerUsages;
     bool silenced;
     StateManager stateManager;
+    bool invincible;
 
 public:
     Character(int posX, int posY, int width, int height, int speedX, int speedY);
@@ -84,6 +85,8 @@ public:
     void silence();
 
     void unsilence();
+
+    void setInvincible();
 
     bool isSilenced();
 

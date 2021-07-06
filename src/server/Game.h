@@ -48,6 +48,8 @@ public:
 
     void startMovingUp(int i);
 
+    void setInvincible(int i);
+
     void startMovingDown(int i);
 
     void startJumping(int i);

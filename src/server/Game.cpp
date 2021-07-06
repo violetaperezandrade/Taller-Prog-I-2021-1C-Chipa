@@ -620,6 +620,10 @@ bool Game::isFinished() {
     return finished;
 }
 
+void Game::setInvincible(int i) {
+    characters[i].setInvincible();
+}
+
 void Game::changeLevel(){
     for (int i = 0; i < amountCharacters; i++) {
         characters[i].unsilence();
