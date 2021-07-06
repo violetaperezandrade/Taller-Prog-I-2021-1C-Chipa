@@ -9,6 +9,8 @@ class Character : public Entity{
 private:
     Movement movement;
     char lastDirection;
+    int lives;
+    int points;
 
 public:
     Character(int posX, int posY, int width, int height, int speedX, int speedY);
@@ -60,6 +62,14 @@ public:
     void disconnect();
 
     void reconnect();
+
+    void loseLive();
+
+    void addPoints(int i);
+
+    int getLives();
+
+    int getPoints();
 
     ~Character();
 };

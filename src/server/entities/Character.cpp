@@ -17,7 +17,7 @@
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY, MOVING_RIGHT, 'T'),
-    movement(), lastDirection('r')
+    movement(), lastDirection('r'), lives(3), points(0)
 {}
 
 void Character::startMovingLeft(){
@@ -126,11 +126,6 @@ void Character::attemptGroundMovement(Config& config){
     }
 }
 
-/*
-bool Character::isOnStairs(){
-    return movement.isOnStairs();
-}*/
-
 bool Character::isTryingToClimb() {
     return movement.isTryingToClimb();
 }
@@ -154,90 +149,6 @@ bool Character::isClimbing(){
 bool Character::isMidair(){
     return movement.isMidair();
 }
-
-/*
-void Character::updateStatus(){
-    if (movement.shouldFall() && movement.shouldMoveRight()){
-        state = FALLING_RIGHT;
-        speedX = 20;//config.getMoveSpeed();
-    } else if (movement.shouldFall() && movement.shouldMoveLeft()){
-        state = FALLING_LEFT;
-        speedX = -20;//config.getMoveSpeed();
-    } else if (movement.shouldFall()){
-        state = FALLING_STRAIGHT;
-    }// else if (movement.shouldGetOnStairs()){
-        //state = ABOUT_TO_CLIMB;
-    } else if (movement.shouldJump()){
-        state = ABOUT_TO_JUMP;
-        movement.setMidair(true);
-        speedY = -20;//config.getJumpSpeed();
-    } else if (movement.shouldMoveRight()){
-        state = MOVING_RIGHT;
-        speedX = 20;//config.getMoveSpeed();
-    } else if (movement.shouldMoveLeft()){
-        state = MOVING_LEFT;
-        speedX = -20;//config.getMoveSpeed();
-    } else if (movement.shouldMoveUp()){
-        state = MOVING_UP;
-    } else if (movement.shouldMoveDown()) {
-        state = MOVING_DOWN;
-    } else {
-        state = IDLE_BACK;
-    }
-}*/
-
-/*void Character::updateStatus(Config& config){
-    if (movement.isMidair()){
-        speedY += config.getGravity();
-    } else if (movement.shouldMoveUp()){
-        state = MOVING_UP;
-        speedY = -config.getClimbingSpeed();
-    } else if (movement.shouldMoveDown()){
-        state = MOVING_DOWN;
-        speedY = config.getClimbingSpeed();
-    } else if (movement.shouldClimb()) {
-        state = MOVING_UP;
-    } else {
-        if (movement.shouldMoveRight()){
-            state = MOVING_RIGHT;
-            speedX = config.getMovingSpeed();
-            if (movement.shouldJump()){
-                state = FALLING_RIGHT;
-                movement.setMidair(true);
-                speedY = -config.getJumpingSpeed();
-            }
-            lastDirection = 'r';
-        } else if (movement.shouldMoveLeft()){
-            state = MOVING_LEFT;
-            speedX = -config.getMovingSpeed();
-            if (movement.shouldJump()){
-                state = FALLING_LEFT;
-                movement.setMidair(true);
-                speedY = -config.getJumpingSpeed();
-            }
-            lastDirection = 'l';
-        } else {
-            speedX = 0;
-            if (lastDirection == 'l'){
-                state = IDLE_LEFT;
-                if (movement.shouldJump()){
-                    state = FALLING_LEFT;
-                    movement.setMidair(true);
-                    speedY = -config.getJumpingSpeed();
-                }
-            } else {
-                state = IDLE_RIGHT;
-                if (movement.shouldJump()){
-                    state = FALLING_RIGHT;
-                    movement.setMidair(true);
-                    speedY = -config.getJumpingSpeed();
-                }
-            }
-            //use lastMovementDirection to chose what idle sprite to use
-
-        }
-    }
-}*/
 
 void Character::updateStatus(Config& config){
     if (movement.isMidair()){
@@ -272,6 +183,22 @@ void Character::reconnect() {
         state = IDLE_LEFT;
     };
 
+}
+
+void Character::loseLive(){
+    lives--;
+}
+
+void Character::addPoints(int i){
+    points += i;
+}
+
+int Character::getLives(){
+    return lives;
+}
+
+int Character::getPoints(){
+    return points;
 }
 
 Character::~Character(){}
