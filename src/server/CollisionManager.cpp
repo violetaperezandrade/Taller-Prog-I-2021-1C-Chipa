@@ -20,6 +20,7 @@
 #define PLATFORM_CODE 'P'
 #define PRINCESS_CODE 'p'
 #define STAIR_CODE 'S'
+#define HAMMER_CODE 'H'
 
 #define CHARACTER_SIDE_PADDING 16
 #define CHARACTER_TOP_PADDING 9
@@ -77,26 +78,6 @@ bool CollisionManager::moveEmber(Entity &entity) {
     }
     return false;
 }
-
-/*double CollisionManager::getAngle(int x, int y){
-    if (x == 0){
-        if (y > 0){
-            return 90;
-        } else if (y < 0){
-            return 270;
-        } else {
-            return 0; // Error porque me mandaron 0 y 0?
-        }
-    }
-
-    double angle = atan(y/x) * 180 / PI;
-    if (x < 0) {
-        angle += 180;
-    } else if (y < 0){
-        angle+= 360;
-    }
-    return angle;
-}*/
 
 void CollisionManager::getEdgeInfo(int* edgeInfo, Entity& entity){
     int speedX = entity.getSpeedX();
@@ -256,34 +237,8 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
         edgeInfoA[BOTTOM] -= deltaY;
     }
 }
-/*
-void CollisionManager::climb(int i) {
-    bool stairCollision = false;
 
-    for (int j = 0; j < vector.size(); j++){
-        if (checkCollision(characters[i], vector[j])){
-            char type = vector[j].getType();
-            if(type == BARREL_CODE || type == EMBER_CODE || type == FIRE_CODE ||
-               type == FLAME_CODE){
-                //maybe halt movement
-                //hit
-            } else if(type == STAIR_CODE){
-                stairCollision = true;
-            }
-        }
-    }
-
-    if (stairCollision){
-        characters[i].setOnStairs(true);
-        characters[i].updateStatus(config);
-        int edgeInfo[4];
-        getEdgeInfo(edgeInfo, characters[i]);
-        characters[i].setPosX(edgeInfo[LEFT]);
-        characters[i].setPosY(edgeInfo[TOP]);
-    }
-}
-*/
-bool CollisionManager::moveCharacter(int i) {
+bool CollisionManager::moveCharacter(int i, int playersWhoFinished) {
     /*if (characters[i].isTryingToClimb()){
         climb(i);
         return false;
@@ -327,8 +282,19 @@ bool CollisionManager::moveCharacter(int i) {
             char type = vector[j].getType();
             if(type == BARREL_CODE || type == EMBER_CODE || type == FIRE_CODE ||
                type == FLAME_CODE){
-                //maybe halt movement
-                //hit
+                if(characters[i].hasHammer()){
+                    characters[i].useHammer();
+                    vector.erase(vector.begin()+j);
+                    j--;
+                    logger.infoMsg("Martilleo un enemigo", __FILE__, __LINE__);
+                    if(type == BARREL_CODE){
+                        characters[i].addPoints(500);
+                    } else {
+                        characters[i].addPoints(1000);
+                    }
+                } else {
+                    characters[i].loseLive();
+                }
             } else if(type == PLATFORM_CODE && !characters[i].isClimbing()){
                 haltMovement(characters[i], vector[j], edgeInfo);
                 if (previousY > edgeInfo[TOP]){
@@ -336,6 +302,12 @@ bool CollisionManager::moveCharacter(int i) {
                 }
             } else if(type == PRINCESS_CODE){
                 switchLevel = true;
+                characters[i].addPoints(2000 - playersWhoFinished * 500);
+            } else if(type == HAMMER_CODE){
+                vector.erase(vector.begin()+j);
+                j--;
+                characters[i].pickUpHammer();
+                logger.infoMsg("Agarra martillo", __FILE__, __LINE__);
             }
         }
     }

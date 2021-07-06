@@ -11,6 +11,8 @@ private:
     char lastDirection;
     int lives;
     int points;
+    int hammerUsages;
+    bool silenced;
 
 public:
     Character(int posX, int posY, int width, int height, int speedX, int speedY);
@@ -70,6 +72,18 @@ public:
     int getLives();
 
     int getPoints();
+
+    void pickUpHammer();
+
+    void useHammer();
+
+    bool hasHammer();
+
+    void silence();
+
+    void unsilence();
+
+    bool isSilenced();
 
     ~Character();
 };

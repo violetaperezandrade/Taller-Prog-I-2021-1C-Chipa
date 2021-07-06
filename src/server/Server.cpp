@@ -53,11 +53,6 @@ void Server::acceptClients(){
         it = logins.erase(it);
         logger.infoMsg("Login thread finished and erased", __FILE__, __LINE__);
     }
-
-    /*for(int i = 0; i != playersAmount; i++){
-        userNames[peerManager.getName(i)] = i;
-        char number = i;
-    }*/
 }
 
 

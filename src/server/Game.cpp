@@ -23,7 +23,8 @@ Game::Game(Config& config, Logger& logger, int amountCharacters) :
         tickCounter(0),
         currLevel(1),
         amountCharacters(amountCharacters),
-        finished(false)
+        finished(false),
+        playersWhoFinished(0)
     {
     setLevel1();
 }
@@ -90,10 +91,14 @@ void Game::updateCharacterStatus(){
 bool Game::moveCharacters(){
     bool switchLevel;
     for (int i = 0; i < amountCharacters; i++) {
-        switchLevel = collisionManager.moveCharacter(i);
+        if(characters[i].isSilenced()) continue;
+        bool reachedPrincess = collisionManager.moveCharacter(i, playersWhoFinished);
+        switchLevel = (reachedPrincess && playersWhoFinished == amountCharacters);
         if (switchLevel){
             changeLevel();
             return switchLevel;
+        } else if (reachedPrincess){
+            characters[i].silence();
         }
     }
     return switchLevel;
@@ -575,6 +580,10 @@ bool Game::isFinished() {
 }
 
 void Game::changeLevel(){
+    for (int i = 0; i < amountCharacters; i++) {
+        characters[i].unsilence();
+    }
+    playersWhoFinished = 0;
     this->entities.clear();
     setLevel2();
     currLevel = 2;

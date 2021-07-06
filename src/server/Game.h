@@ -19,6 +19,7 @@ private:
     int currLevel;
     int amountCharacters;
     bool finished;
+    int playersWhoFinished;
 
     void updateCharacterStatus();
     bool moveCharacters();

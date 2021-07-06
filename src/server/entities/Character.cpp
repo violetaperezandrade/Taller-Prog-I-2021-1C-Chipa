@@ -17,7 +17,7 @@
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
     Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY, MOVING_RIGHT, 'T'),
-    movement(), lastDirection('r'), lives(3), points(0)
+    movement(), lastDirection('r'), lives(3), points(0), silenced(false)
 {}
 
 void Character::startMovingLeft(){
@@ -199,6 +199,32 @@ int Character::getLives(){
 
 int Character::getPoints(){
     return points;
+}
+
+void Character::pickUpHammer(){
+    hammerUsages = 3;
+    // state agarrame el llomarti
+}
+
+void Character::useHammer(){
+    hammerUsages--;
+    // if hammerUsages == 0 entonces solté el llomarti y cambia el estado de bienestar
+}
+
+bool Character::hasHammer(){
+    return hammerUsages > 0;
+}
+
+void Character::silence(){
+    silenced = true;
+}
+
+void Character::unsilence(){
+    silenced = false;
+}
+
+bool Character::isSilenced(){
+    return silenced;
 }
 
 Character::~Character(){}
