@@ -7,6 +7,16 @@
 #include "../common/Config.h"
 #include "entities/Character.h"
 #include "../common/Logger.h"
+#include "entities/Barrel.h"
+#include "entities/Character.h"
+#include "entities/Ember.h"
+#include "entities/Fire.h"
+#include "entities/Flame.h"
+#include "entities/Monkey.h"
+#include "entities/Platform.h"
+#include "entities/Princess.h"
+#include "entities/Stair.h"
+#include "entities/Hammer.h"
 
 class Game {
 private:
@@ -57,6 +67,8 @@ public:
     void reconnect(int i);
 
     bool update();
+
+    void spawnHammers();
 
     void setLevel1();
 

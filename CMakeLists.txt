@@ -36,6 +36,7 @@ add_executable(Server
         src/common/protocols/EntityProtocol.cpp
         src/common/protocols/InputProtocol.cpp
         src/common/Config.cpp
+        src/server/entities/Hammer.cpp
         src/common/Entity.cpp
         src/common/Logger.cpp
         src/common/Socket.cpp

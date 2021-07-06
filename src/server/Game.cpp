@@ -5,16 +5,6 @@
 #include <random>
 #include <chrono>
 
-#include "entities/Barrel.h"
-#include "entities/Character.h"
-#include "entities/Ember.h"
-#include "entities/Fire.h"
-#include "entities/Flame.h"
-#include "entities/Monkey.h"
-#include "entities/Platform.h"
-#include "entities/Princess.h"
-#include "entities/Stair.h"
-
 Game::Game(Config& config, Logger& logger, int amountCharacters) :
         config(config),
         logger(logger),
@@ -197,6 +187,53 @@ void Game::spawnFlames(){
     }
 }
 
+void Game::spawnHammers(){
+    std::vector<int> positions;
+    std::vector<int> spawnsX;
+    std::vector<int> spawnsY;
+
+    if(currLevel == 1){
+        spawnsX.push_back(40);
+        spawnsX.push_back(750);
+        spawnsX.push_back(372);
+        spawnsX.push_back(750);
+        spawnsX.push_back(40);
+        spawnsX.push_back(750);
+
+        spawnsY.push_back(410);
+        spawnsY.push_back(410);
+        spawnsY.push_back(530);
+        spawnsY.push_back(530);
+        spawnsY.push_back(250);
+        spawnsY.push_back(250);
+    } else {
+        spawnsX.push_back(750);
+        spawnsX.push_back(40);
+        spawnsX.push_back(750);
+        spawnsX.push_back(40);
+        spawnsX.push_back(750);
+        spawnsX.push_back(350);
+
+        spawnsY.push_back(550);
+        spawnsY.push_back(510);
+        spawnsY.push_back(460);
+        spawnsY.push_back(400);
+        spawnsY.push_back(320);
+        spawnsY.push_back(300);
+    }
+    for (int i = 0; i < 6; i++){
+        positions.push_back(i);
+    }
+
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffle (positions.begin(), positions.end(), std::default_random_engine(seed));
+    for(int i = 0 ; i < 3 ; i++) {
+        Hammer hammer(spawnsX[positions[i]], spawnsY[positions[i]], 30, 30, 0, 0);
+        this->entities.push_back(hammer);
+    }
+
+}
+
 //800x600 grid
 void Game::setLevel1(){
     logger.infoMsg("Set Level 1", __FILE__, __LINE__);
@@ -211,6 +248,8 @@ void Game::setLevel1(){
         Character player(5 + (i*20),544,59, 36,0,0);
         characters.push_back(player);
     }
+
+    spawnHammers();
 
     //level 1
     Platform platform_1_1(0, 580, 84, 20, 0, 0);
@@ -345,6 +384,8 @@ void Game::setLevel2() {
         characters[i].setPosX(5 + (i*20));
         characters[i].setPosY(544);
     }
+
+    spawnHammers();
 
     //level 1
     Platform platform_1_1(0, 580, 54, 20, 0, 0);
