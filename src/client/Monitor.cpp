@@ -20,14 +20,19 @@ void Monitor::addEntity(Entity& e){
     logger.debugMsg(s, __FILE__, __LINE__);
 }
 
-std::vector<Entity> Monitor::getEntities(){
+void Monitor::getInfo(std::vector<Entity>& entities, int* points, char* lives){
     std::unique_lock<std::mutex> lock(mtx);
     while(!notified){
         cond_var.wait(lock);
     }
     logger.debugMsg("Get entities",__FILE__,__LINE__);
+    entities = this->entities;
+    for(int i = 0; i < 4; i++){
+        points[i] = this->points[i];
+        lives[i] = this->lives[i];
+    }
     notified = false;
-    return entities;
+    return;
 }
 
 void Monitor::cleanPermanent(){
@@ -69,6 +74,7 @@ int Monitor::getLevel(){
 }
 
 void Monitor::addStats(int lives_aux, int points_aux){
+    const std::lock_guard<std::mutex> lock(mtx);
     lives[pos] = lives_aux;
     points[pos] = points_aux;
     pos++;
