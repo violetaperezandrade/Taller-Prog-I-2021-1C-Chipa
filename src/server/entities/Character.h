@@ -4,6 +4,7 @@
 #include "../../common/Entity.h"
 #include "Movement.h"
 #include "../../common/Config.h"
+#include "StateManager.h"
 
 class Character : public Entity{
 private:
@@ -13,6 +14,7 @@ private:
     int points;
     int hammerUsages;
     bool silenced;
+    StateManager stateManager;
 
 public:
     Character(int posX, int posY, int width, int height, int speedX, int speedY);

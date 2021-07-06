@@ -53,6 +53,7 @@ add_executable(Server
         src/server/entities/Platform.cpp
         src/server/entities/Princess.cpp
         src/server/entities/Stair.cpp
+        src/server/entities/StateManager.cpp
         src/server/CollisionManager.cpp
         src/server/Game.cpp
         src/server/LoginManager.cpp
