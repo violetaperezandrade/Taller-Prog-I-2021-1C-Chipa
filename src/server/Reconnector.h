@@ -16,11 +16,11 @@ private:
     Config& config;
     Logger& logger;
     std::map<std::string,int>& userNames;
-    bool& keepRunning;
+    int& keepRunning;
     Socket& sktListener;
 public:
     Reconnector(PeerManager& peerManager, Config& config, Logger& logger,
-                Socket& sktListener, std::map<std::string,int>& userNames, bool& keepRunning);
+                Socket& sktListener, std::map<std::string,int>& userNames, int& keepRunning);
 
     ~Reconnector();
 

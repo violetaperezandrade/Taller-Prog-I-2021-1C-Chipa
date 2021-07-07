@@ -1,7 +1,7 @@
 #include "Reconnector.h"
 
 Reconnector::Reconnector(PeerManager& peerManager, Config& config, Logger& logger,Socket& sktListener,
-                         std::map<std::string,int>& userNames, bool& keepRunning) :
+                         std::map<std::string,int>& userNames, int& keepRunning) :
         peerManager(peerManager),
         config(config),
         logger(logger),
@@ -14,9 +14,9 @@ Reconnector::Reconnector(PeerManager& peerManager, Config& config, Logger& logge
 
 void Reconnector::run() {
 
-    while (keepRunning) {
+    while (keepRunning == 0) {
         Socket peerSkt = std::move(sktListener.accept(logger));
-        if(keepRunning){
+        if(keepRunning == 0){
             Peer *client = new Peer(std::move(peerSkt), logger, true);
             logger.infoMsg("Added reconnected peer number " + std::to_string(peerManager.getSize()), __FILE__, __LINE__);
             validateReconnection(client);
@@ -33,7 +33,7 @@ void Reconnector::validateReconnection(Peer* client){
     bool alreadyPlayer = false;
     std::string finalUser;
 
-    while(!correctCredentials && keepRunning) {
+    while(!correctCredentials && keepRunning == 0) {
         client->receive(user, 30);
         client->receive(password, 30);
 
@@ -68,7 +68,7 @@ void Reconnector::validateReconnection(Peer* client){
         logger.infoMsg("Full game, no space for more players: " + usr + " " + pw, __FILE__, __LINE__);
         return;
     }
-    if(!keepRunning) return;
+    if(keepRunning != 0) return;
     response = userNames[finalUser]+1;
     client->send(&response,1);
 }
