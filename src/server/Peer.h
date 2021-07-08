@@ -8,6 +8,7 @@
 #include "Sender.h"
 #include "Receiver.h"
 #include "../common/Logger.h"
+#include "entities/Character.h"
 
 class Peer {
 private:
@@ -49,6 +50,8 @@ public:
     void setName(std::string str);
 
     bool isDisconnected();
+
+    void sendPointsLives(int lives, int points);
 
 };
 

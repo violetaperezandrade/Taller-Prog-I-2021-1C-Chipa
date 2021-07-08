@@ -66,6 +66,11 @@ void Server::sendAll(){
     std::vector<Entity>& entities = game.getEntities();
     std::vector<Character>& characters = game.getCharacters();
 
+    for(int j = 0; j < characters.size(); j++){
+        for(int i = 0; i < peerManager.getSize(); i++) {
+            peerManager.sendPointsLives(i, characters[j].getLives(), characters[j].getPoints());
+        }
+    }
     for(int j = 0; j < entities.size(); j++){
         for(int i = 0; i < peerManager.getSize(); i++) {
             peerManager.send(entities[j], i);
@@ -86,6 +91,11 @@ void Server::sendNew(){
     std::vector<Entity>& entities = game.getEntities();
     std::vector<Character>& characters = game.getCharacters();
 
+    for(int j = 0; j < characters.size(); j++){
+        for(int i = 0; i < peerManager.getSize(); i++) {
+            peerManager.sendPointsLives(i, characters[j].getLives(), characters[j].getPoints());
+        }
+    }
     for(int j = 0; j < entities.size(); j++){
         for(int i = 0; i < peerManager.getSize(); i++) {
             char c = entities[j].getPermanency();

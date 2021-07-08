@@ -18,6 +18,8 @@ public:
 
     void start(int i);
 
+    void sendPointsLives(int i, int lives, int points);
+
     void finish(int i);
 
     void send(Entity& entity, int i);

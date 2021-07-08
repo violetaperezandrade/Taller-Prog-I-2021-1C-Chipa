@@ -34,6 +34,11 @@ void PeerManager::send(Entity& entity, int i) {
     peers[i]->send(entity);
 }
 
+void PeerManager::sendPointsLives(int i, int lives, int points) {
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->sendPointsLives(lives, points);
+}
+
 void PeerManager::sendBreak(int i){
     std::lock_guard<std::mutex> m(mtx);
     peers[i]->sendBreak();

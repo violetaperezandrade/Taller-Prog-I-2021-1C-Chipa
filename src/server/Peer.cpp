@@ -83,3 +83,7 @@ bool Peer::isReconnected(){
     }
     return false;
 }
+
+void Peer::sendPointsLives(int lives, int points) {
+    EntityProtocol::sendStats(outgoing, lives, points);
+}
