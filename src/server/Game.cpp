@@ -244,7 +244,7 @@ void Game::spawnHammers(){
 //800x600 grid
 void Game::setLevel1(){
     logger.infoMsg("Set Level 1", __FILE__, __LINE__);
-    spawnFlames();
+    //spawnFlames();
     Monkey monkey(84, 146, 148, 52, 0, 0);
     this->entities.push_back(monkey);
 
