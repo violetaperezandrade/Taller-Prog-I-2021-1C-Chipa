@@ -28,9 +28,9 @@ void Server::run(){
                                                userNames, keepRunning);
     reconnector->start();
     startGame();
-    sendEndGame();
     reconnector->stop();
     reconnector->join();
+    sendEndGame();
     disconnectClients();
 }
 
@@ -38,7 +38,6 @@ void Server::sendEndGame(){
     for(int i = 0; i < peerManager.getSize(); i++) {
         peerManager.sendEndGame(i, keepRunning);
     }
-
 }
 
 void Server::acceptClients(){
