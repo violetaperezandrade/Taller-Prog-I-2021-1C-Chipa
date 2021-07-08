@@ -52,18 +52,6 @@ void CollisionManager::movePlatform(Entity &entity) {
     }
 }
 
-bool CollisionManager::moveBarrel(Entity &entity) {
-    int posY = entity.getPosY();
-    int speedY = entity.getSpeedY();
-
-    entity.setPosY(posY + speedY);
-
-    if(posY >= 750){
-        return true;
-    }
-    return false;
-}
-
 bool CollisionManager::moveEmber(Entity &entity) {
     int posY = entity.getPosY();
     int speedY = entity.getSpeedY();
@@ -344,4 +332,40 @@ void CollisionManager::updateCollisionStatus() {
             characters[i].setFalling();
         }
     }
+}
+
+bool CollisionManager::moveBarrel(Entity &barrel) {
+    int posX = barrel.getPosX();
+    int posY = barrel.getPosY();
+    int speedX = barrel.getSpeedX();
+    int speedY = barrel.getSpeedY();
+    barrel.setSpeedY(speedY + config.getGravity());
+    bool hitAnything = false;
+    int edgeInfo[4];
+    getEdgeInfo(edgeInfo, barrel);
+
+    for(int i = 0; i < vector.size(); i++){
+        if (checkCollision(barrel,vector[i])){
+            char type = vector[i].getType();
+            if (type == PLATFORM_CODE){
+                haltMovement(barrel, vector[i], edgeInfo);
+                barrel.setSpeedY(0);
+                hitAnything = true;
+                if (speedX <= 0) {
+                    barrel.setSpeedX(4);
+                } else {
+                    barrel.setSpeedX(-4);
+                }
+            } /*else if (type == CHARACTER_CODE){
+                //Parece innecesario mientras el character lo revise
+            }*/
+        }
+    }
+    barrel.setPosX(edgeInfo[LEFT]);
+    barrel.setPosY(edgeInfo[TOP]);
+
+    if(edgeInfo[TOP] >= 750){
+        return true;
+    }
+    return false;
 }
