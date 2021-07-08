@@ -46,6 +46,8 @@ public:
 
     bool isReconnected(int i);
 
+    void sendEndGame(int i, int end);
+
     ~PeerManager();
 };
 

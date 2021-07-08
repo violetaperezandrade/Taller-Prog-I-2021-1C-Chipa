@@ -87,3 +87,7 @@ bool Peer::isReconnected(){
 void Peer::sendPointsLives(int lives, int points) {
     EntityProtocol::sendStats(outgoing, lives, points);
 }
+
+void Peer::sendEnd(int end){
+    EntityProtocol::sendEnding(outgoing, end);
+}

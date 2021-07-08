@@ -89,3 +89,8 @@ int EntityProtocol::readInfo(Socket &socket, Monitor& monitor, Logger& logger, i
     }
     return readEntities(socket, monitor, logger);
 }
+
+void EntityProtocol::sendEnding(BlockingQueue& queue, int end) {
+    EntityInfo end(end);
+    queue.push(end);
+}

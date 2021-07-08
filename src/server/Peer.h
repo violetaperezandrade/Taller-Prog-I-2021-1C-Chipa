@@ -53,6 +53,8 @@ public:
 
     void sendPointsLives(int lives, int points);
 
+    void sendEnd(int end);
+
 };
 
 #endif //PEER_H

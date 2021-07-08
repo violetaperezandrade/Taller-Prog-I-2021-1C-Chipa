@@ -54,6 +54,11 @@ void PeerManager::setName(std::string str, int i){
     peers[i]->setName(str);
 }
 
+void PeerManager::sendEndGame(int i, int end) {
+    std::lock_guard<std::mutex> m(mtx);
+    peers[i]->sendEndGame(end);
+}
+
 char PeerManager::receive(int i){
     std::lock_guard<std::mutex> m(mtx);
     return peers[i]->receive();

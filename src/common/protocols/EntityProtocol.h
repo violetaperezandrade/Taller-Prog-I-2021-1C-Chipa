@@ -17,6 +17,7 @@ public:
     static void sendBreak(BlockingQueue& queue);
     static void sendStats(BlockingQueue& queue, int lives, int points);
     static int readInfo(Socket &socket, Monitor& monitor, Logger& logger, int player_number);
+    static void sendEnding(BlockingQueue& queue, int end);
 };
 
 #endif //ENTITYPROTOCOL_H

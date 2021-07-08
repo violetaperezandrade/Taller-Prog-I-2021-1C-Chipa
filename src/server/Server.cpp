@@ -28,10 +28,17 @@ void Server::run(){
                                                userNames, keepRunning);
     reconnector->start();
     startGame();
-    // enviar si keep running es 1 2 o 3 a los clientes
+    sendEndGame();
     reconnector->stop();
     reconnector->join();
     disconnectClients();
+}
+
+void Server::sendEndGame(){
+    for(int i = 0; i < peerManager.getSize(); i++) {
+        peerManager.sendEndGame(i, keepRunning);
+    }
+
 }
 
 void Server::acceptClients(){

@@ -44,6 +44,8 @@ public:
 
     void makeCommand(char command,int i);
 
+    void sendEndGame();
+
     ~Server();
 };
 
