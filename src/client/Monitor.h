@@ -27,7 +27,7 @@ public:
 
     void addEntity(Entity& e);
 
-    void getInfo(std::vector<Entity>& entities, int* points, char* lives);
+    void getInfo(std::vector<Entity>& entities, int* points, int* lives);
 
     void cleanPermanent();
 

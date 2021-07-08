@@ -194,7 +194,8 @@ int View::run() {
     sdlMngr.presentRender(windowRenderer);
     while(keepRuning && serverActive) {
         sdlMngr.clearRender(windowRenderer);
-        std::vector<Entity> entityVector = monitor.getEntities();
+        std::vector<Entity> entityVector;
+        monitor.getInfo(entityVector, points, lives);
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
 

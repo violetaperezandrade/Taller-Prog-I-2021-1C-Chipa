@@ -91,6 +91,6 @@ int EntityProtocol::readInfo(Socket &socket, Monitor& monitor, Logger& logger, i
 }
 
 void EntityProtocol::sendEnding(BlockingQueue& queue, int end) {
-    EntityInfo end(end);
-    queue.push(end);
+    EntityInfo endInfo(end);
+    queue.push(endInfo);
 }

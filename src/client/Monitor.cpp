@@ -20,7 +20,7 @@ void Monitor::addEntity(Entity& e){
     logger.debugMsg(s, __FILE__, __LINE__);
 }
 
-void Monitor::getInfo(std::vector<Entity>& entities, int* points, char* lives){
+void Monitor::getInfo(std::vector<Entity>& entities, int* points, int* lives){
     std::unique_lock<std::mutex> lock(mtx);
     while(!notified){
         cond_var.wait(lock);

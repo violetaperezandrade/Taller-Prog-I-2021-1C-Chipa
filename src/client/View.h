@@ -33,6 +33,8 @@ private:
     bool& serverActive;
     int& playerNumber;
     SoundManager soundManager;
+    int points[4];
+    int lives[4];
 
 public:
     View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber);
