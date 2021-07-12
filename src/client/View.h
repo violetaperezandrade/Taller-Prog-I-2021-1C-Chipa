@@ -1,7 +1,7 @@
 #ifndef VIEW_H
 #define VIEW_H
 #define FONTSIZE 24
-#define FONTSIZE_IDENTIFIERS 10
+#define FONTSIZE_IDENTIFIERS 13
 
 
 #include <map>

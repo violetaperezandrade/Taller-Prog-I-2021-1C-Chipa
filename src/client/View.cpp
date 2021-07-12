@@ -162,9 +162,20 @@ void View::renderLivesAndPoints(){
     sdlMngr.render(0, 40, 800, 10, divisorPoints, windowRenderer);
     sdlMngr.render(1, 1, usersNames[5].width, usersNames[5].height, usersNames[5].texture, windowRenderer);
     sdlMngr.render(1,40-usersNames[6].height, usersNames[6].width, usersNames[6].height, usersNames[6].texture, windowRenderer);
+
+    TextRendered textLives;
+    TextRendered textPoints;
+    SDL_Color white = {255,255,255};
     for (int i = 1; i <= playerID ; i++) {
-        sdlMngr.render(((config.getResolutionWidth() / config.getPlayersAmount())/2) + (config.getResolutionWidth()*(i-1)/config.getPlayersAmount()),
-                       20-(usersNames[i].height/2), usersNames[i].width, usersNames[i].height, usersNames[i].texture, windowRenderer);
+        int posX = ((config.getResolutionWidth() / config.getPlayersAmount())/2) + (config.getResolutionWidth()*(i-1)/config.getPlayersAmount());
+        int posY = 20-(usersNames[i].height/2);
+
+        textLives = sdlMngr.loadFromRenderedText(std::to_string(lives[i-1]),white,windowRenderer,font);
+        textPoints = sdlMngr.loadFromRenderedText(std::to_string(points[i-1]),white,windowRenderer,font);
+
+        sdlMngr.render(posX,posY, usersNames[i].width, usersNames[i].height, usersNames[i].texture, windowRenderer);
+        sdlMngr.render(posX + usersNames[i].width + 10, 1, textLives.width,textLives.height,textLives.texture,windowRenderer);
+        sdlMngr.render(posX + usersNames[i].width + 10,40-textPoints.height, textPoints.width, textPoints.height,textPoints.texture,windowRenderer);
     }
 }
 
