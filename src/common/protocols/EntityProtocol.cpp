@@ -3,7 +3,7 @@
 #include "../Entity.h"
 
 #define ENTITY_MSG_LEN 11
-#define STATS_MSG_LEN 5
+#define STATS_MSG_LEN 11
 
 void EntityProtocol::sendEntity(BlockingQueue& queue,
                                 Entity& entity) {
