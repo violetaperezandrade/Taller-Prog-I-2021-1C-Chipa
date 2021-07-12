@@ -1,6 +1,6 @@
 #include "View.h"
 
-View::View(Monitor& monitor,Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber) :
+View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber, SoundManager& soundManager) :
     logger(logger),
     config(config),
     sdlMngr(mngr),
@@ -9,7 +9,7 @@ View::View(Monitor& monitor,Logger& logger, Config& config, SDLManager& mngr, bo
     keepRuning(keepRunning),
     serverActive(serverActive),
     playerNumber(playerNumber),
-    soundManager(logger){
+    soundManager(soundManager){
     window = sdlMngr.createWindow("Donkey Kong ii", config.getResolutionWidth(), config.getResolutionHeight());
     windowRenderer = sdlMngr.createRenderer(window);
 
@@ -147,7 +147,7 @@ void View::getEntityInfoAndRender(int x, int y, int width, int height, char stat
         default:
             break;
     }
-    sdlMngr.render(x,y,width,height,textureEntity,windowRenderer);
+    sdlMngr.render(x, y, width, height, textureEntity, windowRenderer);
 }
 
 void View::renderPlayerID(int posX, int width, int posY){
@@ -159,10 +159,10 @@ void View::renderPlayerID(int posX, int width, int posY){
 
 void View::renderLivesAndPoints(){
 
-    sdlMngr.render(0,40,800,10,divisorPoints,windowRenderer);
-    sdlMngr.render(1,1,usersNames[5].width,usersNames[5].height,usersNames[5].texture,windowRenderer);
-    sdlMngr.render(1,40-usersNames[6].height,usersNames[6].width,usersNames[6].height,usersNames[6].texture,windowRenderer);
-    for(int i = 1; i <= playerID ; i++) {
+    sdlMngr.render(0, 40, 800, 10, divisorPoints, windowRenderer);
+    sdlMngr.render(1, 1, usersNames[5].width, usersNames[5].height, usersNames[5].texture, windowRenderer);
+    sdlMngr.render(1,40-usersNames[6].height, usersNames[6].width, usersNames[6].height, usersNames[6].texture, windowRenderer);
+    for (int i = 1; i <= playerID ; i++) {
         sdlMngr.render(((config.getResolutionWidth() / config.getPlayersAmount())/2) + (config.getResolutionWidth()*(i-1)/config.getPlayersAmount()),
                        20-(usersNames[i].height/2), usersNames[i].width, usersNames[i].height, usersNames[i].texture, windowRenderer);
     }
@@ -179,6 +179,7 @@ void View::renderEntity(std::vector<Entity>::iterator it){
     if (type == 'C') {
         playerID++;
         renderPlayerID(posX, width, posY);
+
     }
     logger.debugMsg("Renderizo una entidad", __FILE__, __LINE__);
     //soundManager.playSoundFromState(state);
@@ -186,23 +187,26 @@ void View::renderEntity(std::vector<Entity>::iterator it){
 }
 
 int View::run() {
-    //soundManager.runLevel1(keepRuning);
-    sdlMngr.renderFilledQuad(windowRenderer,config.getResolutionWidth(),config.getResolutionHeight());
+    sdlMngr.renderFilledQuad(windowRenderer, config.getResolutionWidth(), config.getResolutionHeight());
     int previousLevel = 1;
-    TextRendered waitMessage = sdlMngr.loadFromRenderedText("Waiting for the other players...",{255,0,0},windowRenderer,font);
-    sdlMngr.render((config.getResolutionWidth()-waitMessage.width)/2,(config.getResolutionHeight()-waitMessage.height)/4,waitMessage.width+20,waitMessage.height+20,waitMessage.texture,windowRenderer);
+    TextRendered waitMessage = sdlMngr.loadFromRenderedText("Waiting for the other players...", {255, 0, 0}, windowRenderer, font);
+    sdlMngr.render((config.getResolutionWidth()-waitMessage.width)/2, (config.getResolutionHeight()-waitMessage.height)/4, waitMessage.width+20,waitMessage.height+20, waitMessage.texture, windowRenderer);
     sdlMngr.presentRender(windowRenderer);
+    soundManager.playMusic("level 1", -1);
     while(keepRuning && serverActive) {
+        if (monitor.getLevel() == 1) soundManager.runLevel1();
+        else soundManager.runLevel2();
         sdlMngr.clearRender(windowRenderer);
         std::vector<Entity> entityVector;
         monitor.getInfo(entityVector, points, lives);
         std::string len = std::to_string(entityVector.size());
-        logger.debugMsg("Obtengo el vector de entities con longitud: " + len,__FILE__,__LINE__);
+        logger.debugMsg("Obtengo el vector de entities con longitud: " + len, __FILE__, __LINE__);
 
         if(monitor.getLevel() != previousLevel){
             changeLevel();
+            logger.debugMsg("Se cambia de nivel desde la vista: ", __FILE__, __LINE__);
             previousLevel++;
-            //soundManager.runLevel2(keepRuning);
+            soundManager.playMusic("level 2", -1);
         }
 
         int pos = 0;
@@ -223,12 +227,13 @@ int View::run() {
         renderEntity(entityVector.begin()+myCharacterPos);
         playerID = 0;
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
+
         sdlMngr.presentRender(windowRenderer);
         sdlMngr.clearRender(windowRenderer);
     }
     if (!serverActive){
         logger.debugMsg("Inactive server", __FILE__, __LINE__);
-        sdlMngr.renderWarnings("Server crashed unexpectedly",windowRenderer,window);
+        sdlMngr.renderWarnings("Server crashed unexpectedly", windowRenderer, window);
     }
     return 0;
 }

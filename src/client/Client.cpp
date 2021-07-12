@@ -39,10 +39,12 @@ void Client::run(){
     }
     bool keepRunning = true;
     bool serverActive = true;
+    bool play = true;
 
     Monitor monitor(logger);
-    View view(monitor, logger, config, sdlMngr, keepRunning, serverActive, playerNumber);
-    Input* input = new Input(skt, logger, keepRunning, serverActive);
+    SoundManager soundManager(logger, play);
+    View view(monitor, logger, config, sdlMngr, keepRunning, serverActive, playerNumber, soundManager);
+    Input* input = new Input(skt, logger, keepRunning, serverActive, play);
     Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive, playerNumber);
 
     logger.debugMsg("Se lanza thread INPUT", __FILE__, __LINE__);

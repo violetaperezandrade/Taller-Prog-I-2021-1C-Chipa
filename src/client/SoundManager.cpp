@@ -1,7 +1,8 @@
 #include "SoundManager.h"
 
-SoundManager::SoundManager(Logger& logger) :
-logger(logger){
+SoundManager::SoundManager(Logger& logger, bool& play) :
+logger(logger),
+play(play){
     load("../src/client/music/auxStage1_BGM.mp3", "level 1", SOUND_MUSIC);
     load("../src/client/music/Stage2_BGM.mp3", "level 2", SOUND_MUSIC);
     load("../src/client/sfx/SFX_Walking.mp3", "mario move", SOUND_SFX);
@@ -51,53 +52,15 @@ void SoundManager::playSoundFromState(char state){
     else return;
 }
 
-void SoundManager::runLevel1(bool& keepRuning){
-    playMusic("level 1", -1);
-    //esto en realidad va a ir en el input, es provisorio!!!
-    /*SDL_Event e;
-    while(keepRuning){
-        while(SDL_PollEvent(&e) != 0){
-            if(e.type == SDL_KEYDOWN){
-                switch( e.key.keysym.sym ){
-                    case SDLK_p:
-                        if(Mix_PausedMusic() == 1) Mix_ResumeMusic();
-                        else Mix_PauseMusic();
-                        break;
-                    case SDLK_0:
-                        Mix_HaltMusic();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-    }*/
+void SoundManager::runLevel1(){
+    if (play && Mix_PausedMusic() == 1) Mix_ResumeMusic();
+    if (!play && Mix_PausedMusic() != 1) Mix_PauseMusic();
 }
 
-void SoundManager::runLevel2(bool& keepRuning){
+void SoundManager::runLevel2(){
     Mix_HaltMusic();
-    playMusic("level 2", -1);
-    //esto en realidad va a ir en el input, es provisorio!!!
-    /*SDL_Event e;
-    while(keepRuning){
-        while(SDL_PollEvent(&e) != 0){
-            if(e.type == SDL_KEYDOWN){
-                switch( e.key.keysym.sym ){
-                    case SDLK_p:
-                        if(Mix_PausedMusic() == 1) Mix_ResumeMusic();
-                        else Mix_PauseMusic();
-                        break;
-                    case SDLK_0:
-                        Mix_HaltMusic();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-    }*/
+    if (play && Mix_PausedMusic() == 1) Mix_ResumeMusic();
+    if (!play && Mix_PausedMusic() != 1) Mix_PauseMusic();
 }
 
 SoundManager::~SoundManager(){

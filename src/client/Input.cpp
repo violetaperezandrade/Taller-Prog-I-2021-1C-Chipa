@@ -1,11 +1,12 @@
 #include "Input.h"
 #include "../common/protocols/InputProtocol.h"
 
-Input::Input(Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive) :
+Input::Input(Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive, bool& play) :
         socket(socket),
         keepRunning(keepRunning),
         logger(logger),
-        serverActive(serverActive)
+        serverActive(serverActive),
+        play(play)
 {}
 
 void Input::run() {
@@ -54,6 +55,9 @@ void Input::run() {
                             serverActive = false;
                             logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
                         }
+                        break;
+                    case SDLK_p:
+                        play = !play;
                         break;
                     default:
                         break;

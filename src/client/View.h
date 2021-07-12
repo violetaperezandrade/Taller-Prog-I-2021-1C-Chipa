@@ -32,12 +32,12 @@ private:
     bool& keepRuning;
     bool& serverActive;
     int& playerNumber;
-    SoundManager soundManager;
+    SoundManager& soundManager;
     int points[4];
     int lives[4];
 
 public:
-    View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber);
+    View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber, SoundManager& soundManager);
 
     void changeLevel();
 

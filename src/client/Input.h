@@ -13,8 +13,9 @@ private:
     bool& keepRunning;
     bool& serverActive;
     Logger& logger;
+    bool& play;
 public:
-    Input(Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive);
+    Input(Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive, bool& play);
 
     ~Input();
 

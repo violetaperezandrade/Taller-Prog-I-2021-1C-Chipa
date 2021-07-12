@@ -17,12 +17,12 @@ enum soundType{
 class SoundManager {
 private:
     Logger& logger;
-    //Monitor& monitor; //esto es provisorio
+    bool& play;
     std::map<std::string, Mix_Music*> music;
     std::map<std::string, Mix_Chunk*> sfxs;
     bool load(std::string fileName, std::string id, soundType type);
 public:
-    SoundManager(Logger& logger);
+    SoundManager(Logger& logger, bool& play);
 
     void playMusic(std::string id, int loop);
 
@@ -30,9 +30,9 @@ public:
 
     void playSoundFromState(char state);
 
-    void runLevel1(bool& keepRuning);
+    void runLevel1();
 
-    void runLevel2(bool& keepRuning);
+    void runLevel2();
 
     ~SoundManager();
 
