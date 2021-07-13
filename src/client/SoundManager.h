@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include<map>
+#include<vector>
 #include <string>
 #include "SDLManager.h"
 #include "../common/Logger.h"
@@ -29,6 +30,8 @@ public:
     void playSound(std::string id, int loop);
 
     void playSoundFromState(char state);
+
+    void iterateStates(std::vector<char>& states);
 
     void runLevel1();
 

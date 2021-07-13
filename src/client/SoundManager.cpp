@@ -52,6 +52,15 @@ void SoundManager::playSoundFromState(char state){
     else return;
 }
 
+void SoundManager::iterateStates(std::vector<char>& states){
+    std::vector<char>::iterator it = states.begin();
+    while (it != states.end()) {
+        playSoundFromState(*it);
+        ++it;
+    }
+    states.clear();
+}
+
 void SoundManager::runLevel1(){
     if (play && Mix_PausedMusic() == 1) Mix_ResumeMusic();
     if (!play && Mix_PausedMusic() != 1) Mix_PauseMusic();

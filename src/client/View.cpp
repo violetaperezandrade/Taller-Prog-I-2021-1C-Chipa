@@ -179,7 +179,7 @@ void View::renderLivesAndPoints(){
     }
 }
 
-void View::renderEntity(std::vector<Entity>::iterator it){
+void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& states){
     int posX = it->getPosX();
     int posY = it->getPosY();
     int width = it->getWidth();
@@ -190,6 +190,7 @@ void View::renderEntity(std::vector<Entity>::iterator it){
     if (type == 'C') {
         playerID++;
         renderPlayerID(posX, width, posY);
+        states.push_back(state);
 
     }
     logger.debugMsg("Renderizo una entidad", __FILE__, __LINE__);
@@ -200,6 +201,7 @@ void View::renderEntity(std::vector<Entity>::iterator it){
 int View::run() {
     sdlMngr.renderFilledQuad(windowRenderer, config.getResolutionWidth(), config.getResolutionHeight());
     int previousLevel = 1;
+    std::vector<char> states;
     TextRendered waitMessage = sdlMngr.loadFromRenderedText("Waiting for the other players...", {255, 0, 0}, windowRenderer, font);
     sdlMngr.render((config.getResolutionWidth()-waitMessage.width)/2, (config.getResolutionHeight()-waitMessage.height)/4, waitMessage.width+20,waitMessage.height+20, waitMessage.texture, windowRenderer);
     sdlMngr.presentRender(windowRenderer);
@@ -226,7 +228,7 @@ int View::run() {
         auto it = entityVector.begin();
         while (it != entityVector.end()) {
             if (pos != myCharacterPos){
-                renderEntity(it);
+                renderEntity(it, states);
             } else {
                 playerID++;
             }
@@ -235,10 +237,10 @@ int View::run() {
             pos++;
         }
         playerID = playerNumber-1;
-        renderEntity(entityVector.begin()+myCharacterPos);
+        renderEntity(entityVector.begin()+myCharacterPos, states);
         playerID = 0;
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
-
+        //soundManager.iterateStates(states);
         sdlMngr.presentRender(windowRenderer);
         sdlMngr.clearRender(windowRenderer);
     }
