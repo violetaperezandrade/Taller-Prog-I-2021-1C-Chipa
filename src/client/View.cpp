@@ -59,18 +59,24 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     std::string fontPath = "../src/client/fonts/Kongtext Regular.ttf";
     font = sdlMngr.createFont(fontPath.c_str(), FONTSIZE_IDENTIFIERS);
 
-    SDL_Color colorP1 = {255, 0, 0};
+    playersColor[1] = {255,0,0};
+    playersColor[2] = {255,233,0};
+    playersColor[3] = {178,0,255};
+    playersColor[4] = {0,255,0};
+    playersColor[5] = {255,255,255}; //white
+
+    /*SDL_Color colorP1 = {255, 0, 0};
     SDL_Color colorP2 = {255, 233, 0};
     SDL_Color colorP3 = {178, 0, 255};
     SDL_Color colorP4 = {0, 255, 0};
-    SDL_Color white = {255,255,255};
+    SDL_Color white = {255,255,255};*/
 
-    usersNames[1] = sdlMngr.loadFromRenderedText("P1", colorP1, windowRenderer, font);
-    usersNames[2] = sdlMngr.loadFromRenderedText("P2", colorP2, windowRenderer, font);
-    usersNames[3] = sdlMngr.loadFromRenderedText("P3", colorP3, windowRenderer, font);
-    usersNames[4] = sdlMngr.loadFromRenderedText("P4", colorP4, windowRenderer, font);
-    usersNames[5] = sdlMngr.loadFromRenderedText("Lives",white,windowRenderer,font);
-    usersNames[6] = sdlMngr.loadFromRenderedText("Points",white,windowRenderer,font);
+    usersNames[1] = sdlMngr.loadFromRenderedText("P1", playersColor[1], windowRenderer, font);
+    usersNames[2] = sdlMngr.loadFromRenderedText("P2", playersColor[2], windowRenderer, font);
+    usersNames[3] = sdlMngr.loadFromRenderedText("P3", playersColor[3], windowRenderer, font);
+    usersNames[4] = sdlMngr.loadFromRenderedText("P4", playersColor[4], windowRenderer, font);
+    usersNames[5] = sdlMngr.loadFromRenderedText("Lives",playersColor[5],windowRenderer,font);
+    usersNames[6] = sdlMngr.loadFromRenderedText("Points",playersColor[5],windowRenderer,font);
 
     texturesEntities = {{'P', sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/blue_platform.png", windowRenderer)},
                         {'B',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/front_barrel.png", windowRenderer)},
@@ -198,6 +204,35 @@ void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& sta
     getEntityInfoAndRender(posX, posY, width, height, state, type);
 }
 
+void View::renderPartialResult(){
+    TTF_Font* fontResults = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf",FONTSIZE_RESULTS);
+    TextRendered partialResult = sdlMngr.loadFromRenderedText("Partial results",playersColor[5],windowRenderer,fontResults);
+    sdlMngr.clearRender(windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-partialResult.width/2,10,partialResult.width,
+                   partialResult.height,partialResult.texture,windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-partialResult.width/2, partialResult.height + 5,
+                   partialResult.width, 10, divisorPoints, windowRenderer);
+
+    TextRendered player;
+    TextRendered pointsText;
+    for(int i = 1; i <= playerNumber; i++){
+        std::string playerId = "Player " + std::to_string(i) + ": ";
+        player = sdlMngr.loadFromRenderedText(playerId,playersColor[i],windowRenderer,fontResults);
+        pointsText = sdlMngr.loadFromRenderedText(std::to_string(points[i-1]),playersColor[i],windowRenderer,fontResults);
+
+        sdlMngr.render((config.getResolutionWidth()/2)-player.width/2,
+                       ((config.getResolutionHeight() -(partialResult.height + 15)/ config.getPlayersAmount())/2) + (config.getResolutionHeight()*(i-1)/config.getPlayersAmount()),
+                       player.width,player.height,player.texture,windowRenderer);
+        sdlMngr.render((config.getResolutionWidth()/2)-(player.width/2) + player.width + 20,
+                       ((config.getResolutionHeight() -(partialResult.height + 15)/ config.getPlayersAmount())/2) + (config.getResolutionHeight()*(i-1)/config.getPlayersAmount()),
+                       pointsText.width,pointsText.height,
+                       pointsText.texture,windowRenderer);
+    }
+    sdlMngr.presentRender(windowRenderer);
+    SDL_Delay(6000);
+    sdlMngr.clearRender(windowRenderer);
+}
+
 int View::run() {
     sdlMngr.renderFilledQuad(windowRenderer, config.getResolutionWidth(), config.getResolutionHeight());
     int previousLevel = 1;
@@ -216,6 +251,7 @@ int View::run() {
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len, __FILE__, __LINE__);
 
         if(monitor.getLevel() != previousLevel){
+            renderPartialResult();
             changeLevel();
             logger.debugMsg("Se cambia de nivel desde la vista: ", __FILE__, __LINE__);
             previousLevel++;

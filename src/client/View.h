@@ -1,6 +1,6 @@
 #ifndef VIEW_H
 #define VIEW_H
-#define FONTSIZE 24
+#define FONTSIZE_RESULTS 24
 #define FONTSIZE_IDENTIFIERS 13
 
 
@@ -19,6 +19,7 @@ private:
     std::map<char, SDL_Texture*> texturesEntities; //entities - mario - monkey
     std::map<char, SDL_Texture*> texturesMonkey; //only monkey
     std::map<int, TextRendered> usersNames;
+    std::map<int,SDL_Color> playersColor;
     SDL_Renderer* windowRenderer;
     SDL_Window* window;
     Logger& logger;
@@ -28,11 +29,11 @@ private:
     SDL_Texture* divisorPoints;
     Monitor& monitor;
     TTF_Font* font;
+    SoundManager& soundManager;
     int playerID;
     bool& keepRuning;
     bool& serverActive;
     int& playerNumber;
-    SoundManager& soundManager;
     int points[4];
     int lives[4];
 
@@ -50,6 +51,8 @@ public:
     void renderEntity(std::vector<Entity>::iterator it, std::vector<char>& states);
 
     void renderLivesAndPoints();
+
+    void renderPartialResult();
 
     ~View();
 };
