@@ -52,7 +52,7 @@ public:
 
     void renderLivesAndPoints();
 
-    void renderPartialResult();
+    void renderResults(bool partial);
 
     ~View();
 };
