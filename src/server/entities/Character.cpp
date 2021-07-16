@@ -156,14 +156,16 @@ bool Character::isMidair(){
 }
 
 void Character::updateStatus(Config& config){
-    if (movement.isMidair()){
-        speedY += config.getGravity();
-    } else if (movement.isClimbing()){
-        attemptClimb(config);
-    } else {
-        attemptJump(config);
-        attemptClimb(config);
-        attemptGroundMovement(config);
+    if(!this->isSilenced()){
+        if (movement.isMidair()) {
+            speedY += config.getGravity();
+        } else if (movement.isClimbing()) {
+            attemptClimb(config);
+        } else {
+            attemptJump(config);
+            attemptClimb(config);
+            attemptGroundMovement(config);
+        }
     }
 }
 
