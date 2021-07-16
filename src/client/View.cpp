@@ -79,7 +79,8 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
                         {'F',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/fire.png", windowRenderer)},
                         {'p',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/princess.png", windowRenderer)},
                         {'S',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/yellow_stair.png", windowRenderer)},
-                        {'E',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/flame.png", windowRenderer)}
+                        {'E',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/flame.png", windowRenderer)},
+                        {'H', sdlMngr.loadImageTexture("../src/client/img/hammer.png", windowRenderer)}
     };
 
     texturesMonkey = {{'0',sdlMngr.loadImageTexture("../src/client/img/Sprites-Monkey/monkey_left_hand_up.png", windowRenderer)}};
@@ -225,7 +226,7 @@ void View::renderResults(bool partial){
                        (150 + (i-1)*(player.height+40)),
                        player.width,player.height,player.texture,windowRenderer);
         sdlMngr.render((config.getResolutionWidth()/2)-(player.width*2/3) + player.width + 10,
-                       (150),
+                       (150+ (i-1)*(player.height+40)),
                        pointsText.width,pointsText.height,
                        pointsText.texture,windowRenderer);
     }
