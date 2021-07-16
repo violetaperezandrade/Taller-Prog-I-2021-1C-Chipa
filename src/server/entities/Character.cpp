@@ -17,7 +17,7 @@
 #define DEATH 'x'
 
 Character::Character(int posX, int posY, int width, int height, int speedX, int speedY) :
-    Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY, MOVING_RIGHT, 'T'),
+    Entity(CHARACTER_CODE, posX, posY, width, height, speedX, speedY, IDLE_RIGHT, 'T'),
     movement(), lastDirection('r'), lives(3), points(0), silenced(false), invincible(false)
 {}
 
@@ -123,9 +123,9 @@ void Character::attemptGroundMovement(Config& config){
         speedX = 0;
         if (state != IDLE_OFF){
             if (lastDirection == IDLE_RIGHT){
-                state = stateManager.getMovingRight();
+                state = stateManager.getIdleRight();
             } else {
-                state = stateManager.getMovingLeft();
+                state = stateManager.getIdleLeft();
             }
         }
     }
@@ -197,6 +197,8 @@ void Character::loseLive(){
         this->silence();
         state = DEATH;
     }
+    this->setPosX(5);
+    this->setPosY(544);
 }
 
 void Character::addPoints(int i){
