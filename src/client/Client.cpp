@@ -44,7 +44,7 @@ void Client::run(){
 
     Monitor monitor(logger);
     SoundManager soundManager(logger, play);
-    View view(monitor, logger, config, sdlMngr, keepRunning, serverActive, playerNumber, soundManager);
+    View view(monitor, logger, config, sdlMngr, keepRunning, serverActive, playerNumber, soundManager, playerAmount);
     Input* input = new Input(skt, logger, keepRunning, serverActive, play);
     Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive, playerAmount);
 

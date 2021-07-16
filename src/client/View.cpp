@@ -1,6 +1,6 @@
 #include "View.h"
 
-View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber, SoundManager& soundManager) :
+View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber, SoundManager& soundManager, int& playerAmount) :
     logger(logger),
     config(config),
     sdlMngr(mngr),
@@ -9,7 +9,9 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     keepRuning(keepRunning),
     serverActive(serverActive),
     playerNumber(playerNumber),
-    soundManager(soundManager){
+    soundManager(soundManager),
+    playerAmount(playerAmount)
+{
     window = sdlMngr.createWindow("Donkey Kong ii", config.getResolutionWidth(), config.getResolutionHeight());
     windowRenderer = sdlMngr.createRenderer(window);
 
@@ -217,7 +219,7 @@ void View::renderResults(bool partial){
 
     TextRendered player;
     TextRendered pointsText;
-    for(int i = 1; i <= playerNumber; i++){
+    for(int i = 1; i <= playerAmount; i++){
         std::string playerId = "Player " + std::to_string(i) + ":";
         player = sdlMngr.loadFromRenderedText(playerId,playersColor[i],windowRenderer,fontResults);
         pointsText = sdlMngr.loadFromRenderedText(std::to_string(points[i-1]),playersColor[i],windowRenderer,fontResults);
