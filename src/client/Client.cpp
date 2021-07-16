@@ -30,6 +30,7 @@ void Client::run(){
 
     SDLManager sdlMngr(logger);
     int playerNumber = 0;
+    int playerAmount = config.getPlayersAmount();
     Login login(logger, sdlMngr, skt, playerNumber);
     logger.infoMsg("Soy el jugador numero " + std::to_string(playerNumber), __FILE__, __LINE__);
     int status = login.runLoginWindow(ip,port);
@@ -45,7 +46,7 @@ void Client::run(){
     SoundManager soundManager(logger, play);
     View view(monitor, logger, config, sdlMngr, keepRunning, serverActive, playerNumber, soundManager);
     Input* input = new Input(skt, logger, keepRunning, serverActive, play);
-    Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive, playerNumber);
+    Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive, playerAmount);
 
     logger.debugMsg("Se lanza thread INPUT", __FILE__, __LINE__);
     logger.debugMsg("Se lanza thread PROCESSOR", __FILE__, __LINE__);

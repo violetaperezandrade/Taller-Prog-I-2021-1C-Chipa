@@ -12,9 +12,9 @@ private:
     Logger& logger;
     bool& keepRunning;
     bool& serverActive;
-    int& playerNumber;
+    int& playerAmount;
 public:
-    Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive, int& playerNumber);
+    Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive, int& playerAmount);
     void readEntities();
     void run() override;
     void stop();

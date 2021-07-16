@@ -251,14 +251,15 @@ int View::run() {
     soundManager.playMusic("level 1", -1);
     while(keepRuning && serverActive) {
         if (monitor.getLevel() == 1) soundManager.runLevel1();
-        else soundManager.runLevel2();
+        else if (monitor.getLevel() == 2) soundManager.runLevel2();
         sdlMngr.clearRender(windowRenderer);
         std::vector<Entity> entityVector;
         monitor.getInfo(entityVector, points, lives);
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len, __FILE__, __LINE__);
 
-        if(monitor.getLevel() != previousLevel){
+        int currLvl = monitor.getLevel();
+        if(currLvl != previousLevel && currLvl != 0){
             renderResults(true);
             changeLevel();
             logger.debugMsg("Se cambia de nivel desde la vista: ", __FILE__, __LINE__);
