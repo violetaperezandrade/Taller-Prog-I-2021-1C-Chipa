@@ -226,7 +226,7 @@ void View::renderResults(bool partial){
                        (150 + (i-1)*(player.height+40)),
                        player.width,player.height,player.texture,windowRenderer);
         sdlMngr.render((config.getResolutionWidth()/2)-(player.width*2/3) + player.width + 10,
-                       (150),
+                       (150+ (i-1)*(player.height+40)),
                        pointsText.width,pointsText.height,
                        pointsText.texture,windowRenderer);
     }
