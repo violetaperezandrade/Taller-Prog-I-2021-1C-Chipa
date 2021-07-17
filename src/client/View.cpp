@@ -243,7 +243,7 @@ void View::renderFinalResults(int* pointsLvl1){
     TextRendered result = sdlMngr.loadFromRenderedText("Final results",playersColor[5],windowRenderer,fontResultsTitle);
     TextRendered nameDescriptor = sdlMngr.loadFromRenderedText("Name",playersColor[5],windowRenderer,fontPoints);
     TextRendered lvl1Descriptor = sdlMngr.loadFromRenderedText("L1",playersColor[5],windowRenderer,fontPoints);
-    TextRendered lvl2Descriptor = sdlMngr.loadFromRenderedText("Level 2",playersColor[5],windowRenderer,fontPoints);
+    TextRendered lvl2Descriptor = sdlMngr.loadFromRenderedText("L2",playersColor[5],windowRenderer,fontPoints);
     TextRendered finalDescriptor = sdlMngr.loadFromRenderedText("Total",playersColor[5],windowRenderer,fontPoints);
 
     sdlMngr.clearRender(windowRenderer);
@@ -292,8 +292,10 @@ void View::renderFinalResults(int* pointsLvl1){
                    nameDescriptor.width,nameDescriptor.height,nameDescriptor.texture,windowRenderer);
     sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14),150-lvl1Descriptor.height -20,
                    lvl1Descriptor.width,lvl1Descriptor.height,lvl1Descriptor.texture,windowRenderer);
-    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/18),150-lvl2Descriptor.height -20,
+    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14) + (player.width*10/46),150-lvl2Descriptor.height -20,
                    lvl2Descriptor.width,lvl2Descriptor.height,lvl2Descriptor.texture,windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14) + (player.width*20/53),150-finalDescriptor.height -20,
+                   finalDescriptor.width,finalDescriptor.height,finalDescriptor.texture,windowRenderer);
     sdlMngr.presentRender(windowRenderer);
 
 }
