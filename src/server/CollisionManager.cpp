@@ -226,7 +226,7 @@ void CollisionManager::haltMovement(Entity &moving, Entity &obstacle, int* edgeI
     }
 }
 
-bool CollisionManager::moveCharacter(int i, int playersWhoFinished) {
+bool CollisionManager::moveCharacter(int i, int& playersWhoFinished) {
     /*if (characters[i].isTryingToClimb()){
         climb(i);
         return false;
@@ -282,6 +282,7 @@ bool CollisionManager::moveCharacter(int i, int playersWhoFinished) {
                     }
                 } else {
                     characters[i].loseLive();
+                    //cuando pierde una vida tiene que volver al principio
                 }
             } else if(type == PLATFORM_CODE && !characters[i].isClimbing()){
                 haltMovement(characters[i], vector[j], edgeInfo);
@@ -290,6 +291,7 @@ bool CollisionManager::moveCharacter(int i, int playersWhoFinished) {
                 }
             } else if(type == PRINCESS_CODE){
                 switchLevel = true;
+                playersWhoFinished++;
                 characters[i].addPoints(2000 - playersWhoFinished * 500);
             } else if(type == HAMMER_CODE){
                 vector.erase(vector.begin()+j);

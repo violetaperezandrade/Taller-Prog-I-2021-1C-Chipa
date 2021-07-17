@@ -199,8 +199,6 @@ void Character::loseLive(){
         this->silence();
         state = DEATH;
     }
-    this->setPosX(5);
-    this->setPosY(544);
 }
 
 void Character::addPoints(int i){

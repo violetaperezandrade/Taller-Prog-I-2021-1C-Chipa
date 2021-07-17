@@ -37,7 +37,7 @@ public:
 
     bool moveEmber(Entity &entity);
 
-    bool moveCharacter(int i, int playersWhoFinished);
+    bool moveCharacter(int i, int& playersWhoFinished);
 
     void updateCollisionStatus();
 
