@@ -30,10 +30,10 @@ int EntityProtocol::getInt(char* ptr){
 }
 
 int EntityProtocol::getPoints(char* ptr){
-    int num = ptr[2];
-    num = (num << 8) + ptr[3];
-    num = (num << 8) + ptr[4];
-    num = (num << 8) + ptr[5];
+    int num = (unsigned char) ptr[2];
+    num = (num << 8) + (unsigned char) ptr[3];
+    num = (num << 8) + (unsigned char) ptr[4];
+    num = (num << 8) + (unsigned char) ptr[5];
     return num;
 }
 
