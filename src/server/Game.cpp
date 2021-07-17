@@ -634,7 +634,9 @@ void Game::setInvincible(int i) {
 void Game::changeLevel(){
     if(currLevel == 1){
         for (int i = 0; i < amountCharacters; i++) {
-            characters[i].unsilence();
+            if(!characters[i].isDead()) {
+                characters[i].unsilence();
+            }
         }
         playersWhoFinished = 0;
         this->entities.clear();
