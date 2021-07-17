@@ -60,7 +60,7 @@ public:
 
     void renderPartialResults();
 
-    void renderFinalResults(int pointsLvl1);
+    void renderFinalResults(int* pointsLvl1);
 
     ~View();
 };

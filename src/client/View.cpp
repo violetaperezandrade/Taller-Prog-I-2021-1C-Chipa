@@ -237,10 +237,14 @@ void View::renderPartialResults(){
 
 }
 
-void View::renderFinalResults(int pointsLvl1){
+void View::renderFinalResults(int* pointsLvl1){
     TTF_Font* fontResultsTitle = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf",FONTSIZE_RESULTS);
     TTF_Font* fontPoints = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf", FONTSIZE_POINTS_FINAL);
     TextRendered result = sdlMngr.loadFromRenderedText("Final results",playersColor[5],windowRenderer,fontResultsTitle);
+    TextRendered nameDescriptor = sdlMngr.loadFromRenderedText("Name",playersColor[5],windowRenderer,fontPoints);
+    TextRendered lvl1Descriptor = sdlMngr.loadFromRenderedText("L1",playersColor[5],windowRenderer,fontPoints);
+    TextRendered lvl2Descriptor = sdlMngr.loadFromRenderedText("Level 2",playersColor[5],windowRenderer,fontPoints);
+    TextRendered finalDescriptor = sdlMngr.loadFromRenderedText("Total",playersColor[5],windowRenderer,fontPoints);
 
     sdlMngr.clearRender(windowRenderer);
     sdlMngr.render((config.getResolutionWidth()/2)-result.width/2,10,result.width,
@@ -250,6 +254,7 @@ void View::renderFinalResults(int pointsLvl1){
 
     TextRendered player;
     TextRendered status;
+
     if(endGame == 1){
         status = sdlMngr.loadFromRenderedText("Game Over",playersColor[1],windowRenderer,fontResultsTitle);
     }
@@ -263,10 +268,10 @@ void View::renderFinalResults(int pointsLvl1){
         std::ostringstream filledPointsLvl2;
         std::ostringstream filledPointsFinal;
 
-        filledPointsLvl1 << std::setw(4) << std::setfill('0') << pointsLvl1;
+        filledPointsLvl1 << std::setw(4) << std::setfill('0') << pointsLvl1[i-1];
         std::string pointsLvl1Str = filledPointsLvl1.str();
 
-        filledPointsLvl2 << std::setw(4) << std::setfill('0') << points[i-1]-pointsLvl1;
+        filledPointsLvl2 << std::setw(4) << std::setfill('0') << points[i-1]-pointsLvl1[i-1];
         std::string pointsLvl2Str = filledPointsLvl2.str();
 
         filledPointsFinal << std::setw(4) << std::setfill('0') << points[i-1];
@@ -282,15 +287,13 @@ void View::renderFinalResults(int pointsLvl1){
         sdlMngr.render(posX + (player.width/2) - player.width/7,posY-5,10,player.height+10,divisorTable,windowRenderer);
         sdlMngr.render(posX + (player.width/2) + player.width/13,posY-5,10,player.height+10,divisorTable,windowRenderer);
         sdlMngr.render(posX + (player.width/2) + player.width*10/34,posY-5,10,player.height+10,divisorTable,windowRenderer);
-
-        std::cout << "level1 Points player "+ std::to_string(i) + " " + pointsLvl1Str;
-        std::cout <<'\n';
-        std::cout << "level2 Points player "+ std::to_string(i) + " " + pointsLvl2Str;
-        std::cout <<'\n';
-        std::cout << "Final Points player "+ std::to_string(i) + " " + pointsFinalStr;
-        std::cout <<'\n';
-
     }
+    sdlMngr.render((config.getResolutionWidth()/2)-(player.width*10/23),150-nameDescriptor.height -20,
+                   nameDescriptor.width,nameDescriptor.height,nameDescriptor.texture,windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14),150-lvl1Descriptor.height -20,
+                   lvl1Descriptor.width,lvl1Descriptor.height,lvl1Descriptor.texture,windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/18),150-lvl2Descriptor.height -20,
+                   lvl2Descriptor.width,lvl2Descriptor.height,lvl2Descriptor.texture,windowRenderer);
     sdlMngr.presentRender(windowRenderer);
 
 }
@@ -303,7 +306,7 @@ int View::run() {
     sdlMngr.render((config.getResolutionWidth()-waitMessage.width)/2, (config.getResolutionHeight()-waitMessage.height)/4, waitMessage.width+20,waitMessage.height+20, waitMessage.texture, windowRenderer);
     sdlMngr.presentRender(windowRenderer);
     soundManager.playMusic("level 1", -1);
-    int pointsLvl1 = 0;
+    int pointsLvl1[4];
     while(keepRuning && serverActive) {
         if (monitor.getLevel() == 1) soundManager.runLevel1();
         else if (monitor.getLevel() == 2) soundManager.runLevel2();
@@ -320,7 +323,9 @@ int View::run() {
         int currLvl = monitor.getLevel();
         if(currLvl != previousLevel && currLvl != 0){
             renderPartialResults();
-            pointsLvl1 = points[playerID];
+            for(int i=0; i < 4; i++) {
+                pointsLvl1[i] = points[i];
+            }
             changeLevel();
             logger.debugMsg("Se cambia de nivel desde la vista: ", __FILE__, __LINE__);
             previousLevel++;
