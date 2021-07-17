@@ -188,7 +188,8 @@ bool CollisionManager::checkGroundedCollision(Entity &a, Entity &b) {
 bool CollisionManager::isPlayerMovementEntity(Entity& entity) {
     char type = entity.getType();
     if (type == BARREL_CODE || type == EMBER_CODE || type == FIRE_CODE ||
-        type == FLAME_CODE || type == PLATFORM_CODE || type == PRINCESS_CODE){
+        type == FLAME_CODE || type == PLATFORM_CODE || type == PRINCESS_CODE ||
+        type == HAMMER_CODE){
         return true;
     }
     return false;
@@ -239,6 +240,7 @@ bool CollisionManager::moveCharacter(int i, int& playersWhoFinished) {
     int mapHeight = 600;//config.get_map_heigth();
     int height = characters[i].getHeight();
     int width = characters[i].getWidth();
+    bool gotHit = false;
 
     int edgeInfo[4];
     getEdgeInfo(edgeInfo, characters[i]);
@@ -282,6 +284,7 @@ bool CollisionManager::moveCharacter(int i, int& playersWhoFinished) {
                     }
                 } else if (!characters[i].isDead()){
                     characters[i].loseLive();
+                    gotHit = true;
                     //cuando pierde una vida tiene que volver al principio
                 }
             } else if(type == PLATFORM_CODE && !characters[i].isClimbing()){
@@ -301,9 +304,11 @@ bool CollisionManager::moveCharacter(int i, int& playersWhoFinished) {
             }
         }
     }
-    undoCharacterHitbox(edgeInfo);
-    characters[i].setPosX(edgeInfo[LEFT]);
-    characters[i].setPosY(edgeInfo[TOP]);
+    if (!gotHit){
+        undoCharacterHitbox(edgeInfo);
+        characters[i].setPosX(edgeInfo[LEFT]);
+        characters[i].setPosY(edgeInfo[TOP]);
+    }
     return switchLevel;
 }
 
@@ -346,7 +351,7 @@ bool CollisionManager::moveBarrel(Entity &barrel) {
     int edgeInfo[4];
     getEdgeInfo(edgeInfo, barrel);
 
-    for(int i = 0; i < vector.size(); i++){
+    for(int i = 0; i < vector.size() && !hitAnything; i++){
         if (checkCollision(barrel,vector[i])){
             char type = vector[i].getType();
             if (type == PLATFORM_CODE){
@@ -363,8 +368,8 @@ bool CollisionManager::moveBarrel(Entity &barrel) {
             }*/
         }
     }
-    barrel.setPosX(edgeInfo[LEFT]);
-    barrel.setPosY(edgeInfo[TOP]);
+    barrel.setPosX(edgeInfo[LEFT]+barrel.getSpeedX());
+    barrel.setPosY(edgeInfo[TOP]+barrel.getSpeedY());
 
     if(edgeInfo[TOP] >= 750){
         return true;
