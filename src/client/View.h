@@ -1,6 +1,7 @@
 #ifndef VIEW_H
 #define VIEW_H
 #define FONTSIZE_RESULTS 24
+#define FONTSIZE_POINTS_FINAL 20
 #define FONTSIZE_IDENTIFIERS 13
 
 
@@ -55,7 +56,9 @@ public:
 
     void renderLivesAndPoints();
 
-    void renderResults(bool partial);
+    void renderPartialResults();
+
+    void renderFinalResults(int pointsLvl1);
 
     ~View();
 };

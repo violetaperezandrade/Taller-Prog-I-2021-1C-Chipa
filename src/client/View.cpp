@@ -148,6 +148,8 @@ void View::getEntityInfoAndRender(int x, int y, int width, int height, char stat
             break;
         case 'd'://default water mark
             textureEntity = defaultConfig;
+        case 'H':
+            textureEntity = texturesEntities['H'];
         default:
             break;
     }
@@ -202,16 +204,10 @@ void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& sta
     getEntityInfoAndRender(posX, posY, width, height, state, type);
 }
 
-void View::renderResults(bool partial){
+void View::renderPartialResults(){
     TTF_Font* fontResults = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf",FONTSIZE_RESULTS);
-    TextRendered result;
-    if(partial){
-        result = sdlMngr.loadFromRenderedText("Partial results",playersColor[5],windowRenderer,fontResults);
-        TextRendered winner = sdlMngr.loadFromRenderedText("Winner!",playersColor[2],windowRenderer,fontResults);
-    }
-    else{
-        result = sdlMngr.loadFromRenderedText("Final results",playersColor[5],windowRenderer,fontResults);
-    }
+    TextRendered result = sdlMngr.loadFromRenderedText("Partial results",playersColor[5],windowRenderer,fontResults);
+
     sdlMngr.clearRender(windowRenderer);
     sdlMngr.render((config.getResolutionWidth()/2)-result.width/2,10,result.width,
                    result.height,result.texture,windowRenderer);
@@ -219,29 +215,58 @@ void View::renderResults(bool partial){
                    result.width, 10, divisorPoints, windowRenderer);
 
     TextRendered player;
-    TextRendered pointsText;
     for(int i = 1; i <= playerAmount; i++){
-        std::string playerId = "Player " + std::to_string(i) + ":";
+        std::string playerId = "Player " + std::to_string(i) + ":" + " " + std::to_string(points[i-1]);
         player = sdlMngr.loadFromRenderedText(playerId,playersColor[i],windowRenderer,fontResults);
-        pointsText = sdlMngr.loadFromRenderedText(std::to_string(points[i-1]),playersColor[i],windowRenderer,fontResults);
 
-        sdlMngr.render((config.getResolutionWidth()/2)-(player.width*2/3),
+        sdlMngr.render((config.getResolutionWidth()/2)-(player.width/2),
                        (150 + (i-1)*(player.height+40)),
                        player.width,player.height,player.texture,windowRenderer);
-        sdlMngr.render((config.getResolutionWidth()/2)-(player.width*2/3) + player.width + 10,
-                       (150+ (i-1)*(player.height+40)),
-                       pointsText.width,pointsText.height,
-                       pointsText.texture,windowRenderer);
     }
     sdlMngr.presentRender(windowRenderer);
-    if(partial) {
-        SDL_Delay(6000);
-        sdlMngr.clearRender(windowRenderer);
-        sdlMngr.destroyFont(fontResults);
-        sdlMngr.destroyTexture(result.texture);
-        sdlMngr.destroyTexture(player.texture);
-        sdlMngr.destroyTexture(pointsText.texture);
+    SDL_Delay(6000);
+    sdlMngr.clearRender(windowRenderer);
+    sdlMngr.destroyFont(fontResults);
+    sdlMngr.destroyTexture(result.texture);
+    sdlMngr.destroyTexture(player.texture);
+
+}
+
+void View::renderFinalResults(int pointsLvl1){
+    TTF_Font* fontResultsTitle = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf",FONTSIZE_RESULTS);
+    TTF_Font* fontPoints = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf", FONTSIZE_POINTS_FINAL);
+    TextRendered result = sdlMngr.loadFromRenderedText("Final results",playersColor[5],windowRenderer,fontResultsTitle);
+
+    sdlMngr.clearRender(windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2,10,result.width,
+                   result.height,result.texture,windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2, result.height + 10,
+                   result.width, 10, divisorPoints, windowRenderer);
+
+    TextRendered player;
+    TextRendered status;
+    if(endGame == 1){
+        status = sdlMngr.loadFromRenderedText("Game Over",playersColor[1],windowRenderer,fontResultsTitle);
     }
+    else if(endGame == 2){
+        status = sdlMngr.loadFromRenderedText("Congrats! The winner is:",playersColor[5],windowRenderer,fontResultsTitle);
+    }
+    SDL_Texture* itemTable = sdlMngr.loadImageTexture("../src/client/img/table.png",windowRenderer);
+    SDL_Texture* divisorTable = sdlMngr.loadImageTexture("../src/client/img/divisorTable.png",windowRenderer);
+    for(int i = 1; i <= playerAmount; i++){
+        std::string playerId = "Player " + std::to_string(i) + " " + std::to_string(pointsLvl1) + " " +
+                std::to_string(points[i-1]-pointsLvl1) + " " + std::to_string(points[i-1]);
+        player = sdlMngr.loadFromRenderedText(playerId,playersColor[i],windowRenderer,fontPoints);
+        int posX = (config.getResolutionWidth()/2)-(player.width/2);
+        int posY = 150 + (i-1)*(player.height+16);
+
+        sdlMngr.render(posX,posY,player.width,player.height,player.texture,windowRenderer);
+        sdlMngr.render(posX-20,posY-10,player.width + 40,player.height+20,itemTable,windowRenderer);
+        //sdlMngr.render(posX + (player.width/2) + player.width/11,posY-5,10,player.height+10,divisorTable,windowRenderer);
+
+    }
+    sdlMngr.presentRender(windowRenderer);
+
 }
 
 int View::run() {
@@ -252,6 +277,7 @@ int View::run() {
     sdlMngr.render((config.getResolutionWidth()-waitMessage.width)/2, (config.getResolutionHeight()-waitMessage.height)/4, waitMessage.width+20,waitMessage.height+20, waitMessage.texture, windowRenderer);
     sdlMngr.presentRender(windowRenderer);
     soundManager.playMusic("level 1", -1);
+    int pointsLvl1 = 0;
     while(keepRuning && serverActive) {
         if (monitor.getLevel() == 1) soundManager.runLevel1();
         else if (monitor.getLevel() == 2) soundManager.runLevel2();
@@ -260,10 +286,15 @@ int View::run() {
         monitor.getInfo(entityVector, points, lives);
         std::string len = std::to_string(entityVector.size());
         logger.debugMsg("Obtengo el vector de entities con longitud: " + len, __FILE__, __LINE__);
+        if(endGame == 1 || endGame == 2){
+            renderFinalResults(pointsLvl1);
+            break;
+        }
 
         int currLvl = monitor.getLevel();
         if(currLvl != previousLevel && currLvl != 0){
-            renderResults(true);
+            renderPartialResults();
+            pointsLvl1 = points[playerID];
             changeLevel();
             logger.debugMsg("Se cambia de nivel desde la vista: ", __FILE__, __LINE__);
             previousLevel++;
@@ -296,7 +327,7 @@ int View::run() {
         logger.debugMsg("Inactive server", __FILE__, __LINE__);
         sdlMngr.renderWarnings("Server crashed unexpectedly", windowRenderer, window);
     }
-    //renderResults(false);
+    //renderResults(false); endGame = 1 perdi, 2 gane;
     return 0;
 }
 

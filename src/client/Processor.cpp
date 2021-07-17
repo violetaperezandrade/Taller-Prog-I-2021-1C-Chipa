@@ -15,7 +15,7 @@ Processor::Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& kee
 void Processor::readEntities() {
     while(keepRunning && serverActive) {
         if(EntityProtocol::read(socket, monitor, logger, playerAmount, endGame) == 1){//llena el monitor con mensaje en bloque
-            serverActive = false;
+            if(endGame == 0) serverActive = false;
             logger.debugMsg("Inactive server", __FILE__, __LINE__);
             monitor.notify();
             return;
