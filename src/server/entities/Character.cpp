@@ -195,6 +195,8 @@ void Character::reconnect() {
 void Character::loseLive(){
     if(invincible) return;
     lives--;
+    posX = 5;
+    posY = 544;
     if(lives == 0){
         this->silence();
         state = DEATH;
