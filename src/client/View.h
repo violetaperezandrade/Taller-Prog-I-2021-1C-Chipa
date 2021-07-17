@@ -6,6 +6,8 @@
 
 
 #include <map>
+#include <iomanip>
+#include <sstream>
 #include "../server/Game.h"
 #include "../common/Logger.h"
 #include "../common/Config.h"

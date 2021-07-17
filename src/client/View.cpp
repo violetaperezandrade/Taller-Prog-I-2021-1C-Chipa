@@ -216,7 +216,12 @@ void View::renderPartialResults(){
 
     TextRendered player;
     for(int i = 1; i <= playerAmount; i++){
-        std::string playerId = "Player " + std::to_string(i) + ":" + " " + std::to_string(points[i-1]);
+        int valuePoints = points[i-1];
+        std::ostringstream filledPoints;
+        filledPoints << std::setw(4) << std::setfill('0') << valuePoints;
+        std::string pointsStr = filledPoints.str();
+
+        std::string playerId = "Player " + std::to_string(i) + ":" + " " + pointsStr;
         player = sdlMngr.loadFromRenderedText(playerId,playersColor[i],windowRenderer,fontResults);
 
         sdlMngr.render((config.getResolutionWidth()/2)-(player.width/2),
@@ -254,15 +259,36 @@ void View::renderFinalResults(int pointsLvl1){
     SDL_Texture* itemTable = sdlMngr.loadImageTexture("../src/client/img/table.png",windowRenderer);
     SDL_Texture* divisorTable = sdlMngr.loadImageTexture("../src/client/img/divisorTable.png",windowRenderer);
     for(int i = 1; i <= playerAmount; i++){
-        std::string playerId = "Player " + std::to_string(i) + " " + std::to_string(pointsLvl1) + " " +
-                std::to_string(points[i-1]-pointsLvl1) + " " + std::to_string(points[i-1]);
+        std::ostringstream filledPointsLvl1;
+        std::ostringstream filledPointsLvl2;
+        std::ostringstream filledPointsFinal;
+
+        filledPointsLvl1 << std::setw(4) << std::setfill('0') << pointsLvl1;
+        std::string pointsLvl1Str = filledPointsLvl1.str();
+
+        filledPointsLvl2 << std::setw(4) << std::setfill('0') << points[i-1]-pointsLvl1;
+        std::string pointsLvl2Str = filledPointsLvl2.str();
+
+        filledPointsFinal << std::setw(4) << std::setfill('0') << points[i-1];
+        std::string pointsFinalStr = filledPointsFinal.str();
+
+        std::string playerId = "Player " + std::to_string(i) + " " + pointsLvl1Str + " " + pointsLvl2Str + " " + pointsFinalStr;
         player = sdlMngr.loadFromRenderedText(playerId,playersColor[i],windowRenderer,fontPoints);
         int posX = (config.getResolutionWidth()/2)-(player.width/2);
         int posY = 150 + (i-1)*(player.height+16);
 
         sdlMngr.render(posX,posY,player.width,player.height,player.texture,windowRenderer);
         sdlMngr.render(posX-20,posY-10,player.width + 40,player.height+20,itemTable,windowRenderer);
-        //sdlMngr.render(posX + (player.width/2) + player.width/11,posY-5,10,player.height+10,divisorTable,windowRenderer);
+        sdlMngr.render(posX + (player.width/2) - player.width/7,posY-5,10,player.height+10,divisorTable,windowRenderer);
+        sdlMngr.render(posX + (player.width/2) + player.width/13,posY-5,10,player.height+10,divisorTable,windowRenderer);
+        sdlMngr.render(posX + (player.width/2) + player.width*10/34,posY-5,10,player.height+10,divisorTable,windowRenderer);
+
+        std::cout << "level1 Points player "+ std::to_string(i) + " " + pointsLvl1Str;
+        std::cout <<'\n';
+        std::cout << "level2 Points player "+ std::to_string(i) + " " + pointsLvl2Str;
+        std::cout <<'\n';
+        std::cout << "Final Points player "+ std::to_string(i) + " " + pointsFinalStr;
+        std::cout <<'\n';
 
     }
     sdlMngr.presentRender(windowRenderer);
