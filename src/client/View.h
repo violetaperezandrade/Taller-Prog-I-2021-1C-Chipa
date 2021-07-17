@@ -37,9 +37,11 @@ private:
     int points[4];
     int lives[4];
     int& playerAmount;
+    int& endGame;
 
 public:
-    View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber, SoundManager& soundManager, int& playerAmount);
+    View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive,
+         int& playerNumber, SoundManager& soundManager, int& playerAmount, int& endGame);
 
     void changeLevel();
 

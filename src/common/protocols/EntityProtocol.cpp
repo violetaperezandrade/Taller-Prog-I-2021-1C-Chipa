@@ -37,12 +37,16 @@ int EntityProtocol::getPoints(char* ptr){
     return num;
 }
 
-int EntityProtocol::readStats(Socket &socket, Monitor& monitor, Logger& logger, int playerAmount){
+int EntityProtocol::readInfo(Socket &socket, Monitor& monitor, Logger& logger, int playerAmount, int& endGame){
     char buff[STATS_MSG_LEN];
     for (int i = 0; i < playerAmount; i++){
         int bytesRecv = socket.receive(buff, STATS_MSG_LEN, logger);
         if(bytesRecv <= 0){
             logger.errorMsg("Bytesrecv 0, socket closed", __FILE__, __LINE__);
+            return 1;
+        }
+        if(buff[0] == 1){//Entonces EndGame
+            endGame = buff[1];
             return 1;
         }
         char lives = buff[1];
@@ -83,8 +87,8 @@ int EntityProtocol::readEntities(Socket &socket, Monitor& monitor, Logger& logge
     return 0;
 }
 
-int EntityProtocol::readInfo(Socket &socket, Monitor& monitor, Logger& logger, int playerAmount){
-    if (readStats(socket, monitor, logger, playerAmount) != 0){
+int EntityProtocol::read(Socket &socket, Monitor& monitor, Logger& logger, int playerAmount, int& endGame){
+    if (readInfo(socket, monitor, logger, playerAmount, endGame) != 0){
         return 1;
     }
     return readEntities(socket, monitor, logger);

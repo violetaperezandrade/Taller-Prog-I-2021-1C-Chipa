@@ -6,7 +6,7 @@ EntityInfo::EntityInfo() {
     }
 }
 
-EntityInfo::EntityInfo(int end) {
+EntityInfo::EntityInfo(int end) {//End
     info[0] = 1;
     info[1] = end & 0xFF;
 
@@ -15,7 +15,7 @@ EntityInfo::EntityInfo(int end) {
     }
 }
 
-EntityInfo::EntityInfo(int lifes, int points) {
+EntityInfo::EntityInfo(int lifes, int points) {//Stats
     info[0] = 0;
     info[1] = lifes;
     info[2] = (points >> 24) & 0xFF;

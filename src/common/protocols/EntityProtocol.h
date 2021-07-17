@@ -10,13 +10,13 @@ class EntityProtocol {
 private:
     static int getInt(char* ptr);
     static int getPoints(char* ptr);
-    static int readStats(Socket& socket, Monitor& container, Logger& logger, int playerAmount);
+    static int readInfo(Socket& socket, Monitor& container, Logger& logger, int playerAmount, int& endGame);
     static int readEntities(Socket& socket, Monitor& container, Logger& logger);
 public:
     static void sendEntity(BlockingQueue& queue, Entity& entity);
     static void sendBreak(BlockingQueue& queue);
     static void sendStats(BlockingQueue& queue, int lives, int points);
-    static int readInfo(Socket &socket, Monitor& monitor, Logger& logger, int playerAmount);
+    static int read(Socket &socket, Monitor& monitor, Logger& logger, int playerAmount, int& endGame);
     static void sendEnding(BlockingQueue& queue, int end);
 };
 

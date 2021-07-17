@@ -41,12 +41,13 @@ void Client::run(){
     bool keepRunning = true;
     bool serverActive = true;
     bool play = true;
+    int endGame = 0;
 
     Monitor monitor(logger);
     SoundManager soundManager(logger, play);
-    View view(monitor, logger, config, sdlMngr, keepRunning, serverActive, playerNumber, soundManager, playerAmount);
+    View view(monitor, logger, config, sdlMngr, keepRunning, serverActive, playerNumber, soundManager, playerAmount, endGame);
     Input* input = new Input(skt, logger, keepRunning, serverActive, play);
-    Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive, playerAmount);
+    Processor* processor = new Processor(monitor, skt,logger, keepRunning, serverActive, playerAmount, endGame);
 
     logger.debugMsg("Se lanza thread INPUT", __FILE__, __LINE__);
     logger.debugMsg("Se lanza thread PROCESSOR", __FILE__, __LINE__);

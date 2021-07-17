@@ -13,8 +13,9 @@ private:
     bool& keepRunning;
     bool& serverActive;
     int& playerAmount;
+    int& endGame;
 public:
-    Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive, int& playerAmount);
+    Processor(Monitor& monitor, Socket& socket, Logger& logger, bool& keepRunning, bool& serverActive, int& playerAmount, int& endGame);
     void readEntities();
     void run() override;
     void stop();

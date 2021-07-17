@@ -1,6 +1,6 @@
 #include "View.h"
 
-View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber, SoundManager& soundManager, int& playerAmount) :
+View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber, SoundManager& soundManager, int& playerAmount, int& endGame) :
     logger(logger),
     config(config),
     sdlMngr(mngr),
@@ -10,7 +10,8 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     serverActive(serverActive),
     playerNumber(playerNumber),
     soundManager(soundManager),
-    playerAmount(playerAmount)
+    playerAmount(playerAmount),
+    endGame(endGame)
 {
     window = sdlMngr.createWindow("Donkey Kong ii", config.getResolutionWidth(), config.getResolutionHeight());
     windowRenderer = sdlMngr.createRenderer(window);
