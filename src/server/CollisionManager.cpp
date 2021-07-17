@@ -280,7 +280,7 @@ bool CollisionManager::moveCharacter(int i, int& playersWhoFinished) {
                     } else {
                         characters[i].addPoints(1000);
                     }
-                } else {
+                } else if (!characters[i].isDead()){
                     characters[i].loseLive();
                     //cuando pierde una vida tiene que volver al principio
                 }
