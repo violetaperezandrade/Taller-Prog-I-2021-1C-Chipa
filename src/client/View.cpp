@@ -255,15 +255,11 @@ void View::renderFinalResults(int* pointsLvl1){
     TextRendered player;
     TextRendered status;
 
-    if(endGame == 1){
-        status = sdlMngr.loadFromRenderedText("Game Over",playersColor[1],windowRenderer,fontResultsTitle);
-    }
-    else if(endGame == 2){
-        status = sdlMngr.loadFromRenderedText("Congrats! The winner is:",playersColor[5],windowRenderer,fontResultsTitle);
-    }
     SDL_Texture* itemTable = sdlMngr.loadImageTexture("../src/client/img/table.png",windowRenderer);
     SDL_Texture* divisorTable = sdlMngr.loadImageTexture("../src/client/img/divisorTable.png",windowRenderer);
+    int max = 0;
     for(int i = 1; i <= playerAmount; i++){
+        if(points[i] > points[max]) max = i;
         std::ostringstream filledPointsLvl1;
         std::ostringstream filledPointsLvl2;
         std::ostringstream filledPointsFinal;
@@ -296,6 +292,21 @@ void View::renderFinalResults(int* pointsLvl1){
                    lvl2Descriptor.width,lvl2Descriptor.height,lvl2Descriptor.texture,windowRenderer);
     sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14) + (player.width*20/53),150-finalDescriptor.height -20,
                    finalDescriptor.width,finalDescriptor.height,finalDescriptor.texture,windowRenderer);
+
+    if(endGame == 1){
+        status = sdlMngr.loadFromRenderedText("Game Over",playersColor[1],windowRenderer,fontResultsTitle);
+        sdlMngr.render((config.getResolutionWidth()/2)-(status.width/2),400,status.width,status.height,status.texture,windowRenderer);
+    }
+    else if(endGame == 2){
+        status = sdlMngr.loadFromRenderedText("Congrats!",playersColor[5],windowRenderer,fontResultsTitle);
+        TextRendered winMsg = sdlMngr.loadFromRenderedText("The winner is: ",playersColor[5],windowRenderer,fontResultsTitle);
+        TextRendered winner = sdlMngr.loadFromRenderedText("Player "+std::to_string(max+1),playersColor[max+1],windowRenderer,fontResultsTitle);
+        sdlMngr.render((config.getResolutionWidth()/2)-(status.width)/2,400,status.width,status.height,status.texture,windowRenderer);
+        sdlMngr.render((config.getResolutionWidth()/2)-(winMsg.width)/2,400+status.height+10,winMsg.width,winMsg.height,winMsg.texture,windowRenderer);
+        sdlMngr.render((config.getResolutionWidth()/2)-(winner.width)/2,400+status.height+winMsg.height+20,winner.width,winner.height,winner.texture,windowRenderer);
+
+    }
+
     sdlMngr.presentRender(windowRenderer);
 
 }
