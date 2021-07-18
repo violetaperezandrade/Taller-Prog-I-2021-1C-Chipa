@@ -357,11 +357,16 @@ bool CollisionManager::moveBarrel(Entity &barrel) {
             if (type == PLATFORM_CODE){
                 haltMovement(barrel, vector[i], edgeInfo);
                 barrel.setSpeedY(0);
-                hitAnything = true;
-                if (speedX <= 0) {
+                if (speedX == 0){
                     barrel.setSpeedX(4);
-                } else {
-                    barrel.setSpeedX(-4);
+                }
+                if (speedY > 4){
+                    hitAnything = true;
+                    if (speedX <= 0) {
+                        barrel.setSpeedX(4);
+                    } else {
+                        barrel.setSpeedX(-4);
+                    }
                 }
             } /*else if (type == CHARACTER_CODE){
                 //Parece innecesario mientras el character lo revise
