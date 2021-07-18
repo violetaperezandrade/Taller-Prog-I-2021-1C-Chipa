@@ -42,7 +42,11 @@ private:
     int lives[4];
     int& playerAmount;
     int& endGame;
+
+    //For barrel animation
     int frame = 0;
+    SDL_Rect spriteFrames[ROLLING_BARREL_FRAMES];
+    SDL_Texture* spriteSheet;
 
 public:
     View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive,
