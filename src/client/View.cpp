@@ -28,6 +28,7 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     texturesMario[1]['9'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer);
     texturesMario[1]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer);
     texturesMario[1]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer);
+    texturesMario[1]['x'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_dead.png", windowRenderer);
 
     //yellow
     texturesMario[2]['1'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_right.png", windowRenderer);
@@ -38,6 +39,7 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     texturesMario[2]['9'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_climbing_right.png", windowRenderer);
     texturesMario[2]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_right.png", windowRenderer);
     texturesMario[2]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_left.png", windowRenderer);
+    texturesMario[2]['x'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_dead.png", windowRenderer);
 
     //lilac
     texturesMario[3]['1'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_right.png", windowRenderer);
@@ -48,6 +50,7 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     texturesMario[3]['9'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_climbing_right.png", windowRenderer);
     texturesMario[3]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_right.png", windowRenderer);
     texturesMario[3]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_left.png", windowRenderer);
+    texturesMario[3]['x'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_dead.png", windowRenderer);
 
     //green
     texturesMario[4]['1'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_right.png", windowRenderer);
@@ -58,6 +61,7 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     texturesMario[4]['9'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_climbing_right.png", windowRenderer);
     texturesMario[4]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_right.png", windowRenderer);
     texturesMario[4]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer);
+    texturesMario[4]['x'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_dead.png", windowRenderer);
 
     std::string fontPath = "../src/client/fonts/Kongtext Regular.ttf";
     font = sdlMngr.createFont(fontPath.c_str(), FONTSIZE_IDENTIFIERS);
