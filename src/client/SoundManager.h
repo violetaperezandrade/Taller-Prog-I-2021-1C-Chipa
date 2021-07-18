@@ -3,8 +3,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
-#include<map>
-#include<vector>
+#include <map>
+#include <vector>
 #include <string>
 #include "../common/Logger.h"
 #include "Monitor.h"
