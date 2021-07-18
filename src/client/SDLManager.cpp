@@ -114,10 +114,13 @@ TextRendered SDLManager::loadFromRenderedText(std::string textureText,
 }
 
 void SDLManager::render(int x, int y, int width, int height, SDL_Texture* texture,
-                        SDL_Renderer* renderer){
+                        SDL_Renderer* renderer,SDL_Rect* clip){
 
     SDL_Rect renderQuad = {x,y,width,height};
-    SDL_Rect* clip = NULL;
+    if(clip != NULL){
+        renderQuad.w = clip->w;
+        renderQuad.h = clip->h;
+    }
     double angle = 0.0;
     SDL_Point* center = NULL;
     SDL_RendererFlip flip = SDL_FLIP_NONE;

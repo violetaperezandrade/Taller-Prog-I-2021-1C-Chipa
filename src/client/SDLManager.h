@@ -28,12 +28,8 @@ public:
     TextRendered loadFromRenderedText(std::string textureText, SDL_Color textColor,
                                       SDL_Renderer* renderer, TTF_Font* font);
 
-    //void renderTextures(int x, int y, int width, int height, SDL_Texture* texture);
-    /*void renderEntities(int x, int y, int width, int height, char stateEntity,char entityType,
-                        SDL_Renderer* renderer, std::map<int,std::map<char,SDL_Texture*>>& dict1,
-                        std::map<char,SDL_Texture*>& dict2, std::map<char,SDL_Texture*>& dict3);*/
-
-    void render(int x, int y, int width, int height, SDL_Texture* texture, SDL_Renderer* renderer);
+    void render(int x, int y, int width, int height, SDL_Texture* texture, SDL_Renderer* renderer,
+                SDL_Rect* clip = NULL);
     void renderWarnings(std::string message, SDL_Renderer* renderer,SDL_Window* window);
     bool mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_Event* e);
     void renderFilledQuad(SDL_Renderer* renderer,int width, int height);

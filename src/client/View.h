@@ -3,6 +3,7 @@
 #define FONTSIZE_RESULTS 24
 #define FONTSIZE_POINTS_FINAL 20
 #define FONTSIZE_IDENTIFIERS 13
+#define ROLLING_BARREL_FRAMES 4
 
 
 #include <map>
@@ -41,6 +42,7 @@ private:
     int lives[4];
     int& playerAmount;
     int& endGame;
+    int frame = 0;
 
 public:
     View(Monitor& monitor, Logger& logger, Config& config,SDLManager& mngr, bool& keepRunning, bool& serverActive,
@@ -61,6 +63,8 @@ public:
     void renderPartialResults();
 
     void renderFinalResults(int* pointsLvl1);
+
+    void renderBarrelAnimation(int x, int y, int width, int height);
 
     ~View();
 };

@@ -106,6 +106,37 @@ void View::changeLevel(){
 
 }
 
+void View::renderBarrelAnimation(int x, int y, int width, int height) {
+    SDL_Rect spriteFrames[ROLLING_BARREL_FRAMES];
+    SDL_Texture* spriteSheet = sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/4barrels.png", windowRenderer);
+
+    spriteFrames[0].x = 0;
+    spriteFrames[0].y = 0;
+    spriteFrames[0].w = 24;
+    spriteFrames[0].h = 24;
+
+    spriteFrames[1].x =  24;
+    spriteFrames[1].y =   0;
+    spriteFrames[1].w =  24;
+    spriteFrames[1].h = 24;
+
+    spriteFrames[2].x = 0;
+    spriteFrames[2].y =  24;
+    spriteFrames[2].w =  24;
+    spriteFrames[2].h = 24;
+
+    spriteFrames[3].x = 24;
+    spriteFrames[3].y =   24;
+    spriteFrames[3].w =  24;
+    spriteFrames[3].h = 24;
+
+    SDL_Rect* currentFrame = &spriteFrames[frame/ROLLING_BARREL_FRAMES];
+    sdlMngr.render(x,y,width,height,spriteSheet,windowRenderer,currentFrame);
+    ++frame;
+    if(frame/4 >= ROLLING_BARREL_FRAMES) frame = 0;
+
+}
+
 
 void View::getEntityInfoAndRender(int x, int y, int width, int height, char stateEntity, char entityType) {
 
@@ -123,8 +154,8 @@ void View::getEntityInfoAndRender(int x, int y, int width, int height, char stat
             }
             break;
         case 'B': //barrel
-            textureEntity = texturesEntities['B'];
-            break;
+            renderBarrelAnimation(x,y,width,height);
+            return;
         case 'E': //ember
             textureEntity = texturesEntities['E'];
             break;
