@@ -3,10 +3,22 @@
 SoundManager::SoundManager(Logger& logger, bool& play) :
 logger(logger),
 play(play){
+    if (initMixer() < 0){
+        logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
+    }
     load("../src/client/music/auxStage1_BGM.mp3", "level 1", SOUND_MUSIC);
     load("../src/client/music/Stage2_BGM.mp3", "level 2", SOUND_MUSIC);
     load("../src/client/sfx/SFX_Walking.mp3", "mario move", SOUND_SFX);
     load("../src/client/sfx/SFX_Jump.mp3", "mario jump", SOUND_SFX);
+}
+
+bool SoundManager::initMixer(){
+    bool error = false;
+    if(Mix_OpenAudio( 22050, AUDIO_S16, 2, 4096 ) < 0){
+        logger.errorMsg("Error al inicializar SDL Mixer", __FILE__, __LINE__);
+        error = true;
+    }
+    return error;
 }
 
 bool SoundManager::load(std::string fileName, std::string id, soundType type){

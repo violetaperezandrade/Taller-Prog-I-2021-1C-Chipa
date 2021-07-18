@@ -1,14 +1,13 @@
 #ifndef DONKEYKONG_SOUNDMANAGER_H
 #define DONKEYKONG_SOUNDMANAGER_H
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 #include<map>
 #include<vector>
 #include <string>
-#include "SDLManager.h"
 #include "../common/Logger.h"
 #include "Monitor.h"
-
 
 enum soundType{
     SOUND_MUSIC = 0,
@@ -24,6 +23,8 @@ private:
     bool load(std::string fileName, std::string id, soundType type);
 public:
     SoundManager(Logger& logger, bool& play);
+
+    bool initMixer();
 
     void playMusic(std::string id, int loop);
 
