@@ -95,25 +95,8 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     defaultConfig = sdlMngr.loadImageTexture("../src/client/img/default.png", windowRenderer);
 
     divisorPoints = sdlMngr.loadImageTexture("../src/client/img/divisor.png",windowRenderer);
-}
 
-void View::changeLevel(){
-    texturesEntities = {{'P', sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/pink_platform.png", windowRenderer)},
-                        {'B',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/front_barrel.png", windowRenderer)},
-                        {'b',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/oil_barrel.png", windowRenderer)},
-                        {'f',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/flame.png", windowRenderer)},
-                        {'F',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/fire.png", windowRenderer)},
-                        {'p',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/princess.png", windowRenderer)},
-                        {'S',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/long_cyan_stair.png", windowRenderer)},
-                        {'E',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/flame.png", windowRenderer)}
-    };
-
-}
-
-void View::renderBarrelAnimation(int x, int y, int width, int height) {
-    SDL_Rect spriteFrames[ROLLING_BARREL_FRAMES];
-    SDL_Texture* spriteSheet = sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/4barrels.png", windowRenderer);
-
+    spriteSheet = sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/4barrels.png", windowRenderer);
     spriteFrames[0].x = 0;
     spriteFrames[0].y = 0;
     spriteFrames[0].w = 24;
@@ -133,12 +116,26 @@ void View::renderBarrelAnimation(int x, int y, int width, int height) {
     spriteFrames[3].y =   24;
     spriteFrames[3].w =  24;
     spriteFrames[3].h = 24;
+}
 
+void View::changeLevel(){
+    texturesEntities = {{'P', sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/pink_platform.png", windowRenderer)},
+                        {'B',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/front_barrel.png", windowRenderer)},
+                        {'b',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/oil_barrel.png", windowRenderer)},
+                        {'f',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/flame.png", windowRenderer)},
+                        {'F',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/fire.png", windowRenderer)},
+                        {'p',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/princess.png", windowRenderer)},
+                        {'S',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/long_cyan_stair.png", windowRenderer)},
+                        {'E',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/flame.png", windowRenderer)}
+    };
+
+}
+
+void View::renderBarrelAnimation(int x, int y, int width, int height) {
     SDL_Rect* currentFrame = &spriteFrames[frame/ROLLING_BARREL_FRAMES];
     sdlMngr.render(x,y,width,height,spriteSheet,windowRenderer,currentFrame);
     ++frame;
     if(frame/4 >= ROLLING_BARREL_FRAMES) frame = 0;
-
 }
 
 
