@@ -29,7 +29,15 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     texturesMario[1]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer);
     texturesMario[1]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer);
     texturesMario[1]['x'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_dead.png", windowRenderer);
-
+    texturesMario[1]['A'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walking_right.png", windowRenderer);
+    texturesMario[1]['B'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walking_left.png", windowRenderer);
+    texturesMario[1]['C'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walking_right.png", windowRenderer);
+    texturesMario[1]['D'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walking_left.png", windowRenderer);
+    texturesMario[1]['E'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer);
+    texturesMario[1]['F'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer);
+    texturesMario[1]['G'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer);
+    texturesMario[1]['H'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer);
+    texturesMario[1]['I'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_dead.png", windowRenderer);
     //yellow
     texturesMario[2]['1'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_right.png", windowRenderer);
     texturesMario[2]['2'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_left.png", windowRenderer);
@@ -395,7 +403,7 @@ int View::run() {
         renderEntity(entityVector.begin()+myCharacterPos, states);
         playerID = 0;
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
-        //soundManager.iterateStates(states);
+        soundManager.iterateStates(states);
         sdlMngr.presentRender(windowRenderer);
         sdlMngr.clearRender(windowRenderer);
     }
