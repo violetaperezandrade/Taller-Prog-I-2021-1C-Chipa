@@ -221,7 +221,7 @@ void Game::spawnHammers(){
         spawnsX.push_back(750);
         spawnsX.push_back(350);
 
-        spawnsY.push_back(550);
+        spawnsY.push_back(520);
         spawnsY.push_back(510);
         spawnsY.push_back(460);
         spawnsY.push_back(400);
@@ -640,8 +640,8 @@ void Game::changeLevel(){
         }
         playersWhoFinished = 0;
         this->entities.clear();
-        setLevel2();
         currLevel = 2;
+        setLevel2();
     } else {
         finished = 2;
     }
