@@ -169,7 +169,7 @@ void Game::lvl1SpawnEmber(){
 }
 
 void Game::lvl2SpawnBarrel(){
-    int spawns[4] = {168,312,456,600};
+    int spawns[4] = {168,250,500,600};
 
     int randSpawn = spawns[rand()%4];
     Barrel barrel(randSpawn, 100, 24, 24, 0, 4);

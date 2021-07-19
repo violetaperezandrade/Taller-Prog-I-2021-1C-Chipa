@@ -368,9 +368,19 @@ bool CollisionManager::moveBarrel(Entity &barrel) {
                         barrel.setSpeedX(-4);
                     }
                 }
-            } /*else if (type == CHARACTER_CODE){
-                //Parece innecesario mientras el character lo revise
-            }*/
+            }
+        }
+    }
+    for (int i = 0; i < characters.size(); i++){
+        if(checkCollision(barrel, characters[i])){
+            if(characters[i].hasHammer()){
+                characters[i].useHammer();
+                logger.infoMsg("Martilleo un enemigo", __FILE__, __LINE__);
+                characters[i].addPoints(500);
+            } else if (!characters[i].isDead()){
+                characters[i].loseLive();
+            }
+            return true;
         }
     }
     barrel.setPosX(edgeInfo[LEFT]+barrel.getSpeedX());
