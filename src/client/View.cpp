@@ -274,6 +274,7 @@ void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& sta
             if (resize.find(id) != std::string::npos){
                 width = 94; //59
                 height = 47; //36
+                posY -= 5;
             }
         }
         else hammer = 0;
