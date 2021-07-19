@@ -6,9 +6,9 @@ play(play){
     if (initMixer() < 0){
         logger.errorMsg("Fallo initSDL", __FILE__, __LINE__);
     }
-    load("../src/client/music/auxStage1_BGM.mp3", "level 1", SOUND_MUSIC);
-    load("../src/client/music/Stage2_BGM.mp3", "level 2", SOUND_MUSIC);
-    load("../src/client/sfx/SFX_Walking.mp3", "mario move", SOUND_SFX);
+    load("../src/client/music/Stage1_BGM.wav", "level 1", SOUND_MUSIC);
+    load("../src/client/music/Stage2_BGM.wav", "level 2", SOUND_MUSIC);
+    load("../src/client/sfx/SFX_Walking.wav", "mario move", SOUND_SFX);
     load("../src/client/sfx/SFX_Jump.mp3", "mario jump", SOUND_SFX);
 }
 
@@ -52,8 +52,8 @@ void SoundManager::playSound(std::string id, int loop){ //0
 }
 
 void SoundManager::playSoundFromState(char state){
-    std::string move = "6789";
-    std::string jump = "12";
+    std::string move = "6789AB";
+    std::string jump = "12CD";
     std::string id(1, state);
     if (move.find(id) != std::string::npos){
         playSound("mario move", 0);

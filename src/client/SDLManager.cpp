@@ -27,12 +27,12 @@ bool SDLManager::initSDL(){
 
 SDL_Window* SDLManager::createWindow(const char* title, int width, int height){
 
-    SDL_Window* window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                          width,height, SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                           width, height, SDL_WINDOW_SHOWN);
     if(!window) {
-        logger.errorMsg("Error al crear ventana de login con SDL",__FILE__,__LINE__);
+        logger.errorMsg("Error al crear ventana de login con SDL", __FILE__, __LINE__);
     }
-    logger.debugMsg("Ventana de login creada correctamente",__FILE__,__LINE__);
+    logger.debugMsg("Ventana de login creada correctamente", __FILE__, __LINE__);
     return window;
 }
 
@@ -43,21 +43,21 @@ SDL_Renderer* SDLManager::createRenderer(SDL_Window* window){
         logger.errorMsg("Error al crear renderer",__FILE__,__LINE__);
     }
     else{
-        SDL_SetRenderDrawColor(renderer,0,0,0,255);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
     }
-    logger.debugMsg("Renderer de login creado correctamente",__FILE__,__LINE__);
+    logger.debugMsg("Renderer de login creado correctamente", __FILE__, __LINE__);
     return renderer;
 }
 
-TTF_Font* SDLManager::createFont(std::string path,int size){
+TTF_Font* SDLManager::createFont(std::string path, int size){
 
-    TTF_Font* font = TTF_OpenFont(path.c_str(),size);
+    TTF_Font* font = TTF_OpenFont(path.c_str(), size);
     if(font == NULL){
-        logger.errorMsg("Error al cargar fuente",__FILE__,__LINE__);
+        logger.errorMsg("Error al cargar fuente", __FILE__, __LINE__);
     }
-    logger.debugMsg("Fuente creada correctamente",__FILE__,__LINE__);
+    logger.debugMsg("Fuente creada correctamente", __FILE__, __LINE__);
     return font;
 }
 
@@ -67,17 +67,17 @@ SDL_Texture* SDLManager::loadImageTexture(std::string path, SDL_Renderer* render
     SDL_Texture* finalTexture = NULL;
     SDL_Surface* imageSurface = IMG_Load(path.c_str());
     if(!imageSurface) {
-        logger.errorMsg("Error al cargar superifice",__FILE__,__LINE__);
+        logger.errorMsg("Error al cargar superifice", __FILE__, __LINE__);
     }
     else{
-        SDL_SetColorKey(imageSurface,SDL_TRUE,SDL_MapRGB(imageSurface->format,0,0,0));
+        SDL_SetColorKey(imageSurface, SDL_TRUE, SDL_MapRGB(imageSurface->format, 0, 0, 0));
         finalTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
         if(!finalTexture) {
-            logger.errorMsg("Error al cargar textura",__FILE__,__LINE__);
+            logger.errorMsg("Error al cargar textura", __FILE__, __LINE__);
         }
         SDL_FreeSurface(imageSurface);
     }
-    logger.debugMsg("Textura creada correctamente",__FILE__,__LINE__);
+    logger.debugMsg("Textura creada correctamente", __FILE__, __LINE__);
     return finalTexture;
 }
 
@@ -88,7 +88,7 @@ TextRendered SDLManager::loadFromRenderedText(std::string textureText,
     TextRendered text;
     SDL_Texture* finalTexture = NULL;
     int w,h;
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font,textureText.c_str(),textColor);
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str(), textColor);
     if(textSurface != NULL){
 
         //crear textura desde superficie
@@ -112,7 +112,7 @@ TextRendered SDLManager::loadFromRenderedText(std::string textureText,
 void SDLManager::render(int x, int y, int width, int height, SDL_Texture* texture,
                         SDL_Renderer* renderer,SDL_Rect* clip){
 
-    SDL_Rect renderQuad = {x,y,width,height};
+    SDL_Rect renderQuad = {x, y, width, height};
     if(clip != NULL){
         renderQuad.w = clip->w;
         renderQuad.h = clip->h;
@@ -120,7 +120,7 @@ void SDLManager::render(int x, int y, int width, int height, SDL_Texture* textur
     double angle = 0.0;
     SDL_Point* center = NULL;
     SDL_RendererFlip flip = SDL_FLIP_NONE;
-    SDL_RenderCopyEx(renderer,texture,clip,&renderQuad,angle,center,flip);
+    SDL_RenderCopyEx(renderer, texture, clip, &renderQuad, angle, center, flip);
 }
 
 void SDLManager::renderWarnings(std::string message,SDL_Renderer* renderer, SDL_Window* window){
@@ -144,17 +144,17 @@ bool SDLManager::mouseWasClickedOnPosition(int x1, int x2, int y1, int y2, SDL_E
 
     bool ok = false;
     if(e->type == SDL_MOUSEBUTTONDOWN){
-        int x,y;
-        SDL_GetMouseState(&x,&y);
+        int x, y;
+        SDL_GetMouseState(&x, &y);
         if((x > x1 && x < x2) && (y > y1 && y < y2)){
             ok = true;
-            logger.debugMsg("El mouse se posiciono sobre un textbox",__FILE__,__LINE__);
+            logger.debugMsg("El mouse se posiciono sobre un textbox", __FILE__, __LINE__);
         }
     }
     return ok;
 }
 
-void SDLManager::renderFilledQuad(SDL_Renderer* renderer,int width, int height){
+void SDLManager::renderFilledQuad(SDL_Renderer* renderer, int width, int height){
 
     SDL_Rect fillRect = { 0, 0, width, height};
     SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
@@ -174,7 +174,7 @@ void SDLManager::freeAllTextures(std::vector<SDL_Texture*>& vector){
         destroyTexture(*it);
         ++it;
     }
-    logger.debugMsg("Se liberan todas las texturas del login",__FILE__,__LINE__);
+    logger.debugMsg("Se liberan todas las texturas del login", __FILE__, __LINE__);
     vector.clear();
 }
 
