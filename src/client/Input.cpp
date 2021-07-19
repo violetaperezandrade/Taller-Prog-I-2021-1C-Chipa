@@ -59,6 +59,12 @@ void Input::run() {
                     case SDLK_p:
                         play = !play;
                         break;
+                    case SDLK_i:
+                        success = InputProtocol::sendInvincibility(this->socket, this->logger);
+                        if (success < 0){
+                            serverActive = false;
+                            logger.superDebugMsg("Inactive server", __FILE__, __LINE__);
+                        }
                     default:
                         break;
                 }

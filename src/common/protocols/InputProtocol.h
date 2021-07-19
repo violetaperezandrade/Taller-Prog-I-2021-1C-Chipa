@@ -13,6 +13,7 @@
 #define RELEASE_RIGHT '8'
 #define PRESS_JUMP '9'
 #define RELEASE_JUMP '0'
+#define PRESS_INVINCIBILITY 'i'
 
 class InputProtocol {
 public:
@@ -35,6 +36,8 @@ public:
     static int sendPressJumpEvent(Socket& socket, Logger& logger);
 
     static int sendReleaseJumpEvent(Socket& socket, Logger& logger);
+
+    static int sendInvincibility(Socket& socket, Logger& logger);
 };
 
 #endif //INPUTPROTOCOL_H
