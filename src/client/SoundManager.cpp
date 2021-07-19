@@ -98,10 +98,6 @@ void SoundManager::runLevel1(){
 }
 
 void SoundManager::runLevel2(){
-    /*if(counter == 0){
-        Mix_HaltMusic();
-        counter += 1;
-    }*/
     if (play && Mix_PausedMusic() == 1) Mix_ResumeMusic();
     if (!play && Mix_PausedMusic() != 1) Mix_PauseMusic();
 }
