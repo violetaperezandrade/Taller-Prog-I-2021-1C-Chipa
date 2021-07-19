@@ -9,7 +9,7 @@ play(play){
     load("../src/client/music/Stage1_BGM.wav", "level 1", SOUND_MUSIC);
     load("../src/client/music/Stage2_BGM.wav", "level 2", SOUND_MUSIC);
     load("../src/client/sfx/SFX_Walking.wav", "mario move", SOUND_SFX);
-    load("../src/client/sfx/SFX_Jump.mp3", "mario jump", SOUND_SFX);
+    load("../src/client/sfx/SFX_Jump.wav", "mario jump", SOUND_SFX);
 }
 
 bool SoundManager::initMixer(){
