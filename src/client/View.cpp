@@ -162,7 +162,8 @@ void View::changeLevel(){
                         {'F',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/fire.png", windowRenderer)},
                         {'p',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/princess.png", windowRenderer)},
                         {'S',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/long_cyan_stair.png", windowRenderer)},
-                        {'E',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/flame.png", windowRenderer)}
+                        {'E',sdlMngr.loadImageTexture("../src/client/img/Sprites-Entities/flame.png", windowRenderer)},
+                        {'H', sdlMngr.loadImageTexture("../src/client/img/hammer.png", windowRenderer)}
     };
 
 }
@@ -268,12 +269,13 @@ void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& sta
         std::string resize = "ABCDGHI";
         if (hammerStr.find(id) != std::string::npos){
             if (hammer == 0){
-                soundManager.playSoundFromState('h');
+                //soundManager.playSoundFromState('h');
                 hammer++;
             }
             if (resize.find(id) != std::string::npos){
                 width = 94; //59
                 height = 47; //36
+                posY -= 5;
             }
         }
         else hammer = 0;
@@ -450,7 +452,7 @@ int View::run() {
         renderEntity(entityVector.begin()+myCharacterPos, states, hammer);
         playerID = 0;
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
-        soundManager.iterateStates(states);
+        //soundManager.iterateStates(states);
         sdlMngr.presentRender(windowRenderer);
         sdlMngr.clearRender(windowRenderer);
     }
