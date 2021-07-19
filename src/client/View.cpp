@@ -406,7 +406,10 @@ int View::run() {
     int hammer = 0;
     while(keepRuning && serverActive) {
         if (monitor.getLevel() == 1) soundManager.runLevel1();
-        else if (monitor.getLevel() == 2) soundManager.runLevel2();
+        else if (monitor.getLevel() == 2){
+            soundManager.playMusic("level 2", -1);
+            soundManager.runLevel2();
+        }
         sdlMngr.clearRender(windowRenderer);
         std::vector<Entity> entityVector;
         monitor.getInfo(entityVector, points, lives);

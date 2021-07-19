@@ -38,6 +38,7 @@ bool SoundManager::load(std::string fileName, std::string id, soundType type){
         Mix_Music* pMusic = Mix_LoadMUS(fileName.c_str());
         if (pMusic == 0){
             logger.errorMsg("No se pudo cargar correctamente la musica", __FILE__, __LINE__);
+            logger.errorMsg(fileName.c_str(), __FILE__, __LINE__);
             return false;
         }
         music[id] = pMusic;
@@ -52,6 +53,9 @@ void SoundManager::playFinishMusic(){
 }
 
 void SoundManager::playMusic(std::string id, int loop){
+    if (id == "level 2"){
+        Mix_HaltMusic();
+    }
     Mix_PlayMusic(music[id], loop);
 }
 
@@ -94,7 +98,10 @@ void SoundManager::runLevel1(){
 }
 
 void SoundManager::runLevel2(){
-    Mix_HaltMusic();
+    /*if(counter == 0){
+        Mix_HaltMusic();
+        counter += 1;
+    }*/
     if (play && Mix_PausedMusic() == 1) Mix_ResumeMusic();
     if (!play && Mix_PausedMusic() != 1) Mix_PauseMusic();
 }
