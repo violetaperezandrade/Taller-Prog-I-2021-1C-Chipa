@@ -28,6 +28,10 @@ public:
 
     void playMusic(std::string id, int loop);
 
+    void muteMusic();
+
+    void playFinishMusic();
+
     void playSound(std::string id, int loop);
 
     void playSoundFromState(char state);

@@ -60,7 +60,7 @@ public:
 
     void renderPlayerID(int posX, int width, int posY);
 
-    void renderEntity(std::vector<Entity>::iterator it, std::vector<char>& states);
+    void renderEntity(std::vector<Entity>::iterator it, std::vector<char>& states, int& hammer);
 
     void renderLivesAndPoints();
 
