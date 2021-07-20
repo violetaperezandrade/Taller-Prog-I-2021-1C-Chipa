@@ -145,7 +145,7 @@ void SDLManager::renderWarnings(std::string message,SDL_Renderer* renderer, SDL_
            10,
            textureError.width,
            textureError.height,
-           textureError.texture
+           textureError.texture,
            renderer);
     render(165, 30, 80, 80, warning,renderer);
     SDL_RenderPresent(renderer);
