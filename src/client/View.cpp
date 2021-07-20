@@ -1,6 +1,7 @@
 #include "View.h"
 
-View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive, int& playerNumber, SoundManager& soundManager, int& playerAmount, int& endGame) :
+View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, bool& keepRunning, bool& serverActive,
+           int& playerNumber, SoundManager& soundManager, int& playerAmount, int& endGame) :
     logger(logger),
     config(config),
     sdlMngr(mngr),
@@ -227,7 +228,12 @@ void View::getEntityInfoAndRender(int x, int y, int width, int height, char stat
 
 void View::renderPlayerID(int posX, int width, int posY){
     if (config.getPlayersAmount() > 1){
-        sdlMngr.render(posX+(width/3), posY-15, usersNames[playerID].width, usersNames[playerID].height, usersNames[playerID].texture, windowRenderer);
+        sdlMngr.render(posX+(width/3),
+                       posY-15,
+                       usersNames[playerID].width,
+                       usersNames[playerID].height,
+                       usersNames[playerID].texture,
+                       windowRenderer);
         logger.debugMsg("Renderizando player ID", __FILE__, __LINE__);
     }
 }
@@ -235,22 +241,51 @@ void View::renderPlayerID(int posX, int width, int posY){
 void View::renderLivesAndPoints(){
 
     sdlMngr.render(0, 40, 800, 10, divisorPoints, windowRenderer);
-    sdlMngr.render(1, 1, usersNames[5].width, usersNames[5].height, usersNames[5].texture, windowRenderer);
-    sdlMngr.render(1,40-usersNames[6].height, usersNames[6].width, usersNames[6].height, usersNames[6].texture, windowRenderer);
+    sdlMngr.render(1, 1,
+                   usersNames[5].width,
+                   usersNames[5].height,
+                   usersNames[5].texture,
+                   windowRenderer);
+    sdlMngr.render(1,
+                   40-usersNames[6].height,
+                   usersNames[6].width,
+                   usersNames[6].height,
+                   usersNames[6].texture,
+                   windowRenderer);
 
     TextRendered textLives;
     TextRendered textPoints;
-    SDL_Color white = {255,255,255};
     for (int i = 1; i <= playerID ; i++) {
-        int posX = ((config.getResolutionWidth() / config.getPlayersAmount())/2) + (config.getResolutionWidth()*(i-1)/config.getPlayersAmount());
+        int posX = ((config.getResolutionWidth() / config.getPlayersAmount())/2) +
+                (config.getResolutionWidth()*(i-1)/config.getPlayersAmount());
         int posY = 20-(usersNames[i].height/2);
 
-        textLives = sdlMngr.loadFromRenderedText(std::to_string(lives[i-1]),white,windowRenderer,font);
-        textPoints = sdlMngr.loadFromRenderedText(std::to_string(points[i-1]),white,windowRenderer,font);
+        textLives = sdlMngr.loadFromRenderedText(std::to_string(lives[i-1]),
+                                                 playersColor[5],
+                                                 windowRenderer,
+                                                 font);
+        textPoints = sdlMngr.loadFromRenderedText(std::to_string(points[i-1]),
+                                                  playersColor[5],
+                                                  windowRenderer,
+                                                  font);
 
-        sdlMngr.render(posX, posY, usersNames[i].width, usersNames[i].height, usersNames[i].texture, windowRenderer);
-        sdlMngr.render(posX + usersNames[i].width + 10, 1, textLives.width, textLives.height, textLives.texture, windowRenderer);
-        sdlMngr.render(posX + usersNames[i].width + 10,40-textPoints.height, textPoints.width, textPoints.height, textPoints.texture, windowRenderer);
+        sdlMngr.render(posX, posY,
+                       usersNames[i].width,
+                       usersNames[i].height,
+                       usersNames[i].texture,
+                       windowRenderer);
+        sdlMngr.render(posX + usersNames[i].width + 10,
+                       1,
+                       textLives.width,
+                       textLives.height,
+                       textLives.texture,
+                       windowRenderer);
+        sdlMngr.render(posX + usersNames[i].width + 10,
+                       40-textPoints.height,
+                       textPoints.width,
+                       textPoints.height,
+                       textPoints.texture,
+                       windowRenderer);
     }
 }
 
@@ -289,13 +324,24 @@ void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& sta
 
 void View::renderPartialResults(){
     TTF_Font* fontResults = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf",FONTSIZE_RESULTS);
-    TextRendered result = sdlMngr.loadFromRenderedText("Partial results", playersColor[5], windowRenderer, fontResults);
+    TextRendered result = sdlMngr.loadFromRenderedText("Partial results",
+                                                       playersColor[5],
+                                                       windowRenderer,
+                                                       fontResults);
 
     sdlMngr.clearRender(windowRenderer);
-    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2,10,result.width,
-                   result.height, result.texture, windowRenderer);
-    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2, result.height + 10,
-                   result.width, 10, divisorPoints, windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2,
+                   10,
+                   result.width,
+                   result.height,
+                   result.texture,
+                   windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2,
+                   result.height + 10,
+                   result.width,
+                   10,
+                   divisorPoints,
+                   windowRenderer);
 
     TextRendered player;
     for(int i = 1; i <= playerAmount; i++){
@@ -305,11 +351,17 @@ void View::renderPartialResults(){
         std::string pointsStr = filledPoints.str();
 
         std::string playerId = "Player " + std::to_string(i) + ":" + " " + pointsStr;
-        player = sdlMngr.loadFromRenderedText(playerId, playersColor[i], windowRenderer, fontResults);
+        player = sdlMngr.loadFromRenderedText(playerId,
+                                              playersColor[i],
+                                              windowRenderer,
+                                              fontResults);
 
         sdlMngr.render((config.getResolutionWidth()/2)-(player.width/2),
                        (150 + (i-1)*(player.height+40)),
-                       player.width, player.height, player.texture, windowRenderer);
+                       player.width,
+                       player.height,
+                       player.texture,
+                       windowRenderer);
     }
     sdlMngr.presentRender(windowRenderer);
     SDL_Delay(6000);
@@ -321,19 +373,44 @@ void View::renderPartialResults(){
 }
 
 void View::renderFinalResults(int* pointsLvl1){
-    TTF_Font* fontResultsTitle = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf", FONTSIZE_RESULTS);
-    TTF_Font* fontPoints = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf", FONTSIZE_POINTS_FINAL);
-    TextRendered result = sdlMngr.loadFromRenderedText("Final results", playersColor[5], windowRenderer, fontResultsTitle);
-    TextRendered nameDescriptor = sdlMngr.loadFromRenderedText("Name", playersColor[5], windowRenderer, fontPoints);
-    TextRendered lvl1Descriptor = sdlMngr.loadFromRenderedText("L1", playersColor[5], windowRenderer, fontPoints);
-    TextRendered lvl2Descriptor = sdlMngr.loadFromRenderedText("L2", playersColor[5], windowRenderer, fontPoints);
-    TextRendered finalDescriptor = sdlMngr.loadFromRenderedText("Total", playersColor[5], windowRenderer, fontPoints);
+    TTF_Font* fontResultsTitle = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf",
+                                                    FONTSIZE_RESULTS);
+    TTF_Font* fontPoints = sdlMngr.createFont("../src/client/fonts/Kongtext Regular.ttf",
+                                              FONTSIZE_POINTS_FINAL);
+    TextRendered result = sdlMngr.loadFromRenderedText("Final results",
+                                                       playersColor[5],
+                                                       windowRenderer,
+                                                       fontResultsTitle);
+    TextRendered nameDescriptor = sdlMngr.loadFromRenderedText("Name",
+                                                               playersColor[5],
+                                                               windowRenderer,
+                                                               fontPoints);
+    TextRendered lvl1Descriptor = sdlMngr.loadFromRenderedText("L1",
+                                                               playersColor[5],
+                                                               windowRenderer,
+                                                               fontPoints);
+    TextRendered lvl2Descriptor = sdlMngr.loadFromRenderedText("L2",
+                                                               playersColor[5],
+                                                               windowRenderer,
+                                                               fontPoints);
+    TextRendered finalDescriptor = sdlMngr.loadFromRenderedText("Total",
+                                                                playersColor[5],
+                                                                windowRenderer,
+                                                                fontPoints);
 
     sdlMngr.clearRender(windowRenderer);
-    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2,10,result.width,
-                   result.height,result.texture,windowRenderer);
-    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2, result.height + 10,
-                   result.width, 10, divisorPoints, windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2,
+                   10,
+                   result.width,
+                   result.height,
+                   result.texture,
+                   windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-result.width/2,
+                   result.height + 10,
+                   result.width,
+                   10,
+                   divisorPoints,
+                   windowRenderer);
 
     TextRendered player;
     TextRendered status;
@@ -356,42 +433,112 @@ void View::renderFinalResults(int* pointsLvl1){
         filledPointsFinal << std::setw(4) << std::setfill('0') << points[i-1];
         std::string pointsFinalStr = filledPointsFinal.str();
 
-        std::string playerId = "Player " + std::to_string(i) + " " + pointsLvl1Str + " " + pointsLvl2Str + " " + pointsFinalStr;
-        player = sdlMngr.loadFromRenderedText(playerId,playersColor[i],windowRenderer,fontPoints);
+        std::string playerId = "Player " + std::to_string(i) + " " + pointsLvl1Str + " " +
+                pointsLvl2Str + " " + pointsFinalStr;
+        player = sdlMngr.loadFromRenderedText(playerId,
+                                              playersColor[i],
+                                              windowRenderer,
+                                              fontPoints);
         int posX = (config.getResolutionWidth()/2)-(player.width/2);
         int posY = 150 + (i-1)*(player.height+16);
 
         sdlMngr.render(posX,posY,player.width,player.height,player.texture,windowRenderer);
-        sdlMngr.render(posX-20,posY-10,player.width + 40,player.height+20,itemTable,windowRenderer);
-        sdlMngr.render(posX + (player.width/2) - player.width/7,posY-5,10,player.height+10,divisorTable,windowRenderer);
-        sdlMngr.render(posX + (player.width/2) + player.width/13,posY-5,10,player.height+10,divisorTable,windowRenderer);
-        sdlMngr.render(posX + (player.width/2) + player.width*10/34,posY-5,10,player.height+10,divisorTable,windowRenderer);
+        sdlMngr.render(posX-20,
+                       posY-10,
+                       player.width + 40,
+                       player.height+20,
+                       itemTable,
+                       windowRenderer);
+        sdlMngr.render(posX + (player.width/2) - player.width/7,
+                       posY-5,
+                       10,
+                       player.height+10,
+                       divisorTable,
+                       windowRenderer);
+        sdlMngr.render(posX + (player.width/2) + player.width/13,
+                       posY-5,
+                       10,
+                       player.height+10,
+                       divisorTable,
+                       windowRenderer);
+        sdlMngr.render(posX + (player.width/2) + player.width*10/34,
+                       posY-5,
+                       10,
+                       player.height+10,
+                       divisorTable,
+                       windowRenderer);
     }
-    sdlMngr.render((config.getResolutionWidth()/2)-(player.width*10/23),150-nameDescriptor.height -20,
-                   nameDescriptor.width,nameDescriptor.height,nameDescriptor.texture,windowRenderer);
-    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14),150-lvl1Descriptor.height -20,
-                   lvl1Descriptor.width,lvl1Descriptor.height,lvl1Descriptor.texture,windowRenderer);
-    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14) + (player.width*10/46),150-lvl2Descriptor.height -20,
-                   lvl2Descriptor.width,lvl2Descriptor.height,lvl2Descriptor.texture,windowRenderer);
-    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14) + (player.width*20/53),150-finalDescriptor.height -20,
-                   finalDescriptor.width,finalDescriptor.height,finalDescriptor.texture,windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-(player.width*10/23),
+                   150-nameDescriptor.height -20,
+                   nameDescriptor.width,
+                   nameDescriptor.height,
+                   nameDescriptor.texture,
+                   windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14),
+                   150-lvl1Descriptor.height -20,
+                   lvl1Descriptor.width,
+                   lvl1Descriptor.height,
+                   lvl1Descriptor.texture,
+                   windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14) + (player.width*10/46),
+                   150-lvl2Descriptor.height -20,
+                   lvl2Descriptor.width,
+                   lvl2Descriptor.height,
+                   lvl2Descriptor.texture,
+                   windowRenderer);
+    sdlMngr.render((config.getResolutionWidth()/2)-(player.width/14) + (player.width*20/53),
+                   150-finalDescriptor.height -20,
+                   finalDescriptor.width,
+                   finalDescriptor.height,
+                   finalDescriptor.texture,
+                   windowRenderer);
 
     if(endGame == 1){
         soundManager.playSoundFromState('x');
-        status = sdlMngr.loadFromRenderedText("Game Over", playersColor[1], windowRenderer, fontResultsTitle);
-        sdlMngr.render((config.getResolutionWidth()/2)-(status.width/2),400,status.width, status.height, status.texture, windowRenderer);
+        status = sdlMngr.loadFromRenderedText("Game Over",
+                                              playersColor[1],
+                                              windowRenderer,
+                                              fontResultsTitle);
+        sdlMngr.render((config.getResolutionWidth()/2)-(status.width/2),
+                       400,status.width,
+                       status.height,
+                       status.texture,
+                       windowRenderer);
     }
     else if(endGame == 2){
         soundManager.playFinishMusic();
-        status = sdlMngr.loadFromRenderedText("Congrats!",playersColor[5],windowRenderer,fontResultsTitle);
-        TextRendered winMsg = sdlMngr.loadFromRenderedText("The winner is: ",playersColor[5],windowRenderer,fontResultsTitle);
-        TextRendered winner = sdlMngr.loadFromRenderedText("Player "+std::to_string(max+1),playersColor[max+1],windowRenderer,fontResultsTitle);
-        sdlMngr.render((config.getResolutionWidth()/2)-(status.width)/2,400,status.width,status.height,status.texture,windowRenderer);
-        sdlMngr.render((config.getResolutionWidth()/2)-(winMsg.width)/2,400+status.height+10,winMsg.width,winMsg.height,winMsg.texture,windowRenderer);
-        sdlMngr.render((config.getResolutionWidth()/2)-(winner.width)/2,400+status.height+winMsg.height+20,winner.width,winner.height,winner.texture,windowRenderer);
+        status = sdlMngr.loadFromRenderedText("Congrats!",
+                                              playersColor[5],
+                                              windowRenderer,
+                                              fontResultsTitle);
+        TextRendered winMsg = sdlMngr.loadFromRenderedText("The winner is: ",
+                                                           playersColor[5],
+                                                           windowRenderer,
+                                                           fontResultsTitle);
+        TextRendered winner = sdlMngr.loadFromRenderedText("Player "+std::to_string(max+1),
+                                                           playersColor[max+1],
+                                                           windowRenderer,
+                                                           fontResultsTitle);
+        sdlMngr.render((config.getResolutionWidth()/2)-(status.width)/2,
+                       400,
+                       status.width,
+                       status.height,
+                       status.texture,
+                       windowRenderer);
+        sdlMngr.render((config.getResolutionWidth()/2)-(winMsg.width)/2,
+                       400+status.height+10,
+                       winMsg.width,
+                       winMsg.height,
+                       winMsg.texture,
+                       windowRenderer);
+        sdlMngr.render((config.getResolutionWidth()/2)-(winner.width)/2,
+                       400+status.height+winMsg.height+20,
+                       winner.width,
+                       winner.height,
+                       winner.texture,
+                       windowRenderer);
 
     }
-
     sdlMngr.presentRender(windowRenderer);
 
 }
@@ -400,8 +547,16 @@ int View::run() {
     sdlMngr.renderFilledQuad(windowRenderer, config.getResolutionWidth(), config.getResolutionHeight());
     int previousLevel = 1;
     std::vector<char> states;
-    TextRendered waitMessage = sdlMngr.loadFromRenderedText("Waiting for the other players...", {255, 0, 0}, windowRenderer, font);
-    sdlMngr.render((config.getResolutionWidth()-waitMessage.width)/2, (config.getResolutionHeight()-waitMessage.height)/4, waitMessage.width+20,waitMessage.height+20, waitMessage.texture, windowRenderer);
+    TextRendered waitMessage = sdlMngr.loadFromRenderedText("Waiting for the other players...",
+                                                            playersColor[1],
+                                                            windowRenderer,
+                                                            font);
+    sdlMngr.render((config.getResolutionWidth()-waitMessage.width)/2,
+                   (config.getResolutionHeight()-waitMessage.height)/4,
+                   waitMessage.width+20,
+                   waitMessage.height+20,
+                   waitMessage.texture,
+                   windowRenderer);
     sdlMngr.presentRender(windowRenderer);
     soundManager.playMusic("level 1", -1);
     int pointsLvl1[4];
@@ -460,7 +615,6 @@ int View::run() {
         logger.debugMsg("Inactive server", __FILE__, __LINE__);
         sdlMngr.renderWarnings("Server crashed unexpectedly", windowRenderer, window);
     }
-    //renderResults(false); endGame = 1 perdi, 2 gane;
     return 0;
 }
 

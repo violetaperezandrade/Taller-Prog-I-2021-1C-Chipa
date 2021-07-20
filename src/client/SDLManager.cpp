@@ -27,8 +27,12 @@ bool SDLManager::initSDL(){
 
 SDL_Window* SDLManager::createWindow(const char* title, int width, int height){
 
-    SDL_Window* window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                           width, height, SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow(title,
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                           width,
+                                           height,
+                                           SDL_WINDOW_SHOWN);
     if(!window) {
         logger.errorMsg("Error al crear ventana de login con SDL", __FILE__, __LINE__);
     }
@@ -38,7 +42,9 @@ SDL_Window* SDLManager::createWindow(const char* title, int width, int height){
 
 SDL_Renderer* SDLManager::createRenderer(SDL_Window* window){
 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window,
+                                                -1,
+                                                SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
     if(!renderer) {
         logger.errorMsg("Error al crear renderer",__FILE__,__LINE__);
     }
@@ -83,7 +89,8 @@ SDL_Texture* SDLManager::loadImageTexture(std::string path, SDL_Renderer* render
 
 TextRendered SDLManager::loadFromRenderedText(std::string textureText,
                                               SDL_Color textColor,
-                                              SDL_Renderer* renderer, TTF_Font* font){
+                                              SDL_Renderer* renderer,
+                                              TTF_Font* font){
 
     TextRendered text;
     SDL_Texture* finalTexture = NULL;
@@ -127,11 +134,19 @@ void SDLManager::renderWarnings(std::string message,SDL_Renderer* renderer, SDL_
 
     SDL_SetWindowSize(window, 410, 110);
     TTF_Font* fontWarning = createFont("../src/client/fonts/Kongtext Regular.ttf", 15);
-    TextRendered textureError = loadFromRenderedText(message.c_str(), {255, 0, 0}, renderer, fontWarning);
+    TextRendered textureError = loadFromRenderedText(message.c_str(),
+                                                     {255, 0, 0},
+                                                     renderer,
+                                                     fontWarning);
     SDL_Texture* warning = loadImageTexture("../src/client/img/Login/warning.png", renderer);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
     SDL_RenderClear(renderer);
-    render((410-textureError.width)/2, 10, textureError.width, textureError.height, textureError.texture,renderer);
+    render((410-textureError.width)/2,
+           10,
+           textureError.width,
+           textureError.height,
+           textureError.texture
+           renderer);
     render(165, 30, 80, 80, warning,renderer);
     SDL_RenderPresent(renderer);
     SDL_Delay(3000);

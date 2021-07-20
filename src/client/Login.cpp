@@ -184,12 +184,26 @@ void Login::renderUsrAndPswText(bool& renderPass, std::string& inputTextPsw, std
     SDL_Color textColorInput = {0, 0, 0, 0};
     std::string invisiblePsw (inputTextPsw.length(),'*');
         if(renderPass){
-            if(inputTextPsw != "") textTextures["inputTextTexturePsw"] = sdlMngr.loadFromRenderedText(invisiblePsw.c_str(), textColorInput, windowRendererLogin, globalFont);
-            else textTextures["inputTextTexturePsw"] = sdlMngr.loadFromRenderedText("|", textColorInput, windowRendererLogin, globalFont);
+            if(inputTextPsw != "") textTextures["inputTextTexturePsw"] = sdlMngr.loadFromRenderedText(
+                    invisiblePsw.c_str(),
+                    textColorInput,
+                    windowRendererLogin,
+                    globalFont);
+            else textTextures["inputTextTexturePsw"] = sdlMngr.loadFromRenderedText("|",
+                                                                                    textColorInput,
+                                                                                    windowRendererLogin,
+                                                                                    globalFont);
         }
         else{
-            if(inputTextUser != "") textTextures["inputTextTextureUser"] = sdlMngr.loadFromRenderedText(inputTextUser.c_str(), textColorInput, windowRendererLogin, globalFont);
-            else textTextures["inputTextTextureUser"] = sdlMngr.loadFromRenderedText("|", textColorInput, windowRendererLogin, globalFont);
+            if(inputTextUser != "") textTextures["inputTextTextureUser"] = sdlMngr.loadFromRenderedText(
+                    inputTextUser.c_str(),
+                    textColorInput,
+                    windowRendererLogin,
+                    globalFont);
+            else textTextures["inputTextTextureUser"] = sdlMngr.loadFromRenderedText("|",
+                                                                                     textColorInput,
+                                                                                     windowRendererLogin,
+                                                                                     globalFont);
         }
 }
 
@@ -232,10 +246,16 @@ int Login::runLoginWindow(char* ip, char* port) {
                 SDL_GetMouseState(&x, &y);
                 //Posiciones del boton en la pantalla
                 if((x > 220 && x < 420) && (y > 300 && y < 370)){ //el mouse esta adentro del boton
-                    if (manageMouseOnButton(e, v, inputTextUser, inputTextPsw, quit, loginError) < 0) return -1;
+                    if (manageMouseOnButton(e,
+                                            v,
+                                            inputTextUser,
+                                            inputTextPsw,
+                                            quit,
+                                            loginError) < 0) return -1;
                 }
                 else{
-                    textures["playButton"] = sdlMngr.loadImageTexture("../src/client/img/Login/play.png", windowRendererLogin);
+                    textures["playButton"] = sdlMngr.loadImageTexture("../src/client/img/Login/play.png",
+                                                                      windowRendererLogin);
                     v.push_back(textures["playButton"]);
                 }
             }
