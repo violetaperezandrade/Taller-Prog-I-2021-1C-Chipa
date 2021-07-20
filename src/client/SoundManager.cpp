@@ -73,7 +73,7 @@ void SoundManager::playSoundFromState(char state){
     else if(jump.find(id) != std::string::npos){
         playSound("mario jump", 0);
     }
-    else if(state == 'x'){
+    else if(state == 'X'){
         Mix_HaltMusic();
         playSound("mario dead", 0);
     }

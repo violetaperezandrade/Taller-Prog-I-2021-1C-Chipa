@@ -497,7 +497,7 @@ void View::renderFinalResults(int* pointsLvl1){
                    windowRenderer);
 
     if(endGame == 1){
-        soundManager.playSoundFromState('x');
+        soundManager.playSoundFromState('X');
         status = sdlMngr.loadFromRenderedText("Game Over",
                                               playersColor[1],
                                               windowRenderer,
