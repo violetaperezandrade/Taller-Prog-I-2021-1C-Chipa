@@ -136,6 +136,9 @@ void Server::reconnect(int i, int currLevel){
     std::vector<Character>& characters = game.getCharacters();
 
     for(int h = 0; h < currLevel; h++){
+        for(int j = 0; j < peerManager.getSize(); j++) {
+            peerManager.sendPointsLives(i, characters[j].getLives(), characters[j].getPoints());
+        }
         for (int j = 0; j < entities.size(); j++) {
             peerManager.send(entities[j], i);
         }
