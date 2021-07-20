@@ -31,10 +31,10 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     texturesMario[1]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right.png", windowRenderer);
     texturesMario[1]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_left.png", windowRenderer);
     texturesMario[1]['x'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_dead.png", windowRenderer);
-    texturesMario[1]['A'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_right_hammer.png", windowRenderer);
-    texturesMario[1]['B'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_left_hammer.png", windowRenderer);
-    texturesMario[1]['C'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_right_hammer.png", windowRenderer);
-    texturesMario[1]['D'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_left_hammer.png", windowRenderer);
+    texturesMario[1]['A'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_right_hammer.png", windowRenderer);
+    texturesMario[1]['B'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_jump_left_hammer.png", windowRenderer);
+    texturesMario[1]['C'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_right_hammer.png", windowRenderer);
+    texturesMario[1]['D'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_walk_left_hammer.png", windowRenderer);
     texturesMario[1]['E'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer);
     texturesMario[1]['F'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_climbing_right.png", windowRenderer);
     texturesMario[1]['G'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/red/mario_idle_right_hammer.png", windowRenderer);
@@ -51,10 +51,10 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     texturesMario[2]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_right.png", windowRenderer);
     texturesMario[2]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_left.png", windowRenderer);
     texturesMario[2]['x'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_dead.png", windowRenderer);
-    texturesMario[2]['A'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_walk_right_hammer.png", windowRenderer);
-    texturesMario[2]['B'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_walk_left_hammer.png", windowRenderer);
-    texturesMario[2]['C'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_right_hammer.png", windowRenderer);
-    texturesMario[2]['D'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_left_hammer.png", windowRenderer);
+    texturesMario[2]['A'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_right_hammer.png", windowRenderer);
+    texturesMario[2]['B'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_jump_left_hammer.png", windowRenderer);
+    texturesMario[2]['C'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_walk_right_hammer.png", windowRenderer);
+    texturesMario[2]['D'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_walk_left_hammer.png", windowRenderer);
     texturesMario[2]['E'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_climbing_right.png", windowRenderer);
     texturesMario[2]['F'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_climbing_right.png", windowRenderer);
     texturesMario[2]['G'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/yellow/mario_idle_right_hammer.png", windowRenderer);
@@ -71,10 +71,10 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     texturesMario[3]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_right.png", windowRenderer);
     texturesMario[3]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_left.png", windowRenderer);
     texturesMario[3]['x'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_dead.png", windowRenderer);
-    texturesMario[3]['A'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_walk_right_hammer.png", windowRenderer);
-    texturesMario[3]['B'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_walk_left_hammer.png", windowRenderer);
-    texturesMario[3]['C'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_right_hammer.png", windowRenderer);
-    texturesMario[3]['D'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_left_hammer.png", windowRenderer);
+    texturesMario[3]['A'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_right_hammer.png", windowRenderer);
+    texturesMario[3]['B'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_jump_left_hammer.png", windowRenderer);
+    texturesMario[3]['C'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_walk_right_hammer.png", windowRenderer);
+    texturesMario[3]['D'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_walk_left_hammer.png", windowRenderer);
     texturesMario[3]['E'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_climbing_right.png", windowRenderer);
     texturesMario[3]['F'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_climbing_right.png", windowRenderer);
     texturesMario[3]['G'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/lilac/mario_idle_right_hammer.png", windowRenderer);
@@ -91,10 +91,10 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     texturesMario[4]['r'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_right.png", windowRenderer);
     texturesMario[4]['l'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_left.png", windowRenderer);
     texturesMario[4]['x'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_dead.png", windowRenderer);
-    texturesMario[4]['A'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_right_hammer.png", windowRenderer);
-    texturesMario[4]['B'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_left_hammer.png", windowRenderer);
-    texturesMario[4]['C'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_right_hammer.png", windowRenderer);
-    texturesMario[4]['D'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_left_hammer.png", windowRenderer);
+    texturesMario[4]['A'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_right_hammer.png", windowRenderer);
+    texturesMario[4]['B'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_jump_left_hammer.png", windowRenderer);
+    texturesMario[4]['C'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_right_hammer.png", windowRenderer);
+    texturesMario[4]['D'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_walk_left_hammer.png", windowRenderer);
     texturesMario[4]['E'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_climbing_right.png", windowRenderer);
     texturesMario[4]['F'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_climbing_right.png", windowRenderer);
     texturesMario[4]['G'] = sdlMngr.loadImageTexture("../src/client/img/Sprites-Mario/green/mario_idle_right_hammer.png", windowRenderer);
@@ -313,6 +313,8 @@ void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& sta
                 height = 47; //36
                 posY -= 5;
             }
+            if (id == "H") posX -= 26;
+            if (id == "D") posX -= 33;
         }
         else hammerState[playerID] = 0;
         renderPlayerID(posX, width, posY);
