@@ -84,7 +84,7 @@ bool Game::moveCharacters(){
     for (int i = 0; i < amountCharacters; i++) {
         if(characters[i].isSilenced()) continue; //si pasa este if no está muerto
         bool reachedPrincess = collisionManager.moveCharacter(i, playersWhoFinished);
-        switchLevel = (reachedPrincess || playersWhoFinished == charactersLeft);
+        switchLevel = (playersWhoFinished == charactersLeft);
         if (switchLevel){
             changeLevel();
             return switchLevel;
