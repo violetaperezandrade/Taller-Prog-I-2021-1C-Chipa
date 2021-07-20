@@ -53,6 +53,10 @@ void Character::setInvincible() {
     invincible = true;
 }
 
+bool Character::isInvincible() {
+    return invincible;
+}
+
 void Character::stopMovingUp(){
     movement.setMovingUp(false);
 }
