@@ -82,6 +82,16 @@ bool PeerManager::isDisconnected(int i){
     return peers[i]->isDisconnected();
 }
 
+bool PeerManager::isDisconnected(std::string name){
+    std::lock_guard<std::mutex> m(mtx);
+    for(int i = 0; i < peers.size(); i++){
+        if(peers[i]->getName() == name){
+            return peers[i]->isDisconnected();
+        }
+    }
+    return true;
+}
+
 int PeerManager::getSize(){
     std::lock_guard<std::mutex> m(mtx);
     return peers.size();

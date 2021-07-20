@@ -48,6 +48,8 @@ public:
 
     void sendEndGame(int i, int end);
 
+    bool isDisconnected(std::string name);
+
     ~PeerManager();
 };
 
