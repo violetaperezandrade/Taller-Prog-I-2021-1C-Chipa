@@ -233,6 +233,7 @@ bool Character::hasHammer(){
 
 void Character::silence(){
     silenced = true;
+    state = stateManager.getIdleRight();
 }
 
 void Character::unsilence(){
