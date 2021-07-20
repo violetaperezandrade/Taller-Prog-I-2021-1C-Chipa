@@ -40,6 +40,8 @@ public:
 
     void stopJumping();
 
+    bool isInvincible();
+
     bool isDead();
 
     void land();

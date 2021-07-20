@@ -52,7 +52,7 @@ void Reconnector::validateReconnection(Peer* client){
             ++it;
         }
         if(alreadyPlayer) {
-            if (usersKeys[usr] != pw || pw == empty) {
+            if (usersKeys[usr] != pw || pw == empty || !peerManager.isDisconnected(usr)) {
                 response = 'B';
                 client->send(&response, 1);
 

@@ -84,7 +84,7 @@ bool Game::moveCharacters(){
     for (int i = 0; i < amountCharacters; i++) {
         if(characters[i].isSilenced()) continue; //si pasa este if no está muerto
         bool reachedPrincess = collisionManager.moveCharacter(i, playersWhoFinished);
-        switchLevel = (reachedPrincess || playersWhoFinished == charactersLeft);
+        switchLevel = (playersWhoFinished == charactersLeft);
         if (switchLevel){
             changeLevel();
             return switchLevel;
@@ -169,7 +169,7 @@ void Game::lvl1SpawnEmber(){
 }
 
 void Game::lvl2SpawnBarrel(){
-    int spawns[4] = {168,250,500,600};
+    int spawns[4] = {168,250,510,600};
 
     int randSpawn = spawns[rand()%4];
     Barrel barrel(randSpawn, 100, 24, 24, 0, 4);

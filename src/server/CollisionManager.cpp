@@ -284,8 +284,7 @@ bool CollisionManager::moveCharacter(int i, int& playersWhoFinished) {
                     }
                 } else if (!characters[i].isDead()){
                     characters[i].loseLive();
-                    gotHit = true;
-                    //cuando pierde una vida tiene que volver al principio
+                    if(!characters[i].isInvincible()) gotHit = true;
                 }
             } else if(type == PLATFORM_CODE && !characters[i].isClimbing()){
                 haltMovement(characters[i], vector[j], edgeInfo);
