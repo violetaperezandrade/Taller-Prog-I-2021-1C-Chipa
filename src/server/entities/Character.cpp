@@ -179,7 +179,9 @@ void Character::disconnect() {
     movement.setMovingUp(false);
     movement.setMovingLeft(false);
     movement.setMovingRight(false);
-    state = stateManager.getIdleOff();
+    if (!isDead()){
+        state = stateManager.getIdleOff();
+    }
 }
 
 void Character::reconnect() {
@@ -188,7 +190,10 @@ void Character::reconnect() {
     movement.setMovingUp(false);
     movement.setMovingLeft(false);
     movement.setMovingRight(false);
-    if (lastDirection == IDLE_RIGHT){
+    if (isDead()) {
+        state = DEATH;
+        silenced = true;
+    } else if (lastDirection == IDLE_RIGHT){
         state = stateManager.getIdleRight();
     } else {
         state = stateManager.getIdleLeft();
