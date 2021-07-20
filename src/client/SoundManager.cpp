@@ -7,7 +7,7 @@ play(play){
         logger.errorMsg("Error al inicializar SDL Mixer", __FILE__, __LINE__);
     }
     load("../src/client/music/Stage1_BGM.wav", "level 1", SOUND_MUSIC);
-    load("../src/client/music/Stage2_BGM.wav", "level 2", SOUND_MUSIC);
+    load("../src/client/music/Stage2_BGM-[AudioTrimmer.com].wav", "level 2", SOUND_MUSIC);
     load("../src/client/music/all-rounds-clear.wav", "finish success", SOUND_MUSIC);
     load("../src/client/sfx/SFX_Walking-[AudioTrimmer.com].wav", "mario move", SOUND_SFX);
     load("../src/client/sfx/SFX_Jump-[AudioTrimmer.com].wav", "mario jump", SOUND_SFX);
