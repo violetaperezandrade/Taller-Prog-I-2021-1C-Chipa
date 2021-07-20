@@ -607,7 +607,7 @@ int View::run() {
         renderEntity(entityVector.begin()+myCharacterPos, states);
         playerID = 0;
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
-        //soundManager.iterateStates(states);
+        soundManager.iterateStates(states);
         sdlMngr.presentRender(windowRenderer);
         sdlMngr.clearRender(windowRenderer);
     }

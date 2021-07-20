@@ -293,7 +293,10 @@ bool CollisionManager::moveCharacter(int i, int& playersWhoFinished) {
                     characters[i].land();
                 }
             } else if(type == PRINCESS_CODE){
+                gotHit = true;
                 switchLevel = true;
+                characters[i].setPosX(360);
+                characters[i].setPosY( 79);
                 playersWhoFinished++;
                 characters[i].addPoints(2000 - playersWhoFinished * 500);
             } else if(type == HAMMER_CODE){
