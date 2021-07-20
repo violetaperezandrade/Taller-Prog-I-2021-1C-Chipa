@@ -12,7 +12,8 @@ View::View(Monitor& monitor, Logger& logger, Config& config, SDLManager& mngr, b
     playerNumber(playerNumber),
     soundManager(soundManager),
     playerAmount(playerAmount),
-    endGame(endGame)
+    endGame(endGame),
+    hammerState()
 {
     window = sdlMngr.createWindow("Donkey Kong ii", config.getResolutionWidth(), config.getResolutionHeight());
     windowRenderer = sdlMngr.createRenderer(window);
@@ -289,7 +290,7 @@ void View::renderLivesAndPoints(){
     }
 }
 
-void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& states, int& hammer){
+void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& states){
     int posX = it->getPosX();
     int posY = it->getPosY();
     int width = it->getWidth();
@@ -303,9 +304,9 @@ void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& sta
         std::string hammerStr = "ABCDEFGHI";
         std::string resize = "ABCDGHI";
         if (hammerStr.find(id) != std::string::npos){
-            if (hammer == 0){
-                //soundManager.playSoundFromState('h');
-                hammer++;
+            if (hammerState[playerID] == 0){
+                soundManager.playSoundFromState('h');
+                hammerState[playerID]++;
             }
             if (resize.find(id) != std::string::npos){
                 width = 94; //59
@@ -313,7 +314,7 @@ void View::renderEntity(std::vector<Entity>::iterator it, std::vector<char>& sta
                 posY -= 5;
             }
         }
-        else hammer = 0;
+        else hammerState[playerID] = 0;
         renderPlayerID(posX, width, posY);
         states.push_back(state);
 
@@ -560,7 +561,6 @@ int View::run() {
     sdlMngr.presentRender(windowRenderer);
     soundManager.playMusic("level 1", -1);
     int pointsLvl1[4];
-    int hammer = 0;
     while(keepRuning && serverActive) {
         if (monitor.getLevel() == 1) soundManager.runLevel1();
         else if (monitor.getLevel() == 2){
@@ -595,7 +595,7 @@ int View::run() {
         auto it = entityVector.begin();
         while (it != entityVector.end()) {
             if (pos != myCharacterPos){
-                renderEntity(it, states, hammer);
+                renderEntity(it, states);
             } else {
                 playerID++;
             }
@@ -604,7 +604,7 @@ int View::run() {
             pos++;
         }
         playerID = playerNumber-1;
-        renderEntity(entityVector.begin()+myCharacterPos, states, hammer);
+        renderEntity(entityVector.begin()+myCharacterPos, states);
         playerID = 0;
         logger.debugMsg("Fin de iteracion sobre vector de entidades", __FILE__, __LINE__);
         //soundManager.iterateStates(states);

@@ -42,6 +42,7 @@ private:
     int lives[4];
     int& playerAmount;
     int& endGame;
+    int hammerState[4];
 
     //For barrel animation
     int frame = 0;
@@ -60,7 +61,7 @@ public:
 
     void renderPlayerID(int posX, int width, int posY);
 
-    void renderEntity(std::vector<Entity>::iterator it, std::vector<char>& states, int& hammer);
+    void renderEntity(std::vector<Entity>::iterator it, std::vector<char>& states);
 
     void renderLivesAndPoints();
 
