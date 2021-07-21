@@ -287,6 +287,8 @@ void View::renderLivesAndPoints(){
                        textPoints.height,
                        textPoints.texture,
                        windowRenderer);
+        sdlMngr.destroyTexture(textLives.texture);
+        sdlMngr.destroyTexture(textPoints.texture);
     }
 }
 
