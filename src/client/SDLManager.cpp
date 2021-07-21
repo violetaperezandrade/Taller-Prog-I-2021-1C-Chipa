@@ -179,7 +179,6 @@ void SDLManager::renderFilledQuad(SDL_Renderer* renderer, int width, int height)
 void SDLManager::destroyTexture(SDL_Texture* texture){
 
     SDL_DestroyTexture(texture);
-    texture = NULL;
 }
 
 void SDLManager::freeAllTextures(std::vector<SDL_Texture*>& vector){
@@ -196,19 +195,16 @@ void SDLManager::freeAllTextures(std::vector<SDL_Texture*>& vector){
 void SDLManager::destroyFont(TTF_Font* font){
 
     TTF_CloseFont(font);
-    font = NULL;
 }
 
 void SDLManager::destroyRenderer(SDL_Renderer *renderer){
 
     SDL_DestroyRenderer(renderer);
-    renderer = NULL;
 }
 
 void SDLManager::destroyWindow(SDL_Window *window){
 
     SDL_DestroyWindow(window);
-    window = NULL;
 }
 
 void SDLManager::clearRender(SDL_Renderer *renderer){
