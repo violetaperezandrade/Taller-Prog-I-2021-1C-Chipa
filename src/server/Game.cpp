@@ -88,15 +88,16 @@ bool Game::moveCharacters(){
             charactersLeft--;
         }
         std::cout<< playersWhoFinished << " - "<< charactersLeft << std::endl;
+        if(charactersLeft == 0){
+            finished = 1;
+            return false;
+        }
         switchLevel = (playersWhoFinished == charactersLeft);
         if (switchLevel){
             changeLevel();
             return switchLevel;
         } else if (reachedPrincess){
             characters[i].silence();
-        }
-        if(charactersLeft == 0){
-            finished = 1;
         }
     }
     return switchLevel;
