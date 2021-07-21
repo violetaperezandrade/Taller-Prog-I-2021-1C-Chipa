@@ -270,8 +270,11 @@ void Login::close(std::vector<SDL_Texture*>& v){
     sdlMngr.finishInputText();
     sdlMngr.freeAllTextures(v);
     sdlMngr.destroyFont(globalFont);
+    globalFont = NULL;
     sdlMngr.destroyRenderer(windowRendererLogin);
+    windowRendererLogin = NULL;
     sdlMngr.destroyWindow(windowLogin);
+    windowLogin = NULL;
 }
 
 Login::~Login(){}

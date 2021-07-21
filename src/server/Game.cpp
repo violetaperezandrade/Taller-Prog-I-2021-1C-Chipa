@@ -87,7 +87,7 @@ bool Game::moveCharacters(){
         if(characters[i].isDead()){ //significa que me acabo de morir
             charactersLeft--;
         }
-        std::cout<< playersWhoFinished << " - "<< charactersLeft << std::endl;
+
         if(charactersLeft == 0){
             finished = 1;
             return false;
