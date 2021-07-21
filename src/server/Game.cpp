@@ -87,6 +87,7 @@ bool Game::moveCharacters(){
         if(characters[i].isDead()){ //significa que me acabo de morir
             charactersLeft--;
         }
+        std::cout<< playersWhoFinished << " - "<< charactersLeft << std::endl;
         switchLevel = (playersWhoFinished == charactersLeft);
         if (switchLevel){
             changeLevel();
@@ -127,7 +128,7 @@ void Game::moveEntities() {
                 logger.superDebugMsg("moved ember", __FILE__, __LINE__);
                 break;
             case 'B':
-                removed = collisionManager.moveBarrel(*it);
+                removed = collisionManager.moveBarrel(*it, charactersLeft);
                 logger.superDebugMsg("moved barrel", __FILE__, __LINE__);
                 break;
         }
