@@ -33,7 +33,7 @@ public:
 
     void movePlatform(Entity &entity);
 
-    bool moveBarrel(Entity &barrel);
+    bool moveBarrel(Entity &barrel, int& characterLeft);
 
     bool moveEmber(Entity &entity);
 

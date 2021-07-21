@@ -343,7 +343,7 @@ void CollisionManager::updateCollisionStatus() {
     }
 }
 
-bool CollisionManager::moveBarrel(Entity &barrel) {
+bool CollisionManager::moveBarrel(Entity &barrel, int& characterLeft) {
     int posX = barrel.getPosX();
     int posY = barrel.getPosY();
     int speedX = barrel.getSpeedX();
@@ -374,13 +374,14 @@ bool CollisionManager::moveBarrel(Entity &barrel) {
         }
     }
     for (int i = 0; i < characters.size(); i++){
-        if(checkCollision(barrel, characters[i])){
+        if(checkCollision(barrel, characters[i]) && !characters[i].isDead()){
             if(characters[i].hasHammer()){
                 characters[i].useHammer();
                 logger.infoMsg("Martilleo un enemigo", __FILE__, __LINE__);
                 characters[i].addPoints(500);
-            } else if (!characters[i].isDead()){
+            } else {
                 characters[i].loseLive();
+                if (characters[i].isDead()) characterLeft--;
             }
             return true;
         }

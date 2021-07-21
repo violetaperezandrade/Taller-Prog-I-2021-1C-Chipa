@@ -87,15 +87,17 @@ bool Game::moveCharacters(){
         if(characters[i].isDead()){ //significa que me acabo de morir
             charactersLeft--;
         }
+        std::cout<< playersWhoFinished << " - "<< charactersLeft << std::endl;
+        if(charactersLeft == 0){
+            finished = 1;
+            return false;
+        }
         switchLevel = (playersWhoFinished == charactersLeft);
         if (switchLevel){
             changeLevel();
             return switchLevel;
         } else if (reachedPrincess){
             characters[i].silence();
-        }
-        if(charactersLeft == 0){
-            finished = 1;
         }
     }
     return switchLevel;
@@ -127,7 +129,7 @@ void Game::moveEntities() {
                 logger.superDebugMsg("moved ember", __FILE__, __LINE__);
                 break;
             case 'B':
-                removed = collisionManager.moveBarrel(*it);
+                removed = collisionManager.moveBarrel(*it, charactersLeft);
                 logger.superDebugMsg("moved barrel", __FILE__, __LINE__);
                 break;
         }
